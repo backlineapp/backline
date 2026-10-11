@@ -41,5 +41,6 @@ Este archivo recoge la idea y las reglas del proyecto. Debe leerse y respetarse 
 
 - Ignacio no sabe programar: explicar siempre todo **en español y sin jerga técnica**.
 - Avanzar en **pasos pequeños** y explicar qué se ha hecho y por qué, en lenguaje sencillo.
+- Haz solo la tarea que te pida en cada mensaje. No empieces el siguiente paso por tu cuenta: propónmelo y espera a que te diga que sí.
 - Si una decisión cambia la idea del producto, **preguntar antes**.
 - Cualquier propuesta que contradiga la idea madre **debe descartarse**.
