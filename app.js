@@ -30,6 +30,12 @@
     { campo: 'web', texto: 'Web' }
   ];
 
+  // Icono de cada enlace en la ficha.
+  var ICONOS = { bandcamp: '♪', spotify: '♫', apple_music: '♬', youtube: '▷', web: '◎' };
+
+  // Palabras que no cuentan para las iniciales: "El Altar del Holocausto" -> "AH".
+  var PALABRAS_VACIAS = /^(el|la|los|las|lo|de|del|y|the|of|and|a)$/i;
+
   // Nunca se enlaza a redes sociales, aunque llegaran en los datos.
   var PROHIBIDOS = /(^|\.)(facebook\.com|fb\.com|instagram\.com|x\.com|twitter\.com)$/i;
 
@@ -46,7 +52,8 @@
     lista: document.getElementById('lista'),
     contenidoFicha: document.getElementById('ficha'),
     volver: document.getElementById('volver'),
-    aviso: document.getElementById('aviso')
+    aviso: document.getElementById('aviso'),
+    arranque: document.getElementById('arranque')
   };
 
   // ---------- Utilidades ----------
@@ -107,6 +114,78 @@
     }
   }
 
+  function iniciales(nombre) {
+    var palabras = String(nombre || '')
+      .split(/\s+/)
+      .map(function (p) { return p.replace(/[^0-9A-Za-zÀ-ÖØ-öø-ÿ]/g, ''); })
+      .filter(Boolean);
+    var utiles = palabras.filter(function (p) { return !PALABRAS_VACIAS.test(p); });
+    if (!utiles.length) utiles = palabras;
+    return utiles.slice(0, 2).map(function (p) { return p[0]; }).join('').toUpperCase() || '?';
+  }
+
+  // Bandcamp sirve la misma portada en varios tamaños según el número final
+  // de la dirección: _16 es la grande (700 px) y _7 una pequeña (160 px).
+  function portadaPequena(url) {
+    return /bcbits\.com\/img\/a\d+_\d+\.jpg$/.test(url) ? url.replace(/_\d+\.jpg$/, '_7.jpg') : url;
+  }
+
+  function cuadroIniciales(grupo, clase) {
+    var caja = crear('div', 'portada iniciales' + (clase ? ' ' + clase : ''), iniciales(grupo.nombre));
+    caja.setAttribute('aria-hidden', 'true');
+    return caja;
+  }
+
+  // Portada enlazada directamente desde Bandcamp (no se guarda en la app).
+  // Si no carga, se prueba el tamaño grande y, si tampoco, las iniciales.
+  function imagenPortada(grupo, opciones) {
+    var original = grupo.portada;
+    if (!original || !urlPermitida(original)) return opciones.alternativa();
+    var img = document.createElement('img');
+    img.className = opciones.clase || '';
+    img.alt = opciones.alt || '';
+    img.decoding = 'async';
+    img.referrerPolicy = 'no-referrer';
+    if (opciones.perezosa) img.loading = 'lazy';
+    img.src = opciones.pequena ? portadaPequena(original) : original;
+    img.addEventListener('error', function () {
+      if (img.src !== original) {
+        img.src = original;
+      } else if (img.parentNode) {
+        img.parentNode.replaceChild(opciones.alternativa(), img);
+      }
+    });
+    return img;
+  }
+
+  // "ECOS (2026)" -> { titulo: "ECOS", detalle: "2026" }
+  function partirDisco(texto) {
+    var m = /^(.*\S)\s*\(([^()]*)\)\s*$/.exec(texto);
+    return m ? { titulo: m[1], detalle: m[2] } : { titulo: texto, detalle: '' };
+  }
+
+  function anioDe(texto) {
+    var m = /(\d{4})/.exec(texto);
+    return m ? parseInt(m[1], 10) : 0;
+  }
+
+  // ---------- Pantalla de arranque ----------
+
+  function quitarArranque() {
+    var a = el.arranque;
+    if (!a || a.classList.contains('saliendo')) return;
+    a.classList.add('saliendo');
+    setTimeout(function () { a.hidden = true; }, 400);
+  }
+
+  if (el.arranque) {
+    el.arranque.addEventListener('click', quitarArranque);
+    el.arranque.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') quitarArranque();
+    });
+    setTimeout(quitarArranque, 2600);
+  }
+
   // ---------- Pantalla 1: Explorar ----------
 
   function pintarFiltros() {
@@ -146,11 +225,21 @@
     var trozo = document.createDocumentFragment();
     visibles.forEach(function (g) {
       var li = document.createElement('li');
-      var a = crear('a', 'tarjeta');
+      var a = crear('a', 'tarjeta ' + g._acento);
       a.href = '#/grupo/' + encodeURIComponent(g.id);
-      a.appendChild(crear('h3', 'tarjeta-nombre', g.nombre));
-      a.appendChild(crear('p', 'tarjeta-estilos', g.estilos));
-      if (g.ciudad) a.appendChild(crear('p', 'tarjeta-ciudad', g.ciudad));
+      a.appendChild(imagenPortada(g, {
+        clase: 'portada',
+        pequena: true,
+        perezosa: true,
+        alternativa: function () { return cuadroIniciales(g); }
+      }));
+      var texto = crear('div', 'tarjeta-texto');
+      texto.appendChild(crear('h3', 'tarjeta-nombre', g.nombre));
+      texto.appendChild(crear('p', 'tarjeta-detalle', [g.estilos, g.ciudad].filter(Boolean).join(' · ')));
+      a.appendChild(texto);
+      var flecha = crear('span', 'flecha', '›');
+      flecha.setAttribute('aria-hidden', 'true');
+      a.appendChild(flecha);
       li.appendChild(a);
       trozo.appendChild(li);
     });
@@ -162,38 +251,92 @@
   function pintarFicha(grupo) {
     var f = el.contenidoFicha;
     f.textContent = '';
+    f.className = 'ficha';
 
     if (!grupo) {
       f.appendChild(crear('p', 'aviso', 'No encontramos este grupo.'));
       return;
     }
+    f.className = 'ficha ' + grupo._acento;
 
-    f.appendChild(crear('h1', 'ficha-nombre', grupo.nombre));
-    f.appendChild(crear('p', 'ficha-estilos', grupo.estilos));
-    if (grupo.ciudad) f.appendChild(crear('p', 'ficha-ciudad', grupo.ciudad));
+    // Cabecera: portada grande, nombre, estilos y ciudad
+    var perfil = crear('div', 'perfil');
+    var imagen = crear('div', 'perfil-imagen');
+    function cabeceraSinPortada() {
+      imagen.classList.add('sin-portada');
+      var s = crear('span', null, iniciales(grupo.nombre));
+      s.setAttribute('aria-hidden', 'true');
+      return s;
+    }
+    imagen.appendChild(imagenPortada(grupo, {
+      alt: 'Portada del último disco de ' + grupo.nombre,
+      alternativa: cabeceraSinPortada
+    }));
+    perfil.appendChild(imagen);
 
+    var datos = crear('div', 'perfil-datos');
+    datos.appendChild(crear('h1', 'perfil-nombre', grupo.nombre));
+    datos.appendChild(crear('p', 'perfil-estilos', grupo.estilos));
+    if (grupo.ciudad) datos.appendChild(crear('p', 'perfil-ciudad', grupo.ciudad));
+    perfil.appendChild(datos);
+    f.appendChild(perfil);
+
+    // Escúchalos
     var enlaces = ENLACES.filter(function (e) {
       return grupo[e.campo] && urlPermitida(grupo[e.campo]);
     });
     if (enlaces.length) {
+      f.appendChild(crear('h2', null, 'Escúchalos'));
       var caja = crear('div', 'enlaces');
-      enlaces.forEach(function (e, i) {
-        var a = crear('a', 'boton-enlace' + (i > 0 ? ' secundario' : ''), e.texto);
+      enlaces.forEach(function (e) {
+        var a = crear('a', 'enlace');
         a.href = grupo[e.campo];
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
+        var icono = crear('span', 'enlace-icono', ICONOS[e.campo]);
+        icono.setAttribute('aria-hidden', 'true');
+        a.appendChild(icono);
+        a.appendChild(crear('span', 'enlace-texto', e.texto));
+        var salida = crear('span', 'enlace-salida', '↗');
+        salida.setAttribute('aria-hidden', 'true');
+        a.appendChild(salida);
         caja.appendChild(a);
       });
       f.appendChild(caja);
     }
 
+    // Discografía. La portada va en el disco más reciente.
     var discos = separarDiscos(grupo.discografia);
     if (discos.length) {
-      f.appendChild(crear('h2', null, 'Discografía'));
-      var ul = crear('ul', 'discografia');
-      discos.forEach(function (d) { ul.appendChild(crear('li', null, d)); });
+      var masReciente = 0;
+      discos.forEach(function (d, i) {
+        if (anioDe(d) > anioDe(discos[masReciente])) masReciente = i;
+      });
+
+      f.appendChild(crear('h2', null, 'Discografía · ' + discos.length));
+      var ul = crear('ul', 'discos');
+      discos.forEach(function (d, i) {
+        var partes = partirDisco(d);
+        var li = crear('li', 'disco');
+        function nota() {
+          var n = crear('div', 'portada iniciales nota', '♪');
+          n.setAttribute('aria-hidden', 'true');
+          return n;
+        }
+        li.appendChild(i === masReciente
+          ? imagenPortada(grupo, { clase: 'portada', pequena: true, alternativa: nota })
+          : nota());
+        var texto = crear('div', 'disco-texto');
+        texto.appendChild(crear('div', 'disco-titulo', partes.titulo));
+        if (partes.detalle) texto.appendChild(crear('div', 'disco-detalle', partes.detalle));
+        li.appendChild(texto);
+        ul.appendChild(li);
+      });
       f.appendChild(ul);
     }
+
+    // Más adelante llevará enlace
+    f.appendChild(crear('p', 'reclamar', '¿Es tu grupo? Gestiona o retira tu ficha'));
   }
 
   // ---------- Navegación entre pantallas ----------
@@ -256,7 +399,11 @@
           g._familias = familiasDe(g.estilos);
           return g;
         })
-        .sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); });
+        .sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); })
+        .map(function (g, i) {
+          g._acento = i % 2 ? 'acento-ambar' : 'acento-cian';
+          return g;
+        });
       pintarFiltros();
       pintarLista();
       window.addEventListener('hashchange', alCambiarRuta);
