@@ -1,5 +1,5 @@
 // backline — el backstage de tus grupos favoritos.
-// Lee grupos.json y muestra tres pantallas: Explorar, Mis grupos y Ficha de grupo.
+// Lee grupos.json y muestra cuatro pantallas: Inicio, Explorar, Mis grupos y Ficha de grupo.
 // La lista de grupos seguidos la gestiona seguidos.js.
 
 (function () {
@@ -40,15 +40,28 @@
   // Nunca se enlaza a redes sociales, aunque llegaran en los datos.
   var PROHIBIDOS = /(^|\.)(facebook\.com|fb\.com|instagram\.com|x\.com|twitter\.com)$/i;
 
+  // Lanzamientos que muestra Inicio de una vez; "Ver más" añade otros tantos.
+  var POR_TANDA = 30;
+
+  // Nombre de cada pestaña, para el botón de volver desde la ficha.
+  var NOMBRES = { inicio: 'Inicio', explorar: 'Explorar', 'mis-grupos': 'Mis grupos' };
+
   var grupos = [];
   var estado = { texto: '', familia: null };
+  // Cuántos lanzamientos se ven ahora mismo en Inicio.
+  var visiblesInicio = POR_TANDA;
   // Posición de la lista en cada pantalla, para volver al mismo sitio.
-  var scrolls = { explorar: 0, 'mis-grupos': 0 };
-  // Pantalla desde la que se abrió la ficha ('explorar', 'mis-grupos' o null).
+  var scrolls = { inicio: 0, explorar: 0, 'mis-grupos': 0 };
+  // Pantalla desde la que se abrió la ficha ('inicio', 'explorar', 'mis-grupos' o null).
   var origen = null;
   var pantallaActual = null;
 
   var el = {
+    inicio: document.getElementById('pantalla-inicio'),
+    listaInicio: document.getElementById('lista-inicio'),
+    verMas: document.getElementById('ver-mas'),
+    sinGruposInicio: document.getElementById('sin-grupos-inicio'),
+    pestanaInicio: document.getElementById('pestana-inicio'),
     explorar: document.getElementById('pantalla-explorar'),
     misGrupos: document.getElementById('pantalla-mis-grupos'),
     ficha: document.getElementById('pantalla-ficha'),
@@ -136,9 +149,10 @@
   }
 
   // Bandcamp sirve la misma portada en varios tamaños según el número final
-  // de la dirección: _16 es la grande (700 px) y _7 una pequeña (160 px).
-  function portadaPequena(url) {
-    return /bcbits\.com\/img\/a\d+_\d+\.jpg$/.test(url) ? url.replace(/_\d+\.jpg$/, '_7.jpg') : url;
+  // de la dirección: _16 es la grande (700 px), _2 una mediana (350 px)
+  // y _7 una pequeña (160 px).
+  function portadaTamano(url, numero) {
+    return /bcbits\.com\/img\/a\d+_\d+\.jpg$/.test(url) ? url.replace(/_\d+\.jpg$/, '_' + numero + '.jpg') : url;
   }
 
   function cuadroIniciales(grupo, clase) {
@@ -148,9 +162,13 @@
   }
 
   // Portada enlazada directamente desde Bandcamp (no se guarda en la app).
-  // Si no carga, se prueba el tamaño grande y, si tampoco, las iniciales.
+  // Si no carga, se prueba el tamaño grande y, si tampoco, la alternativa
+  // (iniciales del grupo o una nota musical).
   function imagenPortada(grupo, opciones) {
-    var original = grupo.portada;
+    return imagen(grupo.portada, opciones);
+  }
+
+  function imagen(original, opciones) {
     if (!original || !urlPermitida(original)) return opciones.alternativa();
     var img = document.createElement('img');
     img.className = opciones.clase || '';
@@ -158,7 +176,9 @@
     img.decoding = 'async';
     img.referrerPolicy = 'no-referrer';
     if (opciones.perezosa) img.loading = 'lazy';
-    img.src = opciones.pequena ? portadaPequena(original) : original;
+    img.src = opciones.pequena ? portadaTamano(original, 7)
+      : opciones.mediana ? portadaTamano(original, 2)
+      : original;
     img.addEventListener('error', function () {
       if (img.src !== original) {
         img.src = original;
@@ -180,6 +200,49 @@
     return m ? parseInt(m[1], 10) : 0;
   }
 
+  // ¿Tiene el grupo su discografía en lista (con portadas)?
+  function tieneLista(grupo) {
+    return Array.isArray(grupo.discos) && grupo.discos.length > 0;
+  }
+
+  // Lanzamientos de un grupo, de más nuevo a más antiguo. Si el grupo no
+  // tiene lista, se sacan del texto de "discografia" (sin portada ni enlace).
+  // Con el mismo año se respeta el orden de la lista original.
+  function lanzamientosDe(grupo) {
+    var lista = tieneLista(grupo)
+      ? grupo.discos.map(function (d) {
+        return { titulo: d.titulo, anio: anioDe(d.anio), tipo: d.tipo, enlace: d.enlace, portada: d.portada };
+      })
+      : separarDiscos(grupo.discografia).map(function (texto) {
+        var partes = partirDisco(texto);
+        return { titulo: partes.titulo, anio: anioDe(partes.detalle) };
+      });
+    return lista
+      .map(function (d, i) { d.grupo = grupo; d.orden = i; return d; })
+      .sort(function (a, b) { return (b.anio - a.anio) || (a.orden - b.orden); });
+  }
+
+  // Cuadro con una nota musical cuando un disco no tiene portada.
+  function nota() {
+    var n = crear('div', 'portada iniciales nota', '♪');
+    n.setAttribute('aria-hidden', 'true');
+    return n;
+  }
+
+  // Portada de un lanzamiento, en tamaño mediano para las cuadrículas.
+  function portadaLanzamiento(d) {
+    return imagen(d.portada, { clase: 'portada', mediana: true, perezosa: true, alternativa: nota });
+  }
+
+  // Enlace que abre fuera de la app, en una pestaña nueva.
+  function enlaceExterno(url, clase) {
+    var a = crear('a', clase);
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    return a;
+  }
+
   // ---------- Pantalla de arranque ----------
 
   function quitarArranque() {
@@ -195,6 +258,66 @@
       if (e.key === 'Enter' || e.key === ' ') quitarArranque();
     });
     setTimeout(quitarArranque, 2600);
+  }
+
+  // ---------- Pantalla Inicio ----------
+
+  // Últimos lanzamientos de los grupos que sigo, mezclados y ordenados por
+  // año (lo más reciente arriba). Se ven de 30 en 30.
+  function pintarInicio() {
+    var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
+    var todos = [];
+    mios.forEach(function (g) { todos = todos.concat(lanzamientosDe(g)); });
+    // Mismo año: primero lo más nuevo de cada grupo, y luego por nombre de grupo.
+    todos.sort(function (a, b) {
+      return (b.anio - a.anio) || (a.orden - b.orden) || a.grupo.nombre.localeCompare(b.grupo.nombre, 'es');
+    });
+
+    el.listaInicio.textContent = '';
+    el.sinGruposInicio.hidden = mios.length > 0;
+    el.listaInicio.hidden = !mios.length;
+
+    if (mios.length && !todos.length) {
+      el.listaInicio.appendChild(crear('li', 'vacio', 'Tus grupos aún no tienen lanzamientos.'));
+    }
+
+    var trozo = document.createDocumentFragment();
+    todos.slice(0, visiblesInicio).forEach(function (d) {
+      trozo.appendChild(tarjetaLanzamiento(d, true));
+    });
+    el.listaInicio.appendChild(trozo);
+    el.verMas.hidden = todos.length <= visiblesInicio;
+  }
+
+  // Casilla de la cuadrícula de discos. En la ficha toda la casilla abre el
+  // enlace; en Inicio, la portada abre el enlace y el nombre lleva a la ficha.
+  function tarjetaLanzamiento(d, conGrupo) {
+    var li = crear('li', 'lanzamiento ' + d.grupo._acento);
+    var enlace = d.enlace && urlPermitida(d.enlace) ? d.enlace : null;
+    var caja = conGrupo ? li : (enlace ? enlaceExterno(enlace, 'lanzamiento-enlace') : li);
+
+    var portada = portadaLanzamiento(d);
+    if (conGrupo && enlace) {
+      var a = enlaceExterno(enlace, 'lanzamiento-portada');
+      a.setAttribute('aria-label', 'Escuchar ' + d.titulo + ' de ' + d.grupo.nombre);
+      a.appendChild(portada);
+      caja.appendChild(a);
+    } else {
+      var marco = crear('div', 'lanzamiento-portada');
+      marco.appendChild(portada);
+      caja.appendChild(marco);
+    }
+
+    caja.appendChild(crear('div', 'lanzamiento-titulo', d.titulo));
+    if (conGrupo) {
+      var g = crear('a', 'lanzamiento-grupo', d.grupo.nombre);
+      g.href = '#/grupo/' + encodeURIComponent(d.grupo.id);
+      caja.appendChild(g);
+    }
+    if (d.anio) caja.appendChild(crear('div', 'lanzamiento-anio', String(d.anio)));
+
+    if (caja !== li) li.appendChild(caja);
+    return li;
   }
 
   // ---------- Pantalla 1: Explorar ----------
@@ -337,34 +460,45 @@
       f.appendChild(caja);
     }
 
-    // Discografía. La portada va en el disco más reciente.
-    var discos = separarDiscos(grupo.discografia);
-    if (discos.length) {
-      var masReciente = 0;
-      discos.forEach(function (d, i) {
-        if (anioDe(d) > anioDe(discos[masReciente])) masReciente = i;
+    // Discografía con portadas, separando discos y singles.
+    if (tieneLista(grupo)) {
+      var lanzamientos = lanzamientosDe(grupo);
+      [
+        { titulo: 'Discos', lista: lanzamientos.filter(function (d) { return d.tipo !== 'single'; }) },
+        { titulo: 'Singles', lista: lanzamientos.filter(function (d) { return d.tipo === 'single'; }) }
+      ].forEach(function (seccion) {
+        if (!seccion.lista.length) return;
+        f.appendChild(crear('h2', null, seccion.titulo + ' · ' + seccion.lista.length));
+        var rejilla = crear('ul', 'rejilla');
+        seccion.lista.forEach(function (d) { rejilla.appendChild(tarjetaLanzamiento(d, false)); });
+        f.appendChild(rejilla);
       });
+    } else {
+      // Sin lista: el texto de "discografia", como antes. La portada va en el
+      // disco más reciente.
+      var discos = separarDiscos(grupo.discografia);
+      if (discos.length) {
+        var masReciente = 0;
+        discos.forEach(function (d, i) {
+          if (anioDe(d) > anioDe(discos[masReciente])) masReciente = i;
+        });
 
-      f.appendChild(crear('h2', null, 'Discografía · ' + discos.length));
-      var ul = crear('ul', 'discos');
-      discos.forEach(function (d, i) {
-        var partes = partirDisco(d);
-        var li = crear('li', 'disco');
-        function nota() {
-          var n = crear('div', 'portada iniciales nota', '♪');
-          n.setAttribute('aria-hidden', 'true');
-          return n;
-        }
-        li.appendChild(i === masReciente
-          ? imagenPortada(grupo, { clase: 'portada', pequena: true, alternativa: nota })
-          : nota());
-        var texto = crear('div', 'disco-texto');
-        texto.appendChild(crear('div', 'disco-titulo', partes.titulo));
-        if (partes.detalle) texto.appendChild(crear('div', 'disco-detalle', partes.detalle));
-        li.appendChild(texto);
-        ul.appendChild(li);
-      });
-      f.appendChild(ul);
+        f.appendChild(crear('h2', null, 'Discografía · ' + discos.length));
+        var ul = crear('ul', 'discos');
+        discos.forEach(function (d, i) {
+          var partes = partirDisco(d);
+          var li = crear('li', 'disco');
+          li.appendChild(i === masReciente
+            ? imagenPortada(grupo, { clase: 'portada', pequena: true, alternativa: nota })
+            : nota());
+          var texto = crear('div', 'disco-texto');
+          texto.appendChild(crear('div', 'disco-titulo', partes.titulo));
+          if (partes.detalle) texto.appendChild(crear('div', 'disco-detalle', partes.detalle));
+          li.appendChild(texto);
+          ul.appendChild(li);
+        });
+        f.appendChild(ul);
+      }
     }
 
     // Más adelante llevará enlace
@@ -397,15 +531,17 @@
     if (pantalla === 'ficha' && pantallaActual !== 'ficha') origen = pantallaActual;
     pantallaActual = pantalla;
 
+    el.inicio.hidden = pantalla !== 'inicio';
     el.explorar.hidden = pantalla !== 'explorar';
     el.misGrupos.hidden = pantalla !== 'mis-grupos';
     el.ficha.hidden = pantalla !== 'ficha';
 
     // En la ficha se ilumina la pestaña desde la que se llegó.
     var pestana = pantalla === 'ficha' ? (origen || 'explorar') : pantalla;
+    marcarPestana(el.pestanaInicio, pestana === 'inicio');
     marcarPestana(el.pestanaExplorar, pestana === 'explorar');
     marcarPestana(el.pestanaMisGrupos, pestana === 'mis-grupos');
-    el.volver.textContent = origen === 'mis-grupos' ? '← Mis grupos' : '← Explorar';
+    el.volver.textContent = '← ' + NOMBRES[origen || 'explorar'];
   }
 
   function marcarPestana(pestana, activa) {
@@ -417,6 +553,15 @@
     var ruta = location.hash.replace(/^#\/?/, '');
     var partes = ruta.split('/');
 
+    // Al abrir la app sin pantalla concreta: Inicio si sigo a algún grupo,
+    // Explorar si no. Se cambia la dirección sin añadir un paso al historial.
+    if (!partes[0]) {
+      var sigoAlguno = grupos.some(function (g) { return Seguidos.sigo(g.id); });
+      var destino = sigoAlguno ? '#/inicio' : '#/explorar';
+      history.replaceState(null, '', destino);
+      partes = [destino.slice(2)];
+    }
+
     if (partes[0] === 'grupo' && partes[1]) {
       var id = decodeURIComponent(partes[1]);
       var grupo = grupos.filter(function (g) { return g.id === id; })[0];
@@ -424,6 +569,14 @@
       document.title = grupo ? grupo.nombre + ' · backline' : 'backline';
       mostrar('ficha');
       window.scrollTo(0, 0);
+      return;
+    }
+
+    if (partes[0] === 'inicio') {
+      pintarInicio();
+      document.title = 'Inicio · backline';
+      mostrar('inicio');
+      window.scrollTo(0, scrolls.inicio);
       return;
     }
 
@@ -445,13 +598,19 @@
     if (origen && history.length > 1) {
       history.back();
     } else {
-      location.hash = '#/';
+      location.hash = '#/' + (origen || 'explorar');
     }
   });
 
-  // Si la lista cambia en otra pestaña del navegador, Mis grupos se actualiza.
+  // Si la lista cambia en otra pestaña del navegador, Inicio y Mis grupos se actualizan.
   Seguidos.alCambiar(function () {
     if (pantallaActual === 'mis-grupos') pintarMisGrupos();
+    if (pantallaActual === 'inicio') pintarInicio();
+  });
+
+  el.verMas.addEventListener('click', function () {
+    visiblesInicio += POR_TANDA;
+    pintarInicio();
   });
 
   el.buscador.addEventListener('input', function () {
@@ -491,9 +650,24 @@
     });
 
   // Guarda la app en el móvil para que cargue rápido y se pueda instalar.
+  // sw.js guarda cada versión entera; cuando hay una nueva completa, la
+  // activa de golpe y aquí se recarga la pantalla una sola vez.
   if ('serviceWorker' in navigator) {
+    var habiaVersion = !!navigator.serviceWorker.controller;
+    var recargando = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      // La primera vez que se instala no hace falta recargar: ya es la versión nueva.
+      if (!habiaVersion || recargando) return;
+      recargando = true;
+      location.reload();
+    });
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function () {});
+      navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(function (registro) {
+        // Al volver a la app (por ejemplo, desde otra app del móvil) se mira si hay versión nueva.
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'visible') registro.update().catch(function () {});
+        });
+      }).catch(function () {});
     });
   }
 })();
