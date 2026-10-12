@@ -36,6 +36,12 @@ Este archivo recoge la idea y las reglas del proyecto. Debe leerse y respetarse 
   - Acento cian: `#4FC4D6`
   - La imagen manda, como en Bandcamp.
 - **El repositorio es público:** nunca subir datos privados (emails de contacto, notas internas ni prioridades).
+- **Cuentas: "registro para guardar" con Supabase** (siguiente paso):
+  - El registro es **opcional**: cualquiera puede usar la app entera sin cuenta.
+  - Sin cuenta, la lista de grupos seguidos se guarda en el propio móvil.
+  - Al registrarse, esa lista se sube a su cuenta para no perderla al cambiar de móvil.
+  - Toda la lógica de guardar la lista está en un solo archivo (`seguidos.js`), para conectar las cuentas sin rehacer pantallas ni botones.
+- **Monetización futura:** está previsto monetizar la app más adelante. Sea cual sea la fórmula, debe respetar la idea madre: **sin publicidad y sin algoritmos**.
 
 ## Cómo trabajar con Ignacio
 

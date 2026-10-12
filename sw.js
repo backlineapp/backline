@@ -2,11 +2,12 @@
 // Siempre intenta traer la versión más reciente de internet; si no hay
 // conexión, usa la copia guardada.
 
-var CACHE = 'backline-v2';
+var CACHE = 'backline-v3';
 var ARCHIVOS = [
   './',
   'index.html',
   'estilos.css',
+  'seguidos.js',
   'app.js',
   'grupos.json',
   'manifest.json',

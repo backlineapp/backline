@@ -308,11 +308,46 @@ button { font-family: inherit; }
   color: var(--tenue);
 }
 
+/* ---------- Pantalla 2: Mis grupos (sin grupos todavía) ---------- */
+.sin-grupos {
+  margin-top: 8px;
+  padding: 32px 20px;
+  text-align: center;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 18px;
+}
+.sin-grupos-titulo {
+  margin: 0;
+  font-family: var(--titulos);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--texto);
+}
+.sin-grupos-texto {
+  margin: 8px auto 20px;
+  max-width: 320px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--tenue);
+}
+.sin-grupos-texto strong { color: var(--ambar); font-weight: 600; }
+.boton {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fondo);
+  text-decoration: none;
+  background: var(--ambar);
+  border-radius: 8px;
+}
+
 /* Cada grupo lleva ámbar o cian, alternando, como en la demo */
 .acento-ambar { --acento: var(--ambar); --acento-borde: rgba(232, 161, 58, 0.33); --acento-suave: rgba(232, 161, 58, 0.20); }
 .acento-cian { --acento: var(--cian); --acento-borde: rgba(79, 196, 214, 0.33); --acento-suave: rgba(79, 196, 214, 0.20); }
 
-/* ---------- Pantalla 2: Ficha de grupo ---------- */
+/* ---------- Pantalla 3: Ficha de grupo ---------- */
 .volver {
   margin-bottom: 12px;
   padding: 4px 0;
@@ -388,6 +423,25 @@ button { font-family: inherit; }
   margin: 2px 0 0;
   font-size: 13px;
   color: var(--apagado);
+}
+
+/* Botón "Seguir": relleno con el acento del grupo; "Siguiendo": transparente */
+.seguir {
+  margin-top: 14px;
+  min-width: 112px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fondo);
+  background: var(--acento);
+  border: 1px solid var(--acento);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.seguir[aria-pressed="true"] {
+  color: var(--tenue);
+  background: transparent;
+  border-color: var(--linea);
 }
 
 /* Enlaces "Escúchalos" en dos columnas */
