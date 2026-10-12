@@ -1,5 +1,5 @@
 {
- "total": 206,
+ "total": 217,
  "actualizado": "2026-10-12",
  "grupos": [
   {
@@ -11880,6 +11880,508 @@
      "tipo": "disco",
      "enlace": "https://tresmilonce.bandcamp.com/album/tresmilonce",
      "portada": "https://f4.bcbits.com/img/a2452829196_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "altamira-a-d",
+   "nombre": "Altamira A.D.",
+   "estilos": "Metal progresivo / Groove / Death metal",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://altamiraadofficial.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Manta (2024), Starcrossed (2024), Division (2023)",
+   "portada": "https://f4.bcbits.com/img/a1429102031_16.jpg",
+   "discos": [
+    {
+     "titulo": "Manta",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://altamiraadofficial.bandcamp.com/album/manta",
+     "portada": "https://f4.bcbits.com/img/a1429102031_16.jpg"
+    },
+    {
+     "titulo": "Starcrossed",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://altamiraadofficial.bandcamp.com/track/starcrossed",
+     "portada": "https://f4.bcbits.com/img/a3700176914_16.jpg"
+    },
+    {
+     "titulo": "Division",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://altamiraadofficial.bandcamp.com/track/division",
+     "portada": "https://f4.bcbits.com/img/a0186767143_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "lost-in-my-perception",
+   "nombre": "Lost In My Perception",
+   "estilos": "Metal progresivo instrumental / Rock progresivo",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://lostinmyperception.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Laying on Leaves \"Feat\" Carme Neira - Vocal Version (2023), Expressions \"Feat\" Carme Neira (2023), In the Name of Progress (2022)",
+   "portada": "https://f4.bcbits.com/img/a0572873124_16.jpg",
+   "discos": [
+    {
+     "titulo": "Laying on Leaves \"Feat\" Carme Neira - Vocal Version",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://lostinmyperception.bandcamp.com/track/laying-on-leaves-feat-carme-neira-vocal-version",
+     "portada": "https://f4.bcbits.com/img/a0572873124_16.jpg"
+    },
+    {
+     "titulo": "Expressions \"Feat\" Carme Neira",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://lostinmyperception.bandcamp.com/track/expressions-feat-carme-neira",
+     "portada": "https://f4.bcbits.com/img/a1690574434_16.jpg"
+    },
+    {
+     "titulo": "In the Name of Progress",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://lostinmyperception.bandcamp.com/album/in-the-name-of-progress-2",
+     "portada": "https://f4.bcbits.com/img/a0401883339_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "calabria",
+   "nombre": "Calabria",
+   "estilos": "Shoegaze / Nu metal / Post-hardcore",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://somoscalabria.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "nostalgia baladí (2026)",
+   "portada": "https://f4.bcbits.com/img/a2391811347_16.jpg",
+   "discos": [
+    {
+     "titulo": "nostalgia baladí",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://somoscalabria.bandcamp.com/album/nostalgia-balad",
+     "portada": "https://f4.bcbits.com/img/a2391811347_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "testus",
+   "nombre": "Testus",
+   "estilos": "Metal progresivo / Djent",
+   "ciudad": "Sevilla",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://testus.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Azurone (2025), Valme (2025), Inner (2024)",
+   "portada": "https://f4.bcbits.com/img/a0919494386_16.jpg",
+   "discos": [
+    {
+     "titulo": "Azurone",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://testus.bandcamp.com/track/azurone",
+     "portada": "https://f4.bcbits.com/img/a0919494386_16.jpg"
+    },
+    {
+     "titulo": "Valme",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://testus.bandcamp.com/track/valme",
+     "portada": "https://f4.bcbits.com/img/a2967706028_16.jpg"
+    },
+    {
+     "titulo": "Inner",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://testus.bandcamp.com/album/inner",
+     "portada": "https://f4.bcbits.com/img/a1000395890_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "inuual",
+   "nombre": "Inu§ual",
+   "estilos": "Metal instrumental",
+   "ciudad": "Vigo",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://inussual.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "IX (2025), VI (2025), III (2024)",
+   "portada": "https://f4.bcbits.com/img/a0090432593_16.jpg",
+   "discos": [
+    {
+     "titulo": "IX",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://inussual.bandcamp.com/album/ix",
+     "portada": "https://f4.bcbits.com/img/a0090432593_16.jpg"
+    },
+    {
+     "titulo": "VI",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://inussual.bandcamp.com/track/vi",
+     "portada": "https://f4.bcbits.com/img/a0607923970_16.jpg"
+    },
+    {
+     "titulo": "III",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://inussual.bandcamp.com/track/iii",
+     "portada": "https://f4.bcbits.com/img/a2069851466_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "heleven",
+   "nombre": "Heleven",
+   "estilos": "Metal progresivo / Metal alternativo",
+   "ciudad": "Granada",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://heleven.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "New Horizons PT. 2 (2024), Killing my Perseus (2024), The Mask (2023), New Horizons PT.1 (2023), Into the Oceans (2021), Medusa's Love Story (2019)",
+   "portada": "https://f4.bcbits.com/img/a4096461196_16.jpg",
+   "discos": [
+    {
+     "titulo": "New Horizons PT. 2",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://heleven.bandcamp.com/album/new-horizons-pt-2",
+     "portada": "https://f4.bcbits.com/img/a4096461196_16.jpg"
+    },
+    {
+     "titulo": "Killing my Perseus",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://heleven.bandcamp.com/track/killing-my-perseus",
+     "portada": "https://f4.bcbits.com/img/a3810991275_16.jpg"
+    },
+    {
+     "titulo": "The Mask",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://heleven.bandcamp.com/track/the-mask",
+     "portada": "https://f4.bcbits.com/img/a1329839527_16.jpg"
+    },
+    {
+     "titulo": "New Horizons PT.1",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://heleven.bandcamp.com/album/new-horizons-pt-1",
+     "portada": "https://f4.bcbits.com/img/a0496582146_16.jpg"
+    },
+    {
+     "titulo": "Into the Oceans",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://heleven.bandcamp.com/album/into-the-oceans",
+     "portada": "https://f4.bcbits.com/img/a1563417936_16.jpg"
+    },
+    {
+     "titulo": "Medusa's Love Story",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://heleven.bandcamp.com/album/medusas-love-story",
+     "portada": "https://f4.bcbits.com/img/a0979328818_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "errands",
+   "nombre": "Errands",
+   "estilos": "Rock alternativo / Grunge",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://errandsband.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Lowlife (2026), Made to Break (2026), Tear The Cloth (2026), Old Man (2025), Nomad No Man (2025), Smile (2025), Avoid Yourself (2025), Circles (2025)",
+   "portada": "https://f4.bcbits.com/img/a4274542045_16.jpg",
+   "discos": [
+    {
+     "titulo": "Lowlife",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://errandsband.bandcamp.com/track/lowlife",
+     "portada": "https://f4.bcbits.com/img/a4274542045_16.jpg"
+    },
+    {
+     "titulo": "Made to Break",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://errandsband.bandcamp.com/track/made-to-break",
+     "portada": "https://f4.bcbits.com/img/a4162503171_16.jpg"
+    },
+    {
+     "titulo": "Tear The Cloth",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://errandsband.bandcamp.com/track/tear-the-cloth",
+     "portada": "https://f4.bcbits.com/img/a1674001627_16.jpg"
+    },
+    {
+     "titulo": "Old Man",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://errandsband.bandcamp.com/track/old-man",
+     "portada": "https://f4.bcbits.com/img/a0214314373_16.jpg"
+    },
+    {
+     "titulo": "Nomad No Man",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://errandsband.bandcamp.com/track/nomad-no-man",
+     "portada": "https://f4.bcbits.com/img/a0050075393_16.jpg"
+    },
+    {
+     "titulo": "Smile",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://errandsband.bandcamp.com/track/smile",
+     "portada": "https://f4.bcbits.com/img/a0751225105_16.jpg"
+    },
+    {
+     "titulo": "Avoid Yourself",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://errandsband.bandcamp.com/track/avoid-yourself",
+     "portada": "https://f4.bcbits.com/img/a0553643482_16.jpg"
+    },
+    {
+     "titulo": "Circles",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://errandsband.bandcamp.com/track/circles",
+     "portada": "https://f4.bcbits.com/img/a2307785056_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "dieaway",
+   "nombre": "Dieaway",
+   "estilos": "Stoner / Metal alternativo / Grunge",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://dieaway.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Trisected Liminality (Vol. 1) (2023), Dark Echoes Remixes (2019), Light Echoes (2019), Leak of Noise (2012)",
+   "portada": "https://f4.bcbits.com/img/a0425500429_16.jpg",
+   "discos": [
+    {
+     "titulo": "Trisected Liminality (Vol. 1)",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://dieaway.bandcamp.com/album/trisected-liminality-vol-1",
+     "portada": "https://f4.bcbits.com/img/a0425500429_16.jpg"
+    },
+    {
+     "titulo": "Dark Echoes Remixes",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://dieaway.bandcamp.com/album/dark-echoes-remixes",
+     "portada": "https://f4.bcbits.com/img/a2954844300_16.jpg"
+    },
+    {
+     "titulo": "Light Echoes",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://dieaway.bandcamp.com/album/light-echoes-2",
+     "portada": "https://f4.bcbits.com/img/a2802847797_16.jpg"
+    },
+    {
+     "titulo": "Leak of Noise",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://dieaway.bandcamp.com/album/leak-of-noise",
+     "portada": "https://f4.bcbits.com/img/a0508486141_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "tal",
+   "nombre": "TAL",
+   "estilos": "Stoner / Metal alternativo / Grunge",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://taltheband.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Winner (2025), Wall (2025), Aphelion (2024), City Of Lies (2024), Boogeyman (2024), TAL (2024), Neptuno (2023)",
+   "portada": "https://f4.bcbits.com/img/a4023081473_16.jpg",
+   "discos": [
+    {
+     "titulo": "Winner",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://taltheband.bandcamp.com/album/winner",
+     "portada": "https://f4.bcbits.com/img/a4023081473_16.jpg"
+    },
+    {
+     "titulo": "Wall",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://taltheband.bandcamp.com/track/wall",
+     "portada": "https://f4.bcbits.com/img/a2037089530_16.jpg"
+    },
+    {
+     "titulo": "Aphelion",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://taltheband.bandcamp.com/album/aphelion",
+     "portada": "https://f4.bcbits.com/img/a0065609001_16.jpg"
+    },
+    {
+     "titulo": "City Of Lies",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://taltheband.bandcamp.com/track/city-of-lies-2",
+     "portada": "https://f4.bcbits.com/img/a3128952250_16.jpg"
+    },
+    {
+     "titulo": "Boogeyman",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://taltheband.bandcamp.com/track/boogeyman-2",
+     "portada": "https://f4.bcbits.com/img/a3590980200_16.jpg"
+    },
+    {
+     "titulo": "TAL",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://taltheband.bandcamp.com/album/tal-2",
+     "portada": "https://f4.bcbits.com/img/a0976810857_16.jpg"
+    },
+    {
+     "titulo": "Neptuno",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://taltheband.bandcamp.com/album/neptuno",
+     "portada": "https://f4.bcbits.com/img/a2377510987_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "cockoroch",
+   "nombre": "Cockoroch",
+   "estilos": "Death metal / Slam / Hardcore",
+   "ciudad": "Murcia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://cockoroch.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Carrot Skull (2024), Villa Ojal Live Session (2024), Vegecide 7.0 Edition (2020), Vegecide (2018), Goregreen (2016)",
+   "portada": "https://f4.bcbits.com/img/a2685312946_16.jpg",
+   "discos": [
+    {
+     "titulo": "Carrot Skull",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://cockoroch.bandcamp.com/album/carrot-skull",
+     "portada": "https://f4.bcbits.com/img/a2685312946_16.jpg"
+    },
+    {
+     "titulo": "Villa Ojal Live Session",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://cockoroch.bandcamp.com/album/villa-ojal-live-session",
+     "portada": "https://f4.bcbits.com/img/a3748048036_16.jpg"
+    },
+    {
+     "titulo": "Vegecide 7.0 Edition",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://cockoroch.bandcamp.com/album/vegecide-70-edition",
+     "portada": "https://f4.bcbits.com/img/a0675868550_16.jpg"
+    },
+    {
+     "titulo": "Vegecide",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://cockoroch.bandcamp.com/album/vegecide",
+     "portada": "https://f4.bcbits.com/img/a1128731868_16.jpg"
+    },
+    {
+     "titulo": "Goregreen",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://cockoroch.bandcamp.com/album/goregreen",
+     "portada": "https://f4.bcbits.com/img/a4020454622_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "after-lapse",
+   "nombre": "After Lapse",
+   "estilos": "Metal progresivo melódico",
+   "ciudad": "España",
+   "estado": "Activo",
+   "enlace_principal": "Web",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/26KkOVKNDLY9z4CCKYjOjm",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/@afterlapseofficial",
+   "web": "https://afterlapse.com",
+   "discografia": "Pathways (2024), Face The Storm (2022)",
+   "portada": "https://afterlapse.com/wp-content/uploads/2024/09/After-Lapse-Pathways-1000x1024.jpeg",
+   "discos": [
+    {
+     "titulo": "Pathways",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://open.spotify.com/intl-es/album/1H4hFUeKglSdamNwJChTST",
+     "portada": "https://afterlapse.com/wp-content/uploads/2024/09/After-Lapse-Pathways-1000x1024.jpeg"
+    },
+    {
+     "titulo": "Face The Storm",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://open.spotify.com/intl-es/album/3l0pEUsqZZqRkXX5KmJjC0",
+     "portada": "https://afterlapse.com/wp-content/uploads/2024/09/COVER-AE-FACE-THE-STORM-JPG-1000x1024.jpg"
     }
    ]
   }
