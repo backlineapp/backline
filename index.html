@@ -30,12 +30,27 @@
   </div>
 
   <header class="cabecera">
-    <a href="#/" class="logo" aria-label="backline, ir a Explorar">
+    <a href="#/explorar" class="logo" aria-label="backline, ir a Explorar">
       <img src="logo.svg" alt="backline">
     </a>
   </header>
 
   <main id="app">
+    <!-- Pantalla Inicio: últimos lanzamientos de los grupos que sigo -->
+    <section id="pantalla-inicio" class="pantalla" hidden>
+      <div class="titular">
+        <h1>Inicio</h1>
+        <p>Lo último de los grupos que sigues.</p>
+      </div>
+      <ul id="lista-inicio" class="rejilla"></ul>
+      <button id="ver-mas" class="ver-mas" type="button" hidden>Ver más</button>
+      <div id="sin-grupos-inicio" class="sin-grupos" hidden>
+        <p class="sin-grupos-titulo">Aquí verás lo último de tus grupos</p>
+        <p class="sin-grupos-texto">Cuando sigas a algún grupo, sus discos y singles más recientes aparecerán aquí. Empieza por descubrir la escena.</p>
+        <a href="#/explorar" class="boton">Ir a Explorar</a>
+      </div>
+    </section>
+
     <!-- Pantalla 1: Explorar -->
     <section id="pantalla-explorar" class="pantalla" hidden>
       <div class="titular">
@@ -61,7 +76,7 @@
       <div id="sin-grupos" class="sin-grupos" hidden>
         <p class="sin-grupos-titulo">Aún no sigues a ningún grupo</p>
         <p class="sin-grupos-texto">Explora la escena y pulsa <strong>Seguir</strong> en los grupos que te gusten. Aparecerán aquí.</p>
-        <a href="#/" class="boton">Ir a Explorar</a>
+        <a href="#/explorar" class="boton">Ir a Explorar</a>
       </div>
     </section>
 
@@ -76,7 +91,13 @@
 
   <!-- Barra de navegación inferior -->
   <nav class="barra-inferior" aria-label="Secciones">
-    <a href="#/" id="pestana-explorar" class="pestana" aria-current="page">
+    <a href="#/inicio" id="pestana-inicio" class="pestana">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <path d="M4 11l8-6.5 8 6.5V20h-5.5v-5.5h-5V20H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      <span>Inicio</span>
+    </a>
+    <a href="#/explorar" id="pestana-explorar" class="pestana">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
         <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
         <path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor"/>
