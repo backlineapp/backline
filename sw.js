@@ -15,10 +15,13 @@
 // versión: se piden siempre a internet al abrir la app y, si no hay
 // conexión, se usa la última copia guardada.
 //
+// Los conciertos, las cuentas y los carteles vienen de Supabase (otra
+// dirección): este ayudante no los toca ni los guarda.
+//
 // IMPORTANTE: cada vez que cambie un archivo de la app (pantallas, estilos,
 // código, iconos, tipografías), hay que subir este número. Es el único número
 // de versión. Para cambiar grupos.json NO hace falta tocarlo.
-var VERSION = 4;
+var VERSION = 5;
 
 var CACHE = 'backline-v' + VERSION;
 var ARCHIVOS = [
@@ -26,6 +29,10 @@ var ARCHIVOS = [
   'index.html',
   'estilos.css',
   'seguidos.js',
+  'libs/supabase.js',
+  'nube.js',
+  'conciertos.js',
+  'panel.js',
   'app.js',
   'manifest.json',
   'logo.svg',

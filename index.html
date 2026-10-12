@@ -78,11 +78,38 @@
         <p class="sin-grupos-texto">Explora la escena y pulsa <strong>Seguir</strong> en los grupos que te gusten. Aparecerán aquí.</p>
         <a href="#/explorar" class="boton">Ir a Explorar</a>
       </div>
+      <!-- Acceso discreto: con correo y código (hoy, solo para el administrador) -->
+      <p class="pie-acceso"><a href="#/acceso" id="enlace-acceso">Acceso</a></p>
+    </section>
+
+    <!-- Pantalla Conciertos: próximos conciertos de los grupos que sigo -->
+    <section id="pantalla-conciertos" class="pantalla" hidden>
+      <div class="titular">
+        <h1>Conciertos</h1>
+        <p>Próximas fechas de los grupos que sigues.</p>
+      </div>
+      <div id="lista-conciertos"></div>
+    </section>
+
+    <!-- Pantalla de un concierto -->
+    <section id="pantalla-concierto" class="pantalla" hidden>
+      <button class="volver" type="button">← Conciertos</button>
+      <article id="concierto"></article>
+    </section>
+
+    <!-- Acceso con código -->
+    <section id="pantalla-acceso" class="pantalla" hidden>
+      <div id="acceso"></div>
+    </section>
+
+    <!-- Panel del administrador -->
+    <section id="pantalla-panel" class="pantalla" hidden>
+      <div id="panel"></div>
     </section>
 
     <!-- Pantalla 3: Ficha de grupo -->
     <section id="pantalla-ficha" class="pantalla" hidden>
-      <button id="volver" class="volver" type="button">← Explorar</button>
+      <button class="volver" type="button">← Explorar</button>
       <article id="ficha" class="ficha"></article>
     </section>
 
@@ -104,6 +131,13 @@
       </svg>
       <span>Explorar</span>
     </a>
+    <a href="#/conciertos" id="pestana-conciertos" class="pestana">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <path d="M4 9V6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5V9a3 3 0 0 0 0 6v2.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5V15a3 3 0 0 0 0-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M14 5.5v13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2 2"/>
+      </svg>
+      <span>Conciertos</span>
+    </a>
     <a href="#/mis-grupos" id="pestana-mis-grupos" class="pestana">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
         <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -115,6 +149,10 @@
   </nav>
 
   <script src="seguidos.js"></script>
+  <script src="libs/supabase.js"></script>
+  <script src="nube.js"></script>
+  <script src="conciertos.js"></script>
+  <script src="panel.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
