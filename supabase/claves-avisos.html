@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Claves de los avisos · backline</title>
+  <style>
+    :root { --fondo: #0B0E13; --superficie: #141922; --linea: #252E3B; --texto: #EAEEF4; --tenue: #8592A6; --ambar: #E8A13A; --cian: #4FC4D6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--fondo); color: var(--texto); font: 15px/1.55 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+    main { max-width: 760px; margin: 0 auto; padding: 28px 16px 60px; }
+    h1 { font-size: 24px; margin: 0 0 6px; }
+    h2 { font-size: 17px; margin: 28px 0 8px; color: var(--ambar); }
+    p { color: var(--tenue); margin: 6px 0; }
+    strong { color: var(--texto); }
+    .caja { background: var(--superficie); border: 1px solid var(--linea); border-radius: 12px; padding: 14px; margin-top: 10px; }
+    .nombre { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cian); }
+    pre, .valor { margin: 6px 0 10px; padding: 10px; background: #05070A; border: 1px solid var(--linea); border-radius: 8px; font: 13px/1.45 ui-monospace, Menlo, monospace; color: var(--texto); white-space: pre-wrap; word-break: break-all; }
+    button { font: inherit; font-weight: 600; padding: 9px 16px; border-radius: 8px; border: 0; cursor: pointer; background: var(--ambar); color: var(--fondo); }
+    button.copiar { background: transparent; color: var(--cian); border: 1px solid var(--linea); padding: 6px 12px; font-size: 13px; }
+    .alerta { border-left: 3px solid var(--ambar); padding-left: 12px; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Claves de los avisos</h1>
+  <p>Esta página crea las claves de los avisos <strong>dentro de tu navegador</strong>. No envía nada a ningún sitio y no guarda nada: si la cierras, las claves desaparecen.</p>
+  <p class="alerta">Hazlo <strong>una sola vez</strong>. Si un día vuelves a crear claves y las cambias en Supabase, todos los móviles dejarán de recibir avisos hasta que los vuelvan a activar.</p>
+
+  <p style="margin-top:18px"><button id="crear" type="button">Crear claves</button></p>
+  <p id="error" hidden></p>
+
+  <div id="resultado" hidden>
+    <h2>1 · Para el SQL Editor de Supabase</h2>
+    <p>Copia este bloque y ejecútalo en <strong>SQL Editor → New query → Run</strong>. Guarda en la caja fuerte de Supabase la clave pública y la clave de las tareas.</p>
+    <div class="caja">
+      <pre id="sql"></pre>
+      <button class="copiar" type="button" data-de="sql">Copiar</button>
+    </div>
+
+    <h2>2 · Para los secretos de las funciones</h2>
+    <p>En <strong>Edge Functions → Secrets</strong>, añade estos tres. El nombre, tal cual; el valor, copiado de aquí.</p>
+    <div class="caja">
+      <div class="nombre">VAPID_PUBLICA</div>
+      <div class="valor" id="publica"></div>
+      <button class="copiar" type="button" data-de="publica">Copiar</button>
+    </div>
+    <div class="caja">
+      <div class="nombre">VAPID_PRIVADA</div>
+      <div class="valor" id="privada"></div>
+      <button class="copiar" type="button" data-de="privada">Copiar</button>
+      <p><strong>Esta es la clave privada.</strong> Solo va en los secretos de Supabase: nunca en el repositorio, ni en un correo, ni en un chat.</p>
+    </div>
+    <div class="caja">
+      <div class="nombre">CLAVE_TAREAS</div>
+      <div class="valor" id="tareas"></div>
+      <button class="copiar" type="button" data-de="tareas">Copiar</button>
+    </div>
+    <p style="margin-top:18px">Cuando hayas pegado todo, puedes cerrar esta página.</p>
+  </div>
+</main>
+<script>
+  (function () {
+    'use strict';
+
+    function base64url(bytes) {
+      var b = '';
+      bytes = new Uint8Array(bytes);
+      for (var i = 0; i < bytes.length; i++) b += String.fromCharCode(bytes[i]);
+      return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+
+    function crear() {
+      var boton = document.getElementById('crear');
+      boton.disabled = true;
+      crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify'])
+        .then(function (par) {
+          return Promise.all([
+            crypto.subtle.exportKey('raw', par.publicKey),
+            crypto.subtle.exportKey('jwk', par.privateKey)
+          ]);
+        })
+        .then(function (r) {
+          var publica = base64url(r[0]);
+          var privada = r[1].d;
+          var tareas = base64url(crypto.getRandomValues(new Uint8Array(32)));
+          document.getElementById('publica').textContent = publica;
+          document.getElementById('privada').textContent = privada;
+          document.getElementById('tareas').textContent = tareas;
+          document.getElementById('sql').textContent = [
+            '-- backline: claves de los avisos en la caja fuerte (Vault).',
+            '-- Si ya estaban, se cambian por estas.',
+            "delete from vault.secrets where name in ('avisos_clave_publica', 'avisos_clave_tareas');",
+            "select vault.create_secret('" + publica + "', 'avisos_clave_publica', 'Clave pública de los avisos (backline)');",
+            "select vault.create_secret('" + tareas + "', 'avisos_clave_tareas', 'Clave de la tarea programada de avisos (backline)');"
+          ].join('\n');
+          document.getElementById('resultado').hidden = false;
+          boton.textContent = 'Claves creadas';
+        })
+        .catch(function (e) {
+          boton.disabled = false;
+          var error = document.getElementById('error');
+          error.textContent = 'Este navegador no ha podido crear las claves (' + e.message + '). Prueba con Safari o Chrome actualizados.';
+          error.hidden = false;
+        });
+    }
+
+    document.getElementById('crear').addEventListener('click', crear);
+    Array.prototype.forEach.call(document.querySelectorAll('.copiar'), function (b) {
+      b.addEventListener('click', function () {
+        var texto = document.getElementById(b.getAttribute('data-de')).textContent;
+        navigator.clipboard.writeText(texto).then(function () {
+          b.textContent = 'Copiado';
+          setTimeout(function () { b.textContent = 'Copiar'; }, 1800);
+        }, function () { b.textContent = 'Selecciónalo y cópialo a mano'; });
+      });
+    });
+  })();
+</script>
+</body>
+</html>

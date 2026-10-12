@@ -18,10 +18,13 @@
 // Los conciertos, las cuentas y los carteles vienen de Supabase (otra
 // dirección): este ayudante no los toca ni los guarda.
 //
+// También muestra los avisos al móvil que manda Supabase y, al tocar uno,
+// abre la app en ese concierto (ver avisos.js).
+//
 // IMPORTANTE: cada vez que cambie un archivo de la app (pantallas, estilos,
 // código, iconos, tipografías), hay que subir este número. Es el único número
 // de versión. Para cambiar grupos.json NO hace falta tocarlo.
-var VERSION = 5;
+var VERSION = 6;
 
 var CACHE = 'backline-v' + VERSION;
 var ARCHIVOS = [
@@ -33,6 +36,7 @@ var ARCHIVOS = [
   'nube.js',
   'conciertos.js',
   'panel.js',
+  'avisos.js',
   'app.js',
   'manifest.json',
   'logo.svg',
@@ -120,6 +124,43 @@ self.addEventListener('fetch', function (e) {
       return c.match(e.request, { ignoreSearch: true }).then(function (guardado) {
         return guardado || fetch(e.request);
       });
+    })
+  );
+});
+
+// ---------- Avisos al móvil ----------
+
+// Llega un aviso: { titulo, texto, ruta: '#/concierto/...', etiqueta }.
+self.addEventListener('push', function (e) {
+  var datos = {};
+  try { datos = e.data ? e.data.json() : {}; } catch (error) { datos = {}; }
+  var titulo = datos.titulo || 'backline';
+  e.waitUntil(self.registration.showNotification(titulo, {
+    body: datos.texto || '',
+    icon: 'icono-192.png',
+    lang: 'es',
+    // Un aviso nuevo de la misma publicación sustituye al anterior.
+    tag: datos.etiqueta || undefined,
+    data: { ruta: typeof datos.ruta === 'string' ? datos.ruta : '' }
+  }));
+});
+
+// Se toca un aviso: si la app está abierta, va a ese concierto; si no, la abre ahí.
+self.addEventListener('notificationclick', function (e) {
+  e.notification.close();
+  var ruta = (e.notification.data && e.notification.data.ruta) || '';
+  if (!/^#\/[a-z0-9\/_-]*$/i.test(ruta)) ruta = '';
+  var url = self.registration.scope + ruta;
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (ventanas) {
+      for (var i = 0; i < ventanas.length; i++) {
+        var v = ventanas[i];
+        if (v.url.indexOf(self.registration.scope) === 0 && 'focus' in v) {
+          if (ruta) v.postMessage({ tipo: 'abrir', ruta: ruta });
+          return v.focus();
+        }
+      }
+      return self.clients.openWindow(url);
     })
   );
 });

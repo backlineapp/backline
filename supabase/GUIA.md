@@ -2,6 +2,8 @@
 
 Esta guía se sigue **una sola vez**. Son 7 pasos, y todo se hace en la web de Supabase (https://supabase.com/dashboard), dentro del proyecto de backline. Los nombres de los menús pueden cambiar un poco con el tiempo. Si alguno no coincide, busca el más parecido.
 
+> Para los **avisos al móvil** y los **conciertos fuera de España** hay una guía aparte: `supabase/GUIA-AVISOS.md`.
+
 > **Nunca** copies ni compartas la clave secreta (la que se llama *secret* o *service_role*). La app no la necesita. La única clave que lleva la app es la pública (*publishable*), y esa puede estar a la vista sin problema.
 
 ---

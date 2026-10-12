@@ -841,3 +841,86 @@ button[disabled] { opacity: 0.55; cursor: default; }
   color: var(--ambar);
 }
 .bloque-fecha .boton-texto { align-self: flex-start; }
+
+/* ---------- Avisos al móvil ---------- */
+.avisos-caja {
+  margin-bottom: 18px;
+  padding: 16px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-left: 3px solid var(--ambar);
+  border-radius: 14px;
+}
+.avisos-caja.activos { border-left-color: var(--cian); }
+.avisos-cabecera { display: flex; align-items: center; gap: 10px; }
+.avisos-icono { display: inline-flex; color: var(--ambar); line-height: 0; }
+.avisos-caja.activos .avisos-icono { color: var(--cian); }
+.avisos-titulo {
+  margin: 0;
+  font-family: var(--titulos);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--texto);
+}
+.avisos-texto,
+.avisos-nota {
+  margin: 8px 0 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--tenue);
+}
+.avisos-nota { font-size: 12.5px; color: var(--apagado); }
+.avisos-pasos {
+  margin: 10px 0 0;
+  padding-left: 22px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--texto);
+}
+.avisos-pasos li + li { margin-top: 6px; }
+.avisos-caja .boton { margin-top: 14px; border: 0; cursor: pointer; font-family: inherit; }
+.avisos-caja .boton-texto { margin-top: 6px; }
+.avisos-mensaje { margin: 10px 0 0; font-size: 13px; color: var(--cian); }
+.avisos-mensaje.error { color: #F0A291; }
+
+/* Seguir + campanita en la ficha */
+.perfil-botones { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.perfil-botones .seguir { margin-top: 0; }
+.campanita {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--acento);
+  background: transparent;
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.campanita[aria-pressed="true"] { color: var(--apagado); }
+
+/* Mensaje breve que aparece abajo unos segundos */
+.aviso-breve {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--alto-barra) + env(safe-area-inset-bottom, 0px) + 12px);
+  z-index: 50;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--texto);
+  background: var(--superficie-2);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  opacity: 0;
+  transform: translate(-50%, 8px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+.aviso-breve.visible { opacity: 1; transform: translate(-50%, 0); }

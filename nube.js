@@ -14,6 +14,9 @@
 //   Nube.guardar(datos)                -> crea o actualiza concierto / gira
 //   Nube.borrar(publicacion)           -> borra publicación, fechas y cartel
 //   Nube.urlCartel(ruta)               -> dirección pública de un cartel
+//   Nube.claveAvisos()                 -> clave pública de los avisos al móvil
+//   Nube.apuntarAvisos(sus, grupos)    -> apunta este móvil (o le cambia la lista)
+//   Nube.borrarAvisos(sus)             -> borra este móvil de los avisos
 //
 // La clave de abajo es la PÚBLICA (publishable): puede estar a la vista.
 // Lo que protege los datos son las reglas de la base de datos
@@ -111,7 +114,7 @@
 
   // ---------- Conciertos ----------
 
-  var CAMPOS_FECHA = 'id, fecha, hora, zona, ciudad, provincia, sala, precio, entradas';
+  var CAMPOS_FECHA = 'id, fecha, hora, zona, ciudad, provincia, pais, sala, precio, entradas';
   var CAMPOS_PUBLICACION = 'id, grupo_id, tipo, titulo, cartel';
 
   // Hoy en una zona horaria, como "2026-10-12".
@@ -122,8 +125,14 @@
 
   // Quita las fechas que ya han pasado según la hora del lugar del concierto.
   function soloProximas(fechas) {
-    var hoy = { 'Europe/Madrid': hoyEn('Europe/Madrid'), 'Atlantic/Canary': hoyEn('Atlantic/Canary') };
-    return fechas.filter(function (f) { return f.fecha >= (hoy[f.zona] || hoy['Europe/Madrid']); });
+    var hoy = {};
+    return fechas.filter(function (f) {
+      var zona = f.zona || 'Europe/Madrid';
+      if (!hoy[zona]) {
+        try { hoy[zona] = hoyEn(zona); } catch (e) { hoy[zona] = hoyEn('Europe/Madrid'); }
+      }
+      return f.fecha >= hoy[zona];
+    });
   }
 
   // Próximas fechas de varios grupos (o de uno), por orden de fecha y hora.
@@ -201,7 +210,8 @@
       hora: f.hora || null,
       zona: f.zona,
       ciudad: f.ciudad,
-      provincia: f.provincia,
+      provincia: f.provincia || null,
+      pais: f.pais,
       sala: f.sala,
       precio: f.precio || null,
       entradas: f.entradas || null
@@ -273,6 +283,34 @@
       });
   }
 
+  // ---------- Avisos al móvil ----------
+  // Las suscripciones no se pueden leer desde la app: solo apuntarse o
+  // borrarse, y siempre demostrando que es este móvil (con su clave "auth").
+
+  function claveAvisos() {
+    if (!cliente) return sinConexion();
+    return cliente.rpc('avisos_clave_publica').then(comprobar).then(function (clave) {
+      if (!clave) throw new Error('Los avisos aún no están preparados.');
+      return clave;
+    });
+  }
+
+  // sus = suscripción del navegador en forma JSON: { endpoint, keys: { p256dh, auth } }
+  function apuntarAvisos(sus, grupos) {
+    if (!cliente) return sinConexion();
+    return cliente.rpc('avisos_apuntar', {
+      p_endpoint: sus.endpoint,
+      p_p256dh: sus.keys.p256dh,
+      p_auth: sus.keys.auth,
+      p_grupos: grupos
+    }).then(comprobar);
+  }
+
+  function borrarAvisos(sus) {
+    if (!cliente) return sinConexion();
+    return cliente.rpc('avisos_borrar', { p_endpoint: sus.endpoint, p_auth: sus.keys.auth }).then(comprobar);
+  }
+
   window.Nube = {
     listo: listo,
     disponible: !!cliente,
@@ -287,6 +325,9 @@
     publicacion: publicacion,
     guardar: guardar,
     borrar: borrar,
-    urlCartel: urlCartel
+    urlCartel: urlCartel,
+    claveAvisos: claveAvisos,
+    apuntarAvisos: apuntarAvisos,
+    borrarAvisos: borrarAvisos
   };
 })();

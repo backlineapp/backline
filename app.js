@@ -2,7 +2,8 @@
 // Lee grupos.json y muestra las pantallas: Inicio, Explorar, Conciertos,
 // Mis grupos, Ficha de grupo, Concierto, Acceso y Panel.
 // La lista de grupos seguidos la gestiona seguidos.js; los conciertos,
-// conciertos.js; el acceso y el panel, panel.js; Supabase, nube.js.
+// conciertos.js; el acceso y el panel, panel.js; los avisos al móvil,
+// avisos.js; Supabase, nube.js.
 
 (function () {
   'use strict';
@@ -92,6 +93,7 @@
     contadorMios: document.getElementById('contador-mis-grupos'),
     listaMios: document.getElementById('lista-mis-grupos'),
     sinGrupos: document.getElementById('sin-grupos'),
+    avisosMios: document.getElementById('avisos-mis-grupos'),
     pestanaExplorar: document.getElementById('pestana-explorar'),
     pestanaMisGrupos: document.getElementById('pestana-mis-grupos'),
     contenidoFicha: document.getElementById('ficha'),
@@ -413,6 +415,7 @@
   // grupos.json, no se muestra, pero sigue guardado.
   function pintarMisGrupos() {
     var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
+    Avisos.pintar(el.avisosMios);
     el.listaMios.textContent = '';
     el.sinGrupos.hidden = mios.length > 0;
     el.contadorMios.hidden = !mios.length;
@@ -452,7 +455,11 @@
     datos.appendChild(crear('h1', 'perfil-nombre', grupo.nombre));
     datos.appendChild(crear('p', 'perfil-estilos', grupo.estilos));
     if (grupo.ciudad) datos.appendChild(crear('p', 'perfil-ciudad', grupo.ciudad));
-    datos.appendChild(botonSeguir(grupo));
+    // Seguir y, si lo sigo, la campanita para silenciar sus avisos.
+    var botones = crear('div', 'perfil-botones');
+    botones.appendChild(botonSeguir(grupo));
+    botones.appendChild(Avisos.campanita(grupo));
+    datos.appendChild(botones);
     perfil.appendChild(datos);
     f.appendChild(perfil);
 
