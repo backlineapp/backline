@@ -713,6 +713,16 @@ button[disabled] { opacity: 0.55; cursor: default; }
   font-size: 12.5px;
 }
 .pie-acceso a { color: var(--apagado); text-decoration: none; }
+.enlace-pie {
+  padding: 0;
+  font: inherit;
+  color: var(--apagado);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.pie-separador { margin: 0 10px; color: var(--linea); }
+#pie-instalar[hidden] { display: none; }
 
 /* ---------- Formularios (acceso y panel) ---------- */
 .formulario { display: flex; flex-direction: column; gap: 14px; }
@@ -881,14 +891,6 @@ button[disabled] { opacity: 0.55; cursor: default; }
   color: var(--tenue);
 }
 .avisos-nota { font-size: 12.5px; color: var(--apagado); }
-.avisos-pasos {
-  margin: 10px 0 0;
-  padding-left: 22px;
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: var(--texto);
-}
-.avisos-pasos li + li { margin-top: 6px; }
 .avisos-caja .boton { margin-top: 14px; border: 0; cursor: pointer; font-family: inherit; }
 .avisos-caja .boton-texto { margin-top: 6px; }
 .avisos-mensaje { margin: 10px 0 0; font-size: 13px; color: var(--cian); }
@@ -1067,3 +1069,124 @@ a.volver { display: inline-block; text-decoration: none; }
   flex-wrap: wrap;
   margin-top: 18px;
 }
+
+/* ---------- Instalar la app (lo pinta instalar.js) ---------- */
+.instalar-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(5, 7, 10, 0.72);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.instalar-fondo.visible { opacity: 1; }
+.instalar-hoja {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: calc(100% - 24px);
+  overflow-y: auto;
+  padding: 22px 20px calc(16px + env(safe-area-inset-bottom));
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-top: 3px solid var(--ambar);
+  border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+  outline: none;
+  transform: translateY(24px);
+  transition: transform 0.25s ease;
+}
+.instalar-fondo.visible .instalar-hoja { transform: none; }
+@media (min-width: 560px) {
+  .instalar-fondo { align-items: center; }
+  .instalar-hoja { border-bottom: 1px solid var(--linea); border-radius: 18px; padding-bottom: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .instalar-fondo, .instalar-hoja { transition: none; }
+}
+.instalar-cerrar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--tenue);
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.instalar-cabecera { display: flex; align-items: center; gap: 14px; padding-right: 32px; }
+.instalar-icono {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 13px;
+  border: 1px solid var(--linea);
+}
+.instalar-titulo {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--texto);
+}
+.instalar-texto,
+.instalar-nota {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--tenue);
+}
+.instalar-nota { font-size: 12.5px; color: var(--apagado); }
+.instalar-pasos {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: paso;
+}
+.instalar-pasos li {
+  counter-increment: paso;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--texto);
+  background: var(--superficie-2);
+  border-radius: 10px;
+}
+.instalar-pasos li + li { margin-top: 8px; }
+.instalar-pasos li::before {
+  content: counter(paso);
+  flex: none;
+  width: 22px;
+  font-family: var(--titulos);
+  font-weight: 700;
+  color: var(--ambar);
+  text-align: center;
+}
+.instalar-paso-icono {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--cian);
+  background: var(--fondo);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+}
+.instalar-paso-texto strong { font-weight: 600; color: var(--texto); }
+.instalar-hoja .boton { margin-top: 16px; border: 0; cursor: pointer; font-family: inherit; }
+.instalar-mensaje { margin: 10px 0 0; font-size: 13px; line-height: 1.45; color: var(--cian); word-break: break-word; }
+.instalar-mensaje:empty { display: none; }
+.instalar-ahora-no { display: block; margin: 10px auto 0; color: var(--tenue); }

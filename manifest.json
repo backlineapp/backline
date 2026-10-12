@@ -1,6 +1,7 @@
 {
-  "name": "backline",
-  "short_name": "backline",
+  "id": "./",
+  "name": "Backline",
+  "short_name": "Backline",
   "description": "El backstage de tus grupos favoritos.",
   "lang": "es",
   "start_url": "./",
@@ -9,6 +10,10 @@
   "orientation": "portrait",
   "background_color": "#0B0E13",
   "theme_color": "#0B0E13",
+  "categories": ["music", "entertainment"],
+  "related_applications": [
+    { "platform": "webapp", "url": "https://backlineapp.github.io/backline/manifest.json" }
+  ],
   "icons": [
     { "src": "icono-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "icono-512.png", "sizes": "512x512", "type": "image/png" },

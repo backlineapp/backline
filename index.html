@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>backline</title>
+  <title>Backline</title>
   <meta name="description" content="El backstage de tus grupos favoritos.">
   <meta name="theme-color" content="#0B0E13">
 
@@ -14,7 +14,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="backline">
+  <meta name="apple-mobile-web-app-title" content="Backline">
+  <meta name="application-name" content="Backline">
 
   <!-- Las tipografías van dentro de la app: no se piden a ningún servicio externo -->
   <link rel="preload" href="fuentes/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -23,15 +24,15 @@
 </head>
 <body>
   <!-- Pantalla de arranque: logo y lema -->
-  <div id="arranque" class="arranque" role="button" tabindex="0" aria-label="Entrar en backline">
-    <img class="arranque-logo" src="logo.svg" alt="backline">
+  <div id="arranque" class="arranque" role="button" tabindex="0" aria-label="Entrar en Backline">
+    <img class="arranque-logo" src="logo.svg" alt="Backline">
     <p class="arranque-lema">El backstage de tus grupos favoritos</p>
     <p class="arranque-pista">Toca para entrar</p>
   </div>
 
   <header class="cabecera">
-    <a href="#/explorar" class="logo" aria-label="backline, ir a Explorar">
-      <img src="logo.svg" alt="backline">
+    <a href="#/explorar" class="logo" aria-label="Backline, ir a Explorar">
+      <img src="logo.svg" alt="Backline">
     </a>
   </header>
 
@@ -80,8 +81,11 @@
         <p class="sin-grupos-texto">Explora la escena y pulsa <strong>Seguir</strong> en los grupos que te gusten. Aparecerán aquí.</p>
         <a href="#/explorar" class="boton">Ir a Explorar</a>
       </div>
-      <!-- Acceso discreto: con correo y código (administrador y grupos que gestionan su ficha) -->
-      <p class="pie-acceso"><a href="#/acceso" id="enlace-acceso">Acceso</a></p>
+      <!-- Pie discreto: volver a ver cómo instalar la app (lo abre instalar.js) y
+           acceso con correo y código (administrador y grupos que gestionan su ficha) -->
+      <p class="pie-acceso">
+        <span id="pie-instalar"><button type="button" id="enlace-instalar" class="enlace-pie">Instalar la app</button><span class="pie-separador" aria-hidden="true">·</span></span><a href="#/acceso" id="enlace-acceso">Acceso</a>
+      </p>
     </section>
 
     <!-- Pantalla Conciertos: próximos conciertos de los grupos que sigo -->
@@ -160,6 +164,7 @@
   <script src="nube.js"></script>
   <script src="conciertos.js"></script>
   <script src="panel.js"></script>
+  <script src="instalar.js"></script>
   <script src="avisos.js"></script>
   <script src="app.js"></script>
 </body>
