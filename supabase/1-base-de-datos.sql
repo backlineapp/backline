@@ -11,7 +11,8 @@
 --                         tiene una; una gira, varias).
 --   · carteles         -> carpeta de imágenes (Storage) para los carteles.
 --   · Reglas de seguridad: todo el mundo puede leer; solo quien tiene permiso
---     para publicar puede crear, editar o borrar.
+--     para publicar (administrador o miembro del grupo) puede crear, editar o
+--     borrar.
 
 -- ---------------------------------------------------------------------------
 -- Administradores
@@ -46,17 +47,29 @@ as $$
 $$;
 
 -- ¿Puede la cuenta que hace la petición publicar sobre este grupo?
--- ÚNICO sitio donde se decide el permiso para publicar. Hoy solo el
--- administrador. Más adelante, cuando haya miembros de grupos, se añadirá
--- aquí algo como: "or exists (select 1 from public.miembros where ...)".
+-- ÚNICO sitio donde se decide el permiso para publicar: el administrador o un
+-- miembro aprobado de ese grupo (tabla "miembros", que crea 5-miembros.sql).
+-- Mientras no exista esa tabla, solo el administrador.
+-- 5-miembros.sql lleva una copia idéntica: si se cambia aquí, cambiarla allí.
 create or replace function public.puede_publicar(grupo text)
 returns boolean
-language sql
+language plpgsql
 stable
 security definer
 set search_path = ''
 as $$
-  select public.es_admin();
+begin
+  if public.es_admin() then
+    return true;
+  end if;
+  if to_regclass('public.miembros') is null then
+    return false;
+  end if;
+  return exists (
+    select 1 from public.miembros m
+    where m.usuario = (select auth.uid()) and m.grupo_id = grupo
+  );
+end;
 $$;
 
 -- ---------------------------------------------------------------------------

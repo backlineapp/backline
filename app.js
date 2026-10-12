@@ -1,8 +1,8 @@
 // backline — el backstage de tus grupos favoritos.
 // Lee grupos.json y muestra las pantallas: Inicio, Explorar, Conciertos,
-// Mis grupos, Ficha de grupo, Concierto, Acceso y Panel.
+// Mis grupos, Ficha de grupo, Concierto, ¿Es tu grupo?, Acceso y Panel.
 // La lista de grupos seguidos la gestiona seguidos.js; los conciertos,
-// conciertos.js; el acceso y el panel, panel.js; los avisos al móvil,
+// conciertos.js; el acceso, "¿Es tu grupo?" y el panel, panel.js; los avisos al móvil,
 // avisos.js; Supabase, nube.js.
 
 (function () {
@@ -56,6 +56,8 @@
   // pestaña de la barra que se ilumina en las que no son pestaña.
   var DETALLES = { ficha: true, concierto: true };
   var PESTANA_DE = { acceso: 'mis-grupos', panel: 'mis-grupos' };
+  // "¿Es tu grupo?" cuelga de la ficha: no cambia la pantalla de origen.
+  var DE_LA_FICHA = { gestionar: true };
 
   var grupos = [];
   var estado = { texto: '', familia: null };
@@ -82,6 +84,8 @@
     contenidoAcceso: document.getElementById('acceso'),
     panel: document.getElementById('pantalla-panel'),
     contenidoPanel: document.getElementById('panel'),
+    gestionar: document.getElementById('pantalla-gestionar'),
+    contenidoGestionar: document.getElementById('gestionar'),
     pestanaConciertos: document.getElementById('pestana-conciertos'),
     enlaceAcceso: document.getElementById('enlace-acceso'),
     misGrupos: document.getElementById('pantalla-mis-grupos'),
@@ -415,6 +419,7 @@
   // grupos.json, no se muestra, pero sigue guardado.
   function pintarMisGrupos() {
     var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
+    actualizarAcceso();
     Avisos.pintar(el.avisosMios);
     el.listaMios.textContent = '';
     el.sinGrupos.hidden = mios.length > 0;
@@ -533,8 +538,15 @@
       }
     }
 
-    // Más adelante llevará enlace
-    f.appendChild(crear('p', 'reclamar', '¿Es tu grupo? Gestiona o retira tu ficha'));
+    // ¿Es tu grupo? -> pedir gestionar la ficha o que se retire.
+    // Si ya la gestiona quien ha entrado, lleva directamente a su panel.
+    var cuenta = Nube.cuenta();
+    var gestiona = !!(cuenta && (cuenta.grupos || []).indexOf(grupo.id) !== -1);
+    var reclamar = crear('a', 'reclamar', gestiona ? 'Gestionas esta ficha · Ir a mi panel' : '¿Es tu grupo? Gestiona o retira tu ficha');
+    reclamar.href = gestiona ? '#/panel' : '#/gestionar/' + encodeURIComponent(grupo.id);
+    var pie = crear('p', 'reclamar-pie');
+    pie.appendChild(reclamar);
+    f.appendChild(pie);
   }
 
   // Botón "Seguir" / "Siguiendo". Al pulsarlo se sigue o se deja de seguir.
@@ -560,16 +572,16 @@
   function mostrar(pantalla) {
     // Guardamos por dónde iba la lista que dejamos atrás.
     if (scrolls.hasOwnProperty(pantallaActual)) scrolls[pantallaActual] = window.scrollY;
-    if (DETALLES[pantalla] && !DETALLES[pantallaActual]) origen = pantallaActual;
+    if (DETALLES[pantalla] && !DETALLES[pantallaActual] && !DE_LA_FICHA[pantallaActual]) origen = pantallaActual;
     pantallaActual = pantalla;
 
-    ['inicio', 'explorar', 'conciertos', 'misGrupos', 'ficha', 'concierto', 'acceso', 'panel'].forEach(function (k) {
+    ['inicio', 'explorar', 'conciertos', 'misGrupos', 'ficha', 'concierto', 'gestionar', 'acceso', 'panel'].forEach(function (k) {
       var nombre = k === 'misGrupos' ? 'mis-grupos' : k;
       el[k].hidden = pantalla !== nombre;
     });
 
     // En la ficha y en un concierto se ilumina la pestaña desde la que se llegó.
-    var pestana = DETALLES[pantalla] ? (origen || 'explorar') : pantalla;
+    var pestana = DETALLES[pantalla] || DE_LA_FICHA[pantalla] ? (origen || 'explorar') : pantalla;
     pestana = PESTANA_DE[pestana] || pestana;
     marcarPestana(el.pestanaInicio, pestana === 'inicio');
     marcarPestana(el.pestanaExplorar, pestana === 'explorar');
@@ -634,6 +646,21 @@
       return;
     }
 
+    if (partes[0] === 'gestionar' && partes[1]) {
+      var idG = decodeURIComponent(partes[1]);
+      var grupoG = grupos.filter(function (g) { return g.id === idG; })[0];
+      // Si se llega desde la ficha, "volver" es como el botón atrás del móvil.
+      var desdeFicha = pantallaActual === 'ficha';
+      Panel.pintarGestionar(el.contenidoGestionar, grupoG, function () {
+        if (desdeFicha && history.length > 1) history.back();
+        else location.hash = grupoG ? '#/grupo/' + encodeURIComponent(grupoG.id) : '#/explorar';
+      });
+      document.title = (grupoG ? '¿Es tu grupo? · ' + grupoG.nombre : '¿Es tu grupo?') + ' · backline';
+      mostrar('gestionar');
+      window.scrollTo(0, 0);
+      return;
+    }
+
     if (partes[0] === 'acceso') {
       Panel.pintarAcceso(el.contenidoAcceso);
       document.title = 'Acceso · backline';
@@ -681,12 +708,30 @@
     if (pantallaActual === 'conciertos') Conciertos.pintarPestana(el.listaConciertos);
   });
 
-  // El enlace discreto de Mis grupos lleva al panel si ha entrado el administrador.
-  Nube.alCambiarCuenta(function (cuenta) {
-    var admin = !!(cuenta && cuenta.admin);
-    el.enlaceAcceso.textContent = admin ? 'Mi panel' : 'Acceso';
-    el.enlaceAcceso.href = admin ? '#/panel' : '#/acceso';
-  });
+  // El enlace discreto de Mis grupos lleva al panel si ha entrado el
+  // administrador o alguien que gestiona un grupo. Al administrador le
+  // muestra, en ámbar, cuántas solicitudes tiene pendientes.
+  var pidiendoPendientes = 0;
+  function actualizarAcceso() {
+    var cuenta = Nube.cuenta();
+    var conPanel = !!(cuenta && (cuenta.admin || grupos.some(function (g) {
+      return (cuenta.grupos || []).indexOf(g.id) !== -1;
+    })));
+    el.enlaceAcceso.textContent = conPanel ? 'Mi panel' : 'Acceso';
+    el.enlaceAcceso.href = conPanel ? '#/panel' : '#/acceso';
+    el.enlaceAcceso.removeAttribute('aria-label');
+    if (!cuenta || !cuenta.admin) return;
+    var mio = ++pidiendoPendientes;
+    Nube.contarPendientes().then(function (n) {
+      if (mio !== pidiendoPendientes || !n) return;
+      var punto = crear('span', 'punto', String(n));
+      punto.setAttribute('aria-hidden', 'true');
+      el.enlaceAcceso.appendChild(document.createTextNode(' '));
+      el.enlaceAcceso.appendChild(punto);
+      el.enlaceAcceso.setAttribute('aria-label', 'Mi panel, ' + n + (n === 1 ? ' solicitud pendiente' : ' solicitudes pendientes'));
+    }, function () { /* sin conexión: sin número */ });
+  }
+  Nube.alCambiarCuenta(actualizarAcceso);
 
   el.verMas.addEventListener('click', function () {
     visiblesInicio += POR_TANDA;
@@ -708,7 +753,8 @@
     cuadroIniciales: cuadroIniciales,
     grupoPorId: function (id) { return grupos.filter(function (g) { return g.id === id; })[0] || null; },
     todosLosGrupos: function () { return grupos; },
-    gruposSeguidos: function () { return grupos.filter(function (g) { return Seguidos.sigo(g.id); }); }
+    gruposSeguidos: function () { return grupos.filter(function (g) { return Seguidos.sigo(g.id); }); },
+    actualizarAcceso: function () { actualizarAcceso(); }
   };
   Conciertos.iniciar(piezas);
   Panel.iniciar(piezas);

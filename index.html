@@ -80,7 +80,7 @@
         <p class="sin-grupos-texto">Explora la escena y pulsa <strong>Seguir</strong> en los grupos que te gusten. Aparecerán aquí.</p>
         <a href="#/explorar" class="boton">Ir a Explorar</a>
       </div>
-      <!-- Acceso discreto: con correo y código (hoy, solo para el administrador) -->
+      <!-- Acceso discreto: con correo y código (administrador y grupos que gestionan su ficha) -->
       <p class="pie-acceso"><a href="#/acceso" id="enlace-acceso">Acceso</a></p>
     </section>
 
@@ -99,12 +99,17 @@
       <article id="concierto"></article>
     </section>
 
+    <!-- ¿Es tu grupo?: pedir gestionar la ficha o que se retire -->
+    <section id="pantalla-gestionar" class="pantalla" hidden>
+      <div id="gestionar"></div>
+    </section>
+
     <!-- Acceso con código -->
     <section id="pantalla-acceso" class="pantalla" hidden>
       <div id="acceso"></div>
     </section>
 
-    <!-- Panel del administrador -->
+    <!-- Mi panel: administrador y grupos -->
     <section id="pantalla-panel" class="pantalla" hidden>
       <div id="panel"></div>
     </section>

@@ -5,15 +5,24 @@
 //   Nube.enviarCodigo(correo)          -> manda un código de 6 cifras por email
 //   Nube.entrar(correo, codigo)        -> entra con ese código
 //   Nube.salir()
-//   Nube.cuenta()                      -> { correo, admin } o null
+//   Nube.cuenta()                      -> { correo, admin, grupos } o null
+//                                         (grupos = ids de los grupos que gestiona)
 //   Nube.alCambiarCuenta(fn)           -> avisa al entrar o salir
+//   Nube.refrescarCuenta()             -> vuelve a preguntar permisos y grupos
 //   Nube.proximasFechas(gruposIds)     -> próximos conciertos de esos grupos
 //   Nube.fecha(id)                     -> un concierto (fecha) con su publicación
-//   Nube.publicaciones()               -> todo lo publicado (para el panel)
+//   Nube.publicaciones(gruposIds?)     -> lo publicado (todo, o de esos grupos)
 //   Nube.publicacion(id)               -> una publicación con sus fechas
 //   Nube.guardar(datos)                -> crea o actualiza concierto / gira
 //   Nube.borrar(publicacion)           -> borra publicación, fechas y cartel
 //   Nube.urlCartel(ruta)               -> dirección pública de un cartel
+//   Nube.solicitar(datos)              -> pide gestionar o retirar una ficha
+//   Nube.misSolicitudes(grupoId)       -> las solicitudes propias para ese grupo
+//   Nube.solicitudes()                 -> todas (solo administrador)
+//   Nube.contarPendientes()            -> cuántas hay pendientes (administrador)
+//   Nube.resolverSolicitud(id, si)     -> aprobar (true) o rechazar (false)
+//   Nube.miembros()                    -> quién gestiona cada grupo (administrador)
+//   Nube.quitarMiembro(grupoId, usuario)
 //   Nube.claveAvisos()                 -> clave pública de los avisos al móvil
 //   Nube.apuntarAvisos(sus, grupos)    -> apunta este móvil (o le cambia la lista)
 //   Nube.borrarAvisos(sus)             -> borra este móvil de los avisos
@@ -44,6 +53,9 @@
   function traducir(error) {
     var texto = String((error && (error.message || error.error_description)) || error || '');
     var t = texto.toLowerCase();
+    // Avisos escritos ya para personas en la base de datos (supabase/5-miembros.sql).
+    if (error && error.code === 'P0001') return texto;
+    if (error && error.code === '23505') return 'Ya tienes una solicitud pendiente como esta. Espera a que la revisemos.';
     if (/expired|invalid|otp|token/.test(t)) return 'El código no es correcto o ha caducado. Pide uno nuevo.';
     if (/rate limit|too many|seconds/.test(t)) return 'Has pedido varios códigos seguidos. Espera unos minutos y vuelve a probar.';
     if (/email/.test(t) && /valid/.test(t)) return 'Revisa el correo: no parece válido.';
@@ -69,15 +81,25 @@
       avisar();
       return Promise.resolve(null);
     }
-    return cliente.rpc('es_admin').then(function (r) {
-      cuentaActual = { correo: sesion.user.email, admin: r.data === true };
-      avisar();
-      return cuentaActual;
-    }, function () {
-      cuentaActual = { correo: sesion.user.email, admin: false };
+    // Si algo falla (o aún no existe la tabla de miembros), la cuenta queda
+    // sin permisos especiales: la app se sigue usando igual.
+    var admin = cliente.rpc('es_admin').then(function (r) { return r.data === true; }, function () { return false; });
+    var grupos = cliente.from('miembros').select('grupo_id').eq('usuario', sesion.user.id)
+      .then(function (r) {
+        return (r.data || []).map(function (m) { return m.grupo_id; });
+      }, function () { return []; });
+    return Promise.all([admin, grupos]).then(function (r) {
+      cuentaActual = { id: sesion.user.id, correo: sesion.user.email, admin: r[0], grupos: r[1] };
       avisar();
       return cuentaActual;
     });
+  }
+
+  function refrescarCuenta() {
+    if (!cliente) return Promise.resolve(null);
+    return cliente.auth.getSession()
+      .then(function (r) { return actualizarCuenta(r.data && r.data.session); })
+      .catch(function () { return cuentaActual; });
   }
 
   var listo = cliente
@@ -161,15 +183,17 @@
       .then(comprobar);
   }
 
-  // ---------- Panel del administrador ----------
+  // ---------- Panel (administrador y grupos) ----------
 
-  function publicaciones() {
+  // Sin gruposIds: todo (administrador). Con gruposIds: solo de esos grupos.
+  function publicaciones(gruposIds) {
     if (!cliente) return sinConexion();
-    return cliente.from('publicaciones')
+    if (gruposIds && !gruposIds.length) return Promise.resolve([]);
+    var peticion = cliente.from('publicaciones')
       .select(CAMPOS_PUBLICACION + ', creado, fechas(' + CAMPOS_FECHA + ')')
-      .in('tipo', ['concierto', 'gira'])
-      .order('creado', { ascending: false })
-      .then(comprobar);
+      .in('tipo', ['concierto', 'gira']);
+    if (gruposIds) peticion = peticion.in('grupo_id', gruposIds);
+    return peticion.order('creado', { ascending: false }).then(comprobar);
   }
 
   function publicacion(id) {
@@ -283,6 +307,82 @@
       });
   }
 
+  // ---------- Solicitudes y miembros ----------
+  // Quién pide, su correo y el estado los pone la base de datos, no la app.
+
+  var CAMPOS_SOLICITUD = 'id, grupo_id, tipo, nombre, papel, mensaje, acepta, estado, creado, resuelto';
+
+  // datos = { grupo_id, tipo ('gestionar' | 'retirar'), nombre, papel, mensaje, acepta }
+  function solicitar(datos) {
+    if (!cliente) return sinConexion();
+    return cliente.from('solicitudes').insert({
+      grupo_id: datos.grupo_id,
+      tipo: datos.tipo,
+      nombre: datos.nombre,
+      papel: datos.papel,
+      mensaje: datos.mensaje || null,
+      acepta: !!datos.acepta
+    }).then(comprobar);
+  }
+
+  function misSolicitudes(grupoId) {
+    if (!cliente) return sinConexion();
+    var cuenta = cuentaActual;
+    if (!cuenta) return Promise.resolve([]);
+    return cliente.from('solicitudes')
+      .select(CAMPOS_SOLICITUD)
+      .eq('usuario', cuenta.id)
+      .eq('grupo_id', grupoId)
+      .order('creado', { ascending: false })
+      .then(comprobar);
+  }
+
+  // Todas las pendientes y las 40 últimas resueltas.
+  function solicitudes() {
+    if (!cliente) return sinConexion();
+    var campos = CAMPOS_SOLICITUD + ', usuario, correo';
+    return Promise.all([
+      cliente.from('solicitudes').select(campos).eq('estado', 'pendiente')
+        .order('creado', { ascending: true }).then(comprobar),
+      cliente.from('solicitudes').select(campos).neq('estado', 'pendiente')
+        .order('resuelto', { ascending: false }).limit(40).then(comprobar)
+    ]).then(function (r) { return { pendientes: r[0], resueltas: r[1] }; });
+  }
+
+  function contarPendientes() {
+    if (!cliente) return sinConexion();
+    return cliente.from('solicitudes').select('id', { count: 'exact', head: true })
+      .eq('estado', 'pendiente')
+      .then(function (r) {
+        if (r.error) throw new Error(traducir(r.error));
+        return r.count || 0;
+      });
+  }
+
+  function resolverSolicitud(id, aprobar) {
+    if (!cliente) return sinConexion();
+    return cliente.rpc('resolver_solicitud', { p_id: id, p_aprobar: !!aprobar }).then(comprobar);
+  }
+
+  function miembros() {
+    if (!cliente) return sinConexion();
+    return cliente.from('miembros')
+      .select('grupo_id, usuario, nombre, papel, correo, creado')
+      .order('creado', { ascending: true })
+      .then(comprobar);
+  }
+
+  function quitarMiembro(grupoId, usuario) {
+    if (!cliente) return sinConexion();
+    return cliente.from('miembros').delete()
+      .eq('grupo_id', grupoId).eq('usuario', usuario)
+      .select('usuario')
+      .then(comprobar)
+      .then(function (filas) {
+        if (!filas || !filas.length) throw new Error('No tienes permiso para hacer esto.');
+      });
+  }
+
   // ---------- Avisos al móvil ----------
   // Las suscripciones no se pueden leer desde la app: solo apuntarse o
   // borrarse, y siempre demostrando que es este móvil (con su clave "auth").
@@ -316,6 +416,7 @@
     disponible: !!cliente,
     cuenta: function () { return cuentaActual; },
     alCambiarCuenta: function (fn) { avisos.push(fn); },
+    refrescarCuenta: refrescarCuenta,
     enviarCodigo: enviarCodigo,
     entrar: entrar,
     salir: salir,
@@ -326,6 +427,13 @@
     guardar: guardar,
     borrar: borrar,
     urlCartel: urlCartel,
+    solicitar: solicitar,
+    misSolicitudes: misSolicitudes,
+    solicitudes: solicitudes,
+    contarPendientes: contarPendientes,
+    resolverSolicitud: resolverSolicitud,
+    miembros: miembros,
+    quitarMiembro: quitarMiembro,
     claveAvisos: claveAvisos,
     apuntarAvisos: apuntarAvisos,
     borrarAvisos: borrarAvisos

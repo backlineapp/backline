@@ -506,13 +506,20 @@ button { font-family: inherit; }
   color: var(--apagado);
 }
 
-/* Nota discreta al final de la ficha */
-.reclamar {
+/* Enlace discreto al final de la ficha: "¿Es tu grupo?" */
+.reclamar-pie {
   margin: 32px 0 8px;
-  font-size: 12.5px;
-  color: var(--apagado);
   text-align: center;
 }
+.reclamar {
+  font-size: 12.5px;
+  color: var(--apagado);
+  text-decoration: underline;
+  text-decoration-color: var(--linea);
+  text-underline-offset: 3px;
+}
+.reclamar:hover,
+.reclamar:active { color: var(--acento); }
 
 /* ---------- Cuadrícula de discos (ficha e Inicio) ---------- */
 /* La imagen manda: portadas grandes con título y año debajo */
@@ -722,7 +729,8 @@ button[disabled] { opacity: 0.55; cursor: default; }
 }
 .campo-nota { font-size: 12px; color: var(--apagado); }
 .campo input,
-.campo select {
+.campo select,
+.campo textarea {
   width: 100%;
   min-width: 0;
   min-height: 44px;
@@ -746,8 +754,10 @@ button[disabled] { opacity: 0.55; cursor: default; }
   background-repeat: no-repeat;
   padding-right: 32px;
 }
+.campo textarea { min-height: 96px; resize: vertical; line-height: 1.45; }
 .campo input:focus,
-.campo select:focus { border-color: var(--cian); }
+.campo select:focus,
+.campo textarea:focus { border-color: var(--cian); }
 .campo input.codigo {
   font-family: var(--titulos);
   font-size: 26px;
@@ -924,3 +934,136 @@ button[disabled] { opacity: 0.55; cursor: default; }
   pointer-events: none;
 }
 .aviso-breve.visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Grupos que gestionan su ficha ---------- */
+a.volver { display: inline-block; text-decoration: none; }
+
+/* Número de solicitudes pendientes (junto a "Mi panel" y en el panel) */
+.punto {
+  display: inline-block;
+  min-width: 18px;
+  padding: 1px 6px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  vertical-align: 1px;
+  color: var(--fondo);
+  background: var(--ambar);
+  border-radius: 999px;
+}
+.punto[hidden] { display: none; }
+.pie-acceso a .punto { margin-left: 2px; }
+
+.panel-grupos { margin: -6px 0 14px; color: var(--texto); }
+.atajos-admin { margin: 0 0 14px; }
+.atajos-admin .opcion:hover,
+.atajos-admin .opcion:active { border-color: var(--cian); }
+
+/* Estado de una solicitud */
+.estado {
+  flex: none;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+.estado-pendiente { color: var(--ambar); }
+.estado-aprobada { color: var(--cian); }
+.estado-rechazada { color: var(--apagado); }
+
+/* Solicitudes en el panel del administrador */
+.solicitud {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-left: 3px solid var(--acento);
+  border-radius: 12px;
+}
+.solicitud-cabecera { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.solicitud-cabecera a.tarjeta-nombre { text-decoration: none; }
+.solicitud-tipo { margin: 2px 0 0; font-size: 13px; font-weight: 600; color: var(--acento); }
+.solicitud-quien { margin: 0; font-size: 14px; color: var(--texto); }
+.solicitud-dato { margin: 0; font-size: 12.5px; color: var(--tenue); overflow-wrap: anywhere; }
+.solicitud-mensaje {
+  margin: 6px 0 2px;
+  padding: 8px 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--texto);
+  background: var(--fondo-hondo);
+  border-left: 2px solid var(--linea);
+  border-radius: 6px;
+}
+.solicitud .publicado-botones { margin-top: 8px; }
+.boton-aprobar { border: 0; cursor: pointer; font-family: inherit; }
+
+/* ¿Es tu grupo? */
+.casilla {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.casilla input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  accent-color: var(--ambar);
+}
+.mis-solicitudes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mi-solicitud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+}
+.mi-solicitud-texto { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mi-solicitud-tipo { font-size: 14px; font-weight: 600; color: var(--texto); }
+.mi-solicitud-fecha { font-size: 12px; color: var(--apagado); }
+.gestionar .formulario > .etiqueta-seccion,
+.gestionar .retirar-ficha .etiqueta-seccion { margin: 10px 0 0; }
+.retirar-ficha {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--linea);
+}
+.gestionar-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
