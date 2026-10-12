@@ -24,7 +24,7 @@
 // IMPORTANTE: cada vez que cambie un archivo de la app (pantallas, estilos,
 // código, iconos, tipografías), hay que subir este número. Es el único número
 // de versión. Para cambiar grupos.json NO hace falta tocarlo.
-var VERSION = 7;
+var VERSION = 8;
 
 var CACHE = 'backline-v' + VERSION;
 var ARCHIVOS = [
@@ -36,6 +36,7 @@ var ARCHIVOS = [
   'nube.js',
   'conciertos.js',
   'panel.js',
+  'instalar.js',
   'avisos.js',
   'app.js',
   'manifest.json',
@@ -134,7 +135,7 @@ self.addEventListener('fetch', function (e) {
 self.addEventListener('push', function (e) {
   var datos = {};
   try { datos = e.data ? e.data.json() : {}; } catch (error) { datos = {}; }
-  var titulo = datos.titulo || 'backline';
+  var titulo = datos.titulo || 'Backline';
   e.waitUntil(self.registration.showNotification(titulo, {
     body: datos.texto || '',
     icon: 'icono-192.png',

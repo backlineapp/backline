@@ -1138,7 +1138,7 @@
     if (puedeRetirar) {
       var retirar = crear('div', 'retirar-ficha');
       retirar.appendChild(crear('p', 'etiqueta-seccion', 'Retirar la ficha'));
-      retirar.appendChild(crear('p', 'formulario-texto', 'Si preferís que ' + grupo.nombre + ' no aparezca en backline, pídelo aquí. Usaremos tu nombre, tu papel y el mensaje de arriba.'));
+      retirar.appendChild(crear('p', 'formulario-texto', 'Si preferís que ' + grupo.nombre + ' no aparezca en Backline, pídelo aquí. Usaremos tu nombre, tu papel y el mensaje de arriba.'));
       var avisoRetirar = crear('p', 'mensaje');
       avisoRetirar.hidden = true;
       var pedirRetirar = boton('Pedir que se retire la ficha', 'boton-secundario boton-ancho peligro', function () {

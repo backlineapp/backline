@@ -3,7 +3,7 @@
 // Mis grupos, Ficha de grupo, Concierto, ¿Es tu grupo?, Acceso y Panel.
 // La lista de grupos seguidos la gestiona seguidos.js; los conciertos,
 // conciertos.js; el acceso, "¿Es tu grupo?" y el panel, panel.js; los avisos al móvil,
-// avisos.js; Supabase, nube.js.
+// avisos.js; instalar la app en el móvil, instalar.js; Supabase, nube.js.
 
 (function () {
   'use strict';
@@ -88,6 +88,8 @@
     contenidoGestionar: document.getElementById('gestionar'),
     pestanaConciertos: document.getElementById('pestana-conciertos'),
     enlaceAcceso: document.getElementById('enlace-acceso'),
+    pieInstalar: document.getElementById('pie-instalar'),
+    enlaceInstalar: document.getElementById('enlace-instalar'),
     misGrupos: document.getElementById('pantalla-mis-grupos'),
     ficha: document.getElementById('pantalla-ficha'),
     buscador: document.getElementById('buscador'),
@@ -271,11 +273,15 @@
 
   // ---------- Pantalla de arranque ----------
 
+  // Al quitarla se ofrece instalar la app, si toca (ver instalar.js).
   function quitarArranque() {
     var a = el.arranque;
     if (!a || a.classList.contains('saliendo')) return;
     a.classList.add('saliendo');
-    setTimeout(function () { a.hidden = true; }, 400);
+    setTimeout(function () {
+      a.hidden = true;
+      Instalar.alEntrar();
+    }, 400);
   }
 
   if (el.arranque) {
@@ -284,7 +290,13 @@
       if (e.key === 'Enter' || e.key === ' ') quitarArranque();
     });
     setTimeout(quitarArranque, 2600);
+  } else {
+    Instalar.alEntrar();
   }
+
+  // "Instalar la app" al pie de Mis grupos. Si ya está instalada, no se ve.
+  el.pieInstalar.hidden = Instalar.instalada();
+  el.enlaceInstalar.addEventListener('click', function () { Instalar.mostrar(); });
 
   // ---------- Pantalla Inicio ----------
 
@@ -614,7 +626,7 @@
       var id = decodeURIComponent(partes[1]);
       var grupo = grupos.filter(function (g) { return g.id === id; })[0];
       pintarFicha(grupo);
-      document.title = grupo ? grupo.nombre + ' · backline' : 'backline';
+      document.title = grupo ? grupo.nombre + ' · Backline' : 'Backline';
       mostrar('ficha');
       window.scrollTo(0, 0);
       return;
@@ -622,7 +634,7 @@
 
     if (partes[0] === 'inicio') {
       pintarInicio();
-      document.title = 'Inicio · backline';
+      document.title = 'Inicio · Backline';
       mostrar('inicio');
       window.scrollTo(0, scrolls.inicio);
       return;
@@ -630,16 +642,16 @@
 
     if (partes[0] === 'conciertos') {
       Conciertos.pintarPestana(el.listaConciertos);
-      document.title = 'Conciertos · backline';
+      document.title = 'Conciertos · Backline';
       mostrar('conciertos');
       window.scrollTo(0, scrolls.conciertos);
       return;
     }
 
     if (partes[0] === 'concierto' && partes[1]) {
-      document.title = 'Concierto · backline';
+      document.title = 'Concierto · Backline';
       Conciertos.pintarDetalle(el.contenidoConcierto, decodeURIComponent(partes[1]), function (titulo) {
-        document.title = titulo + ' · backline';
+        document.title = titulo + ' · Backline';
       });
       mostrar('concierto');
       window.scrollTo(0, 0);
@@ -655,7 +667,7 @@
         if (desdeFicha && history.length > 1) history.back();
         else location.hash = grupoG ? '#/grupo/' + encodeURIComponent(grupoG.id) : '#/explorar';
       });
-      document.title = (grupoG ? '¿Es tu grupo? · ' + grupoG.nombre : '¿Es tu grupo?') + ' · backline';
+      document.title = (grupoG ? '¿Es tu grupo? · ' + grupoG.nombre : '¿Es tu grupo?') + ' · Backline';
       mostrar('gestionar');
       window.scrollTo(0, 0);
       return;
@@ -663,7 +675,7 @@
 
     if (partes[0] === 'acceso') {
       Panel.pintarAcceso(el.contenidoAcceso);
-      document.title = 'Acceso · backline';
+      document.title = 'Acceso · Backline';
       mostrar('acceso');
       window.scrollTo(0, 0);
       return;
@@ -671,7 +683,7 @@
 
     if (partes[0] === 'panel') {
       Panel.pintarPanel(el.contenidoPanel, partes);
-      document.title = 'Mi panel · backline';
+      document.title = 'Mi panel · Backline';
       mostrar('panel');
       window.scrollTo(0, 0);
       return;
@@ -679,13 +691,13 @@
 
     if (partes[0] === 'mis-grupos') {
       pintarMisGrupos();
-      document.title = 'Mis grupos · backline';
+      document.title = 'Mis grupos · Backline';
       mostrar('mis-grupos');
       window.scrollTo(0, scrolls['mis-grupos']);
       return;
     }
 
-    document.title = 'backline';
+    document.title = 'Backline';
     mostrar('explorar');
     window.scrollTo(0, scrolls.explorar);
   }

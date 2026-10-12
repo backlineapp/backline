@@ -1,10 +1,11 @@
-// backline — avisos al móvil (notificaciones), sin cuentas ni datos personales.
+// Backline — avisos al móvil (notificaciones), sin cuentas ni datos personales.
 //
 // Este archivo hace tres cosas:
 //   1. El recuadro de arriba de Mis grupos: activar o desactivar los avisos
 //      (el permiso se pide solo al pulsar el botón, nunca al abrir la app).
-//      En un iPhone sin la app instalada explica cómo añadirla a la pantalla
-//      de inicio, porque si no, iOS no deja recibir avisos.
+//      En un iPhone sin la app instalada dice que hay que instalarla (si no,
+//      iOS no deja recibir avisos) y abre el recuadro de instalar.js, que es
+//      el único sitio donde se explican los pasos.
 //   2. La campanita de cada ficha, para silenciar un grupo sin dejar de seguirlo.
 //   3. Mantener al día lo que sabe Supabase de este móvil: solo su
 //      "dirección de avisos" y la lista de grupos que sigue sin silenciar.
@@ -220,16 +221,10 @@
     return c;
   }
 
-  function pasosIphone() {
+  function instalarPrimero() {
     var c = caja('Recibe un aviso cuando tus grupos publiquen algo',
-      'En iPhone, los avisos solo llegan si backline está en la pantalla de inicio. Es un momento:');
-    var pasos = crear('ol', 'avisos-pasos');
-    [
-      'Toca el botón Compartir (el cuadrado con una flecha hacia arriba).',
-      'Elige «Añadir a pantalla de inicio» y pulsa «Añadir».',
-      'Abre backline desde el icono nuevo y vuelve aquí, a Mis grupos, para activar los avisos.'
-    ].forEach(function (t) { pasos.appendChild(crear('li', null, t)); });
-    c.appendChild(pasos);
+      'En iPhone, los avisos solo llegan si Backline está instalada en la pantalla de inicio. Instálala, ábrela desde su icono y vuelve aquí para activarlos.');
+    c.appendChild(boton('Cómo instalarla', 'boton', function () { Instalar.mostrar(); }));
     c.appendChild(crear('p', 'avisos-nota', 'Si al abrirla desde el icono no ves tus grupos, síguelos otra vez desde allí.'));
     return c;
   }
@@ -244,7 +239,7 @@
       c.appendChild(boton('Desactivar avisos', 'boton-texto', desactivar));
     } else if (Notification.permission === 'denied') {
       c = caja('Avisos bloqueados',
-        'Has bloqueado los avisos de backline en este móvil. Para recibirlos, permítelos en los ajustes del navegador o del móvil y vuelve aquí.');
+        'Has bloqueado los avisos de Backline en este móvil. Para recibirlos, permítelos en los ajustes del navegador o del móvil y vuelve aquí.');
     } else {
       c = caja('Recibe un aviso cuando tus grupos publiquen algo',
         'Solo conciertos y giras de los grupos que sigues. Sin cuenta y nunca de noche.');
@@ -261,7 +256,7 @@
       contenedor.textContent = '';
       // iPhone sin instalar: se explica cómo instalarla. Otros navegadores sin
       // avisos: no se muestra nada.
-      if (esIphone() && !instalada()) contenedor.appendChild(pasosIphone());
+      if (esIphone() && !instalada()) contenedor.appendChild(instalarPrimero());
       return;
     }
     suscripcionActual().then(function (sus) {
