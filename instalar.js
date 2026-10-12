@@ -3,7 +3,9 @@
 // Este archivo hace dos cosas:
 //   1. El recuadro "Instala Backline en tu móvil", que sale al entrar si la
 //      app no se ha abierto desde el icono. Cambia según dónde se abra:
-//        - Android/Chrome: botón que abre la instalación del propio navegador.
+//        - Android: si el navegador ofrece instalar, un botón que lo abre.
+//          Si no, los pasos de cada navegador: Chrome, Samsung Internet y
+//          Firefox tienen los suyos; para los demás sale un texto general.
 //        - iPhone/Safari: los pasos de Compartir > Añadir a pantalla de inicio.
 //        - Dentro de otra app (WhatsApp, Instagram, Telegram…): cómo abrirla
 //          en Safari o Chrome y un botón para copiar el enlace.
@@ -49,6 +51,22 @@
 
   function esAndroid() {
     return /Android/i.test(ua);
+  }
+
+  // Samsung Internet, el navegador de los móviles Samsung.
+  function esSamsung() {
+    return /SamsungBrowser/i.test(ua);
+  }
+
+  function esFirefox() {
+    return /Firefox\//i.test(ua);
+  }
+
+  // Chrome de verdad: otros navegadores también dicen "Chrome/" en su
+  // identificación, pero añaden su propio nombre.
+  function esChrome() {
+    return /Chrome\//.test(ua) &&
+      !/SamsungBrowser|OPR\/|Opera|EdgA\/|Edg\/|YaBrowser|UCBrowser|MiuiBrowser|XiaoMi|HuaweiBrowser|HeyTapBrowser|VivoBrowser|DuckDuckGo|Brave|Vivaldi/i.test(ua);
   }
 
   function esMovil() {
@@ -138,6 +156,10 @@
 
   var ICONO_MENU = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">' +
     '<circle cx="12" cy="5.5" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="18.5" r="1.8" fill="currentColor"/></svg>';
+
+  // El menú de Samsung Internet: tres rayas, abajo a la derecha.
+  var ICONO_MENU_RAYAS = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">' +
+    '<path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
 
   // Lista de pasos numerados, cada uno con su dibujito.
   function pasos(lista) {
@@ -233,11 +255,27 @@
       caja.appendChild(boton('Instalar Backline', 'boton', instalarConChrome));
       return;
     }
-    caja.appendChild(pasos([
-      { icono: ICONO_MENU, texto: ['Toca el menú ', { fuerte: '⋮' }, ' del navegador, arriba a la derecha.'] },
-      { icono: ICONO_ANADIR, texto: ['Elige ', { fuerte: 'Instalar aplicación' }, ' o ', { fuerte: 'Añadir a pantalla de inicio' }, '.'] },
-      { icono: ICONO_LISTO, texto: ['Confirma con ', { fuerte: 'Instalar' }, '.'] }
-    ]));
+    if (esSamsung()) {
+      caja.appendChild(pasos([
+        { icono: ICONO_MENU_RAYAS, texto: ['Toca el menú ', { fuerte: '≡' }, ' de abajo a la derecha.'] },
+        { icono: ICONO_ANADIR, texto: ['Elige ', { fuerte: 'Añadir página a' }, '.'] },
+        { icono: ICONO_LISTO, texto: ['Elige ', { fuerte: 'Pantalla de inicio' }, '.'] }
+      ]));
+    } else if (esFirefox()) {
+      caja.appendChild(pasos([
+        { icono: ICONO_MENU, texto: ['Toca el menú ', { fuerte: '⋮' }, ' del navegador.'] },
+        { icono: ICONO_ANADIR, texto: ['Elige ', { fuerte: 'Instalar' }, ' o ', { fuerte: 'Añadir a pantalla de inicio' }, '.'] },
+        { icono: ICONO_LISTO, texto: ['Confirma con ', { fuerte: 'Añadir' }, '.'] }
+      ]));
+    } else if (esChrome()) {
+      caja.appendChild(pasos([
+        { icono: ICONO_MENU, texto: ['Toca el menú ', { fuerte: '⋮' }, ' del navegador, arriba a la derecha.'] },
+        { icono: ICONO_ANADIR, texto: ['Elige ', { fuerte: 'Instalar aplicación' }, ' o ', { fuerte: 'Añadir a pantalla de inicio' }, '.'] },
+        { icono: ICONO_LISTO, texto: ['Confirma con ', { fuerte: 'Instalar' }, '.'] }
+      ]));
+    } else {
+      caja.appendChild(crear('p', 'instalar-texto', 'Busca en el menú del navegador la opción Instalar o Añadir a pantalla de inicio.'));
+    }
   }
 
   function contenidoOrdenador(caja) {
