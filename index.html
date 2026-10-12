@@ -50,7 +50,22 @@
       <ul id="lista" class="lista"></ul>
     </section>
 
-    <!-- Pantalla 2: Ficha de grupo -->
+    <!-- Pantalla 2: Mis grupos -->
+    <section id="pantalla-mis-grupos" class="pantalla" hidden>
+      <div class="titular">
+        <h1>Mis grupos</h1>
+        <p>Los grupos que sigues.</p>
+      </div>
+      <p id="contador-mis-grupos" class="etiqueta-seccion" aria-live="polite"></p>
+      <ul id="lista-mis-grupos" class="lista"></ul>
+      <div id="sin-grupos" class="sin-grupos" hidden>
+        <p class="sin-grupos-titulo">Aún no sigues a ningún grupo</p>
+        <p class="sin-grupos-texto">Explora la escena y pulsa <strong>Seguir</strong> en los grupos que te gusten. Aparecerán aquí.</p>
+        <a href="#/" class="boton">Ir a Explorar</a>
+      </div>
+    </section>
+
+    <!-- Pantalla 3: Ficha de grupo -->
     <section id="pantalla-ficha" class="pantalla" hidden>
       <button id="volver" class="volver" type="button">← Explorar</button>
       <article id="ficha" class="ficha"></article>
@@ -61,15 +76,24 @@
 
   <!-- Barra de navegación inferior -->
   <nav class="barra-inferior" aria-label="Secciones">
-    <a href="#/" class="pestana" aria-current="page">
+    <a href="#/" id="pestana-explorar" class="pestana" aria-current="page">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
         <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
         <path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor"/>
       </svg>
       <span>Explorar</span>
     </a>
+    <a href="#/mis-grupos" id="pestana-mis-grupos" class="pestana">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+      </svg>
+      <span>Mis grupos</span>
+    </a>
   </nav>
 
+  <script src="seguidos.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

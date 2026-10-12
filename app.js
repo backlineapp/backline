@@ -1,5 +1,6 @@
 // backline — el backstage de tus grupos favoritos.
-// Lee grupos.json y muestra dos pantallas: Explorar y Ficha de grupo.
+// Lee grupos.json y muestra tres pantallas: Explorar, Mis grupos y Ficha de grupo.
+// La lista de grupos seguidos la gestiona seguidos.js.
 
 (function () {
   'use strict';
@@ -40,16 +41,26 @@
   var PROHIBIDOS = /(^|\.)(facebook\.com|fb\.com|instagram\.com|x\.com|twitter\.com)$/i;
 
   var grupos = [];
-  var estado = { texto: '', familia: null, scroll: 0 };
-  var vengoDeExplorar = false;
+  var estado = { texto: '', familia: null };
+  // Posición de la lista en cada pantalla, para volver al mismo sitio.
+  var scrolls = { explorar: 0, 'mis-grupos': 0 };
+  // Pantalla desde la que se abrió la ficha ('explorar', 'mis-grupos' o null).
+  var origen = null;
+  var pantallaActual = null;
 
   var el = {
     explorar: document.getElementById('pantalla-explorar'),
+    misGrupos: document.getElementById('pantalla-mis-grupos'),
     ficha: document.getElementById('pantalla-ficha'),
     buscador: document.getElementById('buscador'),
     filtros: document.getElementById('filtros'),
     contador: document.getElementById('contador'),
     lista: document.getElementById('lista'),
+    contadorMios: document.getElementById('contador-mis-grupos'),
+    listaMios: document.getElementById('lista-mis-grupos'),
+    sinGrupos: document.getElementById('sin-grupos'),
+    pestanaExplorar: document.getElementById('pestana-explorar'),
+    pestanaMisGrupos: document.getElementById('pestana-mis-grupos'),
     contenidoFicha: document.getElementById('ficha'),
     volver: document.getElementById('volver'),
     aviso: document.getElementById('aviso'),
@@ -222,31 +233,51 @@
       return;
     }
 
-    var trozo = document.createDocumentFragment();
-    visibles.forEach(function (g) {
-      var li = document.createElement('li');
-      var a = crear('a', 'tarjeta ' + g._acento);
-      a.href = '#/grupo/' + encodeURIComponent(g.id);
-      a.appendChild(imagenPortada(g, {
-        clase: 'portada',
-        pequena: true,
-        perezosa: true,
-        alternativa: function () { return cuadroIniciales(g); }
-      }));
-      var texto = crear('div', 'tarjeta-texto');
-      texto.appendChild(crear('h3', 'tarjeta-nombre', g.nombre));
-      texto.appendChild(crear('p', 'tarjeta-detalle', [g.estilos, g.ciudad].filter(Boolean).join(' · ')));
-      a.appendChild(texto);
-      var flecha = crear('span', 'flecha', '›');
-      flecha.setAttribute('aria-hidden', 'true');
-      a.appendChild(flecha);
-      li.appendChild(a);
-      trozo.appendChild(li);
-    });
-    el.lista.appendChild(trozo);
+    el.lista.appendChild(filas(visibles));
   }
 
-  // ---------- Pantalla 2: Ficha de grupo ----------
+  // Fila de un grupo (portada, nombre, estilo · ciudad). La usan Explorar y Mis grupos.
+  function filaGrupo(g) {
+    var li = document.createElement('li');
+    var a = crear('a', 'tarjeta ' + g._acento);
+    a.href = '#/grupo/' + encodeURIComponent(g.id);
+    a.appendChild(imagenPortada(g, {
+      clase: 'portada',
+      pequena: true,
+      perezosa: true,
+      alternativa: function () { return cuadroIniciales(g); }
+    }));
+    var texto = crear('div', 'tarjeta-texto');
+    texto.appendChild(crear('h3', 'tarjeta-nombre', g.nombre));
+    texto.appendChild(crear('p', 'tarjeta-detalle', [g.estilos, g.ciudad].filter(Boolean).join(' · ')));
+    a.appendChild(texto);
+    var flecha = crear('span', 'flecha', '›');
+    flecha.setAttribute('aria-hidden', 'true');
+    a.appendChild(flecha);
+    li.appendChild(a);
+    return li;
+  }
+
+  function filas(lista) {
+    var trozo = document.createDocumentFragment();
+    lista.forEach(function (g) { trozo.appendChild(filaGrupo(g)); });
+    return trozo;
+  }
+
+  // ---------- Pantalla 2: Mis grupos ----------
+
+  // Mismo orden alfabético que Explorar. Si un grupo seguido ya no está en
+  // grupos.json, no se muestra, pero sigue guardado.
+  function pintarMisGrupos() {
+    var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
+    el.listaMios.textContent = '';
+    el.sinGrupos.hidden = mios.length > 0;
+    el.contadorMios.hidden = !mios.length;
+    el.contadorMios.textContent = mios.length === 1 ? 'Sigues 1 grupo' : 'Sigues ' + mios.length + ' grupos';
+    el.listaMios.appendChild(filas(mios));
+  }
+
+  // ---------- Pantalla 3: Ficha de grupo ----------
 
   function pintarFicha(grupo) {
     var f = el.contenidoFicha;
@@ -278,6 +309,7 @@
     datos.appendChild(crear('h1', 'perfil-nombre', grupo.nombre));
     datos.appendChild(crear('p', 'perfil-estilos', grupo.estilos));
     if (grupo.ciudad) datos.appendChild(crear('p', 'perfil-ciudad', grupo.ciudad));
+    datos.appendChild(botonSeguir(grupo));
     perfil.appendChild(datos);
     f.appendChild(perfil);
 
@@ -339,11 +371,46 @@
     f.appendChild(crear('p', 'reclamar', '¿Es tu grupo? Gestiona o retira tu ficha'));
   }
 
+  // Botón "Seguir" / "Siguiendo". Al pulsarlo se sigue o se deja de seguir.
+  function botonSeguir(grupo) {
+    var b = crear('button', 'seguir');
+    b.type = 'button';
+    function actualizar() {
+      var sigo = Seguidos.sigo(grupo.id);
+      b.textContent = sigo ? 'Siguiendo' : 'Seguir';
+      b.setAttribute('aria-pressed', String(sigo));
+      b.setAttribute('aria-label', (sigo ? 'Dejar de seguir a ' : 'Seguir a ') + grupo.nombre);
+    }
+    b.addEventListener('click', function () {
+      Seguidos.alternar(grupo.id);
+      actualizar();
+    });
+    actualizar();
+    return b;
+  }
+
   // ---------- Navegación entre pantallas ----------
 
   function mostrar(pantalla) {
+    // Guardamos por dónde iba la lista que dejamos atrás.
+    if (scrolls.hasOwnProperty(pantallaActual)) scrolls[pantallaActual] = window.scrollY;
+    if (pantalla === 'ficha' && pantallaActual !== 'ficha') origen = pantallaActual;
+    pantallaActual = pantalla;
+
     el.explorar.hidden = pantalla !== 'explorar';
+    el.misGrupos.hidden = pantalla !== 'mis-grupos';
     el.ficha.hidden = pantalla !== 'ficha';
+
+    // En la ficha se ilumina la pestaña desde la que se llegó.
+    var pestana = pantalla === 'ficha' ? (origen || 'explorar') : pantalla;
+    marcarPestana(el.pestanaExplorar, pestana === 'explorar');
+    marcarPestana(el.pestanaMisGrupos, pestana === 'mis-grupos');
+    el.volver.textContent = origen === 'mis-grupos' ? '← Mis grupos' : '← Explorar';
+  }
+
+  function marcarPestana(pestana, activa) {
+    if (activa) pestana.setAttribute('aria-current', 'page');
+    else pestana.removeAttribute('aria-current');
   }
 
   function alCambiarRuta() {
@@ -351,10 +418,6 @@
     var partes = ruta.split('/');
 
     if (partes[0] === 'grupo' && partes[1]) {
-      if (!el.explorar.hidden) {
-        estado.scroll = window.scrollY;
-        vengoDeExplorar = true;
-      }
       var id = decodeURIComponent(partes[1]);
       var grupo = grupos.filter(function (g) { return g.id === id; })[0];
       pintarFicha(grupo);
@@ -364,18 +427,31 @@
       return;
     }
 
+    if (partes[0] === 'mis-grupos') {
+      pintarMisGrupos();
+      document.title = 'Mis grupos · backline';
+      mostrar('mis-grupos');
+      window.scrollTo(0, scrolls['mis-grupos']);
+      return;
+    }
+
     document.title = 'backline';
     mostrar('explorar');
-    window.scrollTo(0, estado.scroll);
+    window.scrollTo(0, scrolls.explorar);
   }
 
   el.volver.addEventListener('click', function () {
-    // Si veníamos de Explorar, volvemos atrás como el botón del móvil.
-    if (vengoDeExplorar && history.length > 1) {
+    // Si veníamos de una lista, volvemos atrás como el botón del móvil.
+    if (origen && history.length > 1) {
       history.back();
     } else {
       location.hash = '#/';
     }
+  });
+
+  // Si la lista cambia en otra pestaña del navegador, Mis grupos se actualiza.
+  Seguidos.alCambiar(function () {
+    if (pantallaActual === 'mis-grupos') pintarMisGrupos();
   });
 
   el.buscador.addEventListener('input', function () {
