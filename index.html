@@ -16,32 +16,59 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="backline">
 
+  <!-- Las tipografías van dentro de la app: no se piden a ningún servicio externo -->
+  <link rel="preload" href="fuentes/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
+  <!-- Pantalla de arranque: logo y lema -->
+  <div id="arranque" class="arranque" role="button" tabindex="0" aria-label="Entrar en backline">
+    <img class="arranque-logo" src="logo.svg" alt="backline">
+    <p class="arranque-lema">El backstage de tus grupos favoritos</p>
+    <p class="arranque-pista">Toca para entrar</p>
+  </div>
+
   <header class="cabecera">
-    <a href="#/" class="logo" aria-label="backline, ir a Explorar">backline</a>
+    <a href="#/" class="logo" aria-label="backline, ir a Explorar">
+      <img src="logo.svg" alt="backline">
+    </a>
   </header>
 
   <main id="app">
     <!-- Pantalla 1: Explorar -->
     <section id="pantalla-explorar" class="pantalla" hidden>
+      <div class="titular">
+        <h1>Explorar</h1>
+        <p>Busca grupos por nombre o por estilo.</p>
+      </div>
       <div class="buscador">
         <input id="buscador" type="search" placeholder="Buscar grupo por nombre" autocomplete="off" aria-label="Buscar grupo por nombre">
       </div>
       <div id="filtros" class="filtros" role="group" aria-label="Filtrar por estilo"></div>
-      <p id="contador" class="contador" aria-live="polite"></p>
+      <p id="contador" class="etiqueta-seccion" aria-live="polite"></p>
       <ul id="lista" class="lista"></ul>
     </section>
 
     <!-- Pantalla 2: Ficha de grupo -->
     <section id="pantalla-ficha" class="pantalla" hidden>
-      <button id="volver" class="volver" type="button">← Volver</button>
+      <button id="volver" class="volver" type="button">← Explorar</button>
       <article id="ficha" class="ficha"></article>
     </section>
 
     <p id="aviso" class="aviso" hidden></p>
   </main>
+
+  <!-- Barra de navegación inferior -->
+  <nav class="barra-inferior" aria-label="Secciones">
+    <a href="#/" class="pestana" aria-current="page">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor"/>
+      </svg>
+      <span>Explorar</span>
+    </a>
+  </nav>
 
   <script src="app.js"></script>
 </body>

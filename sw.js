@@ -2,7 +2,7 @@
 // Siempre intenta traer la versión más reciente de internet; si no hay
 // conexión, usa la copia guardada.
 
-var CACHE = 'backline-v1';
+var CACHE = 'backline-v2';
 var ARCHIVOS = [
   './',
   'index.html',
@@ -10,6 +10,11 @@ var ARCHIVOS = [
   'app.js',
   'grupos.json',
   'manifest.json',
+  'logo.svg',
+  'fuentes/inter-latin-wght-normal.woff2',
+  'fuentes/inter-latin-ext-wght-normal.woff2',
+  'fuentes/space-grotesk-latin-wght-normal.woff2',
+  'fuentes/space-grotesk-latin-ext-wght-normal.woff2',
   'icono.svg',
   'icono-192.png',
   'icono-512.png',
