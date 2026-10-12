@@ -206,15 +206,58 @@
    "estilos": "Rock progresivo / sinfónico (en español)",
    "ciudad": "Castellón de la Plana",
    "estado": "Activo",
-   "enlace_principal": "Web propia",
+   "enlace_principal": "Web",
    "bandcamp": "",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/3jioIcOqezPb1bu39QyQrp",
    "apple_music": "",
-   "youtube": "",
-   "web": "https://www.dryriver.es",
-   "discografia": "Cuarto Creciente (2022), DC (2019, directo), 2038 (2018), Quien tenga algo que decir... Que calle para siempre (2014), El Circo de la Tierra (2011)",
-   "portada": "",
-   "discos": []
+   "youtube": "https://www.youtube.com/user/DryRiverBand",
+   "web": "https://www.dry-river.com",
+   "discografia": "Cuarto Creciente (2022), DC (directo) (2020), 2038 (2018), Rock & Rollo... ¡Y Caña! (directo) (2016), Quien Tenga Algo Que Decir... (2014), El Circo de la Tierra (2011)",
+   "portada": "https://backlineapp.github.io/backline/portadas/dry-river/cuarto-creciente.jpg",
+   "discos": [
+    {
+     "titulo": "Cuarto Creciente",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://open.spotify.com/intl-es/album/3cYNiEIew0AyNsTozFrlim",
+     "portada": "https://backlineapp.github.io/backline/portadas/dry-river/cuarto-creciente.jpg"
+    },
+    {
+     "titulo": "DC (directo)",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/dc-en-directo/1529124118",
+     "portada": "https://backlineapp.github.io/backline/portadas/dry-river/dc.jpg"
+    },
+    {
+     "titulo": "2038",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://open.spotify.com/intl-es/album/78kmb55FE800J4nl2xDxu2",
+     "portada": "https://backlineapp.github.io/backline/portadas/dry-river/2038.jpg"
+    },
+    {
+     "titulo": "Rock & Rollo... ¡Y Caña! (directo)",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/rock-rollo-y-ca%C3%B1a-en-directo/1179786481",
+     "portada": "https://backlineapp.github.io/backline/portadas/dry-river/rock-rollo-y-cana.jpg"
+    },
+    {
+     "titulo": "Quien Tenga Algo Que Decir...",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://open.spotify.com/intl-es/album/1dsE2HWMSJnZLspuZHcm9j",
+     "portada": "https://backlineapp.github.io/backline/portadas/dry-river/quien-tenga-algo-que-decir.jpg"
+    },
+    {
+     "titulo": "El Circo de la Tierra",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/el-circo-de-la-tierra/485205001",
+     "portada": "https://backlineapp.github.io/backline/portadas/dry-river/el-circo-de-la-tierra.jpg"
+    }
+   ]
   },
   {
    "id": "morgana-vs-morgana",
