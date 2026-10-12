@@ -3,6 +3,8 @@
 Esta guía se sigue **una sola vez**. Son 7 pasos, y todo se hace en la web de Supabase (https://supabase.com/dashboard), dentro del proyecto de backline. Los nombres de los menús pueden cambiar un poco con el tiempo. Si alguno no coincide, busca el más parecido.
 
 > Para los **avisos al móvil** y los **conciertos fuera de España** hay una guía aparte: `supabase/GUIA-AVISOS.md`.
+>
+> Para que **los grupos gestionen su ficha** (solicitudes y miembros) hay otra guía: `supabase/GUIA-MIEMBROS.md`.
 
 > **Nunca** copies ni compartas la clave secreta (la que se llama *secret* o *service_role*). La app no la necesita. La única clave que lleva la app es la pública (*publishable*), y esa puede estar a la vista sin problema.
 
@@ -18,7 +20,7 @@ Esta guía se sigue **una sola vez**. Son 7 pasos, y todo se hace en la web de S
 
 Al final del archivo van también los permisos para que la app pueda usar las tablas. Hacen falta porque tu proyecto se creó con "Automatically expose new tables" desactivado; sin ellos, la app daría el error "permission denied" (42501).
 
-Esto crea las tablas de publicaciones y fechas, la carpeta de carteles y las reglas de seguridad: todo el mundo puede leer, y solo el administrador puede crear, editar o borrar. Si un día hay que repetirlo, se puede volver a ejecutar sin miedo, porque no borra nada.
+Esto crea las tablas de publicaciones y fechas, la carpeta de carteles y las reglas de seguridad: todo el mundo puede leer, y solo el administrador (y, tras `GUIA-MIEMBROS.md`, los miembros de cada grupo) puede crear, editar o borrar. Si un día hay que repetirlo, se puede volver a ejecutar sin miedo, porque no borra nada.
 
 ## Paso 2. Que se puedan crear cuentas con el correo
 
