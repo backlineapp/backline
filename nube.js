@@ -1,0 +1,292 @@
+// backline — conexión con Supabase (cuentas, conciertos y carteles).
+//
+// Este archivo es el ÚNICO sitio de la app que habla con Supabase.
+// El resto de la app solo usa estas órdenes:
+//   Nube.enviarCodigo(correo)          -> manda un código de 6 cifras por email
+//   Nube.entrar(correo, codigo)        -> entra con ese código
+//   Nube.salir()
+//   Nube.cuenta()                      -> { correo, admin } o null
+//   Nube.alCambiarCuenta(fn)           -> avisa al entrar o salir
+//   Nube.proximasFechas(gruposIds)     -> próximos conciertos de esos grupos
+//   Nube.fecha(id)                     -> un concierto (fecha) con su publicación
+//   Nube.publicaciones()               -> todo lo publicado (para el panel)
+//   Nube.publicacion(id)               -> una publicación con sus fechas
+//   Nube.guardar(datos)                -> crea o actualiza concierto / gira
+//   Nube.borrar(publicacion)           -> borra publicación, fechas y cartel
+//   Nube.urlCartel(ruta)               -> dirección pública de un cartel
+//
+// La clave de abajo es la PÚBLICA (publishable): puede estar a la vista.
+// Lo que protege los datos son las reglas de la base de datos
+// (supabase/1-base-de-datos.sql). La clave secreta nunca va en la app.
+
+(function () {
+  'use strict';
+
+  var URL_SUPABASE = 'https://zyvrmiqqqdawskurvuvw.supabase.co';
+  var CLAVE_PUBLICA = 'sb_publishable_90VpZ_8ZdoFHStutukXItQ_Afe3K2jO';
+  var CARPETA = 'carteles';
+
+  var cliente = window.supabase && window.supabase.createClient(URL_SUPABASE, CLAVE_PUBLICA, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false }
+  });
+
+  var cuentaActual = null;
+  var avisos = [];
+
+  function sinConexion() {
+    return Promise.reject(new Error('No se ha podido conectar. Revisa la conexión.'));
+  }
+
+  // Convierte los errores de Supabase en mensajes para personas.
+  function traducir(error) {
+    var texto = String((error && (error.message || error.error_description)) || error || '');
+    var t = texto.toLowerCase();
+    if (/expired|invalid|otp|token/.test(t)) return 'El código no es correcto o ha caducado. Pide uno nuevo.';
+    if (/rate limit|too many|seconds/.test(t)) return 'Has pedido varios códigos seguidos. Espera unos minutos y vuelve a probar.';
+    if (/email/.test(t) && /valid/.test(t)) return 'Revisa el correo: no parece válido.';
+    if (/row-level security|permission|0 rows|no\) rows|not allowed|unauthorized|jwt/.test(t)) return 'No tienes permiso para hacer esto.';
+    if (/fetch|network|failed to/.test(t)) return 'No se ha podido conectar. Revisa la conexión.';
+    return 'Algo ha fallado (' + texto + ').';
+  }
+
+  function comprobar(respuesta) {
+    if (respuesta.error) throw new Error(traducir(respuesta.error));
+    return respuesta.data;
+  }
+
+  // ---------- Cuenta ----------
+
+  function avisar() {
+    avisos.forEach(function (fn) { try { fn(cuentaActual); } catch (e) { /* nada */ } });
+  }
+
+  function actualizarCuenta(sesion) {
+    if (!sesion || !sesion.user) {
+      cuentaActual = null;
+      avisar();
+      return Promise.resolve(null);
+    }
+    return cliente.rpc('es_admin').then(function (r) {
+      cuentaActual = { correo: sesion.user.email, admin: r.data === true };
+      avisar();
+      return cuentaActual;
+    }, function () {
+      cuentaActual = { correo: sesion.user.email, admin: false };
+      avisar();
+      return cuentaActual;
+    });
+  }
+
+  var listo = cliente
+    ? cliente.auth.getSession().then(function (r) { return actualizarCuenta(r.data && r.data.session); })
+      .catch(function () { return null; })
+    : Promise.resolve(null);
+
+  if (cliente) {
+    cliente.auth.onAuthStateChange(function (evento, sesion) {
+      if (evento === 'SIGNED_IN' || evento === 'SIGNED_OUT') {
+        // Fuera de este aviso, para no bloquear a Supabase mientras se pregunta.
+        setTimeout(function () { actualizarCuenta(sesion); }, 0);
+      }
+    });
+  }
+
+  function enviarCodigo(correo) {
+    if (!cliente) return sinConexion();
+    return cliente.auth.signInWithOtp({ email: correo, options: { shouldCreateUser: true } })
+      .then(comprobar);
+  }
+
+  function entrar(correo, codigo) {
+    if (!cliente) return sinConexion();
+    return cliente.auth.verifyOtp({ email: correo, token: codigo, type: 'email' })
+      .then(comprobar)
+      .then(function (datos) { return actualizarCuenta(datos.session); });
+  }
+
+  function salir() {
+    if (!cliente) return Promise.resolve();
+    return cliente.auth.signOut().then(function () { return actualizarCuenta(null); });
+  }
+
+  // ---------- Conciertos ----------
+
+  var CAMPOS_FECHA = 'id, fecha, hora, zona, ciudad, provincia, sala, precio, entradas';
+  var CAMPOS_PUBLICACION = 'id, grupo_id, tipo, titulo, cartel';
+
+  // Hoy en una zona horaria, como "2026-10-12".
+  function hoyEn(zona) {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: zona, year: 'numeric', month: '2-digit', day: '2-digit' })
+      .format(new Date());
+  }
+
+  // Quita las fechas que ya han pasado según la hora del lugar del concierto.
+  function soloProximas(fechas) {
+    var hoy = { 'Europe/Madrid': hoyEn('Europe/Madrid'), 'Atlantic/Canary': hoyEn('Atlantic/Canary') };
+    return fechas.filter(function (f) { return f.fecha >= (hoy[f.zona] || hoy['Europe/Madrid']); });
+  }
+
+  // Próximas fechas de varios grupos (o de uno), por orden de fecha y hora.
+  function proximasFechas(gruposIds) {
+    if (!cliente) return sinConexion();
+    if (!gruposIds.length) return Promise.resolve([]);
+    // Se pide desde ayer (en Canarias aún puede ser "ayer") y se afina aquí.
+    var ayer = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    return cliente.from('fechas')
+      .select(CAMPOS_FECHA + ', publicacion:publicaciones!inner(' + CAMPOS_PUBLICACION + ')')
+      .in('publicacion.grupo_id', gruposIds)
+      .in('publicacion.tipo', ['concierto', 'gira'])
+      .gte('fecha', ayer)
+      .order('fecha', { ascending: true })
+      .order('hora', { ascending: true, nullsFirst: false })
+      .then(comprobar)
+      .then(soloProximas);
+  }
+
+  function fecha(id) {
+    if (!cliente) return sinConexion();
+    return cliente.from('fechas')
+      .select(CAMPOS_FECHA + ', publicacion:publicaciones!inner(' + CAMPOS_PUBLICACION + ')')
+      .eq('id', id)
+      .maybeSingle()
+      .then(comprobar);
+  }
+
+  // ---------- Panel del administrador ----------
+
+  function publicaciones() {
+    if (!cliente) return sinConexion();
+    return cliente.from('publicaciones')
+      .select(CAMPOS_PUBLICACION + ', creado, fechas(' + CAMPOS_FECHA + ')')
+      .in('tipo', ['concierto', 'gira'])
+      .order('creado', { ascending: false })
+      .then(comprobar);
+  }
+
+  function publicacion(id) {
+    if (!cliente) return sinConexion();
+    return cliente.from('publicaciones')
+      .select(CAMPOS_PUBLICACION + ', fechas(' + CAMPOS_FECHA + ')')
+      .eq('id', id)
+      .maybeSingle()
+      .then(comprobar);
+  }
+
+  function urlCartel(ruta) {
+    if (!ruta || !cliente) return '';
+    return cliente.storage.from(CARPETA).getPublicUrl(ruta).data.publicUrl;
+  }
+
+  function idAleatorio() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
+  }
+
+  function subirCartel(grupoId, archivo) {
+    var ruta = grupoId + '/' + idAleatorio() + '.jpg';
+    return cliente.storage.from(CARPETA)
+      .upload(ruta, archivo, { contentType: 'image/jpeg', cacheControl: '31536000', upsert: false })
+      .then(comprobar)
+      .then(function () { return ruta; });
+  }
+
+  function borrarCartel(ruta) {
+    if (!ruta) return Promise.resolve();
+    return cliente.storage.from(CARPETA).remove([ruta]).then(comprobar);
+  }
+
+  function datosFecha(f) {
+    return {
+      fecha: f.fecha,
+      hora: f.hora || null,
+      zona: f.zona,
+      ciudad: f.ciudad,
+      provincia: f.provincia,
+      sala: f.sala,
+      precio: f.precio || null,
+      entradas: f.entradas || null
+    };
+  }
+
+  // Guarda un concierto o una gira.
+  // datos = { id?, grupo_id, tipo, titulo, cartelAnterior, cartelNuevo (Blob)?,
+  //           fechas: [{ id?, ...campos }], fechasBorradas: [id] }
+  // Orden: 1) sube el cartel nuevo; 2) guarda la publicación; 3) borra, cambia
+  // y añade fechas; 4) si había cartel viejo y se ha cambiado, lo borra.
+  function guardar(datos) {
+    if (!cliente) return sinConexion();
+    var rutaNueva = null;
+    var guardada = false;
+    var id = datos.id;
+
+    var paso = datos.cartelNuevo
+      ? subirCartel(datos.grupo_id, datos.cartelNuevo).then(function (r) { rutaNueva = r; })
+      : Promise.resolve();
+
+    return paso
+      .then(function () {
+        var fila = { grupo_id: datos.grupo_id, tipo: datos.tipo, titulo: datos.titulo || null };
+        if (rutaNueva) fila.cartel = rutaNueva;
+        var peticion = id
+          ? cliente.from('publicaciones').update(fila).eq('id', id).select('id').single()
+          : cliente.from('publicaciones').insert(fila).select('id').single();
+        return peticion.then(comprobar);
+      })
+      .then(function (fila) {
+        guardada = true;
+        id = fila.id;
+        var pasos = [];
+        if (datos.fechasBorradas && datos.fechasBorradas.length) {
+          pasos.push(cliente.from('fechas').delete().in('id', datos.fechasBorradas).then(comprobar));
+        }
+        datos.fechas.forEach(function (f) {
+          var filaFecha = datosFecha(f);
+          if (f.id) {
+            pasos.push(cliente.from('fechas').update(filaFecha).eq('id', f.id).then(comprobar));
+          } else {
+            filaFecha.publicacion_id = id;
+            pasos.push(cliente.from('fechas').insert(filaFecha).then(comprobar));
+          }
+        });
+        return Promise.all(pasos);
+      })
+      .then(function () {
+        // El cartel anterior ya no se usa: se borra (si falla, no es grave).
+        if (rutaNueva && datos.cartelAnterior) return borrarCartel(datos.cartelAnterior).catch(function () {});
+      })
+      .then(function () { return id; })
+      .catch(function (error) {
+        // Si no se llegó a guardar nada con el cartel nuevo, se quita para no dejar restos.
+        if (rutaNueva && !guardada) borrarCartel(rutaNueva).catch(function () {});
+        throw error;
+      });
+  }
+
+  // Borra una publicación (sus fechas se borran solas) y después su cartel.
+  function borrar(pub) {
+    if (!cliente) return sinConexion();
+    return cliente.from('publicaciones').delete().eq('id', pub.id).select('id')
+      .then(comprobar)
+      .then(function (filas) {
+        if (!filas || !filas.length) throw new Error('No tienes permiso para hacer esto.');
+        return borrarCartel(pub.cartel);
+      });
+  }
+
+  window.Nube = {
+    listo: listo,
+    disponible: !!cliente,
+    cuenta: function () { return cuentaActual; },
+    alCambiarCuenta: function (fn) { avisos.push(fn); },
+    enviarCodigo: enviarCodigo,
+    entrar: entrar,
+    salir: salir,
+    proximasFechas: proximasFechas,
+    fecha: fecha,
+    publicaciones: publicaciones,
+    publicacion: publicacion,
+    guardar: guardar,
+    borrar: borrar,
+    urlCartel: urlCartel
+  };
+})();

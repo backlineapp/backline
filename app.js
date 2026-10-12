@@ -1,6 +1,8 @@
 // backline — el backstage de tus grupos favoritos.
-// Lee grupos.json y muestra cuatro pantallas: Inicio, Explorar, Mis grupos y Ficha de grupo.
-// La lista de grupos seguidos la gestiona seguidos.js.
+// Lee grupos.json y muestra las pantallas: Inicio, Explorar, Conciertos,
+// Mis grupos, Ficha de grupo, Concierto, Acceso y Panel.
+// La lista de grupos seguidos la gestiona seguidos.js; los conciertos,
+// conciertos.js; el acceso y el panel, panel.js; Supabase, nube.js.
 
 (function () {
   'use strict';
@@ -43,16 +45,24 @@
   // Lanzamientos que muestra Inicio de una vez; "Ver más" añade otros tantos.
   var POR_TANDA = 30;
 
-  // Nombre de cada pestaña, para el botón de volver desde la ficha.
-  var NOMBRES = { inicio: 'Inicio', explorar: 'Explorar', 'mis-grupos': 'Mis grupos' };
+  // Nombre de cada pantalla, para el botón de volver desde la ficha o un concierto.
+  var NOMBRES = {
+    inicio: 'Inicio', explorar: 'Explorar', conciertos: 'Conciertos', 'mis-grupos': 'Mis grupos',
+    acceso: 'Acceso', panel: 'Mi panel'
+  };
+
+  // Pantallas de detalle (se vuelve de ellas a la pantalla de origen) y
+  // pestaña de la barra que se ilumina en las que no son pestaña.
+  var DETALLES = { ficha: true, concierto: true };
+  var PESTANA_DE = { acceso: 'mis-grupos', panel: 'mis-grupos' };
 
   var grupos = [];
   var estado = { texto: '', familia: null };
   // Cuántos lanzamientos se ven ahora mismo en Inicio.
   var visiblesInicio = POR_TANDA;
   // Posición de la lista en cada pantalla, para volver al mismo sitio.
-  var scrolls = { inicio: 0, explorar: 0, 'mis-grupos': 0 };
-  // Pantalla desde la que se abrió la ficha ('inicio', 'explorar', 'mis-grupos' o null).
+  var scrolls = { inicio: 0, explorar: 0, conciertos: 0, 'mis-grupos': 0 };
+  // Pantalla desde la que se abrió la ficha o el concierto ('inicio', 'explorar'... o null).
   var origen = null;
   var pantallaActual = null;
 
@@ -63,6 +73,16 @@
     sinGruposInicio: document.getElementById('sin-grupos-inicio'),
     pestanaInicio: document.getElementById('pestana-inicio'),
     explorar: document.getElementById('pantalla-explorar'),
+    conciertos: document.getElementById('pantalla-conciertos'),
+    listaConciertos: document.getElementById('lista-conciertos'),
+    concierto: document.getElementById('pantalla-concierto'),
+    contenidoConcierto: document.getElementById('concierto'),
+    acceso: document.getElementById('pantalla-acceso'),
+    contenidoAcceso: document.getElementById('acceso'),
+    panel: document.getElementById('pantalla-panel'),
+    contenidoPanel: document.getElementById('panel'),
+    pestanaConciertos: document.getElementById('pestana-conciertos'),
+    enlaceAcceso: document.getElementById('enlace-acceso'),
     misGrupos: document.getElementById('pantalla-mis-grupos'),
     ficha: document.getElementById('pantalla-ficha'),
     buscador: document.getElementById('buscador'),
@@ -75,7 +95,7 @@
     pestanaExplorar: document.getElementById('pestana-explorar'),
     pestanaMisGrupos: document.getElementById('pestana-mis-grupos'),
     contenidoFicha: document.getElementById('ficha'),
-    volver: document.getElementById('volver'),
+    volver: document.querySelectorAll('.volver'),
     aviso: document.getElementById('aviso'),
     arranque: document.getElementById('arranque')
   };
@@ -460,6 +480,11 @@
       f.appendChild(caja);
     }
 
+    // Próximos conciertos (solo aparece si hay alguno)
+    var cajaConciertos = crear('div', 'ficha-conciertos');
+    f.appendChild(cajaConciertos);
+    Conciertos.rellenarFicha(cajaConciertos, grupo);
+
     // Discografía con portadas, separando discos y singles.
     if (tieneLista(grupo)) {
       var lanzamientos = lanzamientosDe(grupo);
@@ -528,20 +553,24 @@
   function mostrar(pantalla) {
     // Guardamos por dónde iba la lista que dejamos atrás.
     if (scrolls.hasOwnProperty(pantallaActual)) scrolls[pantallaActual] = window.scrollY;
-    if (pantalla === 'ficha' && pantallaActual !== 'ficha') origen = pantallaActual;
+    if (DETALLES[pantalla] && !DETALLES[pantallaActual]) origen = pantallaActual;
     pantallaActual = pantalla;
 
-    el.inicio.hidden = pantalla !== 'inicio';
-    el.explorar.hidden = pantalla !== 'explorar';
-    el.misGrupos.hidden = pantalla !== 'mis-grupos';
-    el.ficha.hidden = pantalla !== 'ficha';
+    ['inicio', 'explorar', 'conciertos', 'misGrupos', 'ficha', 'concierto', 'acceso', 'panel'].forEach(function (k) {
+      var nombre = k === 'misGrupos' ? 'mis-grupos' : k;
+      el[k].hidden = pantalla !== nombre;
+    });
 
-    // En la ficha se ilumina la pestaña desde la que se llegó.
-    var pestana = pantalla === 'ficha' ? (origen || 'explorar') : pantalla;
+    // En la ficha y en un concierto se ilumina la pestaña desde la que se llegó.
+    var pestana = DETALLES[pantalla] ? (origen || 'explorar') : pantalla;
+    pestana = PESTANA_DE[pestana] || pestana;
     marcarPestana(el.pestanaInicio, pestana === 'inicio');
     marcarPestana(el.pestanaExplorar, pestana === 'explorar');
+    marcarPestana(el.pestanaConciertos, pestana === 'conciertos');
     marcarPestana(el.pestanaMisGrupos, pestana === 'mis-grupos');
-    el.volver.textContent = '← ' + NOMBRES[origen || 'explorar'];
+    Array.prototype.forEach.call(el.volver, function (b) {
+      b.textContent = '← ' + NOMBRES[origen || 'explorar'];
+    });
   }
 
   function marcarPestana(pestana, activa) {
@@ -580,6 +609,40 @@
       return;
     }
 
+    if (partes[0] === 'conciertos') {
+      Conciertos.pintarPestana(el.listaConciertos);
+      document.title = 'Conciertos · backline';
+      mostrar('conciertos');
+      window.scrollTo(0, scrolls.conciertos);
+      return;
+    }
+
+    if (partes[0] === 'concierto' && partes[1]) {
+      document.title = 'Concierto · backline';
+      Conciertos.pintarDetalle(el.contenidoConcierto, decodeURIComponent(partes[1]), function (titulo) {
+        document.title = titulo + ' · backline';
+      });
+      mostrar('concierto');
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (partes[0] === 'acceso') {
+      Panel.pintarAcceso(el.contenidoAcceso);
+      document.title = 'Acceso · backline';
+      mostrar('acceso');
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (partes[0] === 'panel') {
+      Panel.pintarPanel(el.contenidoPanel, partes);
+      document.title = 'Mi panel · backline';
+      mostrar('panel');
+      window.scrollTo(0, 0);
+      return;
+    }
+
     if (partes[0] === 'mis-grupos') {
       pintarMisGrupos();
       document.title = 'Mis grupos · backline';
@@ -593,19 +656,29 @@
     window.scrollTo(0, scrolls.explorar);
   }
 
-  el.volver.addEventListener('click', function () {
-    // Si veníamos de una lista, volvemos atrás como el botón del móvil.
-    if (origen && history.length > 1) {
-      history.back();
-    } else {
-      location.hash = '#/' + (origen || 'explorar');
-    }
+  Array.prototype.forEach.call(el.volver, function (b) {
+    b.addEventListener('click', function () {
+      // Si veníamos de una lista, volvemos atrás como el botón del móvil.
+      if (origen && history.length > 1) {
+        history.back();
+      } else {
+        location.hash = '#/' + (origen || 'explorar');
+      }
+    });
   });
 
   // Si la lista cambia en otra pestaña del navegador, Inicio y Mis grupos se actualizan.
   Seguidos.alCambiar(function () {
     if (pantallaActual === 'mis-grupos') pintarMisGrupos();
     if (pantallaActual === 'inicio') pintarInicio();
+    if (pantallaActual === 'conciertos') Conciertos.pintarPestana(el.listaConciertos);
+  });
+
+  // El enlace discreto de Mis grupos lleva al panel si ha entrado el administrador.
+  Nube.alCambiarCuenta(function (cuenta) {
+    var admin = !!(cuenta && cuenta.admin);
+    el.enlaceAcceso.textContent = admin ? 'Mi panel' : 'Acceso';
+    el.enlaceAcceso.href = admin ? '#/panel' : '#/acceso';
   });
 
   el.verMas.addEventListener('click', function () {
@@ -619,6 +692,19 @@
   });
 
   // ---------- Arranque ----------
+
+  // Piezas comunes que usan conciertos.js y panel.js.
+  var piezas = {
+    crear: crear,
+    urlPermitida: urlPermitida,
+    enlaceExterno: enlaceExterno,
+    cuadroIniciales: cuadroIniciales,
+    grupoPorId: function (id) { return grupos.filter(function (g) { return g.id === id; })[0] || null; },
+    todosLosGrupos: function () { return grupos; },
+    gruposSeguidos: function () { return grupos.filter(function (g) { return Seguidos.sigo(g.id); }); }
+  };
+  Conciertos.iniciar(piezas);
+  Panel.iniciar(piezas);
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
