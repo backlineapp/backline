@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>backline</title>
+  <meta name="description" content="El backstage de tus grupos favoritos.">
+  <meta name="theme-color" content="#0B0E13">
+
+  <!-- Para que se pueda instalar como app -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="backline">
+
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <a href="#/" class="logo" aria-label="backline, ir a Explorar">backline</a>
+  </header>
+
+  <main id="app">
+    <!-- Pantalla 1: Explorar -->
+    <section id="pantalla-explorar" class="pantalla" hidden>
+      <div class="buscador">
+        <input id="buscador" type="search" placeholder="Buscar grupo por nombre" autocomplete="off" aria-label="Buscar grupo por nombre">
+      </div>
+      <div id="filtros" class="filtros" role="group" aria-label="Filtrar por estilo"></div>
+      <p id="contador" class="contador" aria-live="polite"></p>
+      <ul id="lista" class="lista"></ul>
+    </section>
+
+    <!-- Pantalla 2: Ficha de grupo -->
+    <section id="pantalla-ficha" class="pantalla" hidden>
+      <button id="volver" class="volver" type="button">← Volver</button>
+      <article id="ficha" class="ficha"></article>
+    </section>
+
+    <p id="aviso" class="aviso" hidden></p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
