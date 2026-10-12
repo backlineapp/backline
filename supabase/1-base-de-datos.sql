@@ -220,3 +220,26 @@ create policy "carteles: borrar quien publica"
   on storage.objects for delete
   to authenticated
   using (bucket_id = 'carteles' and public.puede_publicar((storage.foldername(name))[1]));
+
+-- ---------------------------------------------------------------------------
+-- Permisos de acceso a través de la API (Data API)
+-- ---------------------------------------------------------------------------
+-- El proyecto se creó con "Automatically expose new tables" desactivado, así
+-- que las tablas nuevas no tienen permisos automáticos. Sin estas líneas la
+-- app recibiría "permission denied" (error 42501).
+-- Estos permisos solo abren la puerta: lo que cada cuenta puede ver o cambiar
+-- lo siguen decidiendo las reglas de seguridad de arriba.
+-- Se pueden ejecutar varias veces: dar un permiso que ya existe no hace nada.
+
+grant select on public.administradores to authenticated;
+
+grant select on public.publicaciones to anon, authenticated;
+grant insert, update, delete on public.publicaciones to authenticated;
+
+grant select on public.fechas to anon, authenticated;
+grant insert, update, delete on public.fechas to authenticated;
+
+-- Las reglas de seguridad usan estas funciones, así que quien hace la
+-- petición tiene que poder ejecutarlas.
+grant execute on function public.es_admin() to anon, authenticated;
+grant execute on function public.puede_publicar(text) to anon, authenticated;

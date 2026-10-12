@@ -14,6 +14,8 @@ Esta guía se sigue **una sola vez**. Son 7 pasos, y todo se hace en la web de S
 4. Pulsa **Run** (abajo a la derecha).
 5. Debe salir **"Success. No rows returned"**. Si sale algún aviso en amarillo, no pasa nada.
 
+Al final del archivo van también los permisos para que la app pueda usar las tablas. Hacen falta porque tu proyecto se creó con "Automatically expose new tables" desactivado; sin ellos, la app daría el error "permission denied" (42501).
+
 Esto crea las tablas de publicaciones y fechas, la carpeta de carteles y las reglas de seguridad: todo el mundo puede leer, y solo el administrador puede crear, editar o borrar. Si un día hay que repetirlo, se puede volver a ejecutar sin miedo, porque no borra nada.
 
 ## Paso 2. Que se puedan crear cuentas con el correo
