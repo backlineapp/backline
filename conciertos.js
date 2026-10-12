@@ -5,13 +5,15 @@
 //
 // La hora de cada concierto es SIEMPRE la hora local del lugar (la del cartel).
 // Cada fecha guarda su zona horaria: península, Baleares, Ceuta y Melilla van
-// con la hora de Madrid; Canarias, una hora menos.
+// con la hora de Madrid; Canarias, una hora menos. Fuera de España, cada país
+// con la suya (Portugal y Reino Unido, una hora menos que Madrid).
 
 (function () {
   'use strict';
 
   var CANARIAS = 'Atlantic/Canary';
   var PENINSULA = 'Europe/Madrid';
+  var ESPANA = 'España';
 
   // Provincias (y ciudades autónomas) en el orden en que se muestran.
   var PROVINCIAS = [
@@ -25,6 +27,35 @@
     'Tarragona', 'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Zamora', 'Zaragoza'
   ];
 
+  // Países que se sugieren al escribir (se puede escribir cualquier otro).
+  var PAISES = [
+    'Alemania', 'Andorra', 'Austria', 'Bélgica', 'Dinamarca', 'Eslovenia', 'Finlandia',
+    'Francia', 'Grecia', 'Irlanda', 'Islandia', 'Italia', 'Luxemburgo', 'Noruega',
+    'Países Bajos', 'Polonia', 'Portugal', 'Reino Unido', 'República Checa', 'Suecia', 'Suiza'
+  ];
+
+  // Países con una hora distinta de la de Madrid (escritos sin mayúsculas ni
+  // tildes). Cualquier otro país va con la hora de Madrid, que es la de casi
+  // toda Europa (Francia, Italia, Alemania...).
+  var ZONAS_PAIS = {
+    'portugal': 'Europe/Lisbon',
+    'reino unido': 'Europe/London',
+    'inglaterra': 'Europe/London',
+    'escocia': 'Europe/London',
+    'gales': 'Europe/London',
+    'irlanda del norte': 'Europe/London',
+    'irlanda': 'Europe/Dublin',
+    'islandia': 'Atlantic/Reykjavik',
+    'grecia': 'Europe/Athens',
+    'chipre': 'Europe/Athens',
+    'bulgaria': 'Europe/Athens',
+    'rumania': 'Europe/Athens',
+    'finlandia': 'Europe/Helsinki',
+    'estonia': 'Europe/Helsinki',
+    'letonia': 'Europe/Helsinki',
+    'lituania': 'Europe/Helsinki'
+  };
+
   // Duración que se apunta en el calendario.
   var HORAS_EN_CALENDARIO = 3;
 
@@ -32,7 +63,39 @@
 
   function iniciar(piezas) { ayuda = piezas; }
 
-  function zonaDe(provincia) {
+  // Sin mayúsculas ni tildes: "España" -> "espana".
+  function normalizar(texto) {
+    return String(texto || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  }
+
+  function esEspana(pais) {
+    return !pais || normalizar(pais) === 'espana';
+  }
+
+  // País tal como se guarda: con la forma de la lista si coincide
+  // ("portugal" -> "Portugal") y, si no, con la primera letra en mayúscula.
+  function paisCanonico(texto) {
+    texto = String(texto || '').trim().replace(/\s+/g, ' ');
+    if (esEspana(texto)) return ESPANA;
+    var n = normalizar(texto);
+    for (var i = 0; i < PAISES.length; i++) if (normalizar(PAISES[i]) === n) return PAISES[i];
+    return texto.charAt(0).toUpperCase() + texto.slice(1);
+  }
+
+  // País de una fecha. Las fechas antiguas no tenían país y algunas llevaban
+  // el país en la provincia ("Francia"): se leen bien igualmente.
+  function paisDe(f) {
+    if (f && f.pais) return f.pais;
+    if (f && f.provincia && PROVINCIAS.indexOf(f.provincia) === -1) return paisCanonico(f.provincia);
+    return ESPANA;
+  }
+
+  function provinciaDe(f) {
+    return f && f.provincia && PROVINCIAS.indexOf(f.provincia) !== -1 ? f.provincia : '';
+  }
+
+  function zonaDe(provincia, pais) {
+    if (!esEspana(pais)) return ZONAS_PAIS[normalizar(pais)] || PENINSULA;
     return provincia === 'Las Palmas' || provincia === 'Santa Cruz de Tenerife' ? CANARIAS : PENINSULA;
   }
 
@@ -110,7 +173,23 @@
   }
 
   function lugar(f) {
-    return [f.sala, f.ciudad, f.provincia !== f.ciudad ? f.provincia : ''].filter(Boolean).join(', ');
+    var pais = paisDe(f);
+    var provincia = provinciaDe(f);
+    return [f.sala, f.ciudad, provincia !== f.ciudad ? provincia : '', pais].filter(Boolean).join(', ');
+  }
+
+  // "Castellón" o, fuera de España, "Lisboa (Portugal)".
+  function ciudadConPais(f) {
+    var pais = paisDe(f);
+    return esEspana(pais) ? f.ciudad : f.ciudad + ' (' + pais + ')';
+  }
+
+  // Aclaración de la hora cuando no es la de Madrid: "(hora de Portugal)".
+  function notaHora(f) {
+    if (f.zona === CANARIAS) return ' (hora de Canarias)';
+    var pais = paisDe(f);
+    if (!esEspana(pais) && f.zona && f.zona !== PENINSULA) return ' (hora de ' + pais + ')';
+    return '';
   }
 
   function crearIcs(f, grupo) {
@@ -170,7 +249,7 @@
   }
 
   function urlMapa(f) {
-    var q = encodeURIComponent(lugar(f) + ', España');
+    var q = encodeURIComponent(lugar(f));
     return esIphone() ? 'https://maps.apple.com/?q=' + q : 'https://www.google.com/maps/search/?api=1&query=' + q;
   }
 
@@ -202,7 +281,7 @@
     var texto = ayuda.crear('div', 'tarjeta-texto');
     if (conGrupo) texto.appendChild(ayuda.crear('h3', 'tarjeta-nombre', grupo.nombre));
     texto.appendChild(ayuda.crear('p', 'concierto-cuando', cuando(f)));
-    texto.appendChild(ayuda.crear('p', 'concierto-donde', f.sala + ' · ' + f.ciudad));
+    texto.appendChild(ayuda.crear('p', 'concierto-donde', f.sala + ' · ' + ciudadConPais(f)));
     if (f.publicacion.tipo === 'gira' && f.publicacion.titulo) {
       texto.appendChild(ayuda.crear('p', 'concierto-gira', f.publicacion.titulo));
     }
@@ -353,9 +432,10 @@
       var datos = ayuda.crear('dl', 'datos-concierto');
       var textoFecha = fechaLarga(f.fecha);
       dato(datos, 'Fecha', textoFecha.charAt(0).toUpperCase() + textoFecha.slice(1));
-      dato(datos, 'Hora', f.hora ? hora(f.hora) + (f.zona === CANARIAS ? ' (hora de Canarias)' : '') : 'Por confirmar');
+      dato(datos, 'Hora', f.hora ? hora(f.hora) + notaHora(f) : 'Por confirmar');
       dato(datos, 'Sala', f.sala);
-      dato(datos, 'Ciudad', f.provincia && f.provincia !== f.ciudad ? f.ciudad + ' (' + f.provincia + ')' : f.ciudad);
+      var provincia = provinciaDe(f);
+      dato(datos, 'Ciudad', provincia && provincia !== f.ciudad ? f.ciudad + ' (' + provincia + ')' : ciudadConPais(f));
       dato(datos, 'Precio', f.precio);
       contenedor.appendChild(datos);
 
@@ -383,7 +463,13 @@
   window.Conciertos = {
     iniciar: iniciar,
     PROVINCIAS: PROVINCIAS,
+    PAISES: PAISES,
+    ESPANA: ESPANA,
     zonaDe: zonaDe,
+    esEspana: esEspana,
+    paisCanonico: paisCanonico,
+    paisDe: paisDe,
+    provinciaDe: provinciaDe,
     fechaCorta: fechaCorta,
     hora: hora,
     pintarPestana: pintarPestana,

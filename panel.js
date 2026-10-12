@@ -413,6 +413,18 @@
     return Conciertos.PROVINCIAS.map(function (p) { return { valor: p, texto: p }; });
   }
 
+  // Sugerencias del campo País (se puede escribir cualquier otro).
+  function listaPaises() {
+    var lista = document.createElement('datalist');
+    lista.id = 'lista-paises';
+    [Conciertos.ESPANA].concat(Conciertos.PAISES).forEach(function (p) {
+      var o = document.createElement('option');
+      o.value = p;
+      lista.appendChild(o);
+    });
+    return lista;
+  }
+
   // Bloque con los campos de una fecha. Devuelve { nodo, leer(), id }.
   function bloqueFecha(f, conPrecio, alQuitar) {
     f = f || {};
@@ -420,7 +432,8 @@
     var fecha = entrada('date', f.fecha, { required: '' });
     var hora = entrada('time', Conciertos.hora(f.hora), { required: '' });
     var ciudad = entrada('text', f.ciudad, { required: '', maxlength: '120', autocomplete: 'off' });
-    var provincia = selector(opcionesProvincias(), f.provincia, 'Elige provincia');
+    var provincia = selector(opcionesProvincias(), Conciertos.provinciaDe(f), 'Elige provincia');
+    var pais = entrada('text', Conciertos.paisDe(f), { required: '', maxlength: '60', autocomplete: 'off', list: 'lista-paises' });
     var sala = entrada('text', f.sala, { required: '', maxlength: '160', autocomplete: 'off' });
     var precio = entrada('text', f.precio, { maxlength: '80', placeholder: 'Ej.: 12 € anticipada / 15 € taquilla' });
     var entradas = entrada('url', f.entradas, { inputmode: 'url', placeholder: 'https://…' });
@@ -430,9 +443,16 @@
     fila.appendChild(campo('Hora', hora, 'Hora del lugar del concierto'));
     nodo.appendChild(fila);
     var fila2 = crear('div', 'campos-dos');
-    fila2.appendChild(campo('Ciudad', ciudad));
-    fila2.appendChild(campo('Provincia', provincia));
+    fila2.appendChild(campo('País', pais));
+    var campoProvincia = campo('Provincia', provincia);
+    fila2.appendChild(campoProvincia);
     nodo.appendChild(fila2);
+    nodo.appendChild(campo('Ciudad', ciudad));
+    // Fuera de España la provincia no hace falta: se esconde.
+    function verProvincia() { campoProvincia.hidden = !Conciertos.esEspana(pais.value); }
+    pais.addEventListener('input', verProvincia);
+    pais.addEventListener('focus', function () { if (Conciertos.esEspana(pais.value)) pais.select(); });
+    verProvincia();
     nodo.appendChild(campo('Sala', sala));
     if (conPrecio) nodo.appendChild(campo('Precio (opcional)', precio));
     nodo.appendChild(campo('Enlace a entradas (opcional)', entradas));
@@ -450,12 +470,14 @@
           fecha: fecha.value,
           hora: hora.value,
           ciudad: ciudad.value.trim(),
-          provincia: provincia.value,
+          pais: Conciertos.paisCanonico(pais.value),
+          provincia: Conciertos.esEspana(pais.value) ? provincia.value : '',
           sala: sala.value.trim(),
           precio: conPrecio ? precio.value.trim() : (f.precio || ''),
           entradas: entradas.value.trim()
         };
-        datos.zona = Conciertos.zonaDe(datos.provincia);
+        if (!pais.value.trim()) datos.pais = '';
+        datos.zona = Conciertos.zonaDe(datos.provincia, datos.pais);
         return datos;
       }
     };
@@ -467,7 +489,8 @@
     if (!d.fecha) return 'Falta el día' + donde + '.';
     if (!d.hora) return 'Falta la hora' + donde + '.';
     if (!d.ciudad) return 'Falta la ciudad' + donde + '.';
-    if (!d.provincia) return 'Falta la provincia' + donde + '.';
+    if (!d.pais) return 'Falta el país' + donde + '.';
+    if (d.pais === Conciertos.ESPANA && !d.provincia) return 'Falta la provincia' + donde + '.';
     if (!d.sala) return 'Falta la sala' + donde + '.';
     if (d.entradas && !ayuda.urlPermitida(d.entradas)) {
       return 'El enlace a entradas' + donde + ' no es válido (debe empezar por https:// y no puede ser de redes sociales).';
@@ -574,6 +597,7 @@
 
     if (esGira) form.appendChild(crear('p', 'etiqueta-seccion', 'Fechas'));
     form.appendChild(cajaFechas);
+    form.appendChild(listaPaises());
     if (esGira) {
       form.appendChild(boton('+ Añadir fecha', 'boton-secundario boton-ancho', function () {
         var b = anadir(null);

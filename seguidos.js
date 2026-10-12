@@ -7,6 +7,11 @@
 //   Seguidos.seguir(id) / Seguidos.dejar(id)
 //   Seguidos.ids()          -> identificadores de los grupos seguidos
 //   Seguidos.alCambiar(fn)  -> avisa cuando la lista cambia
+//   Seguidos.silenciado(id) -> ¿he silenciado sus avisos? (sí / no)
+//   Seguidos.alternarSilencio(id) -> silencia o vuelve a avisar; devuelve
+//                              true si queda silenciado
+//   Seguidos.idsConAvisos() -> grupos seguidos y no silenciados (los que
+//                              mandan avisos a este móvil)
 //
 // Hoy la lista se guarda solo en el propio móvil, sin cuentas.
 // Cuando lleguen las cuentas ("registro para guardar" con Supabase) solo
@@ -38,7 +43,8 @@
     }
   };
 
-  // Cada elemento es { id: 'noah-histeria', desde: '2026-10-12T18:00:00.000Z' }.
+  // Cada elemento es { id: 'noah-histeria', desde: '2026-10-12T18:00:00.000Z' }
+  // y, si se ha silenciado con la campanita, además silencio: true.
   // "desde" servirá más adelante para el feed y para subir la lista a la cuenta.
   var lista = limpiar(almacenLocal.leer());
   var oyentes = [];
@@ -94,6 +100,21 @@
     },
     alCambiar: function (fn) {
       oyentes.push(fn);
+    },
+    silenciado: function (id) {
+      var i = posicion(id);
+      return i !== -1 && lista[i].silencio === true;
+    },
+    alternarSilencio: function (id) {
+      var i = posicion(id);
+      if (i === -1) return false;
+      if (lista[i].silencio) delete lista[i].silencio;
+      else lista[i].silencio = true;
+      guardarYAvisar();
+      return Seguidos.silenciado(id);
+    },
+    idsConAvisos: function () {
+      return lista.filter(function (s) { return !s.silencio; }).map(function (s) { return s.id; });
     }
   };
 
