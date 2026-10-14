@@ -1,5 +1,5 @@
 {
- "total": 217,
+ "total": 222,
  "actualizado": "2026-10-12",
  "grupos": [
   {
@@ -10,9 +10,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://elaltardelholocausto.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/6AEeXqGVaN6n3H4TNMURXT",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/elaltardelholocausto",
    "web": "",
    "discografia": "ECOS (2026), TRINIDAD (2021), -IT- (2019), -SHƎ- (2015), -HƎ- (2013)",
    "portada": "https://f4.bcbits.com/img/a3241812903_16.jpg",
@@ -125,10 +125,10 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://noahhisteria.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "spotify": "https://open.spotify.com/artist/1k896cJbWCTU5rbFPM1Vc1",
+   "apple_music": "https://music.apple.com/us/artist/noah-histeria/843035587",
+   "youtube": "https://www.youtube.com/noahhisteria",
+   "web": "https://noahhisteria.com",
    "discografia": "OJEPSE (2022), Hautefaye (2017), Noah Histeria EP (2014)",
    "portada": "https://f4.bcbits.com/img/a3233717638_16.jpg",
    "discos": [
@@ -165,7 +165,7 @@
    "bandcamp": "https://cheetosmagazine.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCbsCK1V09m220TOkduX5sIw",
    "web": "",
    "discografia": "Clinc Nutella (2024), Amazingous (2019), Tasty Old Snacks (2017), Boiling Fowls (2014)",
    "portada": "https://f4.bcbits.com/img/a2720297025_16.jpg",
@@ -269,8 +269,8 @@
    "bandcamp": "https://mvsm.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://youtube.com/morganavsmorgana",
+   "web": "https://www.lawebdehabitus.com/morganavsmorgana/",
    "discografia": "Adornos (2021), Trilogía de las Moiras: I (2018), II. En el Nimbo (2014), III… de lo inevitable (2011); Sol Invicto (2009)",
    "portada": "https://f4.bcbits.com/img/a2795963817_16.jpg",
    "discos": [
@@ -479,9 +479,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://pervyperkin.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/7h9zZzu65OVgfuwOHJd7CD",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/user/PervyPerkinOfficial",
    "web": "",
    "discografia": "Comedia Inferno (2019), ToTeM, Ink",
    "portada": "https://f4.bcbits.com/img/a2862033332_16.jpg",
@@ -571,7 +571,7 @@
    "bandcamp": "https://regna.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://youtube.com/regnaofficial",
    "web": "",
    "discografia": "Curtains (2024, single)",
    "portada": "https://f4.bcbits.com/img/a1341701980_16.jpg",
@@ -1006,7 +1006,7 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://sigmaori.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/7orEk9Oq44vtCvKULjL8Ur?si=4isHmPx3QtyYozvvl3-8Gg&nd=1",
    "apple_music": "",
    "youtube": "",
    "web": "",
@@ -1044,10 +1044,10 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://theholeum.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/0kV1FukD9A1LXfEMsBhtq5",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/c/TheHoleum",
+   "web": "https://www.theholeum.com/",
    "discografia": "Ensis",
    "portada": "https://f4.bcbits.com/img/a3189604922_16.jpg",
    "discos": [
@@ -1085,7 +1085,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.realitycheck.es",
    "discografia": "Fears, Hope and Eternity",
    "portada": "https://f4.bcbits.com/img/a2084653769_16.jpg",
    "discos": [
@@ -1109,7 +1109,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://ontherawband.blogspot.com/",
    "discografia": "",
    "portada": "https://f4.bcbits.com/img/a2451281095_16.jpg",
    "discos": [
@@ -1271,7 +1271,7 @@
    "bandcamp": "https://theunwrittensp.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCMWlPTmFj9FxSX3cWlJnHZg",
    "web": "",
    "discografia": "Insight",
    "portada": "https://f4.bcbits.com/img/a2069801521_16.jpg",
@@ -1324,9 +1324,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://suryarocks.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/intl-es/artist/627zkjK9fNx1IXTMWKFBX8?si=9hss3wN8QlS8T1iaMI-3vQ",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCLlEKcbcHVrCDOt3cd6CgrQ",
    "web": "",
    "discografia": "Into the Emerald",
    "portada": "https://f4.bcbits.com/img/a0453407598_16.jpg",
@@ -1494,10 +1494,10 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://wearedurga.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/0hyzYTqg812zmH57o78XC2",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/channel/UCcWGu9psbH5wFNiMijUaR-w",
+   "web": "https://www.wearedurga.com",
    "discografia": "Sequoia",
    "portada": "https://f4.bcbits.com/img/a1911283306_16.jpg",
    "discos": [
@@ -1549,7 +1549,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.eltercersemestre.com",
    "discografia": "",
    "portada": "https://f4.bcbits.com/img/a1285696531_16.jpg",
    "discos": [
@@ -1591,10 +1591,10 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://exxasens.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/7935eVYpj7jQM3mRJ3kGeX",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://youtube.com/@exxasens",
+   "web": "https://www.exxasens.com",
    "discografia": "Infinitum, Le Voyage, Polaris XXI, Eleven Miles, Back to Earth, Beyond the Universe, Satellites",
    "portada": "https://f4.bcbits.com/img/a2599102373_16.jpg",
    "discos": [
@@ -1673,7 +1673,7 @@
    "bandcamp": "https://moonloop.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCPhg7CW7IGkK8_hXy9kNASQ",
    "web": "",
    "discografia": "Fate in Motion, Devocean, Deeply from the Earth, True Nature Revealed, Release from Duality",
    "portada": "https://f4.bcbits.com/img/a1788254172_16.jpg",
@@ -1723,10 +1723,10 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://audiolepsia.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/4vlBr8bNVQ6654aLTgMoet",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/user/AUDIOLEPSIA",
+   "web": "https://www.audiolepsia.com",
    "discografia": "Anemone Redux, Waves & Particles, Muses, Principio de Incertidumbre",
    "portada": "https://f4.bcbits.com/img/a0098617229_16.jpg",
    "discos": [
@@ -1768,9 +1768,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://treescloudsandsilence.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/65gkFhY48NYH6J7YSewRNW?si=gWdXLNLUT_ipG4VV0DaUBw",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCk9upRG3ie9QsRhoKUWBAfg",
    "web": "",
    "discografia": "With My Mind's Eye (single)",
    "portada": "https://f4.bcbits.com/img/a3336593063_16.jpg",
@@ -2096,7 +2096,7 @@
    "bandcamp": "https://astralia.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/user/Astraliamusic",
    "web": "",
    "discografia": "So Far So Near",
    "portada": "https://f4.bcbits.com/img/a2195533968_16.jpg",
@@ -2423,10 +2423,10 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://psychicequalizer.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/7yqpuAUCNSEbIDoMQbAxeV",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/psychicequalizer",
+   "web": "https://www.psychicequalizer.com",
    "discografia": "In a Shroud of Silence, Prologue to Insurrection, Revealed, Revealed II",
    "portada": "https://f4.bcbits.com/img/a2617949297_16.jpg",
    "discos": [
@@ -2630,7 +2630,7 @@
    "bandcamp": "https://abstraccion.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCdXX8z9Ile-XUiptqydBdeQ",
    "web": "",
    "discografia": "Abstracción",
    "portada": "https://f4.bcbits.com/img/a3243324305_16.jpg",
@@ -2652,10 +2652,10 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://amoebasplit.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
+   "spotify": "https://open.spotify.com/album/382e4hPOvKKo2G7QInWxq2",
+   "apple_music": "https://itunes.apple.com/es/album/second-split/id1188693172?l=en",
    "youtube": "",
-   "web": "",
+   "web": "https://www.amoebasplit.com/",
    "discografia": "Dance of the Goodbyes, Second Split, Quiet Euphoria",
    "portada": "https://f4.bcbits.com/img/a3346515733_16.jpg",
    "discos": [
@@ -3072,7 +3072,7 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://vlacksalzo.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/5sYyyGFCh77d8AY8SNI9DE?si=X_AHAcVaQsSedJJDbHst3g",
    "apple_music": "",
    "youtube": "",
    "web": "",
@@ -3202,7 +3202,7 @@
    "bandcamp": "https://weareimpala.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCAv7an1prvi-4SVtQbKqIXg",
    "web": "",
    "discografia": "Les Éphémères",
    "portada": "https://f4.bcbits.com/img/a2090120447_16.jpg",
@@ -3261,8 +3261,8 @@
    "bandcamp": "https://hiagen.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/user/Hiagen",
+   "web": "https://www.hiagen.com",
    "discografia": "El Planeta Cúbico",
    "portada": "https://f4.bcbits.com/img/a2726967275_16.jpg",
    "discos": [
@@ -3327,7 +3327,7 @@
    "bandcamp": "https://eltuboelastico.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/user/ElTuboElastico",
    "web": "",
    "discografia": "el marciano, La marcha elástica de los enanitos, IMPALA",
    "portada": "https://f4.bcbits.com/img/a3334322717_16.jpg",
@@ -3380,7 +3380,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.jardindelacroix.com",
    "discografia": "Circadia, Letargo, Ognitza, Pomeroy",
    "portada": "https://f4.bcbits.com/img/a2663247265_16.jpg",
    "discos": [
@@ -3872,7 +3872,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.ikarasscvlt.com",
    "discografia": "Relapse Into Desolation",
    "portada": "https://f4.bcbits.com/img/a0071970788_16.jpg",
    "discos": [
@@ -3947,7 +3947,7 @@
    "bandcamp": "https://eiradamoura.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCZY_Xk_4HJ-nl-FfNWnWd0g",
    "web": "",
    "discografia": "Fume Santo de Loureiro, Moura, Axexan, Espreitan",
    "portada": "https://f4.bcbits.com/img/a0424950810_16.jpg",
@@ -4097,7 +4097,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.spacecro.com",
    "discografia": "BUAH!, Diola gigante, Lille, Mounstros, PERA",
    "portada": "https://f4.bcbits.com/img/a3000297813_16.jpg",
    "discos": [
@@ -4176,8 +4176,8 @@
    "bandcamp": "https://carvingcolours.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/carvingcoloursvideo",
+   "web": "https://www.carvingcolours.com",
    "discografia": "The Desolate Process",
    "portada": "https://f4.bcbits.com/img/a3450383616_16.jpg",
    "discos": [
@@ -4208,7 +4208,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.glazzmusic.com",
    "discografia": "Glazzcoustic, Ensueño",
    "portada": "https://f4.bcbits.com/img/a3056893257_16.jpg",
    "discos": [
@@ -4266,8 +4266,8 @@
    "bandcamp": "https://foscor.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/FOSCORbcn",
+   "web": "https://www.foscor.com/",
    "discografia": "Solitud, Les Irreals Visions, Those Horrors Wither",
    "portada": "https://f4.bcbits.com/img/a2505622582_16.jpg",
    "discos": [
@@ -4344,9 +4344,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://lacadena.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/4w22UOCTr3kk7saZWsiqyV",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCm3A_nfWwcNu_Xd-ycpj6Gw",
    "web": "",
    "discografia": "Ašåma, Worros Dna Evol, Hope?, Spideral",
    "portada": "https://f4.bcbits.com/img/a0462992473_16.jpg",
@@ -4523,7 +4523,7 @@
    "bandcamp": "https://prou.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCntB97lQVKjykJjU4iNXsMg",
    "web": "",
    "discografia": "Abracen el Déu que els devora",
    "portada": "https://f4.bcbits.com/img/a1324057029_16.jpg",
@@ -4568,7 +4568,7 @@
    "bandcamp": "https://sonosyk.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/sonosyk",
    "web": "",
    "discografia": "El Paraíso",
    "portada": "https://f4.bcbits.com/img/a3030000785_16.jpg",
@@ -4724,7 +4724,7 @@
    "bandcamp": "https://pyramidalmusic.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/c/Pyramidal",
    "web": "",
    "discografia": "Cosmic Sound, Pyramidal, From Other Spheres, Sabbra Arabia",
    "portada": "https://f4.bcbits.com/img/a3842304180_16.jpg",
@@ -4828,7 +4828,7 @@
    "bandcamp": "https://blusa.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCyGT6U_FzYar_7jMYu-Kafg",
    "web": "",
    "discografia": "Blusa",
    "portada": "https://f4.bcbits.com/img/a0922249233_16.jpg",
@@ -4881,7 +4881,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://toundra.es",
    "discografia": "Das Cabinet des Dr. Caligari, Hex, Vortex, (IV), (III), (II), (I), Rapier",
    "portada": "https://f4.bcbits.com/img/a2474176249_16.jpg",
    "discos": [
@@ -5164,7 +5164,7 @@
    "bandcamp": "https://saturna777.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@SaturnaOfficial",
    "web": "",
    "discografia": "Self Told Lies, The Reset, Atlantis, Volver al Final",
    "portada": "https://f4.bcbits.com/img/a1663628367_16.jpg",
@@ -5252,7 +5252,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.alicianurhomusic.com",
    "discografia": "EtLux",
    "portada": "https://f4.bcbits.com/img/a3717389196_16.jpg",
    "discos": [
@@ -5332,7 +5332,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.dcodedband.com",
    "discografia": "Perceptual Isolation",
    "portada": "https://f4.bcbits.com/img/a0992162128_16.jpg",
    "discos": [
@@ -5393,7 +5393,7 @@
    "bandcamp": "https://dlcalt.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCJ6GzeW2Y17D_ds_FxKPh-g",
    "web": "",
    "discografia": "La Tumba",
    "portada": "https://f4.bcbits.com/img/a0029487607_16.jpg",
@@ -5432,7 +5432,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.maybeviolet.com",
    "discografia": "in a few words, for the time being",
    "portada": "https://f4.bcbits.com/img/a0156377915_16.jpg",
    "discos": [
@@ -5469,8 +5469,8 @@
    "bandcamp": "https://tenpel.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/tenpelmusic",
+   "web": "https://www.tenpel.com",
    "discografia": "Culto a Mí, Deplata, Manual de Autoayuda, Ciclos, La sangre de Pegaso",
    "portada": "https://f4.bcbits.com/img/a2996873726_16.jpg",
    "discos": [
@@ -5522,7 +5522,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.minorempires.com",
    "discografia": "United States of Emergency Vol. 1",
    "portada": "https://f4.bcbits.com/img/a3096761972_16.jpg",
    "discos": [
@@ -5712,8 +5712,8 @@
    "bandcamp": "https://brumadensa.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/channel/UClpolTmrs8XNuBXMGzvpfEg",
+   "web": "https://brumadensa.com",
    "discografia": "Hildako Amaiera",
    "portada": "https://f4.bcbits.com/img/a2650058189_16.jpg",
    "discos": [
@@ -5793,9 +5793,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://magicbrothermysticsister.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/intl-es/album/3HhlUBCIrtdPBVdx3dWQVn",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UC8I5vUBFWFX6wh0Q0cXPNdg",
    "web": "",
    "discografia": "Tarot Part II, Magick Brother & Mystic Sister",
    "portada": "https://f4.bcbits.com/img/a0313087371_16.jpg",
@@ -6297,7 +6297,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.elcirculodewillis.net",
    "discografia": "Retales",
    "portada": "https://f4.bcbits.com/img/a4281662561_16.jpg",
    "discos": [
@@ -6379,7 +6379,7 @@
    "bandcamp": "https://octoplatypusband.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCjRDD8vnDPtlKcDAKqegMTA",
    "web": "",
    "discografia": "The Insidious Seven",
    "portada": "https://f4.bcbits.com/img/a0837250444_16.jpg",
@@ -6403,8 +6403,8 @@
    "bandcamp": "https://theflyingcaravan.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/channel/UCzFXqRlS2C8fUh0gjJkAczA?view_as=subscriber",
+   "web": "https://www.theflyingcaravanband.com",
    "discografia": "Stage Access EP",
    "portada": "https://f4.bcbits.com/img/a0479494072_16.jpg",
    "discos": [
@@ -6434,8 +6434,8 @@
    "bandcamp": "https://obsidiankingdom.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/obsidiankingdomvideo",
+   "web": "https://www.obsidiankingdom.com",
    "discografia": "Meat Machine, A Year With No Summer, Mantiis",
    "portada": "https://f4.bcbits.com/img/a2679364130_16.jpg",
    "discos": [
@@ -6518,7 +6518,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://herbahameli.blogspot.com",
    "discografia": "Interiors",
    "portada": "https://f4.bcbits.com/img/a2089175969_16.jpg",
    "discos": [
@@ -6690,7 +6690,7 @@
    "bandcamp": "https://malammar.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/c/Mal%C3%A4mmar/videos",
    "web": "",
    "discografia": "Mazza, Vendetta, Mil Mentiras EP",
    "portada": "https://f4.bcbits.com/img/a3658924755_16.jpg",
@@ -6995,7 +6995,7 @@
    "bandcamp": "https://allthesefallentrees.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/user/Allthesefallentrees?feature=mhee",
    "web": "",
    "discografia": "This Is Where We Are",
    "portada": "https://f4.bcbits.com/img/a3586693980_16.jpg",
@@ -7194,7 +7194,7 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://svdestada.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/1f1Cx9BgjVFahvlntKMc6R?si=CxYDM0n5Rt-xhctL2ulilA",
    "apple_music": "",
    "youtube": "",
    "web": "",
@@ -7256,9 +7256,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://driadeband.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/intl-es/artist/2bQnLIlryEzjsXWGzIsbEU?si=VTnI0GcrSaWo_22GbvZ7lw",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UC2uXxJ202ib44wEF2Lm0brA/featured?view_as=subscriber",
    "web": "",
    "discografia": "1845",
    "portada": "https://f4.bcbits.com/img/a2959500215_16.jpg",
@@ -7289,7 +7289,7 @@
    "bandcamp": "https://vivenrocks.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/user/vivenrocks",
    "web": "",
    "discografia": "El Otro Solitario, Aquí en el Infinito, El Rey Esqueleto, Las Tripas y el Lodo",
    "portada": "https://f4.bcbits.com/img/a0631066914_16.jpg",
@@ -7346,9 +7346,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://habitarlamar.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/0DPWgNSPf2JYlB42tVxIfZ",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCl_zyBF22bz7y5wkvQ27PnA",
    "web": "",
    "discografia": "Ruina",
    "portada": "https://f4.bcbits.com/img/a2151920769_16.jpg",
@@ -7587,7 +7587,7 @@
    "bandcamp": "https://eondry.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCFZt5HYdq6g6kL7HoOyMG5A",
    "web": "",
    "discografia": "Hyperborea",
    "portada": "https://f4.bcbits.com/img/a2171082224_16.jpg",
@@ -8270,7 +8270,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.kantfreudkafka.com",
    "discografia": "Historias del Acantilado",
    "portada": "https://f4.bcbits.com/img/a1522700895_16.jpg",
    "discos": [
@@ -8371,9 +8371,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://lunavieja.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/2bziAeju7GREU1Nszos6Sb",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UC-SES2Tt0f6WdMj1Ghs24aQ",
    "web": "",
    "discografia": "Lunavieja",
    "portada": "https://f4.bcbits.com/img/a3826343570_16.jpg",
@@ -8508,7 +8508,7 @@
    "bandcamp": "https://chantrice.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UCc6CsKWEU-mdXXdaBVIz_eg",
    "web": "",
    "discografia": "Angel of Misery EP, Lights, Anastasia",
    "portada": "https://f4.bcbits.com/img/a2414863476_16.jpg",
@@ -9081,9 +9081,9 @@
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://tozudo.bandcamp.com",
    "spotify": "",
-   "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "apple_music": "https://music.apple.com/us/artist/tozudo/1600945898",
+   "youtube": "https://www.youtube.com/channel/UCpDth7LnCYKzc8kBo4vqRHg",
+   "web": "https://tozudo.es/",
    "discografia": "El Enjambre",
    "portada": "https://f4.bcbits.com/img/a1536413855_16.jpg",
    "discos": [
@@ -9113,8 +9113,8 @@
    "bandcamp": "https://numenmusic.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/user/numenmusica",
+   "web": "https://www.numenmusic.com",
    "discografia": "The Outsider",
    "portada": "https://f4.bcbits.com/img/a3179385856_16.jpg",
    "discos": [
@@ -9208,10 +9208,10 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://bolu2death.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/7rDC5oTEVCLYkVeaE7168p",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/bolu2death",
+   "web": "https://bolu2death.com",
    "discografia": "Quebranto",
    "portada": "https://f4.bcbits.com/img/a1847917900_16.jpg",
    "discos": [
@@ -9331,8 +9331,8 @@
    "bandcamp": "https://cochevil.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/@CocheVilBand",
+   "web": "https://www.cochevillanueva.com",
    "discografia": "within you, Invincible, Previous States",
    "portada": "https://f4.bcbits.com/img/a0183401237_16.jpg",
    "discos": [
@@ -9411,7 +9411,7 @@
    "bandcamp": "https://vivabelgrado.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/c/vivabelgrado",
    "web": "",
    "discografia": "Cancionero de los Cielos, Bellavista, Ulises",
    "portada": "https://f4.bcbits.com/img/a2906994336_16.jpg",
@@ -9498,7 +9498,7 @@
    "bandcamp": "https://wearederiva.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@wearederiva",
    "web": "",
    "discografia": "NONA/DÉCIMA/MORTA, Aqua Vitae, Ignis Ex Ciniere, Haiku I y II",
    "portada": "https://f4.bcbits.com/img/a1381968405_16.jpg",
@@ -9631,7 +9631,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.monasteriodecultura.com",
    "discografia": "Upper Middle Class Heroes",
    "portada": "https://f4.bcbits.com/img/a0602760104_16.jpg",
    "discos": [
@@ -10489,7 +10489,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://elagentenaranja.com",
    "discografia": "Impermanencia",
    "portada": "https://f4.bcbits.com/img/a1211066345_16.jpg",
    "discos": [
@@ -10540,8 +10540,8 @@
    "bandcamp": "https://donutsholeband.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/channel/UCZKSB6GBd8SjOGs1V1lvnIQ",
+   "web": "https://www.donutshole.com",
    "discografia": "Ya No Eres Tú",
    "portada": "https://f4.bcbits.com/img/a0202919465_16.jpg",
    "discos": [
@@ -10606,7 +10606,7 @@
    "bandcamp": "https://loudlyband.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@loudlymusic2290",
    "web": "",
    "discografia": "Amanece Que Ya Es Mucho, El Factor Grotesco, Desert City Sessions",
    "portada": "https://f4.bcbits.com/img/a3261946861_16.jpg",
@@ -10815,7 +10815,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.sangredemuerdago.com",
    "discografia": "O Xardín, O Vento que Lambe as miñas Feridas",
    "portada": "https://f4.bcbits.com/img/a3866960585_16.jpg",
    "discos": [
@@ -11009,8 +11009,8 @@
    "bandcamp": "https://lastfairdealband.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/lastfairdeal",
+   "web": "https://www.lastfairdeal.net",
    "discografia": "Odyssey in the Key of Three",
    "portada": "https://f4.bcbits.com/img/a2916019769_16.jpg",
    "discos": [
@@ -11048,7 +11048,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://www.greengoatband.com",
    "discografia": "Aloft, Charles, A.I., The Seed",
    "portada": "https://f4.bcbits.com/img/a0693454875_16.jpg",
    "discos": [
@@ -11163,7 +11163,7 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://redapple.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/intl-es/artist/2AzeJXpds7c5bh8xXkZdjq?si=WZXvc2p0TqCBL8puiCpBPQ",
    "apple_music": "",
    "youtube": "",
    "web": "",
@@ -11326,9 +11326,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://redeyeofdoom.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/2OkCfdUhlH9X8PlhhNq006",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UC_O9bFEsYkjE9wYUTTYIW1A",
    "web": "",
    "discografia": "III",
    "portada": "https://f4.bcbits.com/img/a0794284608_16.jpg",
@@ -11380,7 +11380,7 @@
    "bandcamp": "https://zalomongrass.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/channel/UC21iePKE5jhmJsWQg2GV_Hw",
    "web": "",
    "discografia": "Riders of the Night",
    "portada": "https://f4.bcbits.com/img/a3922353530_16.jpg",
@@ -11687,9 +11687,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://mattenband.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/intl-es/artist/7Mw9U0rDkcqcjFsNu7Yy6X?si=hGBW-SmNT8uPGUL3cesa1Q",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@mattenband",
    "web": "",
    "discografia": "The Tower",
    "portada": "https://f4.bcbits.com/img/a3278541954_16.jpg",
@@ -11855,7 +11855,7 @@
    "bandcamp": "https://tresmilonce.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/tresmilonceoficiales",
    "web": "",
    "discografia": "En Guerra, Tresmilonce",
    "portada": "https://f4.bcbits.com/img/a0780656918_16.jpg",
@@ -12067,10 +12067,10 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://heleven.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/7LhqXxqENaCYbdQQhfJ6ND",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/channel/UCgTalmexQq4ZOxc3h5vb-Sg",
+   "web": "https://heleven.es/",
    "discografia": "New Horizons PT. 2 (2024), Killing my Perseus (2024), The Mask (2023), New Horizons PT.1 (2023), Into the Oceans (2021), Medusa's Love Story (2019)",
    "portada": "https://f4.bcbits.com/img/a4096461196_16.jpg",
    "discos": [
@@ -12126,9 +12126,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://errandsband.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/56dzHpXYkEKU0apAxRSetA",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://youtu.be/GiuHeSr51yk?si=6DhSph8E20D94kXS",
    "web": "",
    "discografia": "Lowlife (2026), Made to Break (2026), Tear The Cloth (2026), Old Man (2025), Nomad No Man (2025), Smile (2025), Avoid Yourself (2025), Circles (2025)",
    "portada": "https://f4.bcbits.com/img/a4274542045_16.jpg",
@@ -12201,8 +12201,8 @@
    "bandcamp": "https://dieaway.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
-   "web": "",
+   "youtube": "https://www.youtube.com/dieawayband",
+   "web": "https://www.dieaway.com",
    "discografia": "Trisected Liminality (Vol. 1) (2023), Dark Echoes Remixes (2019), Light Echoes (2019), Leak of Noise (2012)",
    "portada": "https://f4.bcbits.com/img/a0425500429_16.jpg",
    "discos": [
@@ -12247,7 +12247,7 @@
    "spotify": "",
    "apple_music": "",
    "youtube": "",
-   "web": "",
+   "web": "https://taltheband.com",
    "discografia": "Winner (2025), Wall (2025), Aphelion (2024), City Of Lies (2024), Boogeyman (2024), TAL (2024), Neptuno (2023)",
    "portada": "https://f4.bcbits.com/img/a4023081473_16.jpg",
    "discos": [
@@ -12382,6 +12382,539 @@
      "tipo": "disco",
      "enlace": "https://open.spotify.com/intl-es/album/3l0pEUsqZZqRkXX5KmJjC0",
      "portada": "https://afterlapse.com/wp-content/uploads/2024/09/COVER-AE-FACE-THE-STORM-JPG-1000x1024.jpg"
+    }
+   ]
+  },
+  {
+   "id": "rivendel",
+   "nombre": "Rivendel",
+   "estilos": "Rock progresivo / Art rock / Electrónica",
+   "ciudad": "San Sebastián",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://rivendel.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Progressive Rock Side of Five Moons Volumen 2 (2024), The Silver Surfer BOX (2019), I'm Friends with Oniris (2019), The Time' Chime (2019), Blueshift (2019), Shy Sister Zen (2019), SISYFOS (2018), DHD (2015), LDN project (1997), The Meaning (1996), UGUM Part II (1993), Manifesto (1991), Exposure 88 (1989)",
+   "portada": "https://f4.bcbits.com/img/a2446713857_16.jpg",
+   "discos": [
+    {
+     "titulo": "Progressive Rock Side of Five Moons Volumen 2",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/progressive-rock-side-of-five-moons-volumen-2",
+     "portada": "https://f4.bcbits.com/img/a2446713857_16.jpg"
+    },
+    {
+     "titulo": "The Silver Surfer BOX",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/the-silver-surfer-box",
+     "portada": "https://f4.bcbits.com/img/a2216077985_16.jpg"
+    },
+    {
+     "titulo": "I'm Friends with Oniris",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/im-friends-with-oniris",
+     "portada": "https://f4.bcbits.com/img/a3188989834_16.jpg"
+    },
+    {
+     "titulo": "The Time' Chime",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/the-time-chime",
+     "portada": "https://f4.bcbits.com/img/a2377524630_16.jpg"
+    },
+    {
+     "titulo": "Blueshift",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/blueshift",
+     "portada": "https://f4.bcbits.com/img/a3417926384_16.jpg"
+    },
+    {
+     "titulo": "Shy Sister Zen",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/shy-sister-zen",
+     "portada": "https://f4.bcbits.com/img/a1614927886_16.jpg"
+    },
+    {
+     "titulo": "SISYFOS",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/sisyfos",
+     "portada": "https://f4.bcbits.com/img/a3183114497_16.jpg"
+    },
+    {
+     "titulo": "DHD",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/dhd",
+     "portada": "https://f4.bcbits.com/img/a3529170886_16.jpg"
+    },
+    {
+     "titulo": "LDN project",
+     "anio": "1997",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/ldn-project",
+     "portada": "https://f4.bcbits.com/img/a0637645289_16.jpg"
+    },
+    {
+     "titulo": "The Meaning",
+     "anio": "1996",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/the-meaning",
+     "portada": "https://f4.bcbits.com/img/a0034615862_16.jpg"
+    },
+    {
+     "titulo": "UGUM Part II",
+     "anio": "1993",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/ugum-part-ii",
+     "portada": "https://f4.bcbits.com/img/a3852550097_16.jpg"
+    },
+    {
+     "titulo": "Manifesto",
+     "anio": "1991",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/manifesto",
+     "portada": "https://f4.bcbits.com/img/a0810126209_16.jpg"
+    },
+    {
+     "titulo": "Exposure 88",
+     "anio": "1989",
+     "tipo": "disco",
+     "enlace": "https://rivendel.bandcamp.com/album/exposure-88",
+     "portada": "https://f4.bcbits.com/img/a1609903336_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "the-foxholes",
+   "nombre": "The Foxholes",
+   "estilos": "Rock progresivo / Art rock / Hard rock",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://thefoxholes.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/@TheFoxholes",
+   "web": "https://www.thefoxholes.com",
+   "discografia": "What The Fox! (2026), Flora i Fauna (2024), Hex (2021), Foxholesque (2020), Konzert (2020), Sci-Fox (2017), Un Mal Menor (2016), Radio Cincinnati (2015), Escaparatismo Cósmico (2013), bRutaL (2011), com o doin fier no (2010), the foxholes (2009)",
+   "portada": "https://f4.bcbits.com/img/a0586426411_16.jpg",
+   "discos": [
+    {
+     "titulo": "What The Fox!",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/what-the-fox",
+     "portada": "https://f4.bcbits.com/img/a0586426411_16.jpg"
+    },
+    {
+     "titulo": "Flora i Fauna",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/flora-i-fauna",
+     "portada": "https://f4.bcbits.com/img/a3303220403_16.jpg"
+    },
+    {
+     "titulo": "Hex",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/hex",
+     "portada": "https://f4.bcbits.com/img/a4145308523_16.jpg"
+    },
+    {
+     "titulo": "Foxholesque",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/foxholesque",
+     "portada": "https://f4.bcbits.com/img/a4098095468_16.jpg"
+    },
+    {
+     "titulo": "Konzert",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/konzert",
+     "portada": "https://f4.bcbits.com/img/a0740142433_16.jpg"
+    },
+    {
+     "titulo": "Sci-Fox",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/sci-fox",
+     "portada": "https://f4.bcbits.com/img/a2390385100_16.jpg"
+    },
+    {
+     "titulo": "Un Mal Menor",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/un-mal-menor",
+     "portada": "https://f4.bcbits.com/img/a3898814486_16.jpg"
+    },
+    {
+     "titulo": "Radio Cincinnati",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/radio-cincinnati",
+     "portada": "https://f4.bcbits.com/img/a3848322943_16.jpg"
+    },
+    {
+     "titulo": "Escaparatismo Cósmico",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/escaparatismo-c-smico",
+     "portada": "https://f4.bcbits.com/img/a2407445007_16.jpg"
+    },
+    {
+     "titulo": "bRutaL",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/brutal",
+     "portada": "https://f4.bcbits.com/img/a1925520515_16.jpg"
+    },
+    {
+     "titulo": "com o doin fier no",
+     "anio": "2010",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/com-o-doin-fier-no",
+     "portada": "https://f4.bcbits.com/img/a1205244780_16.jpg"
+    },
+    {
+     "titulo": "the foxholes",
+     "anio": "2009",
+     "tipo": "disco",
+     "enlace": "https://thefoxholes.bandcamp.com/album/the-foxholes",
+     "portada": "https://f4.bcbits.com/img/a1738860703_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "gyoza",
+   "nombre": "Gyoza",
+   "estilos": "Rock alternativo / Stoner / Grunge / Post-rock",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://gyozaisnotfood.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "https://gyozaisnotfood.com/",
+   "discografia": "Beber y soltar (2026), Si el dolor no es para tanto (2025), Un error (2025), Beber y doler (2024), Afterlife feat Bala (2024), Opacitas Vinum (2024), Beber y doler (2024), GHOST TRACKS (2022), It Never Rains But It Pours (2022), Deliverance (2022), Bitter End (2022), Early Bird Alternate Versions EP (2021), Covers Volume 1 (2020), Describe (Perfume Genius) feat Grauwi (2020), Ruptura (Triángulo de Amor Bizarro) (2020), Early Bird (2020), Nothing To Be Ashamed Of (2020), In My Room (2020), Veins (2019), GYOZA (2017), What Can I Do? - BEAROID REMIX (2017), What Can I Do? (2017), EP 2015 (2015)",
+   "portada": "https://f4.bcbits.com/img/a2131312291_16.jpg",
+   "discos": [
+    {
+     "titulo": "Beber y soltar",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/beber-y-soltar",
+     "portada": "https://f4.bcbits.com/img/a2131312291_16.jpg"
+    },
+    {
+     "titulo": "Si el dolor no es para tanto",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/si-el-dolor-no-es-para-tanto",
+     "portada": "https://f4.bcbits.com/img/a0233971694_16.jpg"
+    },
+    {
+     "titulo": "Un error",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/un-error",
+     "portada": "https://f4.bcbits.com/img/a3108653022_16.jpg"
+    },
+    {
+     "titulo": "Beber y doler",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/beber-y-doler",
+     "portada": "https://f4.bcbits.com/img/a2819302023_16.jpg"
+    },
+    {
+     "titulo": "Afterlife feat Bala",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/afterlife-feat-bala",
+     "portada": "https://f4.bcbits.com/img/a3724418954_16.jpg"
+    },
+    {
+     "titulo": "Opacitas Vinum",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/opacitas-vinum",
+     "portada": "https://f4.bcbits.com/img/a2173110454_16.jpg"
+    },
+    {
+     "titulo": "Beber y doler",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/beber-y-doler",
+     "portada": "https://f4.bcbits.com/img/a0981980570_16.jpg"
+    },
+    {
+     "titulo": "GHOST TRACKS",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/ghost-tracks",
+     "portada": "https://f4.bcbits.com/img/a2390391668_16.jpg"
+    },
+    {
+     "titulo": "It Never Rains But It Pours",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/it-never-rains-but-it-pours",
+     "portada": "https://f4.bcbits.com/img/a1765387432_16.jpg"
+    },
+    {
+     "titulo": "Deliverance",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/deliverance",
+     "portada": "https://f4.bcbits.com/img/a2767889935_16.jpg"
+    },
+    {
+     "titulo": "Bitter End",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/bitter-end",
+     "portada": "https://f4.bcbits.com/img/a3685967734_16.jpg"
+    },
+    {
+     "titulo": "Early Bird Alternate Versions EP",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/early-bird-alternate-versions-ep",
+     "portada": "https://f4.bcbits.com/img/a1741120224_16.jpg"
+    },
+    {
+     "titulo": "Covers Volume 1",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/covers-volume-1",
+     "portada": "https://f4.bcbits.com/img/a1413795091_16.jpg"
+    },
+    {
+     "titulo": "Describe (Perfume Genius) feat Grauwi",
+     "anio": "2020",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/describe-perfume-genius-feat-grauwi",
+     "portada": "https://f4.bcbits.com/img/a3681150714_16.jpg"
+    },
+    {
+     "titulo": "Ruptura (Triángulo de Amor Bizarro)",
+     "anio": "2020",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/ruptura-tri-ngulo-de-amor-bizarro",
+     "portada": "https://f4.bcbits.com/img/a0346346582_16.jpg"
+    },
+    {
+     "titulo": "Early Bird",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/early-bird",
+     "portada": "https://f4.bcbits.com/img/a0713283605_16.jpg"
+    },
+    {
+     "titulo": "Nothing To Be Ashamed Of",
+     "anio": "2020",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/nothing-to-be-ashamed-of",
+     "portada": "https://f4.bcbits.com/img/a1389332632_16.jpg"
+    },
+    {
+     "titulo": "In My Room",
+     "anio": "2020",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/in-my-room",
+     "portada": "https://f4.bcbits.com/img/a2443858788_16.jpg"
+    },
+    {
+     "titulo": "Veins",
+     "anio": "2019",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/veins",
+     "portada": "https://f4.bcbits.com/img/a4161085195_16.jpg"
+    },
+    {
+     "titulo": "GYOZA",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/gyoza",
+     "portada": "https://f4.bcbits.com/img/a2109180380_16.jpg"
+    },
+    {
+     "titulo": "What Can I Do? - BEAROID REMIX",
+     "anio": "2017",
+     "tipo": "single",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/track/what-can-i-do-bearoid-remix",
+     "portada": "https://f4.bcbits.com/img/a0470258886_16.jpg"
+    },
+    {
+     "titulo": "What Can I Do?",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/what-can-i-do",
+     "portada": "https://f4.bcbits.com/img/a0038114449_16.jpg"
+    },
+    {
+     "titulo": "EP 2015",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://gyozaisnotfood.bandcamp.com/album/ep-2015",
+     "portada": "https://f4.bcbits.com/img/a2981774011_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "bernal",
+   "nombre": "Bernal",
+   "estilos": "Rock alternativo / Post-rock / Emo",
+   "ciudad": "Valencia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://bernalsomos.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Vida y milagros (2026), Rutina (2025), Dolores Marqués (2025), Dientes (2025), Una amistad perdida (2025), Mi hermana ha preguntado por ti (2024), Alivio Intermitente (Fon Smith Rework While Dawning At Patraix) (2023), La necesidad de contarlo (2023), Ciudad (2023), Alivio intermitente (2023), ¿Qué tal todo allí fuera? (2022), Iglú (2022), Parques (2022), Perspectiva / Tiempo (2021)",
+   "portada": "https://f4.bcbits.com/img/a2339576338_16.jpg",
+   "discos": [
+    {
+     "titulo": "Vida y milagros",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://bernalsomos.bandcamp.com/album/vida-y-milagros",
+     "portada": "https://f4.bcbits.com/img/a2339576338_16.jpg"
+    },
+    {
+     "titulo": "Rutina",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/rutina",
+     "portada": "https://f4.bcbits.com/img/a3872247040_16.jpg"
+    },
+    {
+     "titulo": "Dolores Marqués",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/dolores-marqu-s",
+     "portada": "https://f4.bcbits.com/img/a0580230024_16.jpg"
+    },
+    {
+     "titulo": "Dientes",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/dientes",
+     "portada": "https://f4.bcbits.com/img/a3156249320_16.jpg"
+    },
+    {
+     "titulo": "Una amistad perdida",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/una-amistad-perdida",
+     "portada": "https://f4.bcbits.com/img/a3211126143_16.jpg"
+    },
+    {
+     "titulo": "Mi hermana ha preguntado por ti",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/mi-hermana-ha-preguntado-por-ti",
+     "portada": "https://f4.bcbits.com/img/a0060299852_16.jpg"
+    },
+    {
+     "titulo": "Alivio Intermitente (Fon Smith Rework While Dawning At Patraix)",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/alivio-intermitente-fon-smith-rework-while-dawning-at-patraix",
+     "portada": "https://f4.bcbits.com/img/a0939897342_16.jpg"
+    },
+    {
+     "titulo": "La necesidad de contarlo",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://bernalsomos.bandcamp.com/album/la-necesidad-de-contarlo",
+     "portada": "https://f4.bcbits.com/img/a3868440156_16.jpg"
+    },
+    {
+     "titulo": "Ciudad",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/ciudad",
+     "portada": "https://f4.bcbits.com/img/a0375928943_16.jpg"
+    },
+    {
+     "titulo": "Alivio intermitente",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/alivio-intermitente",
+     "portada": "https://f4.bcbits.com/img/a0374364293_16.jpg"
+    },
+    {
+     "titulo": "¿Qué tal todo allí fuera?",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://bernalsomos.bandcamp.com/album/qu-tal-todo-all-fuera",
+     "portada": "https://f4.bcbits.com/img/a0135313424_16.jpg"
+    },
+    {
+     "titulo": "Iglú",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/igl",
+     "portada": "https://f4.bcbits.com/img/a1001127385_16.jpg"
+    },
+    {
+     "titulo": "Parques",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/parques",
+     "portada": "https://f4.bcbits.com/img/a3582966843_16.jpg"
+    },
+    {
+     "titulo": "Perspectiva / Tiempo",
+     "anio": "2021",
+     "tipo": "single",
+     "enlace": "https://bernalsomos.bandcamp.com/track/perspectiva-tiempo",
+     "portada": "https://f4.bcbits.com/img/a3732348196_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "demo-rumudo",
+   "nombre": "Demo Rumudo",
+   "estilos": "Rock progresivo / Canterbury / Jazz-rock",
+   "ciudad": "España",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp (sello)",
+   "bandcamp": "",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Second Nature (2025), Consecuencias (Expanded Edition) (2025)",
+   "portada": "https://f4.bcbits.com/img/a2830330589_16.jpg",
+   "discos": [
+    {
+     "titulo": "Second Nature",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://astronomyrecordingmusic.bandcamp.com/album/second-nature",
+     "portada": "https://f4.bcbits.com/img/a2830330589_16.jpg"
+    },
+    {
+     "titulo": "Consecuencias (Expanded Edition)",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://astronomyrecordingmusic.bandcamp.com/album/consecuencias-expanded-edition",
+     "portada": "https://f4.bcbits.com/img/a0715746322_16.jpg"
     }
    ]
   }
