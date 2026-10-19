@@ -37,7 +37,7 @@
   </header>
 
   <main id="app">
-    <!-- Pantalla Inicio: últimos lanzamientos de los grupos que sigo -->
+    <!-- Pantalla Inicio: lo último de los grupos que sigo (discos, vídeos y noticias) -->
     <section id="pantalla-inicio" class="pantalla" hidden>
       <div class="titular">
         <h1>Inicio</h1>
@@ -47,7 +47,7 @@
       <button id="ver-mas" class="ver-mas" type="button" hidden>Ver más</button>
       <div id="sin-grupos-inicio" class="sin-grupos" hidden>
         <p class="sin-grupos-titulo">Aquí verás lo último de tus grupos</p>
-        <p class="sin-grupos-texto">Cuando sigas a algún grupo, sus discos y singles más recientes aparecerán aquí. Empieza por descubrir la escena.</p>
+        <p class="sin-grupos-texto">Cuando sigas a algún grupo, sus discos, vídeos y noticias más recientes aparecerán aquí. Empieza por descubrir la escena.</p>
         <a href="#/explorar" class="boton">Ir a Explorar</a>
       </div>
     </section>
@@ -101,6 +101,12 @@
     <section id="pantalla-concierto" class="pantalla" hidden>
       <button class="volver" type="button">← Conciertos</button>
       <article id="concierto"></article>
+    </section>
+
+    <!-- Pantalla de un disco, vídeo o noticia publicado por un grupo -->
+    <section id="pantalla-novedad" class="pantalla" hidden>
+      <button class="volver" type="button">← Inicio</button>
+      <article id="novedad"></article>
     </section>
 
     <!-- ¿Es tu grupo?: pedir gestionar la ficha o que se retire -->
@@ -163,6 +169,7 @@
   <script src="libs/supabase.js"></script>
   <script src="nube.js"></script>
   <script src="conciertos.js"></script>
+  <script src="novedades.js"></script>
   <script src="panel.js"></script>
   <script src="instalar.js"></script>
   <script src="avisos.js"></script>
