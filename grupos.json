@@ -1,5 +1,5 @@
 {
- "total": 224,
+ "total": 227,
  "actualizado": "2026-10-19",
  "grupos": [
   {
@@ -13019,6 +13019,197 @@
      "tipo": "single",
      "enlace": "https://mientraslasabejasduermen.bandcamp.com/track/el-camino-silencioso",
      "portada": "https://f4.bcbits.com/img/a1742953484_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "tenue",
+   "nombre": "Tenue",
+   "estilos": "Post-metal / Screamo / Crust",
+   "ciudad": "Galicia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://tenuepunx.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Arcos, bóvedas, pórticos (2024), Territorios (2021), Anábasis (2018), Demo MMXVII (2017)",
+   "portada": "https://f4.bcbits.com/img/a0136236835_16.jpg",
+   "discos": [
+    {
+     "titulo": "Arcos, bóvedas, pórticos",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://tenuepunx.bandcamp.com/album/arcos-b-vedas-p-rticos",
+     "portada": "https://f4.bcbits.com/img/a0136236835_16.jpg"
+    },
+    {
+     "titulo": "Territorios",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://tenuepunx.bandcamp.com/album/territorios",
+     "portada": "https://f4.bcbits.com/img/a1164105857_16.jpg"
+    },
+    {
+     "titulo": "Anábasis",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://tenuepunx.bandcamp.com/album/an-basis",
+     "portada": "https://f4.bcbits.com/img/a1509795686_16.jpg"
+    },
+    {
+     "titulo": "Demo MMXVII",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://tenuepunx.bandcamp.com/album/demo-mmxvii",
+     "portada": "https://f4.bcbits.com/img/a1347054091_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "kaleikia",
+   "nombre": "Kaleikia",
+   "estilos": "Post-rock / Rock progresivo / Stoner",
+   "ciudad": "Galicia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://kaleikia.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Makali (2025), Oileán Fada V (2024), Live in Partovia (2022), Oileán Fada (2019)",
+   "portada": "https://f4.bcbits.com/img/a3878989492_16.jpg",
+   "discos": [
+    {
+     "titulo": "Makali",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://kaleikia.bandcamp.com/album/makali",
+     "portada": "https://f4.bcbits.com/img/a3878989492_16.jpg"
+    },
+    {
+     "titulo": "Oileán Fada V",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://kaleikia.bandcamp.com/album/oile-n-fada-v",
+     "portada": "https://f4.bcbits.com/img/a0405888591_16.jpg"
+    },
+    {
+     "titulo": "Live in Partovia",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://kaleikia.bandcamp.com/album/live-in-partovia",
+     "portada": "https://f4.bcbits.com/img/a3045542414_16.jpg"
+    },
+    {
+     "titulo": "Oileán Fada",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://kaleikia.bandcamp.com/album/oile-n-fada-2",
+     "portada": "https://f4.bcbits.com/img/a3978647290_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "pumuky",
+   "nombre": "Pumuky",
+   "estilos": "Post-rock / Shoegaze / Dream pop",
+   "ciudad": "Islas Canarias",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://pumuky.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/c/Pumuky_banda",
+   "web": "",
+   "discografia": "No sueltes lo efímero (2025), Metahackeo (2022), Castillo Interior (2020), Castillo Interior Remixed (2020), Los exploradores perdidos [Reedición] (2017), Justicia Poética (2015), Pumuky y el eterno femenino (2013), Plus ultra (2011), Gara, Nira, Amarca (2011), El bosque en llamas (2009), Los exploradores perdidos (2007), De viaje al país de las tormentas (2005)",
+   "portada": "https://f4.bcbits.com/img/a2562971067_16.jpg",
+   "discos": [
+    {
+     "titulo": "No sueltes lo efímero",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/no-sueltes-lo-ef-mero-2",
+     "portada": "https://f4.bcbits.com/img/a2562971067_16.jpg"
+    },
+    {
+     "titulo": "Metahackeo",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://pumuky.bandcamp.com/track/metahackeo",
+     "portada": "https://f4.bcbits.com/img/a3012683319_16.jpg"
+    },
+    {
+     "titulo": "Castillo Interior",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/castillo-interior",
+     "portada": "https://f4.bcbits.com/img/a3982546776_16.jpg"
+    },
+    {
+     "titulo": "Castillo Interior Remixed",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/castillo-interior-remixed",
+     "portada": "https://f4.bcbits.com/img/a1456687769_16.jpg"
+    },
+    {
+     "titulo": "Los exploradores perdidos [Reedición]",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/los-exploradores-perdidos-reedici-n",
+     "portada": "https://f4.bcbits.com/img/a1561952299_16.jpg"
+    },
+    {
+     "titulo": "Justicia Poética",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/justicia-po-tica",
+     "portada": "https://f4.bcbits.com/img/a3025302392_16.jpg"
+    },
+    {
+     "titulo": "Pumuky y el eterno femenino",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/pumuky-y-el-eterno-femenino",
+     "portada": "https://f4.bcbits.com/img/a2430938881_16.jpg"
+    },
+    {
+     "titulo": "Plus ultra",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/plus-ultra",
+     "portada": "https://f4.bcbits.com/img/a2131595346_16.jpg"
+    },
+    {
+     "titulo": "Gara, Nira, Amarca",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/gara-nira-amarca",
+     "portada": "https://f4.bcbits.com/img/a3769277824_16.jpg"
+    },
+    {
+     "titulo": "El bosque en llamas",
+     "anio": "2009",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/el-bosque-en-llamas",
+     "portada": "https://f4.bcbits.com/img/a3950782080_16.jpg"
+    },
+    {
+     "titulo": "Los exploradores perdidos",
+     "anio": "2007",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/los-exploradores-perdidos",
+     "portada": "https://f4.bcbits.com/img/a3308155370_16.jpg"
+    },
+    {
+     "titulo": "De viaje al país de las tormentas",
+     "anio": "2005",
+     "tipo": "disco",
+     "enlace": "https://pumuky.bandcamp.com/album/de-viaje-al-pa-s-de-las-tormentas",
+     "portada": "https://f4.bcbits.com/img/a0906022506_16.jpg"
     }
    ]
   }
