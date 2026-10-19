@@ -1,6 +1,6 @@
 {
- "total": 222,
- "actualizado": "2026-10-12",
+ "total": 224,
+ "actualizado": "2026-10-19",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -12915,6 +12915,110 @@
      "tipo": "disco",
      "enlace": "https://astronomyrecordingmusic.bandcamp.com/album/consecuencias-expanded-edition",
      "portada": "https://f4.bcbits.com/img/a0715746322_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "serapis-project",
+   "nombre": "SerapiS Project",
+   "estilos": "Metal progresivo / Rock progresivo (conceptual)",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://serapisproject.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "The Instrumental Archives Vol. III (2025), Side Stories (2025), Palingenesis - SerapiS Project (2023), The Instrumental Archives Vol. II (2023), The Instrumental Archives Vol. I (2022)",
+   "portada": "https://f4.bcbits.com/img/a3743482803_16.jpg",
+   "discos": [
+    {
+     "titulo": "The Instrumental Archives Vol. III",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://serapisproject.bandcamp.com/album/the-instrumental-archives-vol-iii",
+     "portada": "https://f4.bcbits.com/img/a3743482803_16.jpg"
+    },
+    {
+     "titulo": "Side Stories",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://serapisproject.bandcamp.com/album/side-stories",
+     "portada": "https://f4.bcbits.com/img/a2460974514_16.jpg"
+    },
+    {
+     "titulo": "Palingenesis - SerapiS Project",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://serapisproject.bandcamp.com/album/palingenesis-serapis-project",
+     "portada": "https://f4.bcbits.com/img/a4175121540_16.jpg"
+    },
+    {
+     "titulo": "The Instrumental Archives Vol. II",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://serapisproject.bandcamp.com/album/the-instrumental-archives-vol-ii",
+     "portada": "https://f4.bcbits.com/img/a1489973458_16.jpg"
+    },
+    {
+     "titulo": "The Instrumental Archives Vol. I",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://serapisproject.bandcamp.com/album/the-instrumental-archives-vol-i",
+     "portada": "https://f4.bcbits.com/img/a1569903307_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "mientras-las-abejas-duermen",
+   "nombre": "Mientras las abejas duermen",
+   "estilos": "Psicodélico / Stoner / Doom",
+   "ciudad": "Sierra de Cádiz",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://mientraslasabejasduermen.bandcamp.com",
+   "spotify": "https://spotify.link/m36VoyiEPXb",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/@mlad_psych",
+   "web": "",
+   "discografia": "6G6 (2026), MLAD (2026), Huellas y rumores (2026), Los hijos perdidos de Umrica / Cruz del Tajo (2025), El camino silencioso (2025)",
+   "portada": "https://f4.bcbits.com/img/a1900241978_16.jpg",
+   "discos": [
+    {
+     "titulo": "6G6",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://mientraslasabejasduermen.bandcamp.com/track/6g6",
+     "portada": "https://f4.bcbits.com/img/a1900241978_16.jpg"
+    },
+    {
+     "titulo": "MLAD",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://mientraslasabejasduermen.bandcamp.com/album/mlad",
+     "portada": "https://f4.bcbits.com/img/a2017494592_16.jpg"
+    },
+    {
+     "titulo": "Huellas y rumores",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://mientraslasabejasduermen.bandcamp.com/track/huellas-y-rumores",
+     "portada": "https://f4.bcbits.com/img/a0308582636_16.jpg"
+    },
+    {
+     "titulo": "Los hijos perdidos de Umrica / Cruz del Tajo",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://mientraslasabejasduermen.bandcamp.com/album/los-hijos-perdidos-de-umrica-cruz-del-tajo",
+     "portada": "https://f4.bcbits.com/img/a2900726265_16.jpg"
+    },
+    {
+     "titulo": "El camino silencioso",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://mientraslasabejasduermen.bandcamp.com/track/el-camino-silencioso",
+     "portada": "https://f4.bcbits.com/img/a1742953484_16.jpg"
     }
    ]
   }
