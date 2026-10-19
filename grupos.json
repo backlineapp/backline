@@ -1,5 +1,5 @@
 {
- "total": 227,
+ "total": 228,
  "actualizado": "2026-10-19",
  "grupos": [
   {
@@ -11848,7 +11848,7 @@
   {
    "id": "tresmilonce",
    "nombre": "Tresmilonce",
-   "estilos": "Post-hardcore / emo",
+   "estilos": "Rock alternativo / Rock progresivo / Post-rock",
    "ciudad": "A Coruña",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
@@ -13210,6 +13210,30 @@
      "tipo": "disco",
      "enlace": "https://pumuky.bandcamp.com/album/de-viaje-al-pa-s-de-las-tormentas",
      "portada": "https://f4.bcbits.com/img/a0906022506_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "kaiosama",
+   "nombre": "Kaiosama",
+   "estilos": "Post-rock / Math rock / Post-hardcore",
+   "ciudad": "Sevilla",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://kaiosama.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Una Columna de Humo (2024)",
+   "portada": "https://f4.bcbits.com/img/a4182348644_16.jpg",
+   "discos": [
+    {
+     "titulo": "Una Columna de Humo",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://kaiosama.bandcamp.com/album/una-columna-de-humo",
+     "portada": "https://f4.bcbits.com/img/a4182348644_16.jpg"
     }
    ]
   }
