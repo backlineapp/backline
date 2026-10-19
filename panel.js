@@ -5,8 +5,10 @@
 // Mi panel:
 //   · administrador: publicar en cualquier grupo, Solicitudes (aprobar o
 //     rechazar) y Miembros (quién gestiona cada grupo, y quitar a alguien).
-//   · miembro de un grupo: publicar, editar y borrar conciertos y giras de
-//     su grupo (o sus grupos). Nada de otros grupos.
+//   · miembro de un grupo: publicar, editar y borrar conciertos, giras,
+//     discos, vídeos y noticias de su grupo (o sus grupos). Nada de otros grupos.
+// Las imágenes (carteles, portadas e imágenes de noticias) se reducen en el
+// móvil antes de subirlas y van a la misma carpeta, con la misma regla.
 // Lo que cada cuenta puede hacer lo decide la base de datos
 // (supabase/5-miembros.sql): aunque alguien llegara a una pantalla que no le
 // toca, no podría guardar nada.
@@ -14,7 +16,7 @@
 (function () {
   'use strict';
 
-  var LADO_CARTEL = 1200;     // píxeles del lado más largo del cartel
+  var LADO_CARTEL = 1200;     // píxeles del lado más largo del cartel (y de las demás imágenes)
   var CALIDAD_CARTEL = 0.85;  // calidad JPEG
 
   var ayuda = null;
@@ -112,6 +114,18 @@
   }
 
   var ESTADOS = { pendiente: 'Pendiente', aprobada: 'Aprobada', rechazada: 'Rechazada' };
+
+  // Discos, vídeos y noticias (los formularios cortos de pintarFormularioNovedad).
+  var NOVEDADES = { disco: true, video: true, noticia: true };
+  var ICONOS_TIPO = { disco: '♪', video: '▶', noticia: '✎' };
+  var QUE_ES = { disco: 'el disco', single: 'el single', video: 'el vídeo', noticia: 'la noticia' };
+
+  // "Concierto", "Gira", "Disco", "Single", "Vídeo" o "Noticia"
+  function nombreTipo(pub) {
+    if (pub.tipo === 'concierto') return 'Concierto';
+    if (pub.tipo === 'gira') return 'Gira';
+    return Novedades.nombreTipo(pub);
+  }
 
   function etiquetaEstado(estado) {
     return crear('span', 'estado estado-' + estado, ESTADOS[estado] || estado);
@@ -300,7 +314,8 @@
         return;
       }
 
-      // #/panel/concierto/nuevo · #/panel/gira/nueva · #/panel/editar/<id>
+      // #/panel/concierto/nuevo · #/panel/gira/nueva · #/panel/disco/nuevo
+      // #/panel/video/nuevo · #/panel/noticia/nueva · #/panel/editar/<id>
       // Solo administrador: #/panel/solicitudes · #/panel/miembros
       if (cuenta.admin && partes[1] === 'solicitudes') {
         pintarSolicitudes(contenedor, cuenta);
@@ -308,6 +323,8 @@
         pintarMiembros(contenedor);
       } else if (partes[1] === 'concierto' || partes[1] === 'gira') {
         pintarFormulario(contenedor, { tipo: partes[1], fechas: [] }, cuenta);
+      } else if (NOVEDADES[partes[1]]) {
+        pintarFormularioNovedad(contenedor, { tipo: partes[1] }, cuenta);
       } else if (partes[1] === 'editar' && partes[2]) {
         Nube.publicacion(partes[2]).then(function (pub) {
           if (!pub) {
@@ -322,7 +339,8 @@
             location.hash = '#/panel';
             return;
           }
-          pintarFormulario(contenedor, pub, cuenta);
+          if (NOVEDADES[pub.tipo]) pintarFormularioNovedad(contenedor, pub, cuenta);
+          else pintarFormulario(contenedor, pub, cuenta);
         }, function (e) {
           contenedor.textContent = '';
           contenedor.appendChild(crear('p', 'aviso', e.message));
@@ -402,13 +420,16 @@
       }, function () { detalleSol.textContent = 'Gestionar y retirar fichas'; });
     }
 
-    // Botón "Publicar" con sus dos opciones
+    // Botón "Publicar" con sus opciones
     var publicar = boton('Publicar', 'boton boton-ancho');
     var opciones = crear('div', 'opciones-publicar');
     opciones.hidden = true;
     [
       { texto: 'Concierto', detalle: 'Una fecha con su cartel', href: '#/panel/concierto/nuevo' },
-      { texto: 'Gira', detalle: 'Un cartel y varias fechas', href: '#/panel/gira/nueva' }
+      { texto: 'Gira', detalle: 'Un cartel y varias fechas', href: '#/panel/gira/nueva' },
+      { texto: 'Disco o single', detalle: 'Portada y dónde escucharlo', href: '#/panel/disco/nuevo' },
+      { texto: 'Vídeo', detalle: 'De YouTube o Vimeo', href: '#/panel/video/nuevo' },
+      { texto: 'Noticia', detalle: 'Un texto corto, con imagen si quieres', href: '#/panel/noticia/nueva' }
     ].forEach(function (op) {
       var a = crear('a', 'opcion');
       a.href = op.href;
@@ -452,6 +473,9 @@
     var grupo = ayuda.grupoPorId(pub.grupo_id);
     var fechas = ordenarFechas(pub.fechas);
     var nombre = grupo ? grupo.nombre : pub.grupo_id;
+    if (NOVEDADES[pub.tipo]) {
+      return { nombre: nombre, titulo: pub.titulo || 'Sin título', fechas: [] };
+    }
     if (pub.tipo === 'gira') {
       return { nombre: nombre, titulo: pub.titulo || 'Gira sin nombre', fechas: fechas };
     }
@@ -465,15 +489,18 @@
     var li = crear('li', 'publicado ' + (grupo ? grupo._acento : ''));
 
     var url = Nube.urlCartel(pub.cartel);
+    var video = pub.tipo === 'video' ? Novedades.datosVideo(pub.enlace) : null;
+    if (!url && video) url = video.miniatura;
     if (url) {
       var img = document.createElement('img');
       img.className = 'portada cartel-mini';
       img.src = url;
       img.alt = '';
       img.loading = 'lazy';
+      img.referrerPolicy = 'no-referrer';
       li.appendChild(img);
     } else {
-      var n = crear('div', 'portada iniciales nota', '♪');
+      var n = crear('div', 'portada iniciales nota', ICONOS_TIPO[pub.tipo] || '♪');
       n.setAttribute('aria-hidden', 'true');
       li.appendChild(n);
     }
@@ -482,11 +509,12 @@
     texto.appendChild(crear('h3', 'tarjeta-nombre', d.nombre));
     texto.appendChild(crear('p', 'publicado-titulo', d.titulo));
     var proximas = d.fechas.filter(function (f) { return f.fecha >= hoy(); }).length;
-    var estado = pub.tipo === 'gira'
+    var estado = NOVEDADES[pub.tipo] ? Novedades.resumen(pub)
+      : pub.tipo === 'gira'
       ? 'Gira · ' + d.fechas.length + (d.fechas.length === 1 ? ' fecha' : ' fechas') + ' · ' + proximas + (proximas === 1 ? ' próxima' : ' próximas')
       : 'Concierto · ' + (proximas ? 'próximo' : 'ya pasado, no se muestra');
-    // Si el grupo ya no está en grupos.json, sus conciertos no se muestran.
-    if (!grupo) estado = (pub.tipo === 'gira' ? 'Gira' : 'Concierto') + ' · el grupo ya no está en la lista: no se muestra';
+    // Si el grupo ya no está en grupos.json, lo suyo no se muestra.
+    if (!grupo) estado = nombreTipo(pub) + ' · el grupo ya no está en la lista: no se muestra';
     texto.appendChild(crear('p', 'publicado-estado', estado));
     li.appendChild(texto);
 
@@ -498,8 +526,13 @@
     }
     botones.appendChild(boton('Borrar', 'boton-secundario boton-pequeno peligro', function (e) {
       var que = pub.tipo === 'gira' ? 'la gira «' + (pub.titulo || '') + '» de ' + d.nombre + ' con todas sus fechas'
-        : 'el concierto de ' + d.nombre;
-      if (!confirm('¿Borrar ' + que + '? También se borrará su cartel. No se puede deshacer.')) return;
+        : pub.tipo === 'concierto' ? 'el concierto de ' + d.nombre
+        : QUE_ES[pub.tipo === 'disco' && pub.formato === 'single' ? 'single' : pub.tipo] + ' «' + (pub.titulo || '') + '» de ' + d.nombre;
+      var imagen = !pub.cartel ? ''
+        : pub.tipo === 'disco' ? ' También se borrará su portada.'
+        : pub.tipo === 'concierto' || pub.tipo === 'gira' ? ' También se borrará su cartel.'
+        : ' También se borrará su imagen.';
+      if (!confirm('¿Borrar ' + que + '?' + imagen + ' No se puede deshacer.')) return;
       e.currentTarget.disabled = true;
       Nube.borrar(pub).then(function () {
         avisoPanel = 'Borrado.';
@@ -545,6 +578,75 @@
     });
   }
 
+  // Campo para elegir una imagen de la galería (cartel, portada o imagen de
+  // una noticia). Se reduce antes de subirla. Devuelve
+  // { nodo, nueva() -> Blob o null, quitada() -> bool, tiene() -> bool }.
+  // op = { etiqueta, ruta (la imagen que ya tenía), vacio, elegir, cambiar,
+  //        notaCambiar, opcional (añade "Quitar imagen") }
+  function campoImagen(op) {
+    var nueva = null;
+    var quitada = false;
+    var archivo = entrada('file', null, { accept: 'image/*' });
+    var vista = crear('div', 'cartel-vista');
+    function ver(src) {
+      vista.textContent = '';
+      if (!src) {
+        vista.appendChild(crear('span', 'cartel-vacio', op.vacio));
+        return;
+      }
+      var img = document.createElement('img');
+      img.src = src;
+      img.alt = 'Imagen elegida';
+      vista.appendChild(img);
+    }
+    function hay() { return !!nueva || (!!op.ruta && !quitada); }
+    ver(Nube.urlCartel(op.ruta));
+    var estado = crear('span', 'campo-nota', op.ruta ? op.notaCambiar : 'Desde la galería del móvil. Se reducirá antes de subirla.');
+    var elegir = crear('label', 'boton-secundario elegir-cartel', op.ruta ? op.cambiar : op.elegir);
+    elegir.appendChild(archivo);
+    var quitar = boton('Quitar imagen', 'boton-texto peligro quitar-imagen', function () {
+      nueva = null;
+      quitada = true;
+      archivo.value = '';
+      ver('');
+      estado.textContent = op.ruta ? 'Se quitará al guardar.' : '';
+      actualizar();
+    });
+    function actualizar() {
+      quitar.hidden = !op.opcional || !hay();
+      elegir.firstChild.textContent = hay() ? op.cambiar : op.elegir;
+    }
+    archivo.addEventListener('change', function () {
+      var f = archivo.files && archivo.files[0];
+      if (!f) return;
+      estado.textContent = 'Preparando imagen…';
+      reducirImagen(f).then(function (r) {
+        nueva = r.blob;
+        ver(URL.createObjectURL(r.blob));
+        estado.textContent = 'Lista: ' + r.ancho + ' × ' + r.alto + ' px, ' + Math.round(r.blob.size / 1024) + ' KB.';
+        actualizar();
+      }, function (e) {
+        nueva = null;
+        archivo.value = '';
+        estado.textContent = e.message;
+        actualizar();
+      });
+    });
+    var caja = crear('div', 'campo');
+    caja.appendChild(crear('span', 'campo-etiqueta', op.etiqueta));
+    caja.appendChild(vista);
+    caja.appendChild(elegir);
+    caja.appendChild(estado);
+    caja.appendChild(quitar);
+    actualizar();
+    return {
+      nodo: caja,
+      nueva: function () { return nueva; },
+      quitada: function () { return quitada && !nueva && !!op.ruta; },
+      tiene: hay
+    };
+  }
+
   function opcionesGrupos(cuenta) {
     return gruposPermitidos(cuenta).map(function (g) { return { valor: g.id, texto: g.nombre }; });
   }
@@ -575,6 +677,7 @@
     var provincia = selector(opcionesProvincias(), Conciertos.provinciaDe(f), 'Elige provincia');
     var pais = entrada('text', Conciertos.paisDe(f), { required: '', maxlength: '60', autocomplete: 'off', list: 'lista-paises' });
     var sala = entrada('text', f.sala, { required: '', maxlength: '160', autocomplete: 'off' });
+    var direccion = entrada('text', f.direccion, { maxlength: '160', autocomplete: 'off', placeholder: 'Ej.: Calle Mayor 5' });
     var precio = entrada('text', f.precio, { maxlength: '80', placeholder: 'Ej.: 12 € anticipada / 15 € taquilla' });
     var entradas = entrada('url', f.entradas, { inputmode: 'url', placeholder: 'https://…' });
 
@@ -594,6 +697,7 @@
     pais.addEventListener('focus', function () { if (Conciertos.esEspana(pais.value)) pais.select(); });
     verProvincia();
     nodo.appendChild(campo('Sala', sala));
+    nodo.appendChild(campo('Dirección (opcional)', direccion, 'Ayuda a que el mapa encuentre la sala'));
     if (conPrecio) nodo.appendChild(campo('Precio (opcional)', precio));
     nodo.appendChild(campo('Enlace a entradas (opcional)', entradas));
 
@@ -613,6 +717,7 @@
           pais: Conciertos.paisCanonico(pais.value),
           provincia: Conciertos.esEspana(pais.value) ? provincia.value : '',
           sala: sala.value.trim(),
+          direccion: direccion.value.trim().replace(/\s+/g, ' '),
           precio: conPrecio ? precio.value.trim() : (f.precio || ''),
           entradas: entradas.value.trim()
         };
@@ -657,45 +762,15 @@
     if (esGira) form.appendChild(campo('Nombre de la gira', nombreGira));
 
     // Cartel
-    var cartelNuevo = null;
-    var archivo = entrada('file', null, { accept: 'image/*' });
-    var vista = crear('div', 'cartel-vista');
-    var urlActual = Nube.urlCartel(pub.cartel);
-    function verCartel(src) {
-      vista.textContent = '';
-      if (!src) {
-        vista.appendChild(crear('span', 'cartel-vacio', 'Sin cartel'));
-        return;
-      }
-      var img = document.createElement('img');
-      img.src = src;
-      img.alt = 'Cartel elegido';
-      vista.appendChild(img);
-    }
-    verCartel(urlActual);
-    var estadoCartel = crear('span', 'campo-nota', editando ? 'Elige otra imagen solo si quieres cambiar el cartel.' : 'Desde la galería del móvil. Se reducirá antes de subirla.');
-    archivo.addEventListener('change', function () {
-      var f = archivo.files && archivo.files[0];
-      if (!f) return;
-      estadoCartel.textContent = 'Preparando imagen…';
-      reducirImagen(f).then(function (r) {
-        cartelNuevo = r.blob;
-        verCartel(URL.createObjectURL(r.blob));
-        estadoCartel.textContent = 'Lista: ' + r.ancho + ' × ' + r.alto + ' px, ' + Math.round(r.blob.size / 1024) + ' KB.';
-      }, function (e) {
-        cartelNuevo = null;
-        archivo.value = '';
-        estadoCartel.textContent = e.message;
-      });
+    var cartel = campoImagen({
+      etiqueta: 'Cartel',
+      ruta: pub.cartel,
+      vacio: 'Sin cartel',
+      elegir: 'Elegir cartel',
+      cambiar: 'Cambiar cartel',
+      notaCambiar: 'Elige otra imagen solo si quieres cambiar el cartel.'
     });
-    var cajaCartel = crear('div', 'campo');
-    cajaCartel.appendChild(crear('span', 'campo-etiqueta', 'Cartel'));
-    cajaCartel.appendChild(vista);
-    var elegir = crear('label', 'boton-secundario elegir-cartel', editando ? 'Cambiar cartel' : 'Elegir cartel');
-    elegir.appendChild(archivo);
-    cajaCartel.appendChild(elegir);
-    cajaCartel.appendChild(estadoCartel);
-    form.appendChild(cajaCartel);
+    form.appendChild(cartel.nodo);
 
     // Fechas
     var bloques = [];
@@ -762,7 +837,7 @@
       e.preventDefault();
       if (!grupo.value) return mensaje(aviso, 'Elige el grupo.', 'error');
       if (esGira && !nombreGira.value.trim()) return mensaje(aviso, 'Falta el nombre de la gira.', 'error');
-      if (!cartelNuevo && !pub.cartel) return mensaje(aviso, 'Falta el cartel.', 'error');
+      if (!cartel.tiene()) return mensaje(aviso, 'Falta el cartel.', 'error');
       var fechas = bloques.map(function (b) { return b.leer(); });
       for (var i = 0; i < fechas.length; i++) {
         var fallo = validarFecha(fechas[i], esGira ? i + 1 : 0);
@@ -773,16 +848,245 @@
         : 'Has quitado ' + borradas.length + ' fechas de la gira. Se borrarán al guardar. ¿Seguir?')) return;
 
       guardar.disabled = true;
-      mensaje(aviso, cartelNuevo ? 'Subiendo cartel y guardando…' : 'Guardando…');
+      mensaje(aviso, cartel.nueva() ? 'Subiendo cartel y guardando…' : 'Guardando…');
       Nube.guardar({
         id: pub.id,
         grupo_id: grupo.value,
         tipo: pub.tipo,
         titulo: esGira ? nombreGira.value.trim() : null,
         cartelAnterior: pub.cartel,
-        cartelNuevo: cartelNuevo,
+        cartelNuevo: cartel.nueva(),
         fechas: fechas,
         fechasBorradas: borradas
+      }).then(function () {
+        avisoPanel = editando ? 'Cambios guardados.' : 'Publicado.';
+        location.hash = '#/panel';
+      }, function (err) {
+        guardar.disabled = false;
+        mensaje(aviso, err.message, 'error');
+      });
+    });
+  }
+
+  // ---------- Formulario de disco, vídeo o noticia ----------
+  // Cortos y pensados para el móvil: publicar tiene que llevar menos de un minuto.
+
+  // Contador "120 / 1000" bajo un texto.
+  function contador(area, max) {
+    var nota = crear('span', 'campo-nota contador');
+    function contar() {
+      var n = area.value.length;
+      nota.textContent = n + ' / ' + max;
+      nota.classList.toggle('error', n > max);
+    }
+    area.addEventListener('input', contar);
+    contar();
+    return nota;
+  }
+
+  // ¿Qué pasa con este enlace? Devuelve { error } o { ok } (texto para la nota).
+  // tipo: 'disco' (dónde escucharlo), 'video' o 'noticia' (enlace opcional).
+  function revisarEnlace(valor, tipo) {
+    if (!valor) {
+      return tipo === 'noticia' ? {} : { error: tipo === 'video' ? 'Falta el enlace del vídeo.' : 'Falta el enlace donde escucharlo.' };
+    }
+    var red = ayuda.redSocial(valor);
+    if (red) {
+      return { error: 'Backline no enlaza a redes sociales (' + red + '). ' + (tipo === 'video'
+        ? 'Usa el enlace del vídeo en YouTube o Vimeo.'
+        : tipo === 'disco' ? 'Usa Bandcamp, Spotify, Apple Music, YouTube o vuestra web.'
+        : 'Usa el enlace de vuestra web o de donde esté la noticia.') };
+    }
+    if (!ayuda.urlPermitida(valor) || !/^https?:\/\/[^/?#\s]+\.[^/?#\s]+/i.test(valor)) {
+      return { error: 'El enlace no es válido. Cópialo entero, empezando por https://' };
+    }
+    if (tipo === 'video') {
+      var v = Novedades.datosVideo(valor);
+      if (!v) return { error: 'Tiene que ser el enlace de un vídeo de YouTube o Vimeo.' };
+      return { ok: v.servicio === 'Vimeo' ? 'Vimeo ✓ Se verá con una tarjeta con el título.' : 'YouTube ✓' };
+    }
+    if (tipo === 'disco') {
+      var servicio = Novedades.servicioMusica(valor);
+      return { ok: servicio ? servicio + ' ✓' : 'Se abrirá vuestra web.' };
+    }
+    return { ok: '✓' };
+  }
+
+  // Botones "Disco" / "Single".
+  function elegirFormato(valor) {
+    var caja = crear('div', 'selector-dos');
+    caja.setAttribute('role', 'radiogroup');
+    var nombre = 'formato-' + Date.now();
+    var radios = {};
+    [{ v: 'disco', t: 'Disco' }, { v: 'single', t: 'Single' }].forEach(function (op) {
+      var etiqueta = crear('label', 'selector-opcion');
+      var r = entrada('radio', op.v, { name: nombre });
+      r.checked = (valor || 'disco') === op.v;
+      radios[op.v] = r;
+      etiqueta.appendChild(r);
+      etiqueta.appendChild(crear('span', null, op.t));
+      caja.appendChild(etiqueta);
+      r.addEventListener('change', marcar);
+    });
+    function marcar() {
+      Object.keys(radios).forEach(function (k) { radios[k].parentNode.classList.toggle('activa', radios[k].checked); });
+    }
+    marcar();
+    return { nodo: caja, valor: function () { return radios.single.checked ? 'single' : 'disco'; } };
+  }
+
+  function pintarFormularioNovedad(contenedor, pub, cuenta) {
+    contenedor.textContent = '';
+    var tipo = pub.tipo;
+    var editando = !!pub.id;
+    var nombres = { disco: 'disco o single', video: 'vídeo', noticia: 'noticia' };
+    titular(contenedor, (editando ? 'Editar ' : 'Publicar ') + nombres[tipo], null);
+
+    var form = crear('form', 'formulario');
+    form.noValidate = true;
+    contenedor.appendChild(form);
+
+    var opciones = opcionesGrupos(cuenta);
+    var grupo = selector(opciones, pub.grupo_id || (opciones.length === 1 ? opciones[0].valor : ''), 'Elige grupo');
+    form.appendChild(campo('Grupo', grupo));
+
+    var titulo = entrada('text', pub.titulo, { maxlength: String(Novedades.MAX_TITULO), autocomplete: 'off', required: '' });
+    form.appendChild(campo('Título', titulo));
+
+    var formato = null;
+    var salida = null;
+    if (tipo === 'disco') {
+      formato = elegirFormato(pub.formato);
+      var cajaFormato = crear('div', 'campo');
+      cajaFormato.appendChild(crear('span', 'campo-etiqueta', '¿Disco o single?'));
+      cajaFormato.appendChild(formato.nodo);
+      form.appendChild(cajaFormato);
+      salida = entrada('date', pub.salida || hoy(), { required: '' });
+      form.appendChild(campo('Fecha de salida', salida));
+    }
+
+    var imagen = null;
+    if (tipo === 'disco') {
+      imagen = campoImagen({
+        etiqueta: 'Portada', ruta: pub.cartel, vacio: 'Sin portada',
+        elegir: 'Elegir portada', cambiar: 'Cambiar portada',
+        notaCambiar: 'Elige otra imagen solo si quieres cambiar la portada.'
+      });
+      form.appendChild(imagen.nodo);
+    }
+
+    // Texto: el de la noticia, obligatorio; en disco y vídeo, corto y opcional.
+    var max = tipo === 'noticia' ? Novedades.MAX_TEXTO_NOTICIA : Novedades.MAX_TEXTO_CORTO;
+    var texto = areaTexto(pub.texto, {
+      maxlength: String(max), rows: tipo === 'noticia' ? '6' : '3',
+      placeholder: tipo === 'noticia' ? 'Cuenta la noticia' : 'Unas líneas, si quieres'
+    });
+    var cajaTexto = campo(tipo === 'noticia' ? 'Texto' : 'Texto (opcional)', texto);
+    cajaTexto.appendChild(contador(texto, max));
+
+    if (tipo === 'noticia') {
+      form.appendChild(cajaTexto);
+      imagen = campoImagen({
+        etiqueta: 'Imagen (opcional)', ruta: pub.cartel, vacio: 'Sin imagen',
+        elegir: 'Elegir imagen', cambiar: 'Cambiar imagen',
+        notaCambiar: 'Puedes cambiarla o quitarla.', opcional: true
+      });
+      form.appendChild(imagen.nodo);
+    }
+
+    // Enlace, con aviso al momento si no vale (por ejemplo, de una red social).
+    var enlace = entrada('url', pub.enlace, { inputmode: 'url', autocomplete: 'off', placeholder: 'https://…' });
+    var etiquetas = { disco: 'Dónde escucharlo', video: 'Enlace de YouTube o Vimeo', noticia: 'Enlace (opcional)' };
+    var notasEnlace = {
+      disco: 'Bandcamp, Spotify, Apple Music, YouTube o vuestra web.',
+      video: 'Si es de YouTube, la miniatura sale sola.',
+      noticia: 'Vuestra web o donde esté la noticia. Nada de redes sociales.'
+    };
+    var cajaEnlace = campo(etiquetas[tipo], enlace);
+    var notaEnlace = crear('span', 'campo-nota', notasEnlace[tipo]);
+    cajaEnlace.appendChild(notaEnlace);
+    var miniatura = crear('div', 'miniatura-video');
+    miniatura.hidden = true;
+    if (tipo === 'video') cajaEnlace.appendChild(miniatura);
+    form.appendChild(cajaEnlace);
+
+    function valorEnlace() { return Novedades.completarEnlace(enlace.value); }
+
+    function revisarAlEscribir() {
+      var valor = valorEnlace();
+      var r = valor ? revisarEnlace(valor, tipo) : {};
+      notaEnlace.textContent = r.error || r.ok || notasEnlace[tipo];
+      notaEnlace.className = 'campo-nota' + (r.error ? ' error' : r.ok ? ' ok' : '');
+      // Mientras se escribe, solo se marca en rojo lo que seguro que no vale.
+      if (r.error && !ayuda.redSocial(valor) && document.activeElement === enlace) {
+        notaEnlace.textContent = notasEnlace[tipo];
+        notaEnlace.className = 'campo-nota';
+      }
+      if (tipo === 'video') {
+        var v = !r.error && Novedades.datosVideo(valor);
+        miniatura.textContent = '';
+        miniatura.hidden = !v;
+        if (v && v.miniatura) {
+          var img = document.createElement('img');
+          img.src = v.miniatura;
+          img.alt = 'Miniatura del vídeo';
+          img.referrerPolicy = 'no-referrer';
+          miniatura.appendChild(img);
+        } else if (v) {
+          miniatura.appendChild(crear('span', 'miniatura-vimeo', titulo.value.trim() || 'Vídeo de Vimeo'));
+        }
+      }
+    }
+    enlace.addEventListener('input', revisarAlEscribir);
+    enlace.addEventListener('blur', function () {
+      if (enlace.value.trim() && valorEnlace() !== enlace.value.trim()) enlace.value = valorEnlace();
+      revisarAlEscribir();
+    });
+    if (pub.enlace) revisarAlEscribir();
+
+    if (tipo !== 'noticia') form.appendChild(cajaTexto);
+
+    var aviso = crear('p', 'mensaje');
+    aviso.hidden = true;
+    form.appendChild(aviso);
+
+    var guardar = crear('button', 'boton boton-ancho', editando ? 'Guardar cambios' : 'Publicar');
+    guardar.type = 'submit';
+    form.appendChild(guardar);
+    var cancelar = crear('a', 'boton-texto cancelar', 'Cancelar');
+    cancelar.href = '#/panel';
+    form.appendChild(cancelar);
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var valor = valorEnlace();
+      var t = texto.value.trim();
+      if (!grupo.value) return mensaje(aviso, 'Elige el grupo.', 'error');
+      if (!titulo.value.trim()) return mensaje(aviso, 'Falta el título.', 'error');
+      if (tipo === 'disco' && !salida.value) return mensaje(aviso, 'Falta la fecha de salida.', 'error');
+      if (tipo === 'disco' && !imagen.tiene()) return mensaje(aviso, 'Falta la portada.', 'error');
+      if (tipo === 'noticia' && !t) return mensaje(aviso, 'Falta el texto de la noticia.', 'error');
+      if (t.length > max) return mensaje(aviso, 'El texto es demasiado largo: como mucho, ' + max + ' caracteres.', 'error');
+      var r = revisarEnlace(valor, tipo);
+      if (r.error) {
+        revisarAlEscribir();
+        return mensaje(aviso, r.error, 'error');
+      }
+
+      guardar.disabled = true;
+      mensaje(aviso, imagen && imagen.nueva() ? 'Subiendo imagen y guardando…' : 'Guardando…');
+      Nube.guardar({
+        id: pub.id,
+        grupo_id: grupo.value,
+        tipo: tipo,
+        titulo: titulo.value.trim().replace(/\s+/g, ' '),
+        texto: t,
+        enlace: valor,
+        formato: formato ? formato.valor() : null,
+        salida: salida ? salida.value : null,
+        cartelAnterior: pub.cartel,
+        cartelNuevo: imagen ? imagen.nueva() : null,
+        quitarCartel: imagen ? imagen.quitada() : false
       }).then(function () {
         avisoPanel = editando ? 'Cambios guardados.' : 'Publicado.';
         location.hash = '#/panel';
@@ -861,7 +1165,7 @@
     var aprobar = boton('Aprobar', 'boton boton-pequeno boton-aprobar', function () {
       var pregunta = sol.tipo === 'retirar'
         ? '¿Aprobar la retirada de la ficha de ' + nombreG + '?\n\nLa ficha NO se quita sola: después tendrás que borrar el grupo de grupos.json.'
-        : '¿Aprobar a ' + sol.nombre + '? Podrá publicar, editar y borrar conciertos y giras de ' + nombreG + '.';
+        : '¿Aprobar a ' + sol.nombre + '? Podrá publicar, editar y borrar conciertos, giras, discos, vídeos y noticias de ' + nombreG + '.';
       if (!confirm(pregunta)) return;
       resolver(true);
     });
@@ -983,7 +1287,7 @@
       // Sin cuenta: primero, entrar con correo y código.
       if (!cuenta) {
         cuerpo.appendChild(crear('p', 'formulario-texto', 'Si formas parte de ' + grupo.nombre +
-          ' o lo representas, puedes pedir gestionar su ficha para publicar vosotros mismos sus conciertos y giras. También puedes pedir que se retire.'));
+          ' o lo representas, puedes pedir gestionar su ficha para publicar vosotros mismos sus conciertos, discos, vídeos y noticias. También puedes pedir que se retire.'));
         cuerpo.appendChild(crear('p', 'formulario-texto', 'Primero, entra con tu correo: te enviaremos un código de 6 cifras. Sin contraseñas.'));
         formularioAcceso(cuerpo, rehacer);
         return;
@@ -1024,7 +1328,7 @@
     cuerpo.appendChild(aviso);
 
     if (gestiona) {
-      cuerpo.appendChild(crear('p', 'formulario-texto', 'Ya gestionas esta ficha: puedes publicar sus conciertos y giras desde tu panel.'));
+      cuerpo.appendChild(crear('p', 'formulario-texto', 'Ya gestionas esta ficha: puedes publicar sus conciertos, discos, vídeos y noticias desde tu panel.'));
       var irPanel = crear('a', 'boton boton-ancho', 'Ir a mi panel');
       irPanel.href = '#/panel';
       cuerpo.appendChild(irPanel);
@@ -1060,7 +1364,7 @@
     form.noValidate = true;
     if (puedeGestionar) {
       form.appendChild(crear('p', 'etiqueta-seccion', 'Solicitar gestionar esta ficha'));
-      form.appendChild(crear('p', 'formulario-texto', 'Si lo aprobamos, podrás publicar los conciertos y giras de ' + grupo.nombre + ' con su cartel. Puede haber varias personas por grupo.'));
+      form.appendChild(crear('p', 'formulario-texto', 'Si lo aprobamos, podrás publicar los conciertos, giras, discos, vídeos y noticias de ' + grupo.nombre + '. Puede haber varias personas por grupo.'));
     } else {
       form.appendChild(crear('p', 'etiqueta-seccion', 'Tus datos'));
     }

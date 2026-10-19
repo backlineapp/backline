@@ -1190,3 +1190,144 @@ a.volver { display: inline-block; text-decoration: none; }
 .instalar-mensaje { margin: 10px 0 0; font-size: 13px; line-height: 1.45; color: var(--cian); word-break: break-word; }
 .instalar-mensaje:empty { display: none; }
 .instalar-ahora-no { display: block; margin: 10px auto 0; color: var(--tenue); }
+
+/* ---------- Discos, vídeos y noticias publicados por los grupos ---------- */
+/* Casillas de la cuadrícula (Inicio y ficha): igual que las de los discos */
+.novedad-video { position: relative; width: 100%; height: 100%; }
+.novedad-play {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding-left: 2px;
+  font-size: 12px;
+  color: var(--fondo);
+  background: var(--acento);
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+.novedad-tarjeta {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 12px;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--acento-suave), var(--superficie-2) 70%);
+}
+.novedad-tarjeta-marca {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+.novedad-tarjeta-texto {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--texto);
+  overflow-wrap: anywhere;
+}
+.novedad-vimeo .novedad-tarjeta-texto {
+  -webkit-line-clamp: 3;
+  font-family: var(--titulos);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Pantalla de una novedad */
+.video-marco {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 16px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--linea);
+  border-radius: 18px;
+}
+.video-marco iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.cartel-grande.portada-grande img { max-height: none; aspect-ratio: 1 / 1; object-fit: cover; }
+.novedad-tipo {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+.novedad-grupo { display: inline-block; margin-top: 6px; font-size: 15px; font-weight: 600; }
+.novedad-texto {
+  margin: 16px 0 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--texto);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.novedad-sitio { margin: -4px 0 0; text-align: center; }
+.detalle-novedad .acciones { margin-top: 20px; }
+.detalle-novedad .novedad-texto + .acciones { margin-top: 0; }
+
+/* Formularios cortos del panel */
+.opciones-publicar .opcion:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.campo-nota.error { color: #F0A291; }
+.campo-nota.ok { color: var(--cian); }
+.contador { align-self: flex-end; }
+.quitar-imagen { align-self: flex-start; padding-top: 0; }
+.selector-dos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.selector-opcion {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tenue);
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.selector-opcion input { position: absolute; opacity: 0; pointer-events: none; }
+.selector-opcion.activa {
+  color: var(--ambar);
+  background: rgba(232, 161, 58, 0.10);
+  border-color: rgba(232, 161, 58, 0.45);
+}
+.selector-opcion:has(input:focus-visible) { outline: 2px solid var(--cian); outline-offset: 2px; }
+.miniatura-video {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  max-width: 320px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+}
+.miniatura-video img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.miniatura-vimeo {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  padding: 12px;
+  font-family: var(--titulos);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--texto);
+  background: linear-gradient(160deg, rgba(79, 196, 214, 0.20), var(--superficie-2) 70%);
+}

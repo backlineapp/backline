@@ -12,7 +12,8 @@
 //      Ni correo ni nombre.
 //
 // Los avisos los manda Supabase (supabase/functions/enviar-avisos) y los
-// muestra sw.js. Al tocar uno, sw.js abre la app en ese concierto.
+// muestra sw.js. Al tocar uno, sw.js abre la app en ese concierto, disco,
+// vídeo o noticia.
 //
 // Órdenes que usa el resto de la app:
 //   Avisos.pintar(contenedor)  -> pinta el recuadro de Mis grupos
@@ -234,7 +235,7 @@
     var c;
     if (sus) {
       c = caja('Avisos activados',
-        'Te avisaremos cuando tus grupos publiquen un concierto o una gira. Nunca de noche. Para silenciar un grupo, toca la campanita de su ficha.');
+        'Te avisaremos cuando tus grupos publiquen conciertos, discos, vídeos o noticias. Nunca de noche. Para silenciar un grupo, toca la campanita de su ficha.');
       c.classList.add('activos');
       c.appendChild(boton('Desactivar avisos', 'boton-texto', desactivar));
     } else if (Notification.permission === 'denied') {
@@ -242,7 +243,7 @@
         'Has bloqueado los avisos de Backline en este móvil. Para recibirlos, permítelos en los ajustes del navegador o del móvil y vuelve aquí.');
     } else {
       c = caja('Recibe un aviso cuando tus grupos publiquen algo',
-        'Solo conciertos y giras de los grupos que sigues. Sin cuenta y nunca de noche.');
+        'Conciertos, discos, vídeos y noticias de los grupos que sigues. Como mucho uno al día por grupo, sin cuenta y nunca de noche.');
       c.appendChild(boton('Activar avisos', 'boton', activar));
     }
     if (texto) c.appendChild(crear('p', 'avisos-mensaje' + (esError ? ' error' : ''), texto));
@@ -320,7 +321,7 @@
     if (sus) return enviarLista(sus, false);
   }).catch(function () { /* sin conexión: ya se enviará */ });
 
-  // Al tocar un aviso con la app ya abierta, sw.js pide ir a ese concierto.
+  // Al tocar un aviso con la app ya abierta, sw.js pide ir a esa pantalla.
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.addEventListener('message', function (e) {
       var d = e.data || {};

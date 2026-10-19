@@ -172,10 +172,20 @@
     return String(t || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
   }
 
+  // "Sala Totem, Calle Mayor 5, Villava, Navarra, España" (para el calendario).
   function lugar(f) {
     var pais = paisDe(f);
     var provincia = provinciaDe(f);
-    return [f.sala, f.ciudad, provincia !== f.ciudad ? provincia : '', pais].filter(Boolean).join(', ');
+    return [f.sala, f.direccion, f.ciudad, provincia !== f.ciudad ? provincia : '', pais].filter(Boolean).join(', ');
+  }
+
+  // Texto para el mapa. Con dirección: "Calle Mayor 5, Villava, Navarra,
+  // España", sin el nombre de la sala (mezclado con la calle, a veces confunde
+  // al mapa). Sin dirección: "Sala Totem, Villava, Navarra, España".
+  function destino(f) {
+    var pais = paisDe(f);
+    var provincia = provinciaDe(f);
+    return [f.direccion || f.sala, f.ciudad, provincia !== f.ciudad ? provincia : '', pais].filter(Boolean).join(', ');
   }
 
   // "Castellón" o, fuera de España, "Lisboa (Portugal)".
@@ -248,9 +258,12 @@
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   }
 
+  // Abre el mapa con el concierto como DESTINO (la ruta desde donde esté la
+  // persona), no como una búsqueda: así el mapa no busca salas con ese nombre
+  // cerca de quien mira, sino el sitio del texto completo.
   function urlMapa(f) {
-    var q = encodeURIComponent(lugar(f));
-    return esIphone() ? 'https://maps.apple.com/?q=' + q : 'https://www.google.com/maps/search/?api=1&query=' + q;
+    var d = encodeURIComponent(destino(f));
+    return esIphone() ? 'https://maps.apple.com/?daddr=' + d : 'https://www.google.com/maps/dir/?api=1&destination=' + d;
   }
 
   // ---------- Piezas de pantalla ----------
@@ -434,6 +447,7 @@
       dato(datos, 'Fecha', textoFecha.charAt(0).toUpperCase() + textoFecha.slice(1));
       dato(datos, 'Hora', f.hora ? hora(f.hora) + notaHora(f) : 'Por confirmar');
       dato(datos, 'Sala', f.sala);
+      dato(datos, 'Dirección', f.direccion);
       var provincia = provinciaDe(f);
       dato(datos, 'Ciudad', provincia && provincia !== f.ciudad ? f.ciudad + ' (' + provincia + ')' : ciudadConPais(f));
       dato(datos, 'Precio', f.precio);
@@ -477,6 +491,7 @@
     pintarDetalle: pintarDetalle,
     // Para las pruebas
     crearIcs: crearIcs,
+    urlMapa: urlMapa,
     instante: instante
   };
 })();

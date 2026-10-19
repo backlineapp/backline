@@ -6,8 +6,9 @@
 //   2. Pide a la base de datos los avisos que tocan ahora (avisos_preparar
 //      ya aplica las reglas: 10 minutos de espera, uno por grupo y día,
 //      nada de 23:00 a 9:00).
-//   3. Escribe el texto: "Dry River · Nueva gira: 6 fechas" o
-//      "Dry River · Concierto en Castellón, 14 nov".
+//   3. Escribe el texto: "Dry River · Nueva gira: 6 fechas",
+//      "Dry River · Concierto en Castellón, 14 nov", "Dry River · Nuevo disco: …",
+//      "Dry River · Nuevo vídeo: …" o "Dry River · …" (título de la noticia).
 //   4. Lo cifra para cada móvil (solo ese móvil puede leerlo) y lo envía.
 //   5. Borra los móviles que ya no aceptan avisos.
 //
@@ -26,7 +27,15 @@ const CADUCIDAD_SEGUNDOS = 24 * 3600;
 const A_LA_VEZ = 10;
 
 type Fecha = { id: string; fecha: string; ciudad: string; pais: string | null; sala: string };
-type Publicacion = { id: string; tipo: string; titulo: string | null; fechas: Fecha[] };
+type Publicacion = {
+  id: string;
+  tipo: string;
+  titulo: string | null;
+  formato?: string | null;
+  salida?: string | null;
+  texto?: string | null;
+  fechas: Fecha[] | null;
+};
 type Suscripcion = { endpoint: string; p256dh: string; auth: string };
 type Lote = { grupo_id: string; publicaciones: Publicacion[]; suscripciones: Suscripcion[] };
 export type Aviso = { titulo: string; texto: string; ruta: string; etiqueta: string };
@@ -170,13 +179,54 @@ function mayuscula(t: string): string {
   return t.charAt(0).toUpperCase() + t.slice(1);
 }
 
+// Hoy en Madrid, como "2026-10-19".
+function hoyMadrid(): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Madrid", year: "numeric", month: "2-digit", day: "2-digit" })
+    .format(new Date());
+}
+
+// Principio del texto en una sola línea, para el cuerpo del aviso.
+function extracto(texto: string | null | undefined, largo = 120): string {
+  const t = (texto || "").replace(/\s+/g, " ").trim();
+  return t.length > largo ? t.slice(0, largo - 1).trimEnd() + "…" : t;
+}
+
+// "a", "a y b", "a, b y c"
+function enumerar(partes: string[]): string {
+  return partes.length < 2 ? partes.join("") : partes.slice(0, -1).join(", ") + " y " + partes[partes.length - 1];
+}
+
+// Disco, vídeo o noticia: un aviso que abre esa publicación en la app.
+function avisoNovedad(nombre: string, p: Publicacion, etiqueta: string): Aviso {
+  const ruta = "#/novedad/" + p.id;
+  const titulo = p.titulo || "";
+  if (p.tipo === "disco") {
+    const que = p.formato === "single" ? "Nuevo single" : "Nuevo disco";
+    const saldra = p.salida && p.salida > hoyMadrid();
+    return {
+      titulo: `${nombre} · ${que}: ${titulo}`,
+      texto: saldra ? `Sale el ${diaCorto(p.salida as string)}.` : extracto(p.texto) || "Toca para escucharlo.",
+      ruta,
+      etiqueta,
+    };
+  }
+  if (p.tipo === "video") {
+    return { titulo: `${nombre} · Nuevo vídeo: ${titulo}`, texto: extracto(p.texto) || "Toca para verlo.", ruta, etiqueta };
+  }
+  return { titulo: `${nombre} · ${titulo}`, texto: extracto(p.texto) || "Toca para leerla.", ruta, etiqueta };
+}
+
+const NOVEDADES = ["disco", "video", "noticia"];
+
 export function componer(nombre: string, grupoId: string, pubs: Publicacion[]): Aviso {
   const etiqueta = "grupo-" + grupoId;
+  if (pubs.length === 1 && NOVEDADES.includes(pubs[0].tipo)) return avisoNovedad(nombre, pubs[0], etiqueta);
   if (pubs.length === 1) {
     const p = pubs[0];
-    const primera = p.fechas[0];
+    const fechas = p.fechas || [];
+    const primera = fechas[0];
     if (p.tipo === "gira") {
-      const n = p.fechas.length;
+      const n = fechas.length;
       return {
         titulo: `${nombre} · Nueva gira: ${n} ${n === 1 ? "fecha" : "fechas"}`,
         texto: p.titulo || "Toca para ver las fechas.",
@@ -192,14 +242,39 @@ export function componer(nombre: string, grupoId: string, pubs: Publicacion[]): 
     };
   }
   // Varias cosas a la vez: un solo aviso que lleva a la ficha del grupo.
-  const giras = pubs.filter((p) => p.tipo === "gira").length;
-  const conciertos = pubs.length - giras;
+  const cuantas = (fn: (p: Publicacion) => boolean) => pubs.filter(fn).length;
+  const giras = cuantas((p) => p.tipo === "gira");
+  const conciertos = cuantas((p) => p.tipo === "concierto");
+  const singles = cuantas((p) => p.tipo === "disco" && p.formato === "single");
+  const discos = cuantas((p) => p.tipo === "disco") - singles;
+  const videos = cuantas((p) => p.tipo === "video");
+  const noticias = cuantas((p) => p.tipo === "noticia");
+  const soloFechas = giras + conciertos === pubs.length;
+  if (soloFechas) {
+    const partes: string[] = [];
+    if (giras) partes.push(giras === 1 ? "nueva gira" : `${giras} giras nuevas`);
+    if (conciertos) partes.push(conciertos === 1 ? "1 concierto nuevo" : `${conciertos} conciertos nuevos`);
+    return {
+      titulo: `${nombre} · ${mayuscula(enumerar(partes))}`,
+      texto: "Toca para ver las fechas.",
+      ruta: "#/grupo/" + grupoId,
+      etiqueta,
+    };
+  }
+  // "Dry River · Novedades: disco, 2 conciertos y vídeo"
   const partes: string[] = [];
-  if (giras) partes.push(giras === 1 ? "nueva gira" : `${giras} giras nuevas`);
-  if (conciertos) partes.push(conciertos === 1 ? "1 concierto nuevo" : `${conciertos} conciertos nuevos`);
+  const contar = (n: number, una: string, varias: string) => {
+    if (n) partes.push(n === 1 ? una : `${n} ${varias}`);
+  };
+  contar(discos, "disco", "discos");
+  contar(singles, "single", "singles");
+  contar(giras, "gira", "giras");
+  contar(conciertos, "concierto", "conciertos");
+  contar(videos, "vídeo", "vídeos");
+  contar(noticias, "noticia", "noticias");
   return {
-    titulo: `${nombre} · ${mayuscula(partes.join(" y "))}`,
-    texto: "Toca para ver las fechas.",
+    titulo: `${nombre} · Novedades: ${enumerar(partes)}`,
+    texto: "Toca para verlo todo.",
     ruta: "#/grupo/" + grupoId,
     etiqueta,
   };

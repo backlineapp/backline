@@ -1,8 +1,8 @@
 // backline — el backstage de tus grupos favoritos.
 // Lee grupos.json y muestra las pantallas: Inicio, Explorar, Conciertos,
-// Mis grupos, Ficha de grupo, Concierto, ¿Es tu grupo?, Acceso y Panel.
+// Mis grupos, Ficha de grupo, Concierto, Novedad, ¿Es tu grupo?, Acceso y Panel.
 // La lista de grupos seguidos la gestiona seguidos.js; los conciertos,
-// conciertos.js; el acceso, "¿Es tu grupo?" y el panel, panel.js; los avisos al móvil,
+// conciertos.js; los discos, vídeos y noticias publicados, novedades.js; el acceso, "¿Es tu grupo?" y el panel, panel.js; los avisos al móvil,
 // avisos.js; instalar la app en el móvil, instalar.js; Supabase, nube.js.
 
 (function () {
@@ -40,13 +40,26 @@
   // Palabras que no cuentan para las iniciales: "El Altar del Holocausto" -> "AH".
   var PALABRAS_VACIAS = /^(el|la|los|las|lo|de|del|y|the|of|and|a)$/i;
 
-  // Nunca se enlaza a redes sociales, aunque llegaran en los datos.
-  var PROHIBIDOS = /(^|\.)(facebook\.com|fb\.com|instagram\.com|x\.com|twitter\.com)$/i;
+  // Nunca se enlaza a redes sociales, aunque llegaran en los datos. Al
+  // publicar, la app avisa y no deja usar estos enlaces. La misma lista está
+  // en supabase/6-novedades.sql: si se cambia aquí, cambiarla allí.
+  var REDES_SOCIALES = [
+    { nombre: 'Facebook', patron: /(^|\.)(facebook\.com|fb\.com|fb\.me|fb\.watch)$/ },
+    { nombre: 'Instagram', patron: /(^|\.)(instagram\.com|instagr\.am)$/ },
+    { nombre: 'X', patron: /(^|\.)(x\.com|twitter\.com|t\.co)$/ },
+    { nombre: 'TikTok', patron: /(^|\.)tiktok\.com$/ },
+    { nombre: 'Threads', patron: /(^|\.)threads\.(net|com)$/ },
+    { nombre: 'Snapchat', patron: /(^|\.)snapchat\.com$/ },
+    { nombre: 'Bluesky', patron: /(^|\.)bsky\.app$/ },
+    { nombre: 'LinkedIn', patron: /(^|\.)linkedin\.com$/ },
+    { nombre: 'Pinterest', patron: /(^|\.)pinterest\.com$/ },
+    { nombre: 'VK', patron: /(^|\.)vk\.com$/ }
+  ];
 
   // Lanzamientos que muestra Inicio de una vez; "Ver más" añade otros tantos.
   var POR_TANDA = 30;
 
-  // Nombre de cada pantalla, para el botón de volver desde la ficha o un concierto.
+  // Nombre de cada pantalla, para el botón de volver desde la ficha, un concierto o una novedad.
   var NOMBRES = {
     inicio: 'Inicio', explorar: 'Explorar', conciertos: 'Conciertos', 'mis-grupos': 'Mis grupos',
     acceso: 'Acceso', panel: 'Mi panel'
@@ -54,7 +67,7 @@
 
   // Pantallas de detalle (se vuelve de ellas a la pantalla de origen) y
   // pestaña de la barra que se ilumina en las que no son pestaña.
-  var DETALLES = { ficha: true, concierto: true };
+  var DETALLES = { ficha: true, concierto: true, novedad: true };
   var PESTANA_DE = { acceso: 'mis-grupos', panel: 'mis-grupos' };
   // "¿Es tu grupo?" cuelga de la ficha: no cambia la pantalla de origen.
   var DE_LA_FICHA = { gestionar: true };
@@ -68,6 +81,11 @@
   // Pantalla desde la que se abrió la ficha o el concierto ('inicio', 'explorar'... o null).
   var origen = null;
   var pantallaActual = null;
+  // Discos, vídeos y noticias publicados por los grupos que sigo (la última
+  // respuesta de Supabase), para pintar Inicio al momento al volver.
+  var novedadesInicio = { grupos: '', lista: [] };
+  var turnoInicio = 0;
+  var turnoFicha = 0;
 
   var el = {
     inicio: document.getElementById('pantalla-inicio'),
@@ -80,6 +98,8 @@
     listaConciertos: document.getElementById('lista-conciertos'),
     concierto: document.getElementById('pantalla-concierto'),
     contenidoConcierto: document.getElementById('concierto'),
+    novedad: document.getElementById('pantalla-novedad'),
+    contenidoNovedad: document.getElementById('novedad'),
     acceso: document.getElementById('pantalla-acceso'),
     contenidoAcceso: document.getElementById('acceso'),
     panel: document.getElementById('pantalla-panel'),
@@ -157,12 +177,32 @@
     return discos;
   }
 
+  // Nombre de la red social de un enlace ("Instagram"...) o '' si no es de ninguna.
+  function redSocial(url) {
+    var sitio;
+    try { sitio = new URL(url).hostname.toLowerCase().replace(/\.$/, ''); } catch (e) { return ''; }
+    for (var i = 0; i < REDES_SOCIALES.length; i++) {
+      if (REDES_SOCIALES[i].patron.test(sitio)) return REDES_SOCIALES[i].nombre;
+    }
+    return '';
+  }
+
   function urlPermitida(url) {
     try {
       var u = new URL(url);
-      return (u.protocol === 'https:' || u.protocol === 'http:') && !PROHIBIDOS.test(u.hostname);
+      return (u.protocol === 'https:' || u.protocol === 'http:') && !redSocial(url);
     } catch (e) {
       return false;
+    }
+  }
+
+  // Forma de comparar dos enlaces al mismo disco ("https://www.x.com/a/" = "http://x.com/a").
+  function mismoEnlace(url) {
+    try {
+      var u = new URL(url);
+      return u.hostname.toLowerCase().replace(/^www\./, '') + u.pathname.replace(/\/+$/, '').toLowerCase();
+    } catch (e) {
+      return '';
     }
   }
 
@@ -298,30 +338,82 @@
   el.pieInstalar.hidden = Instalar.instalada();
   el.enlaceInstalar.addEventListener('click', function () { Instalar.mostrar(); });
 
+  // ---------- Lo de Bandcamp junto a lo publicado en Backline ----------
+
+  // Mezcla los lanzamientos de grupos.json (Bandcamp) de un grupo con lo que
+  // ha publicado desde "Mi panel" (pubs: discos, vídeos y noticias).
+  // Un disco publicado con el mismo enlace que uno de Bandcamp (o, si el grupo
+  // solo tiene la discografía en texto, con el mismo título) sale una sola
+  // vez: el publicado, que trae fecha exacta.
+  // Cada elemento: { clave, orden, grupo, disco (de Bandcamp) | pub }.
+  function mezclar(grupo, pubs) {
+    var discos = pubs.filter(function (p) { return p.tipo === 'disco'; });
+    var enlaces = discos.map(function (p) { return mismoEnlace(p.enlace); }).filter(Boolean);
+    var titulos = discos.map(function (p) { return normalizar(p.titulo); });
+    var lista = [];
+    lanzamientosDe(grupo).forEach(function (d) {
+      if (d.enlace && enlaces.indexOf(mismoEnlace(d.enlace)) !== -1) return;
+      if (!tieneLista(grupo) && titulos.indexOf(normalizar(d.titulo)) !== -1) return;
+      // De Bandcamp solo se sabe el año: va detrás de lo publicado ese mismo año.
+      lista.push({ clave: d.anio ? d.anio + '-00' : '', orden: d.orden, grupo: grupo, disco: d });
+    });
+    pubs.forEach(function (p) {
+      lista.push({ clave: Novedades.claveOrden(p), orden: -1, grupo: grupo, pub: p });
+    });
+    return lista;
+  }
+
+  // Lo más reciente arriba. Mismo año en Bandcamp: primero lo más nuevo de
+  // cada grupo, y luego por nombre de grupo.
+  function ordenarMezcla(lista) {
+    return lista.sort(function (a, b) {
+      return (a.clave < b.clave ? 1 : a.clave > b.clave ? -1 : 0) || (a.orden - b.orden) ||
+        a.grupo.nombre.localeCompare(b.grupo.nombre, 'es');
+    });
+  }
+
+  function casilla(item, conGrupo) {
+    return item.pub ? Novedades.tarjeta(item.pub, conGrupo) : tarjetaLanzamiento(item.disco, conGrupo);
+  }
+
   // ---------- Pantalla Inicio ----------
 
-  // Últimos lanzamientos de los grupos que sigo, mezclados y ordenados por
-  // año (lo más reciente arriba). Se ven de 30 en 30.
-  function pintarInicio() {
+  // Lo último de los grupos que sigo: discos de Bandcamp y lo que publican
+  // en Backline (discos, vídeos y noticias), mezclado y ordenado por fecha
+  // (lo más reciente arriba). Se ve de 30 en 30.
+  // Se pinta al momento con lo que ya se sabe y, cuando responde Supabase,
+  // otra vez con lo último publicado.
+  function pintarInicio(sinPedir) {
     var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
+    var ids = mios.map(function (g) { return g.id; }).join(',');
+    dibujarInicio(mios, novedadesInicio.grupos === ids ? novedadesInicio.lista : []);
+    if (sinPedir || !mios.length) return;
+    var mio = ++turnoInicio;
+    Nube.novedades(mios.map(function (g) { return g.id; })).then(function (lista) {
+      novedadesInicio = { grupos: ids, lista: lista };
+      if (mio === turnoInicio && pantallaActual === 'inicio') dibujarInicio(mios, lista);
+    }, function () { /* sin conexión: Inicio se ve igual, con lo de Bandcamp */ });
+  }
+
+  function dibujarInicio(mios, novedades) {
+    var porGrupo = {};
+    novedades.forEach(function (p) { (porGrupo[p.grupo_id] = porGrupo[p.grupo_id] || []).push(p); });
     var todos = [];
-    mios.forEach(function (g) { todos = todos.concat(lanzamientosDe(g)); });
-    // Mismo año: primero lo más nuevo de cada grupo, y luego por nombre de grupo.
-    todos.sort(function (a, b) {
-      return (b.anio - a.anio) || (a.orden - b.orden) || a.grupo.nombre.localeCompare(b.grupo.nombre, 'es');
-    });
+    mios.forEach(function (g) { todos = todos.concat(mezclar(g, porGrupo[g.id] || [])); });
+    ordenarMezcla(todos);
 
     el.listaInicio.textContent = '';
     el.sinGruposInicio.hidden = mios.length > 0;
     el.listaInicio.hidden = !mios.length;
 
     if (mios.length && !todos.length) {
-      el.listaInicio.appendChild(crear('li', 'vacio', 'Tus grupos aún no tienen lanzamientos.'));
+      el.listaInicio.appendChild(crear('li', 'vacio', 'Tus grupos aún no han publicado nada.'));
     }
 
     var trozo = document.createDocumentFragment();
-    todos.slice(0, visiblesInicio).forEach(function (d) {
-      trozo.appendChild(tarjetaLanzamiento(d, true));
+    todos.slice(0, visiblesInicio).forEach(function (item) {
+      var c = casilla(item, true);
+      if (c) trozo.appendChild(c);
     });
     el.listaInicio.appendChild(trozo);
     el.verMas.hidden = todos.length <= visiblesInicio;
@@ -509,46 +601,22 @@
     f.appendChild(cajaConciertos);
     Conciertos.rellenarFicha(cajaConciertos, grupo);
 
-    // Discografía con portadas, separando discos y singles.
-    if (tieneLista(grupo)) {
-      var lanzamientos = lanzamientosDe(grupo);
-      [
-        { titulo: 'Discos', lista: lanzamientos.filter(function (d) { return d.tipo !== 'single'; }) },
-        { titulo: 'Singles', lista: lanzamientos.filter(function (d) { return d.tipo === 'single'; }) }
-      ].forEach(function (seccion) {
-        if (!seccion.lista.length) return;
-        f.appendChild(crear('h2', null, seccion.titulo + ' · ' + seccion.lista.length));
-        var rejilla = crear('ul', 'rejilla');
-        seccion.lista.forEach(function (d) { rejilla.appendChild(tarjetaLanzamiento(d, false)); });
-        f.appendChild(rejilla);
-      });
-    } else {
-      // Sin lista: el texto de "discografia", como antes. La portada va en el
-      // disco más reciente.
-      var discos = separarDiscos(grupo.discografia);
-      if (discos.length) {
-        var masReciente = 0;
-        discos.forEach(function (d, i) {
-          if (anioDe(d) > anioDe(discos[masReciente])) masReciente = i;
-        });
+    // Novedades (vídeos y noticias publicados en Backline; solo si hay alguna)
+    var cajaNovedades = crear('div', 'ficha-novedades');
+    f.appendChild(cajaNovedades);
 
-        f.appendChild(crear('h2', null, 'Discografía · ' + discos.length));
-        var ul = crear('ul', 'discos');
-        discos.forEach(function (d, i) {
-          var partes = partirDisco(d);
-          var li = crear('li', 'disco');
-          li.appendChild(i === masReciente
-            ? imagenPortada(grupo, { clase: 'portada', pequena: true, alternativa: nota })
-            : nota());
-          var texto = crear('div', 'disco-texto');
-          texto.appendChild(crear('div', 'disco-titulo', partes.titulo));
-          if (partes.detalle) texto.appendChild(crear('div', 'disco-detalle', partes.detalle));
-          li.appendChild(texto);
-          ul.appendChild(li);
-        });
-        f.appendChild(ul);
-      }
-    }
+    // Discografía: primero la de grupos.json y, cuando responde Supabase,
+    // junto con los discos publicados en Backline.
+    var cajaDiscos = crear('div', 'ficha-discos');
+    f.appendChild(cajaDiscos);
+    pintarDiscografia(cajaDiscos, grupo, []);
+    var mio = ++turnoFicha;
+    Nube.novedades([grupo.id]).then(function (pubs) {
+      if (mio !== turnoFicha) return;
+      Novedades.rellenarFicha(cajaNovedades, pubs);
+      var discos = pubs.filter(function (p) { return p.tipo === 'disco'; });
+      if (discos.length) pintarDiscografia(cajaDiscos, grupo, discos);
+    }, function () { /* sin conexión: la ficha se ve igual, con lo de Bandcamp */ });
 
     // ¿Es tu grupo? -> pedir gestionar la ficha o que se retire.
     // Si ya la gestiona quien ha entrado, lleva directamente a su panel.
@@ -559,6 +627,56 @@
     var pie = crear('p', 'reclamar-pie');
     pie.appendChild(reclamar);
     f.appendChild(pie);
+  }
+
+  // Discografía de la ficha, separando discos y singles. publicados: los
+  // discos y singles publicados en Backline (se mezclan con los de Bandcamp).
+  function pintarDiscografia(f, grupo, publicados) {
+    f.textContent = '';
+    if (tieneLista(grupo) || publicados.length) {
+      var lanzamientos = ordenarMezcla(mezclar(grupo, publicados));
+      var esSingle = function (item) {
+        return item.pub ? item.pub.formato === 'single' : item.disco.tipo === 'single';
+      };
+      [
+        { titulo: 'Discos', lista: lanzamientos.filter(function (d) { return !esSingle(d); }) },
+        { titulo: 'Singles', lista: lanzamientos.filter(esSingle) }
+      ].forEach(function (seccion) {
+        if (!seccion.lista.length) return;
+        f.appendChild(crear('h2', null, seccion.titulo + ' · ' + seccion.lista.length));
+        var rejilla = crear('ul', 'rejilla');
+        seccion.lista.forEach(function (d) {
+          var c = casilla(d, false);
+          if (c) rejilla.appendChild(c);
+        });
+        f.appendChild(rejilla);
+      });
+      return;
+    }
+    // Sin lista: el texto de "discografia", como antes. La portada va en el
+    // disco más reciente.
+    var discos = separarDiscos(grupo.discografia);
+    if (!discos.length) return;
+    var masReciente = 0;
+    discos.forEach(function (d, i) {
+      if (anioDe(d) > anioDe(discos[masReciente])) masReciente = i;
+    });
+
+    f.appendChild(crear('h2', null, 'Discografía · ' + discos.length));
+    var ul = crear('ul', 'discos');
+    discos.forEach(function (d, i) {
+      var partes = partirDisco(d);
+      var li = crear('li', 'disco');
+      li.appendChild(i === masReciente
+        ? imagenPortada(grupo, { clase: 'portada', pequena: true, alternativa: nota })
+        : nota());
+      var texto = crear('div', 'disco-texto');
+      texto.appendChild(crear('div', 'disco-titulo', partes.titulo));
+      if (partes.detalle) texto.appendChild(crear('div', 'disco-detalle', partes.detalle));
+      li.appendChild(texto);
+      ul.appendChild(li);
+    });
+    f.appendChild(ul);
   }
 
   // Botón "Seguir" / "Siguiendo". Al pulsarlo se sigue o se deja de seguir.
@@ -587,12 +705,12 @@
     if (DETALLES[pantalla] && !DETALLES[pantallaActual] && !DE_LA_FICHA[pantallaActual]) origen = pantallaActual;
     pantallaActual = pantalla;
 
-    ['inicio', 'explorar', 'conciertos', 'misGrupos', 'ficha', 'concierto', 'gestionar', 'acceso', 'panel'].forEach(function (k) {
+    ['inicio', 'explorar', 'conciertos', 'misGrupos', 'ficha', 'concierto', 'novedad', 'gestionar', 'acceso', 'panel'].forEach(function (k) {
       var nombre = k === 'misGrupos' ? 'mis-grupos' : k;
       el[k].hidden = pantalla !== nombre;
     });
 
-    // En la ficha y en un concierto se ilumina la pestaña desde la que se llegó.
+    // En la ficha, en un concierto y en una novedad se ilumina la pestaña desde la que se llegó.
     var pestana = DETALLES[pantalla] || DE_LA_FICHA[pantalla] ? (origen || 'explorar') : pantalla;
     pestana = PESTANA_DE[pestana] || pestana;
     marcarPestana(el.pestanaInicio, pestana === 'inicio');
@@ -654,6 +772,16 @@
         document.title = titulo + ' · Backline';
       });
       mostrar('concierto');
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (partes[0] === 'novedad' && partes[1]) {
+      document.title = 'Novedad · Backline';
+      Novedades.pintarDetalle(el.contenidoNovedad, decodeURIComponent(partes[1]), function (titulo) {
+        document.title = titulo + ' · Backline';
+      });
+      mostrar('novedad');
       window.scrollTo(0, 0);
       return;
     }
@@ -747,7 +875,7 @@
 
   el.verMas.addEventListener('click', function () {
     visiblesInicio += POR_TANDA;
-    pintarInicio();
+    pintarInicio(true);
   });
 
   el.buscador.addEventListener('input', function () {
@@ -757,10 +885,11 @@
 
   // ---------- Arranque ----------
 
-  // Piezas comunes que usan conciertos.js y panel.js.
+  // Piezas comunes que usan conciertos.js, novedades.js y panel.js.
   var piezas = {
     crear: crear,
     urlPermitida: urlPermitida,
+    redSocial: redSocial,
     enlaceExterno: enlaceExterno,
     cuadroIniciales: cuadroIniciales,
     grupoPorId: function (id) { return grupos.filter(function (g) { return g.id === id; })[0] || null; },
@@ -769,6 +898,7 @@
     actualizarAcceso: function () { actualizarAcceso(); }
   };
   Conciertos.iniciar(piezas);
+  Novedades.iniciar(piezas);
   Panel.iniciar(piezas);
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';

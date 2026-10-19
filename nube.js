@@ -1,4 +1,4 @@
-// backline — conexión con Supabase (cuentas, conciertos y carteles).
+// backline — conexión con Supabase (cuentas, publicaciones e imágenes).
 //
 // Este archivo es el ÚNICO sitio de la app que habla con Supabase.
 // El resto de la app solo usa estas órdenes:
@@ -11,11 +11,13 @@
 //   Nube.refrescarCuenta()             -> vuelve a preguntar permisos y grupos
 //   Nube.proximasFechas(gruposIds)     -> próximos conciertos de esos grupos
 //   Nube.fecha(id)                     -> un concierto (fecha) con su publicación
+//   Nube.novedades(gruposIds)          -> discos, vídeos y noticias de esos grupos
+//   Nube.novedad(id)                   -> un disco, vídeo o noticia
 //   Nube.publicaciones(gruposIds?)     -> lo publicado (todo, o de esos grupos)
 //   Nube.publicacion(id)               -> una publicación con sus fechas
-//   Nube.guardar(datos)                -> crea o actualiza concierto / gira
-//   Nube.borrar(publicacion)           -> borra publicación, fechas y cartel
-//   Nube.urlCartel(ruta)               -> dirección pública de un cartel
+//   Nube.guardar(datos)                -> crea o actualiza cualquier publicación
+//   Nube.borrar(publicacion)           -> borra publicación, fechas e imagen
+//   Nube.urlCartel(ruta)               -> dirección pública de un cartel o imagen
 //   Nube.solicitar(datos)              -> pide gestionar o retirar una ficha
 //   Nube.misSolicitudes(grupoId)       -> las solicitudes propias para ese grupo
 //   Nube.solicitudes()                 -> todas (solo administrador)
@@ -55,6 +57,11 @@
     var t = texto.toLowerCase();
     // Avisos escritos ya para personas en la base de datos (supabase/5-miembros.sql).
     if (error && error.code === 'P0001') return texto;
+    // Reglas de supabase/6-novedades.sql (la app ya lo avisa antes de enviar).
+    if (error && error.code === '23514') {
+      return /sin_redes/.test(t) ? 'Backline no admite enlaces a redes sociales.'
+        : 'Revisa los datos: falta algo obligatorio o algún texto es demasiado largo.';
+    }
     if (error && error.code === '23505') return 'Ya tienes una solicitud pendiente como esta. Espera a que la revisemos.';
     if (/expired|invalid|otp|token/.test(t)) return 'El código no es correcto o ha caducado. Pide uno nuevo.';
     if (/rate limit|too many|seconds/.test(t)) return 'Has pedido varios códigos seguidos. Espera unos minutos y vuelve a probar.';
@@ -136,8 +143,13 @@
 
   // ---------- Conciertos ----------
 
-  var CAMPOS_FECHA = 'id, fecha, hora, zona, ciudad, provincia, pais, sala, precio, entradas';
+  var CAMPOS_FECHA = 'id, fecha, hora, zona, ciudad, provincia, pais, sala, direccion, precio, entradas';
   var CAMPOS_PUBLICACION = 'id, grupo_id, tipo, titulo, cartel';
+  // Discos, vídeos y noticias (y, en el panel, cualquier publicación).
+  var CAMPOS_NOVEDAD = 'id, grupo_id, tipo, titulo, texto, enlace, cartel, formato, salida, creado';
+  var TIPOS_NOVEDAD = ['disco', 'video', 'noticia'];
+  // Como mucho, las últimas que se piden de una vez.
+  var MAX_NOVEDADES = 300;
 
   // Hoy en una zona horaria, como "2026-10-12".
   function hoyEn(zona) {
@@ -183,6 +195,31 @@
       .then(comprobar);
   }
 
+  // ---------- Discos, vídeos y noticias ----------
+
+  // Lo publicado por esos grupos, de lo más nuevo a lo más antiguo.
+  function novedades(gruposIds) {
+    if (!cliente) return sinConexion();
+    if (!gruposIds.length) return Promise.resolve([]);
+    return cliente.from('publicaciones')
+      .select(CAMPOS_NOVEDAD)
+      .in('grupo_id', gruposIds)
+      .in('tipo', TIPOS_NOVEDAD)
+      .order('creado', { ascending: false })
+      .limit(MAX_NOVEDADES)
+      .then(comprobar);
+  }
+
+  function novedad(id) {
+    if (!cliente) return sinConexion();
+    return cliente.from('publicaciones')
+      .select(CAMPOS_NOVEDAD)
+      .eq('id', id)
+      .in('tipo', TIPOS_NOVEDAD)
+      .maybeSingle()
+      .then(comprobar);
+  }
+
   // ---------- Panel (administrador y grupos) ----------
 
   // Sin gruposIds: todo (administrador). Con gruposIds: solo de esos grupos.
@@ -190,8 +227,7 @@
     if (!cliente) return sinConexion();
     if (gruposIds && !gruposIds.length) return Promise.resolve([]);
     var peticion = cliente.from('publicaciones')
-      .select(CAMPOS_PUBLICACION + ', creado, fechas(' + CAMPOS_FECHA + ')')
-      .in('tipo', ['concierto', 'gira']);
+      .select(CAMPOS_NOVEDAD + ', fechas(' + CAMPOS_FECHA + ')');
     if (gruposIds) peticion = peticion.in('grupo_id', gruposIds);
     return peticion.order('creado', { ascending: false }).then(comprobar);
   }
@@ -199,7 +235,7 @@
   function publicacion(id) {
     if (!cliente) return sinConexion();
     return cliente.from('publicaciones')
-      .select(CAMPOS_PUBLICACION + ', fechas(' + CAMPOS_FECHA + ')')
+      .select(CAMPOS_NOVEDAD + ', fechas(' + CAMPOS_FECHA + ')')
       .eq('id', id)
       .maybeSingle()
       .then(comprobar);
@@ -237,16 +273,18 @@
       provincia: f.provincia || null,
       pais: f.pais,
       sala: f.sala,
+      direccion: f.direccion || null,
       precio: f.precio || null,
       entradas: f.entradas || null
     };
   }
 
-  // Guarda un concierto o una gira.
+  // Guarda cualquier publicación (concierto, gira, disco, vídeo o noticia).
   // datos = { id?, grupo_id, tipo, titulo, cartelAnterior, cartelNuevo (Blob)?,
-  //           fechas: [{ id?, ...campos }], fechasBorradas: [id] }
-  // Orden: 1) sube el cartel nuevo; 2) guarda la publicación; 3) borra, cambia
-  // y añade fechas; 4) si había cartel viejo y se ha cambiado, lo borra.
+  //           quitarCartel?, fechas: [{ id?, ...campos }], fechasBorradas: [id],
+  //           y en discos, vídeos y noticias: texto, enlace, formato, salida }
+  // Orden: 1) sube la imagen nueva; 2) guarda la publicación; 3) borra, cambia
+  // y añade fechas; 4) si había imagen vieja y se ha cambiado o quitado, la borra.
   function guardar(datos) {
     if (!cliente) return sinConexion();
     var rutaNueva = null;
@@ -260,7 +298,14 @@
     return paso
       .then(function () {
         var fila = { grupo_id: datos.grupo_id, tipo: datos.tipo, titulo: datos.titulo || null };
+        if (TIPOS_NOVEDAD.indexOf(datos.tipo) !== -1) {
+          fila.texto = datos.texto || null;
+          fila.enlace = datos.enlace || null;
+          fila.formato = datos.tipo === 'disco' ? datos.formato : null;
+          fila.salida = datos.tipo === 'disco' ? datos.salida : null;
+        }
         if (rutaNueva) fila.cartel = rutaNueva;
+        else if (datos.quitarCartel) fila.cartel = null;
         var peticion = id
           ? cliente.from('publicaciones').update(fila).eq('id', id).select('id').single()
           : cliente.from('publicaciones').insert(fila).select('id').single();
@@ -273,7 +318,7 @@
         if (datos.fechasBorradas && datos.fechasBorradas.length) {
           pasos.push(cliente.from('fechas').delete().in('id', datos.fechasBorradas).then(comprobar));
         }
-        datos.fechas.forEach(function (f) {
+        (datos.fechas || []).forEach(function (f) {
           var filaFecha = datosFecha(f);
           if (f.id) {
             pasos.push(cliente.from('fechas').update(filaFecha).eq('id', f.id).then(comprobar));
@@ -285,8 +330,8 @@
         return Promise.all(pasos);
       })
       .then(function () {
-        // El cartel anterior ya no se usa: se borra (si falla, no es grave).
-        if (rutaNueva && datos.cartelAnterior) return borrarCartel(datos.cartelAnterior).catch(function () {});
+        // La imagen anterior ya no se usa: se borra (si falla, no es grave).
+        if ((rutaNueva || datos.quitarCartel) && datos.cartelAnterior) return borrarCartel(datos.cartelAnterior).catch(function () {});
       })
       .then(function () { return id; })
       .catch(function (error) {
@@ -296,7 +341,7 @@
       });
   }
 
-  // Borra una publicación (sus fechas se borran solas) y después su cartel.
+  // Borra una publicación (sus fechas se borran solas) y después su imagen.
   function borrar(pub) {
     if (!cliente) return sinConexion();
     return cliente.from('publicaciones').delete().eq('id', pub.id).select('id')
@@ -422,6 +467,8 @@
     salir: salir,
     proximasFechas: proximasFechas,
     fecha: fecha,
+    novedades: novedades,
+    novedad: novedad,
     publicaciones: publicaciones,
     publicacion: publicacion,
     guardar: guardar,

@@ -15,16 +15,16 @@
 // versión: se piden siempre a internet al abrir la app y, si no hay
 // conexión, se usa la última copia guardada.
 //
-// Los conciertos, las cuentas y los carteles vienen de Supabase (otra
-// dirección): este ayudante no los toca ni los guarda.
+// Los conciertos, discos, vídeos y noticias, las cuentas y las imágenes
+// vienen de Supabase (otra dirección): este ayudante no los toca ni los guarda.
 //
 // También muestra los avisos al móvil que manda Supabase y, al tocar uno,
-// abre la app en ese concierto (ver avisos.js).
+// abre la app en ese concierto, disco, vídeo o noticia (ver avisos.js).
 //
 // IMPORTANTE: cada vez que cambie un archivo de la app (pantallas, estilos,
 // código, iconos, tipografías), hay que subir este número. Es el único número
 // de versión. Para cambiar grupos.json NO hace falta tocarlo.
-var VERSION = 9;
+var VERSION = 10;
 
 var CACHE = 'backline-v' + VERSION;
 var ARCHIVOS = [
@@ -35,6 +35,7 @@ var ARCHIVOS = [
   'libs/supabase.js',
   'nube.js',
   'conciertos.js',
+  'novedades.js',
   'panel.js',
   'instalar.js',
   'avisos.js',
@@ -131,7 +132,7 @@ self.addEventListener('fetch', function (e) {
 
 // ---------- Avisos al móvil ----------
 
-// Llega un aviso: { titulo, texto, ruta: '#/concierto/...', etiqueta }.
+// Llega un aviso: { titulo, texto, ruta: '#/concierto/...' o '#/novedad/...', etiqueta }.
 self.addEventListener('push', function (e) {
   var datos = {};
   try { datos = e.data ? e.data.json() : {}; } catch (error) { datos = {}; }
@@ -146,7 +147,7 @@ self.addEventListener('push', function (e) {
   }));
 });
 
-// Se toca un aviso: si la app está abierta, va a ese concierto; si no, la abre ahí.
+// Se toca un aviso: si la app está abierta, va a esa pantalla; si no, la abre ahí.
 self.addEventListener('notificationclick', function (e) {
   e.notification.close();
   var ruta = (e.notification.data && e.notification.data.ruta) || '';
