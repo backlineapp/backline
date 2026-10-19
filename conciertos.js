@@ -179,12 +179,13 @@
     return [f.sala, f.direccion, f.ciudad, provincia !== f.ciudad ? provincia : '', pais].filter(Boolean).join(', ');
   }
 
-  // "Calle Mayor 5, Sala Totem, Villava, Navarra, España" (para el mapa): con
-  // la calle delante, el mapa va a la dirección exacta.
+  // Texto para el mapa. Con dirección: "Calle Mayor 5, Villava, Navarra,
+  // España", sin el nombre de la sala (mezclado con la calle, a veces confunde
+  // al mapa). Sin dirección: "Sala Totem, Villava, Navarra, España".
   function destino(f) {
     var pais = paisDe(f);
     var provincia = provinciaDe(f);
-    return [f.direccion, f.sala, f.ciudad, provincia !== f.ciudad ? provincia : '', pais].filter(Boolean).join(', ');
+    return [f.direccion || f.sala, f.ciudad, provincia !== f.ciudad ? provincia : '', pais].filter(Boolean).join(', ');
   }
 
   // "Castellón" o, fuera de España, "Lisboa (Portugal)".
