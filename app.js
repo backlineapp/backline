@@ -140,6 +140,7 @@
     avisosMios: document.getElementById('avisos-mis-grupos'),
     pestanaExplorar: document.getElementById('pestana-explorar'),
     pestanaMisGrupos: document.getElementById('pestana-mis-grupos'),
+    puntoMisGrupos: document.getElementById('punto-mis-grupos'),
     contenidoFicha: document.getElementById('ficha'),
     volver: document.querySelectorAll('.volver'),
     aviso: document.getElementById('aviso'),
@@ -961,8 +962,15 @@
 
   // El enlace discreto de Mis grupos lleva al panel si ha entrado el
   // administrador o alguien que gestiona un grupo. Al administrador le
-  // muestra, en ámbar, cuántas solicitudes tiene pendientes.
+  // muestra, en rojo, cuántas solicitudes tiene pendientes, junto a
+  // "Mi panel" y en la pestaña Mis grupos de abajo.
   var pidiendoPendientes = 0;
+  function numeroPestana(n) {
+    el.puntoMisGrupos.textContent = n ? String(n) : '';
+    el.puntoMisGrupos.hidden = !n;
+    if (n) el.pestanaMisGrupos.setAttribute('aria-label', 'Mis grupos, ' + n + (n === 1 ? ' solicitud pendiente' : ' solicitudes pendientes'));
+    else el.pestanaMisGrupos.removeAttribute('aria-label');
+  }
   function actualizarAcceso() {
     var cuenta = Nube.cuenta();
     var conPanel = !!(cuenta && (cuenta.admin || grupos.some(function (g) {
@@ -971,10 +979,15 @@
     el.enlaceAcceso.textContent = conPanel ? 'Mi panel' : 'Acceso';
     el.enlaceAcceso.href = conPanel ? '#/panel' : '#/acceso';
     el.enlaceAcceso.removeAttribute('aria-label');
-    if (!cuenta || !cuenta.admin) return;
     var mio = ++pidiendoPendientes;
+    if (!cuenta || !cuenta.admin) {
+      numeroPestana(0);
+      return;
+    }
     Nube.contarPendientes().then(function (n) {
-      if (mio !== pidiendoPendientes || !n) return;
+      if (mio !== pidiendoPendientes) return;
+      numeroPestana(n);
+      if (!n) return;
       var punto = crear('span', 'punto', String(n));
       punto.setAttribute('aria-hidden', 'true');
       el.enlaceAcceso.appendChild(document.createTextNode(' '));
@@ -983,6 +996,10 @@
     }, function () { /* sin conexión: sin número */ });
   }
   Nube.alCambiarCuenta(actualizarAcceso);
+  // Al volver a la app (por ejemplo, después de un aviso), el número se pone al día.
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') actualizarAcceso();
+  });
 
   el.soloGrupos.addEventListener('change', function () {
     filtroInicio.soloGrupos = el.soloGrupos.checked;
