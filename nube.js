@@ -428,6 +428,13 @@
       });
   }
 
+  // Solo administrador: cuántas personas reciben los avisos de cada grupo.
+  // { moviles, grupos: [{ grupo_id, personas }] } (solo cifras).
+  function avisosPorGrupo() {
+    if (!cliente) return sinConexion();
+    return cliente.rpc('avisos_por_grupo').then(comprobar);
+  }
+
   // ---------- Avisos al móvil ----------
   // Las suscripciones no se pueden leer desde la app: solo apuntarse o
   // borrarse, y siempre demostrando que es este móvil (con su clave "auth").
@@ -481,6 +488,7 @@
     resolverSolicitud: resolverSolicitud,
     miembros: miembros,
     quitarMiembro: quitarMiembro,
+    avisosPorGrupo: avisosPorGrupo,
     claveAvisos: claveAvisos,
     apuntarAvisos: apuntarAvisos,
     borrarAvisos: borrarAvisos

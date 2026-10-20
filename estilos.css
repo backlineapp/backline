@@ -1039,6 +1039,15 @@ a.volver { display: inline-block; text-decoration: none; }
 .atajos-admin .opcion:hover,
 .atajos-admin .opcion:active { border-color: var(--cian); }
 
+/* Avisos por grupo (administrador) */
+.avisos-grupo-cifra {
+  flex: none;
+  font-family: var(--titulos);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--acento);
+}
+
 /* Estado de una solicitud */
 .estado {
   flex: none;
