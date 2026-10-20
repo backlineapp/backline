@@ -43,11 +43,19 @@
         <h1>Inicio</h1>
         <p>Lo último de los grupos que sigues.</p>
       </div>
+      <div id="controles-inicio" class="controles-inicio" hidden>
+        <div id="filtros-inicio" class="filtros filtros-inicio" role="group" aria-label="Qué ver en Inicio"></div>
+        <label class="interruptor">
+          <input id="solo-grupos" type="checkbox" role="switch">
+          <span class="interruptor-boton" aria-hidden="true"></span>
+          <span>Solo lo publicado por los grupos</span>
+        </label>
+      </div>
       <ul id="lista-inicio" class="rejilla"></ul>
       <button id="ver-mas" class="ver-mas" type="button" hidden>Ver más</button>
       <div id="sin-grupos-inicio" class="sin-grupos" hidden>
         <p class="sin-grupos-titulo">Aquí verás lo último de tus grupos</p>
-        <p class="sin-grupos-texto">Cuando sigas a algún grupo, sus discos, vídeos y noticias más recientes aparecerán aquí. Empieza por descubrir la escena.</p>
+        <p class="sin-grupos-texto">Cuando sigas a algún grupo, sus discos, vídeos, noticias y conciertos más recientes aparecerán aquí. Empieza por descubrir la escena.</p>
         <a href="#/explorar" class="boton">Ir a Explorar</a>
       </div>
     </section>

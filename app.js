@@ -59,6 +59,17 @@
   // Lanzamientos que muestra Inicio de una vez; "Ver más" añade otros tantos.
   var POR_TANDA = 30;
 
+  // Filtros de Inicio y lo que dice cada uno cuando no hay nada que enseñar.
+  var FILTROS_INICIO = [
+    { valor: 'todo', nombre: 'Todo', vacio: 'Tus grupos aún no han publicado nada' },
+    { valor: 'disco', nombre: 'Discos', vacio: 'Tus grupos aún no han publicado discos' },
+    { valor: 'video', nombre: 'Vídeos', vacio: 'Tus grupos aún no han publicado vídeos' },
+    { valor: 'noticia', nombre: 'Noticias', vacio: 'Tus grupos aún no han publicado noticias' },
+    { valor: 'concierto', nombre: 'Conciertos', vacio: 'Tus grupos no tienen conciertos anunciados' }
+  ];
+  // Donde se guarda en el móvil el último filtro elegido en Inicio.
+  var CLAVE_INICIO = 'backline-inicio';
+
   // Nombre de cada pantalla, para el botón de volver desde la ficha, un concierto o una novedad.
   var NOMBRES = {
     inicio: 'Inicio', explorar: 'Explorar', conciertos: 'Conciertos', 'mis-grupos': 'Mis grupos',
@@ -81,15 +92,22 @@
   // Pantalla desde la que se abrió la ficha o el concierto ('inicio', 'explorar'... o null).
   var origen = null;
   var pantallaActual = null;
-  // Discos, vídeos y noticias publicados por los grupos que sigo (la última
-  // respuesta de Supabase), para pintar Inicio al momento al volver.
-  var novedadesInicio = { grupos: '', lista: [] };
+  // Discos, vídeos, noticias y próximos conciertos publicados por los grupos
+  // que sigo (la última respuesta de Supabase), para pintar Inicio al momento
+  // al volver. "listas" y "fechasListas": si ya ha respondido Supabase.
+  var datosInicio = { grupos: '', novedades: [], fechas: [], listas: false, fechasListas: false };
+  // Filtro elegido en Inicio y si se ocultan los discos de Bandcamp. Se
+  // recuerda en el móvil; la primera vez: Todo, con el interruptor apagado.
+  var filtroInicio = leerFiltroInicio();
   var turnoInicio = 0;
   var turnoFicha = 0;
 
   var el = {
     inicio: document.getElementById('pantalla-inicio'),
     listaInicio: document.getElementById('lista-inicio'),
+    controlesInicio: document.getElementById('controles-inicio'),
+    filtrosInicio: document.getElementById('filtros-inicio'),
+    soloGrupos: document.getElementById('solo-grupos'),
     verMas: document.getElementById('ver-mas'),
     sinGruposInicio: document.getElementById('sin-grupos-inicio'),
     pestanaInicio: document.getElementById('pestana-inicio'),
@@ -373,41 +391,89 @@
   }
 
   function casilla(item, conGrupo) {
+    if (item.concierto) return Conciertos.casilla(item.concierto, item.cuantas);
     return item.pub ? Novedades.tarjeta(item.pub, conGrupo) : tarjetaLanzamiento(item.disco, conGrupo);
   }
 
   // ---------- Pantalla Inicio ----------
 
   // Lo último de los grupos que sigo: discos de Bandcamp y lo que publican
-  // en Backline (discos, vídeos y noticias), mezclado y ordenado por fecha
-  // (lo más reciente arriba). Se ve de 30 en 30.
+  // en Backline (discos, vídeos, noticias y próximos conciertos), mezclado y
+  // ordenado por fecha (lo más reciente arriba). Se ve de 30 en 30.
   // Se pinta al momento con lo que ya se sabe y, cuando responde Supabase,
   // otra vez con lo último publicado.
   function pintarInicio(sinPedir) {
     var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
     var ids = mios.map(function (g) { return g.id; }).join(',');
-    dibujarInicio(mios, novedadesInicio.grupos === ids ? novedadesInicio.lista : []);
+    if (datosInicio.grupos !== ids) {
+      datosInicio = { grupos: ids, novedades: [], fechas: [], listas: false, fechasListas: false };
+    }
+    dibujarInicio(mios);
     if (sinPedir || !mios.length) return;
     var mio = ++turnoInicio;
-    Nube.novedades(mios.map(function (g) { return g.id; })).then(function (lista) {
-      novedadesInicio = { grupos: ids, lista: lista };
-      if (mio === turnoInicio && pantallaActual === 'inicio') dibujarInicio(mios, lista);
-    }, function () { /* sin conexión: Inicio se ve igual, con lo de Bandcamp */ });
+    var pedidos = mios.map(function (g) { return g.id; });
+    var alLlegar = function (cambio) {
+      if (datosInicio.grupos !== ids) return;
+      cambio();
+      if (mio === turnoInicio && pantallaActual === 'inicio') dibujarInicio(mios);
+    };
+    Nube.novedades(pedidos).then(function (lista) {
+      alLlegar(function () { datosInicio.novedades = lista; datosInicio.listas = true; });
+    }, function () {
+      // Sin conexión: Inicio se ve igual, con lo de Bandcamp.
+      alLlegar(function () { datosInicio.listas = true; });
+    });
+    Nube.proximasFechas(pedidos).then(function (fechas) {
+      alLlegar(function () { datosInicio.fechas = fechas; datosInicio.fechasListas = true; });
+    }, function () {
+      alLlegar(function () { datosInicio.fechasListas = true; });
+    });
   }
 
-  function dibujarInicio(mios, novedades) {
+  // Conciertos para Inicio: uno por publicación (una gira sale una vez, con
+  // su próxima fecha), colocados por el día en que se publicaron.
+  function conciertosInicio(fechas, mios) {
+    var porId = {};
+    mios.forEach(function (g) { porId[g.id] = g; });
+    var porPublicacion = {};
+    var lista = [];
+    fechas.forEach(function (f) {
+      var id = f.publicacion.id;
+      if (porPublicacion[id]) { porPublicacion[id].cuantas++; return; }
+      var grupo = porId[f.publicacion.grupo_id];
+      if (!grupo) return;
+      // Las fechas llegan ordenadas: la primera es la más próxima.
+      porPublicacion[id] = { clave: f.publicacion.creado || '', orden: -1, grupo: grupo, concierto: f, cuantas: 1 };
+      lista.push(porPublicacion[id]);
+    });
+    return lista;
+  }
+
+  // 'disco', 'video', 'noticia' o 'concierto'.
+  function tipoInicio(item) {
+    if (item.concierto) return 'concierto';
+    return item.pub ? item.pub.tipo : 'disco';
+  }
+
+  function dibujarInicio(mios) {
     var porGrupo = {};
-    novedades.forEach(function (p) { (porGrupo[p.grupo_id] = porGrupo[p.grupo_id] || []).push(p); });
+    datosInicio.novedades.forEach(function (p) { (porGrupo[p.grupo_id] = porGrupo[p.grupo_id] || []).push(p); });
     var todos = [];
     mios.forEach(function (g) { todos = todos.concat(mezclar(g, porGrupo[g.id] || [])); });
+    todos = todos.concat(conciertosInicio(datosInicio.fechas, mios)).filter(function (item) {
+      if (filtroInicio.soloGrupos && item.disco) return false;
+      return filtroInicio.tipo === 'todo' || tipoInicio(item) === filtroInicio.tipo;
+    });
     ordenarMezcla(todos);
 
     el.listaInicio.textContent = '';
     el.sinGruposInicio.hidden = mios.length > 0;
+    el.controlesInicio.hidden = !mios.length;
     el.listaInicio.hidden = !mios.length;
+    pintarFiltrosInicio();
 
     if (mios.length && !todos.length) {
-      el.listaInicio.appendChild(crear('li', 'vacio', 'Tus grupos aún no han publicado nada.'));
+      el.listaInicio.appendChild(crear('li', 'vacio', mensajeVacioInicio()));
     }
 
     var trozo = document.createDocumentFragment();
@@ -417,6 +483,51 @@
     });
     el.listaInicio.appendChild(trozo);
     el.verMas.hidden = todos.length <= visiblesInicio;
+  }
+
+  // Mensaje cuando el filtro elegido no tiene nada (o aún no ha respondido Supabase).
+  function mensajeVacioInicio() {
+    var tipo = filtroInicio.tipo;
+    var esperando = tipo === 'concierto' ? !datosInicio.fechasListas
+      : tipo === 'todo' ? !datosInicio.listas || !datosInicio.fechasListas
+      : !datosInicio.listas;
+    if (esperando) return 'Cargando…';
+    var op = FILTROS_INICIO.filter(function (f) { return f.valor === tipo; })[0] || FILTROS_INICIO[0];
+    // Solo los discos pueden venir de Bandcamp: con el interruptor, se aclara.
+    return op.vacio + (filtroInicio.soloGrupos && (tipo === 'todo' || tipo === 'disco') ? ' en Backline.' : '.');
+  }
+
+  function pintarFiltrosInicio() {
+    el.filtrosInicio.textContent = '';
+    FILTROS_INICIO.forEach(function (op) {
+      var b = crear('button', 'filtro', op.nombre);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(filtroInicio.tipo === op.valor));
+      b.addEventListener('click', function () {
+        if (filtroInicio.tipo === op.valor) return;
+        filtroInicio.tipo = op.valor;
+        cambiarFiltroInicio();
+      });
+      el.filtrosInicio.appendChild(b);
+    });
+    el.soloGrupos.checked = filtroInicio.soloGrupos;
+  }
+
+  function cambiarFiltroInicio() {
+    guardarFiltroInicio();
+    visiblesInicio = POR_TANDA;
+    pintarInicio(true);
+  }
+
+  function leerFiltroInicio() {
+    var guardado = {};
+    try { guardado = JSON.parse(localStorage.getItem(CLAVE_INICIO)) || {}; } catch (e) { /* sin permiso: lo de siempre */ }
+    var valido = FILTROS_INICIO.some(function (f) { return f.valor === guardado.tipo; });
+    return { tipo: valido ? guardado.tipo : 'todo', soloGrupos: guardado.soloGrupos === true };
+  }
+
+  function guardarFiltroInicio() {
+    try { localStorage.setItem(CLAVE_INICIO, JSON.stringify(filtroInicio)); } catch (e) { /* sin permiso para guardar: no pasa nada */ }
   }
 
   // Casilla de la cuadrícula de discos. En la ficha toda la casilla abre el
@@ -872,6 +983,11 @@
     }, function () { /* sin conexión: sin número */ });
   }
   Nube.alCambiarCuenta(actualizarAcceso);
+
+  el.soloGrupos.addEventListener('change', function () {
+    filtroInicio.soloGrupos = el.soloGrupos.checked;
+    cambiarFiltroInicio();
+  });
 
   el.verMas.addEventListener('click', function () {
     visiblesInicio += POR_TANDA;

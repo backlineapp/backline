@@ -9,7 +9,7 @@
 //                                         (grupos = ids de los grupos que gestiona)
 //   Nube.alCambiarCuenta(fn)           -> avisa al entrar o salir
 //   Nube.refrescarCuenta()             -> vuelve a preguntar permisos y grupos
-//   Nube.proximasFechas(gruposIds)     -> próximos conciertos de esos grupos
+//   Nube.proximasFechas(gruposIds)     -> próximos conciertos de esos grupos (con el día en que se publicaron)
 //   Nube.fecha(id)                     -> un concierto (fecha) con su publicación
 //   Nube.novedades(gruposIds)          -> discos, vídeos y noticias de esos grupos
 //   Nube.novedad(id)                   -> un disco, vídeo o noticia
@@ -144,7 +144,7 @@
   // ---------- Conciertos ----------
 
   var CAMPOS_FECHA = 'id, fecha, hora, zona, ciudad, provincia, pais, sala, direccion, precio, entradas';
-  var CAMPOS_PUBLICACION = 'id, grupo_id, tipo, titulo, cartel';
+  var CAMPOS_PUBLICACION = 'id, grupo_id, tipo, titulo, cartel, creado';
   // Discos, vídeos y noticias (y, en el panel, cualquier publicación).
   var CAMPOS_NOVEDAD = 'id, grupo_id, tipo, titulo, texto, enlace, cartel, formato, salida, creado';
   var TIPOS_NOVEDAD = ['disco', 'video', 'noticia'];

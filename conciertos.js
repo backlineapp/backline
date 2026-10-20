@@ -326,6 +326,56 @@
     return trozo;
   }
 
+  // ---------- Casilla de la cuadrícula de Inicio ----------
+  // Un concierto (o una gira, con su próxima fecha) como los discos: el cartel
+  // (o una tarjeta con la sala, si no tiene) y el título llevan al concierto;
+  // el nombre, a la ficha del grupo. "cuantas" son las fechas que le quedan.
+  function casilla(f, cuantas) {
+    var grupo = ayuda.grupoPorId(f.publicacion.grupo_id);
+    if (!grupo) return null;
+    var gira = f.publicacion.tipo === 'gira';
+    var href = '#/concierto/' + encodeURIComponent(f.id);
+    var titulo = gira && f.publicacion.titulo ? f.publicacion.titulo : f.sala + ' · ' + ciudadConPais(f);
+    var li = ayuda.crear('li', 'lanzamiento ' + grupo._acento);
+
+    var marco = ayuda.crear('a', 'lanzamiento-portada');
+    marco.href = href;
+    marco.setAttribute('aria-label', (gira ? 'Gira' : 'Concierto') + ': ' + titulo + ', de ' + grupo.nombre);
+    var sinCartel = function () {
+      var caja = ayuda.crear('div', 'portada novedad-tarjeta');
+      caja.appendChild(ayuda.crear('span', 'novedad-tarjeta-marca', gira ? 'Gira' : 'Concierto'));
+      caja.appendChild(ayuda.crear('span', 'novedad-tarjeta-texto', f.sala + ' · ' + f.ciudad));
+      caja.setAttribute('aria-hidden', 'true');
+      return caja;
+    };
+    var url = Nube.urlCartel(f.publicacion.cartel);
+    if (url) {
+      var img = document.createElement('img');
+      img.className = 'portada cartel-mini';
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.src = url;
+      img.addEventListener('error', function () {
+        if (img.parentNode) img.parentNode.replaceChild(sinCartel(), img);
+      });
+      marco.appendChild(img);
+    } else {
+      marco.appendChild(sinCartel());
+    }
+    li.appendChild(marco);
+
+    li.appendChild(ayuda.crear('div', 'lanzamiento-titulo', titulo));
+    var g = ayuda.crear('a', 'lanzamiento-grupo', grupo.nombre);
+    g.href = '#/grupo/' + encodeURIComponent(grupo.id);
+    li.appendChild(g);
+    // "Concierto · sáb 24 oct" o "Gira · 5 fechas · desde sáb 24 oct"
+    li.appendChild(ayuda.crear('div', 'lanzamiento-anio', cuantas > 1
+      ? (gira ? 'Gira' : 'Conciertos') + ' · ' + cuantas + ' fechas · desde ' + fechaCorta(f.fecha)
+      : (gira ? 'Gira' : 'Concierto') + ' · ' + fechaCorta(f.fecha)));
+    return li;
+  }
+
   function cajaMensaje(titulo, texto, boton) {
     var caja = ayuda.crear('div', 'sin-grupos');
     caja.appendChild(ayuda.crear('p', 'sin-grupos-titulo', titulo));
@@ -487,6 +537,7 @@
     fechaCorta: fechaCorta,
     hora: hora,
     pintarPestana: pintarPestana,
+    casilla: casilla,
     rellenarFicha: rellenarFicha,
     pintarDetalle: pintarDetalle,
     // Para las pruebas
