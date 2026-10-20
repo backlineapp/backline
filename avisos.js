@@ -9,9 +9,10 @@
 //   2. La campanita de cada ficha, para silenciar un grupo sin dejar de seguirlo.
 //   3. Mantener al día lo que sabe Supabase de este móvil: solo su
 //      "dirección de avisos" y la lista de grupos que sigue sin silenciar.
-//      Ni correo ni nombre. Si en el móvil está iniciada la sesión del
-//      administrador, Supabase lo marca como suyo (lo decide la base de
-//      datos, no la app) y le avisa de cada solicitud nueva.
+//      Ni correo ni nombre. Si en el móvil hay una sesión iniciada, Supabase
+//      apunta de qué cuenta es (lo decide la base de datos, no la app): así
+//      avisa al administrador de cada solicitud nueva, y a quien pidió
+//      gestionar una ficha cuando se le aprueba.
 //
 // Los avisos los manda Supabase (supabase/functions/enviar-avisos) y los
 // muestra sw.js. Al tocar uno, sw.js abre la app en ese concierto, disco,
@@ -99,17 +100,23 @@
     return true;
   }
 
+  // Identificador de la cuenta con la sesión iniciada ('' si no hay).
+  function idCuenta() {
+    var cuenta = Nube.cuenta();
+    return (cuenta && cuenta.id) || '';
+  }
+
   function esAdmin() {
     var cuenta = Nube.cuenta();
     return !!(cuenta && cuenta.admin);
   }
 
   // Envía a Supabase la lista de grupos de este móvil (si ha cambiado, o si
-  // se ha entrado o salido con la cuenta del administrador).
+  // se ha entrado o salido con una cuenta).
   function enviarLista(sus, forzar) {
     var json = sus.toJSON();
     var grupos = Seguidos.idsConAvisos();
-    var firma = json.endpoint + '|' + grupos.slice().sort().join(',') + (esAdmin() ? '|admin' : '');
+    var firma = json.endpoint + '|' + grupos.slice().sort().join(',') + '|' + idCuenta() + (esAdmin() ? '|admin' : '');
     var ultimo = leer();
     if (!forzar && ultimo.firma === firma && Date.now() - (ultimo.enviado || 0) < REPASO) return Promise.resolve();
     return Nube.apuntarAvisos(json, grupos).then(function () {
@@ -324,7 +331,7 @@
   // ---------- Arranque ----------
 
   Seguidos.alCambiar(alCambiarSeguidos);
-  // Al entrar o salir con una cuenta: se repasa si el móvil es del administrador.
+  // Al entrar o salir con una cuenta: se repasa de quién es el móvil.
   Nube.alCambiarCuenta(function () {
     alCambiarSeguidos();
     if (!ocupado) pintarDeNuevo('');

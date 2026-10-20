@@ -1364,6 +1364,9 @@
       if (pendienteGestionar || pendienteRetirar) {
         cuerpo.appendChild(crear('p', 'campo-nota', 'Revisamos cada solicitud a mano. Vuelve aquí para ver cómo va.'));
       }
+      if (pendienteGestionar) {
+        cuerpo.appendChild(crear('p', 'campo-nota', 'Si activas los avisos en Mis grupos, en este móvil y sin salir de tu cuenta, te avisaremos en cuanto la aprobemos.'));
+      }
     }
 
     if (!puedeGestionar && !puedeRetirar) return salirAbajo();
