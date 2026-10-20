@@ -13,7 +13,10 @@
 //   5. Además, avisa al móvil del administrador de cada solicitud nueva:
 //      "Backline · Dry River quiere gestionar su ficha" o "… pide retirar su
 //      ficha" (avisos_preparar_admin: sin espera ni límite, nunca de noche).
-//   6. Borra los móviles que ya no aceptan avisos.
+//   6. Avisa a quien acaba de ser aprobado para gestionar una ficha:
+//      "Backline · Ya gestionáis la ficha de Dry River"
+//      (avisos_preparar_aprobaciones: solo a sus móviles, nunca de noche).
+//   7. Borra los móviles que ya no aceptan avisos.
 //
 // Se pega entero en el editor de funciones de Supabase. No necesita nada más.
 // Secretos que usa (Edge Functions > Secrets), NUNCA en el repositorio:
@@ -43,6 +46,7 @@ type Suscripcion = { endpoint: string; p256dh: string; auth: string };
 type Lote = { grupo_id: string; publicaciones: Publicacion[]; suscripciones: Suscripcion[] };
 type Solicitud = { id: string; grupo_id: string; tipo: string };
 type LoteAdmin = { solicitudes: Solicitud[]; suscripciones: Suscripcion[] };
+type Aprobacion = { solicitud_id: string; grupo_id: string; suscripciones: Suscripcion[] };
 export type Aviso = { titulo: string; texto: string; ruta: string; etiqueta: string };
 
 // ---------- Utilidades de bytes ----------
@@ -297,6 +301,16 @@ export function componerSolicitud(nombre: string, s: Solicitud): Aviso {
   };
 }
 
+// Solicitud aprobada: un aviso para quien la pidió, que abre su panel.
+export function componerAprobacion(nombre: string, a: Aprobacion): Aviso {
+  return {
+    titulo: `Backline · Ya gestionáis la ficha de ${nombre}`,
+    texto: "Ya podéis publicar conciertos, discos, vídeos y noticias. Toca para ir a tu panel.",
+    ruta: "#/panel",
+    etiqueta: "aprobada-" + a.solicitud_id,
+  };
+}
+
 // Nombres de los grupos, de grupos.json (la misma lista que usa la app).
 async function nombresDeGrupos(): Promise<Record<string, string>> {
   try {
@@ -372,8 +386,23 @@ export async function atender(peticion: Request): Promise<Response> {
   } catch (e) {
     console.warn("avisos del administrador:", e instanceof Error ? e.message : e);
   }
-  const resumen = { grupos: lotes.length, solicitudes: admin.solicitudes.length, enviados: 0, fallidos: 0, borrados: 0 };
-  if (!lotes.length && !admin.solicitudes.length) {
+  // Igual con las aprobaciones (por si aún no se ha ejecutado
+  // 9-aviso-aprobacion.sql).
+  let aprobaciones: Aprobacion[] = [];
+  try {
+    aprobaciones = (await rpc("avisos_preparar_aprobaciones")) as Aprobacion[];
+  } catch (e) {
+    console.warn("avisos de aprobación:", e instanceof Error ? e.message : e);
+  }
+  const resumen = {
+    grupos: lotes.length,
+    solicitudes: admin.solicitudes.length,
+    aprobaciones: aprobaciones.length,
+    enviados: 0,
+    fallidos: 0,
+    borrados: 0,
+  };
+  if (!lotes.length && !admin.solicitudes.length && !aprobaciones.length) {
     console.log("avisos:", JSON.stringify(resumen));
     return respuesta(resumen);
   }
@@ -390,6 +419,9 @@ export async function atender(peticion: Request): Promise<Response> {
   }
   for (const s of admin.solicitudes) {
     encargos.push({ aviso: componerSolicitud(nombre(s.grupo_id), s), suscripciones: admin.suscripciones });
+  }
+  for (const a of aprobaciones) {
+    encargos.push({ aviso: componerAprobacion(nombre(a.grupo_id), a), suscripciones: a.suscripciones });
   }
 
   for (const { aviso, suscripciones } of encargos) {
