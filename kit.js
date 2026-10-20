@@ -152,9 +152,9 @@
     var b2 = bloque(contenedor, 'Bandcamp', null);
     var pasos = crear('ol', 'kit-pasos');
     [
-      'Entra en Bandcamp con vuestra cuenta y abre la página del grupo.',
-      'Pulsa «edit profile» y, en la columna de la derecha, «add link».',
-      'Pega el enlace, escribe «Backline» como nombre y pulsa «save».'
+      'Entrad en Bandcamp con la cuenta del grupo y abrid vuestra página.',
+      'Entrad en la edición del perfil y buscad la zona de enlaces (links), donde ya tenéis vuestro Spotify, Instagram, etc.',
+      'Añadid uno nuevo con el nombre «Backline», pegad el enlace y guardad.'
     ].forEach(function (p) { pasos.appendChild(crear('li', null, p)); });
     b2.appendChild(pasos);
     b2.appendChild(recuadro(enlace, 'kit-enlace'));
