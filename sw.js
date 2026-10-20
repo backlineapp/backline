@@ -24,7 +24,7 @@
 // IMPORTANTE: cada vez que cambie un archivo de la app (pantallas, estilos,
 // código, iconos, tipografías), hay que subir este número. Es el único número
 // de versión. Para cambiar grupos.json NO hace falta tocarlo.
-var VERSION = 12;
+var VERSION = 13;
 
 var CACHE = 'backline-v' + VERSION;
 var ARCHIVOS = [
@@ -37,6 +37,7 @@ var ARCHIVOS = [
   'conciertos.js',
   'novedades.js',
   'panel.js',
+  'kit.js',
   'instalar.js',
   'avisos.js',
   'app.js',
@@ -49,7 +50,9 @@ var ARCHIVOS = [
   'icono.svg',
   'icono-192.png',
   'icono-512.png',
-  'apple-touch-icon.png'
+  'apple-touch-icon.png',
+  'kit/backline_siguenos_oscuro.png',
+  'kit/backline_siguenos_claro.png'
 ];
 
 // Última copia de los datos de los grupos. Se conserva al cambiar de versión.

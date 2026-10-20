@@ -7,6 +7,7 @@
 //     rechazar) y Miembros (quién gestiona cada grupo, y quitar a alguien).
 //   · miembro de un grupo: publicar, editar y borrar conciertos, giras,
 //     discos, vídeos y noticias de su grupo (o sus grupos). Nada de otros grupos.
+//     También, el botón «Kit para vuestra web» de cada grupo (ver kit.js).
 // Las imágenes (carteles, portadas e imágenes de noticias) se reducen en el
 // móvil antes de subirlas y van a la misma carpeta, con la misma regla.
 // Lo que cada cuenta puede hacer lo decide la base de datos
@@ -444,6 +445,15 @@
     publicar.setAttribute('aria-expanded', 'false');
     contenedor.appendChild(publicar);
     contenedor.appendChild(opciones);
+
+    // Kit para la web, Bandcamp y redes de cada grupo que gestiona (ver kit.js).
+    if (!cuenta.admin) {
+      mios.forEach(function (g) {
+        var kit = crear('a', 'boton-secundario boton-kit', mios.length === 1 ? 'Kit para vuestra web' : 'Kit para vuestra web · ' + g.nombre);
+        kit.href = '#/kit/' + encodeURIComponent(g.id);
+        contenedor.appendChild(kit);
+      });
+    }
 
     contenedor.appendChild(crear('p', 'etiqueta-seccion', 'Publicado'));
     var lista = crear('ul', 'lista');
