@@ -16,7 +16,10 @@
 //   6. Avisa a quien acaba de ser aprobado para gestionar una ficha:
 //      "Backline · Ya gestionáis la ficha de Dry River"
 //      (avisos_preparar_aprobaciones: solo a sus móviles, nunca de noche).
-//   7. Borra los móviles que ya no aceptan avisos.
+//   7. Avisa a quienes gestionan alguna ficha de cada comunicado del
+//      administrador: "Backline · [título]" (avisos_preparar_comunicados:
+//      uno por móvil, nunca de noche).
+//   8. Borra los móviles que ya no aceptan avisos.
 //
 // Se pega entero en el editor de funciones de Supabase. No necesita nada más.
 // Secretos que usa (Edge Functions > Secrets), NUNCA en el repositorio:
@@ -47,6 +50,8 @@ type Lote = { grupo_id: string; publicaciones: Publicacion[]; suscripciones: Sus
 type Solicitud = { id: string; grupo_id: string; tipo: string };
 type LoteAdmin = { solicitudes: Solicitud[]; suscripciones: Suscripcion[] };
 type Aprobacion = { solicitud_id: string; grupo_id: string; suscripciones: Suscripcion[] };
+type Comunicado = { id: string; titulo: string; texto: string };
+type LoteComunicados = { comunicados: Comunicado[]; suscripciones: Suscripcion[] };
 export type Aviso = { titulo: string; texto: string; ruta: string; etiqueta: string };
 
 // ---------- Utilidades de bytes ----------
@@ -311,6 +316,16 @@ export function componerAprobacion(nombre: string, a: Aprobacion): Aviso {
   };
 }
 
+// Comunicado del administrador a los grupos: abre Mi panel, donde se lee entero.
+export function componerComunicado(c: Comunicado): Aviso {
+  return {
+    titulo: `Backline · ${c.titulo}`,
+    texto: extracto(c.texto) || "Toca para leerlo en tu panel.",
+    ruta: "#/panel",
+    etiqueta: "comunicado-" + c.id,
+  };
+}
+
 // Nombres de los grupos, de grupos.json (la misma lista que usa la app).
 async function nombresDeGrupos(): Promise<Record<string, string>> {
   try {
@@ -394,15 +409,23 @@ export async function atender(peticion: Request): Promise<Response> {
   } catch (e) {
     console.warn("avisos de aprobación:", e instanceof Error ? e.message : e);
   }
+  // Igual con los comunicados (por si aún no se ha ejecutado 11-comunicados.sql).
+  let comunicados: LoteComunicados = { comunicados: [], suscripciones: [] };
+  try {
+    comunicados = (await rpc("avisos_preparar_comunicados")) as LoteComunicados;
+  } catch (e) {
+    console.warn("avisos de comunicados:", e instanceof Error ? e.message : e);
+  }
   const resumen = {
     grupos: lotes.length,
     solicitudes: admin.solicitudes.length,
     aprobaciones: aprobaciones.length,
+    comunicados: comunicados.comunicados.length,
     enviados: 0,
     fallidos: 0,
     borrados: 0,
   };
-  if (!lotes.length && !admin.solicitudes.length && !aprobaciones.length) {
+  if (!lotes.length && !admin.solicitudes.length && !aprobaciones.length && !comunicados.comunicados.length) {
     console.log("avisos:", JSON.stringify(resumen));
     return respuesta(resumen);
   }
@@ -422,6 +445,9 @@ export async function atender(peticion: Request): Promise<Response> {
   }
   for (const a of aprobaciones) {
     encargos.push({ aviso: componerAprobacion(nombre(a.grupo_id), a), suscripciones: a.suscripciones });
+  }
+  for (const c of comunicados.comunicados) {
+    encargos.push({ aviso: componerComunicado(c), suscripciones: comunicados.suscripciones });
   }
 
   for (const { aviso, suscripciones } of encargos) {
