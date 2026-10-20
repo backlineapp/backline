@@ -176,6 +176,18 @@ begin
     return vacio;
   end if;
 
+  -- Móviles del administrador. Si todavía no hay ninguno marcado, NO se
+  -- gasta nada: las solicitudes siguen en la lista de espera y saldrán en
+  -- cuanto el administrador active los avisos con su sesión iniciada.
+  select jsonb_agg(jsonb_build_object('endpoint', x.endpoint, 'p256dh', x.p256dh, 'auth', x.auth))
+  into subs
+  from public.suscripciones x
+  where x.admin;
+
+  if subs is null then
+    return vacio;
+  end if;
+
   -- Solo las que siguen pendientes (si ya se resolvió, no hace falta avisar).
   select jsonb_agg(jsonb_build_object('id', s.id, 'grupo_id', s.grupo_id, 'tipo', s.tipo) order by s.creado)
   into sols
@@ -185,14 +197,7 @@ begin
   update public.avisos_solicitudes set enviado = now()
   where solicitud_id = any (ids) and enviado is null;
 
-  select jsonb_agg(jsonb_build_object('endpoint', x.endpoint, 'p256dh', x.p256dh, 'auth', x.auth))
-  into subs
-  from public.suscripciones x
-  where x.admin;
-
-  -- Sin móviles del administrador no se envía nada (el número del panel
-  -- sigue avisando al abrir la app).
-  if sols is null or subs is null then
+  if sols is null then
     return vacio;
   end if;
 
