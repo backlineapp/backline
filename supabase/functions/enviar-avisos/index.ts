@@ -10,7 +10,10 @@
 //      "Dry River · Concierto en Castellón, 14 nov", "Dry River · Nuevo disco: …",
 //      "Dry River · Nuevo vídeo: …" o "Dry River · …" (título de la noticia).
 //   4. Lo cifra para cada móvil (solo ese móvil puede leerlo) y lo envía.
-//   5. Borra los móviles que ya no aceptan avisos.
+//   5. Además, avisa al móvil del administrador de cada solicitud nueva:
+//      "Backline · Dry River quiere gestionar su ficha" o "… pide retirar su
+//      ficha" (avisos_preparar_admin: sin espera ni límite, nunca de noche).
+//   6. Borra los móviles que ya no aceptan avisos.
 //
 // Se pega entero en el editor de funciones de Supabase. No necesita nada más.
 // Secretos que usa (Edge Functions > Secrets), NUNCA en el repositorio:
@@ -38,6 +41,8 @@ type Publicacion = {
 };
 type Suscripcion = { endpoint: string; p256dh: string; auth: string };
 type Lote = { grupo_id: string; publicaciones: Publicacion[]; suscripciones: Suscripcion[] };
+type Solicitud = { id: string; grupo_id: string; tipo: string };
+type LoteAdmin = { solicitudes: Solicitud[]; suscripciones: Suscripcion[] };
 export type Aviso = { titulo: string; texto: string; ruta: string; etiqueta: string };
 
 // ---------- Utilidades de bytes ----------
@@ -280,6 +285,18 @@ export function componer(nombre: string, grupoId: string, pubs: Publicacion[]): 
   };
 }
 
+// Solicitud nueva: un aviso para el administrador que abre Mi panel en las
+// solicitudes. Cada solicitud tiene su propio aviso (no se sustituyen).
+export function componerSolicitud(nombre: string, s: Solicitud): Aviso {
+  const que = s.tipo === "retirar" ? "pide retirar su ficha" : "quiere gestionar su ficha";
+  return {
+    titulo: `Backline · ${nombre} ${que}`,
+    texto: "Toca para revisarla en Mi panel.",
+    ruta: "#/panel/solicitudes",
+    etiqueta: "solicitud-" + s.id,
+  };
+}
+
 // Nombres de los grupos, de grupos.json (la misma lista que usa la app).
 async function nombresDeGrupos(): Promise<Record<string, string>> {
   try {
@@ -347,16 +364,36 @@ export async function atender(peticion: Request): Promise<Response> {
   if (!publica || !privada) return respuesta({ error: "faltan las claves VAPID" }, 500);
 
   const lotes = (await rpc("avisos_preparar")) as Lote[];
-  const resumen = { grupos: lotes.length, enviados: 0, fallidos: 0, borrados: 0 };
-  if (!lotes.length) return respuesta(resumen);
+  // Si falla lo del administrador (por ejemplo, aún no se ha ejecutado
+  // 7-avisos-admin.sql), los avisos de los grupos salen igual.
+  let admin: LoteAdmin = { solicitudes: [], suscripciones: [] };
+  try {
+    admin = (await rpc("avisos_preparar_admin")) as LoteAdmin;
+  } catch (e) {
+    console.warn("avisos del administrador:", e instanceof Error ? e.message : e);
+  }
+  const resumen = { grupos: lotes.length, solicitudes: admin.solicitudes.length, enviados: 0, fallidos: 0, borrados: 0 };
+  if (!lotes.length && !admin.solicitudes.length) {
+    console.log("avisos:", JSON.stringify(resumen));
+    return respuesta(resumen);
+  }
 
   const nombres = await nombresDeGrupos();
+  const nombre = (id: string) => nombres[id] || nombrePorDefecto(id);
   const caducados: string[] = [];
   const tareas: (() => Promise<void>)[] = [];
 
+  // Cada aviso, a cada uno de sus móviles.
+  const encargos: { aviso: Aviso; suscripciones: Suscripcion[] }[] = [];
   for (const lote of lotes) {
-    const aviso = componer(nombres[lote.grupo_id] || nombrePorDefecto(lote.grupo_id), lote.grupo_id, lote.publicaciones);
-    for (const sus of lote.suscripciones) {
+    encargos.push({ aviso: componer(nombre(lote.grupo_id), lote.grupo_id, lote.publicaciones), suscripciones: lote.suscripciones });
+  }
+  for (const s of admin.solicitudes) {
+    encargos.push({ aviso: componerSolicitud(nombre(s.grupo_id), s), suscripciones: admin.suscripciones });
+  }
+
+  for (const { aviso, suscripciones } of encargos) {
+    for (const sus of suscripciones) {
       tareas.push(async () => {
         try {
           const estado = await enviarUno(sus, aviso, publica, privada);

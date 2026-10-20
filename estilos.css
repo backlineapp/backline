@@ -46,6 +46,7 @@
   --apagado: #5A6779;
   --ambar: #E8A13A;
   --cian: #4FC4D6;
+  --rojo: #E5484D;
   --acento: var(--cian);
   --acento-borde: rgba(79, 196, 214, 0.33);
   --acento-suave: rgba(79, 196, 214, 0.20);
@@ -1003,7 +1004,8 @@ button[disabled] { opacity: 0.55; cursor: default; }
 /* ---------- Grupos que gestionan su ficha ---------- */
 a.volver { display: inline-block; text-decoration: none; }
 
-/* Número de solicitudes pendientes (junto a "Mi panel" y en el panel) */
+/* Número de solicitudes pendientes (junto a "Mi panel", en el panel y en
+   la pestaña Mis grupos) */
 .punto {
   display: inline-block;
   min-width: 18px;
@@ -1014,12 +1016,23 @@ a.volver { display: inline-block; text-decoration: none; }
   line-height: 16px;
   text-align: center;
   vertical-align: 1px;
-  color: var(--fondo);
-  background: var(--ambar);
+  color: #FFFFFF;
+  background: var(--rojo);
   border-radius: 999px;
 }
 .punto[hidden] { display: none; }
 .pie-acceso a .punto { margin-left: 2px; }
+.pestana { position: relative; }
+.pestana .punto-pestana {
+  position: absolute;
+  top: 6px;
+  left: calc(50% + 6px);
+  min-width: 17px;
+  padding: 0 5px;
+  font-size: 10.5px;
+  line-height: 17px;
+  box-shadow: 0 0 0 2px var(--superficie);
+}
 
 .panel-grupos { margin: -6px 0 14px; color: var(--texto); }
 .atajos-admin { margin: 0 0 14px; }

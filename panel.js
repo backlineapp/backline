@@ -376,7 +376,7 @@
     contenedor.appendChild(a);
   }
 
-  // Número de solicitudes pendientes, en ámbar (vacío si no hay).
+  // Número de solicitudes pendientes, en rojo (vacío si no hay).
   function punto(n) {
     var p = crear('span', 'punto', String(n));
     p.hidden = !n;

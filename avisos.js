@@ -9,7 +9,9 @@
 //   2. La campanita de cada ficha, para silenciar un grupo sin dejar de seguirlo.
 //   3. Mantener al día lo que sabe Supabase de este móvil: solo su
 //      "dirección de avisos" y la lista de grupos que sigue sin silenciar.
-//      Ni correo ni nombre.
+//      Ni correo ni nombre. Si en el móvil está iniciada la sesión del
+//      administrador, Supabase lo marca como suyo (lo decide la base de
+//      datos, no la app) y le avisa de cada solicitud nueva.
 //
 // Los avisos los manda Supabase (supabase/functions/enviar-avisos) y los
 // muestra sw.js. Al tocar uno, sw.js abre la app en ese concierto, disco,
@@ -97,11 +99,17 @@
     return true;
   }
 
-  // Envía a Supabase la lista de grupos de este móvil (si ha cambiado).
+  function esAdmin() {
+    var cuenta = Nube.cuenta();
+    return !!(cuenta && cuenta.admin);
+  }
+
+  // Envía a Supabase la lista de grupos de este móvil (si ha cambiado, o si
+  // se ha entrado o salido con la cuenta del administrador).
   function enviarLista(sus, forzar) {
     var json = sus.toJSON();
     var grupos = Seguidos.idsConAvisos();
-    var firma = json.endpoint + '|' + grupos.slice().sort().join(',');
+    var firma = json.endpoint + '|' + grupos.slice().sort().join(',') + (esAdmin() ? '|admin' : '');
     var ultimo = leer();
     if (!forzar && ultimo.firma === firma && Date.now() - (ultimo.enviado || 0) < REPASO) return Promise.resolve();
     return Nube.apuntarAvisos(json, grupos).then(function () {
@@ -149,7 +157,7 @@
           return sus || reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: bytes(clave) });
         });
       })
-      .then(function (sus) { return enviarLista(sus, true); })
+      .then(function (sus) { return Nube.listo.then(function () { return enviarLista(sus, true); }); })
       .then(function () {
         ocupado = false;
         pintarDeNuevo('');
@@ -237,6 +245,7 @@
       c = caja('Avisos activados',
         'Te avisaremos cuando tus grupos publiquen conciertos, discos, vídeos o noticias. Nunca de noche. Para silenciar un grupo, toca la campanita de su ficha.');
       c.classList.add('activos');
+      if (esAdmin()) c.appendChild(crear('p', 'avisos-nota', 'Como administrador, también te avisaremos de cada solicitud nueva para gestionar o retirar una ficha.'));
       c.appendChild(boton('Desactivar avisos', 'boton-texto', desactivar));
     } else if (Notification.permission === 'denied') {
       c = caja('Avisos bloqueados',
@@ -315,9 +324,15 @@
   // ---------- Arranque ----------
 
   Seguidos.alCambiar(alCambiarSeguidos);
+  // Al entrar o salir con una cuenta: se repasa si el móvil es del administrador.
+  Nube.alCambiarCuenta(function () {
+    alCambiarSeguidos();
+    if (!ocupado) pintarDeNuevo('');
+  });
 
-  // Al abrir la app, se repasa que Supabase tenga la lista al día.
-  suscripcionActual().then(function (sus) {
+  // Al abrir la app (con la sesión ya cargada), se repasa que Supabase tenga
+  // la lista al día.
+  Nube.listo.then(suscripcionActual).then(function (sus) {
     if (sus) return enviarLista(sus, false);
   }).catch(function () { /* sin conexión: ya se enviará */ });
 
