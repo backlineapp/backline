@@ -317,11 +317,13 @@
 
       // #/panel/concierto/nuevo · #/panel/gira/nueva · #/panel/disco/nuevo
       // #/panel/video/nuevo · #/panel/noticia/nueva · #/panel/editar/<id>
-      // Solo administrador: #/panel/solicitudes · #/panel/miembros
+      // Solo administrador: #/panel/solicitudes · #/panel/miembros · #/panel/avisos
       if (cuenta.admin && partes[1] === 'solicitudes') {
         pintarSolicitudes(contenedor, cuenta);
       } else if (cuenta.admin && partes[1] === 'miembros') {
         pintarMiembros(contenedor);
+      } else if (cuenta.admin && partes[1] === 'avisos') {
+        pintarAvisosPorGrupo(contenedor);
       } else if (partes[1] === 'concierto' || partes[1] === 'gira') {
         pintarFormulario(contenedor, { tipo: partes[1], fechas: [] }, cuenta);
       } else if (NOVEDADES[partes[1]]) {
@@ -413,6 +415,11 @@
       miembros.appendChild(crear('span', 'opcion-titulo', 'Miembros'));
       miembros.appendChild(crear('span', 'opcion-detalle', 'Quién gestiona cada grupo'));
       atajos.appendChild(miembros);
+      var porGrupo = crear('a', 'opcion');
+      porGrupo.href = '#/panel/avisos';
+      porGrupo.appendChild(crear('span', 'opcion-titulo', 'Avisos por grupo'));
+      porGrupo.appendChild(crear('span', 'opcion-detalle', 'Cuánta gente recibe los avisos de cada grupo'));
+      atajos.appendChild(porGrupo);
       contenedor.appendChild(atajos);
       Nube.contarPendientes().then(function (n) {
         numero.textContent = String(n);
@@ -1265,6 +1272,50 @@
     }));
     li.appendChild(botones);
     return li;
+  }
+
+  // ---------- Avisos por grupo (administrador) ----------
+  // Solo cifras, solo para el administrador. Los grupos no lo ven.
+
+  function pintarAvisosPorGrupo(contenedor) {
+    contenedor.textContent = '';
+    enlacePanel(contenedor);
+    titular(contenedor, 'Avisos por grupo', 'Cuántas personas reciben en el móvil los avisos de cada grupo. Solo lo ves tú.');
+    var caja = crear('div');
+    caja.appendChild(crear('p', 'vacio', 'Cargando…'));
+    contenedor.appendChild(caja);
+
+    Nube.avisosPorGrupo().then(function (r) {
+      caja.textContent = '';
+      var moviles = r.moviles || 0;
+      caja.appendChild(crear('p', 'formulario-texto', moviles === 1
+        ? '1 móvil tiene los avisos activados (sin contar los tuyos).'
+        : moviles + ' móviles tienen los avisos activados (sin contar los tuyos).'));
+      caja.appendChild(crear('p', 'campo-nota', 'Quien sigue un grupo sin activar los avisos no aparece aquí: eso se guarda solo en su móvil. Los grupos silenciados tampoco cuentan.'));
+      var lista = (r.grupos || []).filter(function (g) { return ayuda.grupoPorId(g.grupo_id); });
+      if (!lista.length) {
+        caja.appendChild(crear('p', 'vacio', 'Aún nadie recibe avisos de ningún grupo.'));
+        return;
+      }
+      caja.appendChild(crear('p', 'etiqueta-seccion', lista.length === 1 ? '1 grupo' : lista.length + ' grupos'));
+      var ul = crear('ul', 'lista');
+      lista.forEach(function (g) {
+        var grupo = ayuda.grupoPorId(g.grupo_id);
+        var li = crear('li');
+        var a = crear('a', 'tarjeta avisos-grupo ' + grupo._acento);
+        a.href = '#/grupo/' + encodeURIComponent(grupo.id);
+        var texto = crear('div', 'tarjeta-texto');
+        texto.appendChild(crear('h3', 'tarjeta-nombre', grupo.nombre));
+        a.appendChild(texto);
+        a.appendChild(crear('span', 'avisos-grupo-cifra', String(g.personas)));
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      caja.appendChild(ul);
+    }, function (e) {
+      caja.textContent = '';
+      caja.appendChild(crear('p', 'aviso', e.message));
+    });
   }
 
   // ---------- ¿Es tu grupo? (gestionar o retirar la ficha) ----------
