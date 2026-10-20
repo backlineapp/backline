@@ -318,12 +318,15 @@
       // #/panel/concierto/nuevo · #/panel/gira/nueva · #/panel/disco/nuevo
       // #/panel/video/nuevo · #/panel/noticia/nueva · #/panel/editar/<id>
       // Solo administrador: #/panel/solicitudes · #/panel/miembros · #/panel/avisos
+      // · #/panel/comunicados
       if (cuenta.admin && partes[1] === 'solicitudes') {
         pintarSolicitudes(contenedor, cuenta);
       } else if (cuenta.admin && partes[1] === 'miembros') {
         pintarMiembros(contenedor);
       } else if (cuenta.admin && partes[1] === 'avisos') {
         pintarAvisosPorGrupo(contenedor);
+      } else if (cuenta.admin && partes[1] === 'comunicados') {
+        pintarComunicados(contenedor);
       } else if (partes[1] === 'concierto' || partes[1] === 'gira') {
         pintarFormulario(contenedor, { tipo: partes[1], fechas: [] }, cuenta);
       } else if (NOVEDADES[partes[1]]) {
@@ -398,6 +401,9 @@
 
     var aviso = avisoGuardado(contenedor);
 
+    // Grupos: Novedades de Backline (lo que escribe el administrador).
+    if (!cuenta.admin) novedadesBackline(contenedor, cuenta);
+
     // Administrador: Solicitudes (con las pendientes) y Miembros.
     if (cuenta.admin) {
       var atajos = crear('div', 'opciones-publicar atajos-admin');
@@ -420,6 +426,11 @@
       porGrupo.appendChild(crear('span', 'opcion-titulo', 'Avisos por grupo'));
       porGrupo.appendChild(crear('span', 'opcion-detalle', 'Cuánta gente recibe los avisos de cada grupo'));
       atajos.appendChild(porGrupo);
+      var escribir = crear('a', 'opcion');
+      escribir.href = '#/panel/comunicados';
+      escribir.appendChild(crear('span', 'opcion-titulo', 'Escribir a los grupos'));
+      escribir.appendChild(crear('span', 'opcion-detalle', 'Novedades de Backline para quien gestiona una ficha'));
+      atajos.appendChild(escribir);
       contenedor.appendChild(atajos);
       Nube.contarPendientes().then(function (n) {
         numero.textContent = String(n);
@@ -1272,6 +1283,124 @@
     }));
     li.appendChild(botones);
     return li;
+  }
+
+  // ---------- Novedades de Backline (comunicados del administrador) ----------
+
+  // Lo último que esta cuenta ha visto, guardado en el móvil (solo sirve para
+  // marcar «Nuevo»; si se pierde, no pasa nada).
+  var vistoAlEntrar = {};
+
+  function claveVisto(cuenta) { return 'backline.comunicados.' + cuenta.id; }
+
+  function leerVisto(cuenta) {
+    try { return localStorage.getItem(claveVisto(cuenta)) || ''; } catch (e) { return ''; }
+  }
+
+  function guardarVisto(cuenta, iso) {
+    try { localStorage.setItem(claveVisto(cuenta), iso); } catch (e) { /* nada */ }
+  }
+
+  // Recuadro de Mi panel de los grupos: los 3 últimos comunicados. Si no hay
+  // ninguno, no se muestra nada.
+  function novedadesBackline(contenedor, cuenta) {
+    var caja = crear('section', 'novedades-backline');
+    caja.hidden = true;
+    contenedor.appendChild(caja);
+    Nube.comunicados(3).then(function (lista) {
+      if (!lista || !lista.length) return;
+      // Lo visto al abrir la app: así «Nuevo» se mantiene mientras siga
+      // abierta, aunque el panel se vuelva a pintar.
+      if (!(cuenta.id in vistoAlEntrar)) vistoAlEntrar[cuenta.id] = leerVisto(cuenta);
+      var visto = vistoAlEntrar[cuenta.id];
+      caja.appendChild(crear('p', 'etiqueta-seccion', 'Novedades de Backline'));
+      lista.forEach(function (c) {
+        var nuevo = !visto || c.creado > visto;
+        var art = crear('article', 'comunicado' + (nuevo ? ' nuevo' : ''));
+        var cab = crear('div', 'comunicado-cabecera');
+        cab.appendChild(crear('h3', 'comunicado-titulo', c.titulo));
+        if (nuevo) cab.appendChild(crear('span', 'comunicado-nuevo', 'Nuevo'));
+        art.appendChild(cab);
+        art.appendChild(crear('p', 'comunicado-texto', c.texto));
+        art.appendChild(crear('p', 'comunicado-fecha', fechaHora(c.creado)));
+        caja.appendChild(art);
+      });
+      caja.hidden = false;
+      guardarVisto(cuenta, lista[0].creado);
+    }, function () { /* sin conexión: no se muestra */ });
+  }
+
+  // Pantalla del administrador: escribir y ver lo enviado.
+  function pintarComunicados(contenedor) {
+    contenedor.textContent = '';
+    enlacePanel(contenedor);
+    titular(contenedor, 'Escribir a los grupos', 'Lo verán en su Mi panel quienes gestionan una ficha, y les llegará un aviso al móvil si los tienen activados (nunca de noche). Los fans no lo ven.');
+    var aviso = avisoGuardado(contenedor);
+
+    var form = crear('form', 'formulario');
+    form.noValidate = true;
+    var titulo = entrada('text', '', { maxlength: '80', autocomplete: 'off', placeholder: 'Ej.: Nueva función: Kit para vuestra web' });
+    var texto = areaTexto('', { maxlength: '2000', rows: '6', placeholder: 'Lo que quieras contarles' });
+    form.appendChild(campo('Título', titulo, 'Es lo que se lee en el aviso del móvil. Corto.'));
+    form.appendChild(campo('Texto', texto));
+    var enviar = crear('button', 'boton boton-ancho', 'Enviar a los grupos');
+    enviar.type = 'submit';
+    form.appendChild(enviar);
+    var avisoForm = crear('p', 'mensaje');
+    avisoForm.hidden = true;
+    form.appendChild(avisoForm);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var t = titulo.value.trim();
+      var x = texto.value.trim();
+      if (!t) return mensaje(avisoForm, 'Falta el título.', 'error');
+      if (!x) return mensaje(avisoForm, 'Falta el texto.', 'error');
+      if (!confirm('¿Enviar «' + t + '» a todos los grupos que gestionan su ficha?')) return;
+      enviar.disabled = true;
+      mensaje(avisoForm, 'Enviando…');
+      Nube.escribirComunicado(t, x).then(function () {
+        avisoPanel = 'Enviado. El aviso al móvil sale en unos minutos.';
+        pintarComunicados(contenedor);
+      }, function (err) {
+        enviar.disabled = false;
+        mensaje(avisoForm, err.message, 'error');
+      });
+    });
+    contenedor.appendChild(form);
+
+    contenedor.appendChild(crear('p', 'etiqueta-seccion', 'Enviados'));
+    var ul = crear('ul', 'lista');
+    ul.appendChild(crear('li', 'vacio', 'Cargando…'));
+    contenedor.appendChild(ul);
+    Nube.comunicados(50).then(function (lista) {
+      ul.textContent = '';
+      if (!lista.length) {
+        ul.appendChild(crear('li', 'vacio', 'Aún no has escrito nada a los grupos.'));
+        return;
+      }
+      lista.forEach(function (c) {
+        var li = crear('li', 'comunicado');
+        li.appendChild(crear('h3', 'comunicado-titulo', c.titulo));
+        li.appendChild(crear('p', 'comunicado-texto', c.texto));
+        li.appendChild(crear('p', 'comunicado-fecha', fechaHora(c.creado)));
+        li.appendChild(boton('Borrar', 'boton-secundario boton-pequeno peligro', function (e) {
+          if (!confirm('¿Borrar «' + c.titulo + '»? Los grupos dejarán de verlo en su panel.')) return;
+          var b = e.currentTarget;
+          b.disabled = true;
+          Nube.borrarComunicado(c.id).then(function () {
+            avisoPanel = 'Borrado.';
+            pintarComunicados(contenedor);
+          }, function (err) {
+            b.disabled = false;
+            mensaje(aviso, err.message, 'error');
+          });
+        }));
+        ul.appendChild(li);
+      });
+    }, function (e) {
+      ul.textContent = '';
+      ul.appendChild(crear('li', 'aviso', e.message));
+    });
   }
 
   // ---------- Avisos por grupo (administrador) ----------

@@ -435,6 +435,32 @@
     return cliente.rpc('avisos_por_grupo').then(comprobar);
   }
 
+  // Comunicados del administrador a los grupos ("Novedades de Backline").
+  // Solo los ven el administrador y quien gestiona alguna ficha.
+  function comunicados(limite) {
+    if (!cliente) return sinConexion();
+    return cliente.from('comunicados')
+      .select('id, titulo, texto, creado')
+      .order('creado', { ascending: false })
+      .limit(limite || 20)
+      .then(comprobar);
+  }
+
+  function escribirComunicado(titulo, texto) {
+    if (!cliente) return sinConexion();
+    return cliente.from('comunicados').insert({ titulo: titulo, texto: texto }).then(comprobar);
+  }
+
+  function borrarComunicado(id) {
+    if (!cliente) return sinConexion();
+    return cliente.from('comunicados').delete().eq('id', id)
+      .select('id')
+      .then(comprobar)
+      .then(function (filas) {
+        if (!filas || !filas.length) throw new Error('No tienes permiso para hacer esto.');
+      });
+  }
+
   // ---------- Avisos al móvil ----------
   // Las suscripciones no se pueden leer desde la app: solo apuntarse o
   // borrarse, y siempre demostrando que es este móvil (con su clave "auth").
@@ -489,6 +515,9 @@
     miembros: miembros,
     quitarMiembro: quitarMiembro,
     avisosPorGrupo: avisosPorGrupo,
+    comunicados: comunicados,
+    escribirComunicado: escribirComunicado,
+    borrarComunicado: borrarComunicado,
     claveAvisos: claveAvisos,
     apuntarAvisos: apuntarAvisos,
     borrarAvisos: borrarAvisos

@@ -1045,8 +1045,36 @@ a.volver { display: inline-block; text-decoration: none; }
   font-family: var(--titulos);
   font-size: 18px;
   font-weight: 700;
-  color: var(--acento);
+  color: var(--ambar);
 }
+
+/* Novedades de Backline (comunicados del administrador a los grupos) */
+.novedades-backline { margin: 0 0 16px; display: flex; flex-direction: column; gap: 8px; }
+.novedades-backline .etiqueta-seccion { margin-top: 0; }
+.comunicado {
+  padding: 12px 14px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.comunicado.nuevo { border-color: var(--ambar); }
+.comunicado-cabecera { display: flex; align-items: center; gap: 8px; }
+.comunicado-titulo { margin: 0; flex: 1; font-size: 15px; font-weight: 700; color: var(--texto); }
+.comunicado-nuevo {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #0B0E13;
+  background: var(--ambar);
+}
+.comunicado-texto { margin: 0; font-size: 14px; line-height: 1.5; color: var(--texto); white-space: pre-line; }
+.comunicado-fecha { margin: 0; font-size: 12px; color: var(--tenue); }
+.comunicado .boton-pequeno { align-self: flex-start; }
 
 /* Estado de una solicitud */
 .estado {
