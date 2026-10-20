@@ -1,9 +1,10 @@
 // backline — el backstage de tus grupos favoritos.
 // Lee grupos.json y muestra las pantallas: Inicio, Explorar, Conciertos,
-// Mis grupos, Ficha de grupo, Concierto, Novedad, ¿Es tu grupo?, Acceso y Panel.
+// Mis grupos, Ficha de grupo, Concierto, Novedad, ¿Es tu grupo?, Acceso, Panel
+// y Kit para grupos.
 // La lista de grupos seguidos la gestiona seguidos.js; los conciertos,
 // conciertos.js; los discos, vídeos y noticias publicados, novedades.js; el acceso, "¿Es tu grupo?" y el panel, panel.js; los avisos al móvil,
-// avisos.js; instalar la app en el móvil, instalar.js; Supabase, nube.js.
+// avisos.js; instalar la app en el móvil, instalar.js; el kit para grupos, kit.js; Supabase, nube.js.
 
 (function () {
   'use strict';
@@ -122,6 +123,8 @@
     contenidoAcceso: document.getElementById('acceso'),
     panel: document.getElementById('pantalla-panel'),
     contenidoPanel: document.getElementById('panel'),
+    kit: document.getElementById('pantalla-kit'),
+    contenidoKit: document.getElementById('kit'),
     gestionar: document.getElementById('pantalla-gestionar'),
     contenidoGestionar: document.getElementById('gestionar'),
     pestanaConciertos: document.getElementById('pestana-conciertos'),
@@ -817,7 +820,7 @@
     if (DETALLES[pantalla] && !DETALLES[pantallaActual] && !DE_LA_FICHA[pantallaActual]) origen = pantallaActual;
     pantallaActual = pantalla;
 
-    ['inicio', 'explorar', 'conciertos', 'misGrupos', 'ficha', 'concierto', 'novedad', 'gestionar', 'acceso', 'panel'].forEach(function (k) {
+    ['inicio', 'explorar', 'conciertos', 'misGrupos', 'ficha', 'concierto', 'novedad', 'gestionar', 'acceso', 'panel', 'kit'].forEach(function (k) {
       var nombre = k === 'misGrupos' ? 'mis-grupos' : k;
       el[k].hidden = pantalla !== nombre;
     });
@@ -929,6 +932,15 @@
       return;
     }
 
+    // Kit para grupos: no es pestaña, se llega por enlace o desde "Mi panel".
+    if (partes[0] === 'kit') {
+      var grupoK = Kit.pintar(el.contenidoKit, partes[1] ? decodeURIComponent(partes[1]) : '', pantallaActual === 'panel');
+      document.title = (grupoK ? 'Kit de ' + grupoK.nombre : 'Kit para grupos') + ' · Backline';
+      mostrar('kit');
+      window.scrollTo(0, 0);
+      return;
+    }
+
     if (partes[0] === 'mis-grupos') {
       pintarMisGrupos();
       document.title = 'Mis grupos · Backline';
@@ -1018,7 +1030,7 @@
 
   // ---------- Arranque ----------
 
-  // Piezas comunes que usan conciertos.js, novedades.js y panel.js.
+  // Piezas comunes que usan conciertos.js, novedades.js, panel.js y kit.js.
   var piezas = {
     crear: crear,
     urlPermitida: urlPermitida,
@@ -1033,6 +1045,7 @@
   Conciertos.iniciar(piezas);
   Novedades.iniciar(piezas);
   Panel.iniciar(piezas);
+  Kit.iniciar(piezas);
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 

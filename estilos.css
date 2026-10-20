@@ -1407,3 +1407,79 @@ a.volver { display: inline-block; text-decoration: none; }
   color: var(--texto);
   background: linear-gradient(160deg, rgba(79, 196, 214, 0.20), var(--superficie-2) 70%);
 }
+
+/* ---------- Kit para grupos (#/kit/<grupo>) ---------- */
+.boton-kit { margin-top: 10px; }
+.kit-bloque {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+}
+.kit-bloque-titulo {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ambar);
+}
+.kit-bloque > .formulario-texto { margin-bottom: 12px; }
+.kit-pasos {
+  margin: 0 0 12px;
+  padding-left: 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--texto);
+}
+.kit-pasos li + li { margin-top: 4px; }
+.kit-pasos li::marker { font-weight: 700; color: var(--cian); }
+.kit-texto {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--texto);
+  background: var(--fondo);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+  -webkit-user-select: text;
+  user-select: text;
+}
+.kit-enlace { color: var(--cian); }
+.kit-codigo {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  color: var(--tenue);
+}
+.kit-botones { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.kit-boton { flex: 1 1 140px; border: 0; cursor: pointer; font-family: inherit; text-align: center; }
+.boton-secundario.kit-boton { border: 1px solid var(--linea); }
+.kit-insignia + .kit-insignia,
+.kit-red + .kit-red { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--linea); }
+.kit-insignia-nombre {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--apagado);
+}
+.kit-insignia-marco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 18px 12px;
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+}
+.kit-insignia-oscura .kit-insignia-marco { background: var(--fondo-hondo); }
+.kit-insignia-clara .kit-insignia-marco { background: #F2F4F7; }
+.kit-insignia-marco img { display: block; max-width: 100%; height: auto; }
+.kit-ver-ficha { display: block; margin: 20px auto 0; text-align: center; }
+.kit-lista { margin-top: 14px; }
+@media (min-width: 560px) {
+  .kit-bloque { padding: 20px; }
+  .kit-boton { flex: 0 0 auto; min-width: 150px; }
+}
