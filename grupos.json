@@ -1,6 +1,6 @@
 {
  "total": 228,
- "actualizado": "2026-10-19",
+ "actualizado": "2026-10-21",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -6792,7 +6792,7 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://somewhereout.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/2F6LzPcBOFctO7gShLcAWF",
    "apple_music": "https://music.apple.com/es/artist/somewhereout/1449247017",
    "youtube": "",
    "web": "",
@@ -10351,7 +10351,7 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://antiguaybarbuda.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/46gtqVpgiLnmLgXGrMwOZI",
    "apple_music": "https://music.apple.com/es/artist/antigua-y-barbuda/1225968301",
    "youtube": "",
    "web": "",
@@ -11446,7 +11446,7 @@
   {
    "id": "sageness",
    "nombre": "SageNESS",
-   "estilos": "Prog metal / djent",
+   "estilos": "Instrumental / Stoner / Psicodelia",
    "ciudad": "Castilla y León",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
