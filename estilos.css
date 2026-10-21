@@ -786,6 +786,11 @@ button[disabled] { opacity: 0.55; cursor: default; }
   cursor: pointer;
 }
 .pie-separador { margin: 0 10px; color: var(--linea); }
+
+/* Acceso: borrar la cuenta y enlace a la privacidad */
+.borrar-cuenta { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--linea); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.enlace-privacidad { margin-top: 20px; }
+.enlace-privacidad a { color: var(--tenue); }
 #pie-instalar[hidden] { display: none; }
 
 /* ---------- Formularios (acceso y panel) ---------- */

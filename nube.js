@@ -141,6 +141,17 @@
     return cliente.auth.signOut().then(function () { return actualizarCuenta(null); });
   }
 
+  // Borra la cuenta de quien ha entrado (supabase/12-borrar-cuenta.sql) y
+  // cierra la sesión en este dispositivo.
+  function borrarCuenta() {
+    if (!cliente) return sinConexion();
+    return cliente.rpc('borrar_mi_cuenta').then(comprobar).then(function () {
+      return cliente.auth.signOut({ scope: 'local' }).catch(function () {}).then(function () {
+        return actualizarCuenta(null);
+      });
+    });
+  }
+
   // ---------- Conciertos ----------
 
   var CAMPOS_FECHA = 'id, fecha, hora, zona, ciudad, provincia, pais, sala, direccion, precio, entradas';
@@ -498,6 +509,7 @@
     enviarCodigo: enviarCodigo,
     entrar: entrar,
     salir: salir,
+    borrarCuenta: borrarCuenta,
     proximasFechas: proximasFechas,
     fecha: fecha,
     novedades: novedades,

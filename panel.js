@@ -181,6 +181,30 @@
         caja.appendChild(boton('Salir', 'boton-secundario boton-ancho', function () {
           Nube.salir().then(function () { pintarAcceso(contenedor); });
         }));
+        // Borrar la cuenta (lo exigen las tiendas). El administrador no puede.
+        if (!cuenta.admin) {
+          var borrar = crear('div', 'borrar-cuenta');
+          borrar.appendChild(crear('p', 'campo-nota', 'Al borrar tu cuenta se eliminan tu correo, tus solicitudes y tu acceso a las fichas que gestionas. Lo que hayas publicado se queda en la ficha del grupo. Los grupos que sigues siguen guardados en este móvil.'));
+          var avisoBorrar = crear('p', 'mensaje');
+          avisoBorrar.hidden = true;
+          var botonBorrar = boton('Borrar mi cuenta', 'boton-texto peligro', function () {
+            if (!confirm('¿Borrar tu cuenta (' + cuenta.correo + ')? Es inmediato y no se puede deshacer.')) return;
+            botonBorrar.disabled = true;
+            mensaje(avisoBorrar, 'Borrando…');
+            Nube.borrarCuenta().then(function () {
+              pintarAcceso(contenedor);
+              var hecho = crear('p', 'mensaje ok', 'Tu cuenta se ha borrado.');
+              contenedor.insertBefore(hecho, contenedor.children[1] || null);
+            }, function (err) {
+              botonBorrar.disabled = false;
+              mensaje(avisoBorrar, err.message, 'error');
+            });
+          });
+          borrar.appendChild(botonBorrar);
+          borrar.appendChild(avisoBorrar);
+          caja.appendChild(borrar);
+        }
+        caja.appendChild(enlacePrivacidad());
         return;
       }
 
@@ -189,7 +213,16 @@
         if (tienePanel(c)) location.hash = '#/panel';
         else pintarAcceso(contenedor);
       });
+      caja.appendChild(enlacePrivacidad());
     });
+  }
+
+  function enlacePrivacidad() {
+    var p = crear('p', 'campo-nota enlace-privacidad');
+    var a = crear('a', null, 'Política de privacidad');
+    a.href = 'privacidad.html';
+    p.appendChild(a);
+    return p;
   }
 
   // Los dos pasos del acceso (correo y código) dentro de "caja". Al entrar,
