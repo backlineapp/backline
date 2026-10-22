@@ -1,0 +1,20 @@
+{
+  "appId": "io.github.backlineapp",
+  "appName": "Backline",
+  "webDir": "www",
+  "backgroundColor": "#0B0E13",
+  "android": {
+    "backgroundColor": "#0B0E13"
+  },
+  "ios": {
+    "backgroundColor": "#0B0E13",
+    "contentInset": "never"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "native",
+      "initialViewportFitValueHint": "cover",
+      "style": "DARK"
+    }
+  }
+}

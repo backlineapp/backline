@@ -39,6 +39,9 @@
   // ---------- Qué permite este móvil ----------
 
   function soportado() {
+    // En la app de las tiendas los avisos irán por el sistema del móvil
+    // (próximo paso); los avisos de la web no funcionan ahí.
+    if (window.Nativa && Nativa.es) return false;
     return 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
   }
 

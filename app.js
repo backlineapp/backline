@@ -1063,7 +1063,8 @@
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-  fetch('grupos.json')
+  // Dentro de la app de las tiendas se piden a la web publicada (nativa.js).
+  (window.Nativa ? Nativa.datos('grupos.json') : fetch('grupos.json'))
     .then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
@@ -1093,7 +1094,8 @@
   // Guarda la app en el móvil para que cargue rápido y se pueda instalar.
   // sw.js guarda cada versión entera; cuando hay una nueva completa, la
   // activa de golpe y aquí se recarga la pantalla una sola vez.
-  if ('serviceWorker' in navigator) {
+  // (Dentro de la app de las tiendas no hace falta: ya va todo dentro.)
+  if ('serviceWorker' in navigator && !(window.Nativa && Nativa.es)) {
     var habiaVersion = !!navigator.serviceWorker.controller;
     var recargando = false;
     navigator.serviceWorker.addEventListener('controllerchange', function () {
