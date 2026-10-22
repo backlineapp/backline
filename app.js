@@ -125,6 +125,7 @@
     contenidoPanel: document.getElementById('panel'),
     kit: document.getElementById('pantalla-kit'),
     sobre: document.getElementById('pantalla-sobre'),
+    atajoApoyo: document.getElementById('atajo-apoyo'),
     contenidoSobre: document.getElementById('sobre'),
     contenidoKit: document.getElementById('kit'),
     gestionar: document.getElementById('pantalla-gestionar'),
@@ -944,10 +945,10 @@
     }
 
     if (partes[0] === 'sobre') {
-      Sobre.pintar(el.contenidoSobre);
-      document.title = 'Sobre Backline';
       mostrar('sobre');
       window.scrollTo(0, 0);
+      Sobre.pintar(el.contenidoSobre, partes[1] === 'apoyo');
+      document.title = 'Sobre Backline';
       return;
     }
 
@@ -963,6 +964,9 @@
     mostrar('explorar');
     window.scrollTo(0, scrolls.explorar);
   }
+
+  // Atajo «Apoyar» junto al título de Inicio: solo si el apoyo está activo (sobre.js).
+  if (el.atajoApoyo && window.Sobre) el.atajoApoyo.hidden = !Sobre.APOYO.activo;
 
   Array.prototype.forEach.call(el.volver, function (b) {
     b.addEventListener('click', function () {

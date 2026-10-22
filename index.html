@@ -39,9 +39,16 @@
   <main id="app">
     <!-- Pantalla Inicio: lo último de los grupos que sigo (discos, vídeos y noticias) -->
     <section id="pantalla-inicio" class="pantalla" hidden>
-      <div class="titular">
-        <h1>Inicio</h1>
-        <p>Lo último de los grupos que sigues.</p>
+      <div class="titular titular-inicio">
+        <div>
+          <h1>Inicio</h1>
+          <p>Lo último de los grupos que sigues.</p>
+        </div>
+        <!-- Atajos discretos: Sobre Backline y, si está activo, apoyar el proyecto -->
+        <div class="atajos-inicio">
+          <a href="#/sobre" class="atajo-sobre">Sobre Backline</a>
+          <a href="#/sobre/apoyo" id="atajo-apoyo" class="atajo-apoyo" hidden>Apoyar</a>
+        </div>
       </div>
       <div id="controles-inicio" class="controles-inicio" hidden>
         <div id="filtros-inicio" class="filtros filtros-inicio" role="group" aria-label="Qué ver en Inicio"></div>

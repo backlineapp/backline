@@ -7,7 +7,7 @@
 // en las apps de las tiendas, la compra integrada de Apple o Google).
 //
 // Orden que usa el resto de la app:
-//   Sobre.pintar(contenedor)
+//   Sobre.pintar(contenedor, irAlApoyo)
 
 (function () {
   'use strict';
@@ -34,7 +34,7 @@
     return s;
   }
 
-  function pintar(contenedor) {
+  function pintar(contenedor, irAlApoyo) {
     contenedor.textContent = '';
 
     var cabecera = crear('div', 'sobre-cabecera');
@@ -73,6 +73,11 @@
       });
       apoyo.appendChild(importes);
       apoyo.appendChild(crear('p', 'campo-nota', 'Gracias. No cambia nada en la app: es solo una forma de echar una mano.'));
+    }
+
+    if (irAlApoyo) {
+      var destino = contenedor.querySelector('.sobre-apoyo');
+      if (destino) setTimeout(function () { destino.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
     }
 
     var contacto = seccion(contenedor, 'Contacto');
