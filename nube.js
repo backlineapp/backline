@@ -141,6 +141,17 @@
     return cliente.auth.signOut().then(function () { return actualizarCuenta(null); });
   }
 
+  // Borra la cuenta de quien ha entrado (supabase/12-borrar-cuenta.sql) y
+  // cierra la sesión en este dispositivo.
+  function borrarCuenta() {
+    if (!cliente) return sinConexion();
+    return cliente.rpc('borrar_mi_cuenta').then(comprobar).then(function () {
+      return cliente.auth.signOut({ scope: 'local' }).catch(function () {}).then(function () {
+        return actualizarCuenta(null);
+      });
+    });
+  }
+
   // ---------- Conciertos ----------
 
   var CAMPOS_FECHA = 'id, fecha, hora, zona, ciudad, provincia, pais, sala, direccion, precio, entradas';
@@ -461,6 +472,31 @@
       });
   }
 
+  // ---------- Denuncias (supabase/13-denuncias.sql) ----------
+
+  // Cualquiera, con o sin cuenta.
+  function denunciar(publicacionId, motivo, texto, contacto) {
+    if (!cliente) return sinConexion();
+    return cliente.rpc('denunciar', {
+      p_publicacion: publicacionId, p_motivo: motivo, p_texto: texto || null, p_contacto: contacto || null
+    }).then(comprobar);
+  }
+
+  // Solo administrador.
+  function denuncias() {
+    if (!cliente) return sinConexion();
+    return cliente.from('denuncias')
+      .select('id, publicacion_id, grupo_id, titulo, motivo, texto, contacto, estado, creado, resuelto')
+      .order('creado', { ascending: false })
+      .limit(100)
+      .then(comprobar);
+  }
+
+  function resolverDenuncia(id, retirar) {
+    if (!cliente) return sinConexion();
+    return cliente.rpc('resolver_denuncia', { p_id: id, p_retirar: !!retirar }).then(comprobar);
+  }
+
   // ---------- Avisos al móvil ----------
   // Las suscripciones no se pueden leer desde la app: solo apuntarse o
   // borrarse, y siempre demostrando que es este móvil (con su clave "auth").
@@ -498,6 +534,7 @@
     enviarCodigo: enviarCodigo,
     entrar: entrar,
     salir: salir,
+    borrarCuenta: borrarCuenta,
     proximasFechas: proximasFechas,
     fecha: fecha,
     novedades: novedades,
@@ -516,6 +553,9 @@
     quitarMiembro: quitarMiembro,
     avisosPorGrupo: avisosPorGrupo,
     comunicados: comunicados,
+    denunciar: denunciar,
+    denuncias: denuncias,
+    resolverDenuncia: resolverDenuncia,
     escribirComunicado: escribirComunicado,
     borrarComunicado: borrarComunicado,
     claveAvisos: claveAvisos,

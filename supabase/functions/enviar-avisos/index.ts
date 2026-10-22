@@ -19,7 +19,9 @@
 //   7. Avisa a quienes gestionan alguna ficha de cada comunicado del
 //      administrador: "Backline · [título]" (avisos_preparar_comunicados:
 //      uno por móvil, nunca de noche).
-//   8. Borra los móviles que ya no aceptan avisos.
+//   8. Avisa al administrador de cada denuncia nueva de una publicación:
+//      "Backline · Denuncia en Dry River" (avisos_preparar_denuncias).
+//   9. Borra los móviles que ya no aceptan avisos.
 //
 // Se pega entero en el editor de funciones de Supabase. No necesita nada más.
 // Secretos que usa (Edge Functions > Secrets), NUNCA en el repositorio:
@@ -52,6 +54,8 @@ type LoteAdmin = { solicitudes: Solicitud[]; suscripciones: Suscripcion[] };
 type Aprobacion = { solicitud_id: string; grupo_id: string; suscripciones: Suscripcion[] };
 type Comunicado = { id: string; titulo: string; texto: string };
 type LoteComunicados = { comunicados: Comunicado[]; suscripciones: Suscripcion[] };
+type Denuncia = { id: string; grupo_id: string; motivo: string };
+type LoteDenuncias = { denuncias: Denuncia[]; suscripciones: Suscripcion[] };
 export type Aviso = { titulo: string; texto: string; ruta: string; etiqueta: string };
 
 // ---------- Utilidades de bytes ----------
@@ -326,6 +330,23 @@ export function componerComunicado(c: Comunicado): Aviso {
   };
 }
 
+// Denuncia nueva: aviso al administrador que abre Mi panel en las denuncias.
+const MOTIVOS: Record<string, string> = {
+  "ofensivo": "contenido ofensivo",
+  "no-es-del-grupo": "no parece del grupo",
+  "derechos": "derechos de autor",
+  "falso": "información falsa",
+  "otro": "otro motivo",
+};
+export function componerDenuncia(nombre: string, d: Denuncia): Aviso {
+  return {
+    titulo: `Backline · Denuncia en ${nombre}`,
+    texto: `Motivo: ${MOTIVOS[d.motivo] || d.motivo}. Toca para revisarla en Mi panel.`,
+    ruta: "#/panel/denuncias",
+    etiqueta: "denuncia-" + d.id,
+  };
+}
+
 // Nombres de los grupos, de grupos.json (la misma lista que usa la app).
 async function nombresDeGrupos(): Promise<Record<string, string>> {
   try {
@@ -416,16 +437,24 @@ export async function atender(peticion: Request): Promise<Response> {
   } catch (e) {
     console.warn("avisos de comunicados:", e instanceof Error ? e.message : e);
   }
+  // Igual con las denuncias (por si aún no se ha ejecutado 13-denuncias.sql).
+  let denuncias: LoteDenuncias = { denuncias: [], suscripciones: [] };
+  try {
+    denuncias = (await rpc("avisos_preparar_denuncias")) as LoteDenuncias;
+  } catch (e) {
+    console.warn("avisos de denuncias:", e instanceof Error ? e.message : e);
+  }
   const resumen = {
     grupos: lotes.length,
     solicitudes: admin.solicitudes.length,
     aprobaciones: aprobaciones.length,
     comunicados: comunicados.comunicados.length,
+    denuncias: denuncias.denuncias.length,
     enviados: 0,
     fallidos: 0,
     borrados: 0,
   };
-  if (!lotes.length && !admin.solicitudes.length && !aprobaciones.length && !comunicados.comunicados.length) {
+  if (!lotes.length && !admin.solicitudes.length && !aprobaciones.length && !comunicados.comunicados.length && !denuncias.denuncias.length) {
     console.log("avisos:", JSON.stringify(resumen));
     return respuesta(resumen);
   }
@@ -448,6 +477,9 @@ export async function atender(peticion: Request): Promise<Response> {
   }
   for (const c of comunicados.comunicados) {
     encargos.push({ aviso: componerComunicado(c), suscripciones: comunicados.suscripciones });
+  }
+  for (const d of denuncias.denuncias) {
+    encargos.push({ aviso: componerDenuncia(nombre(d.grupo_id), d), suscripciones: denuncias.suscripciones });
   }
 
   for (const { aviso, suscripciones } of encargos) {

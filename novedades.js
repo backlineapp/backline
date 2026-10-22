@@ -333,6 +333,7 @@
         if (pub.tipo === 'noticia') acciones.appendChild(crear('p', 'campo-nota novedad-sitio', sitio(pub.enlace)));
       }
       if (acciones.childNodes.length) contenedor.appendChild(acciones);
+      if (window.Denuncias) contenedor.appendChild(Denuncias.enlace(pub.id));
     }, function () {
       if (mio !== turno) return;
       contenedor.textContent = '';

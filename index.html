@@ -92,7 +92,7 @@
       <!-- Pie discreto: volver a ver cómo instalar la app (lo abre instalar.js) y
            acceso con correo y código (administrador y grupos que gestionan su ficha) -->
       <p class="pie-acceso">
-        <span id="pie-instalar"><button type="button" id="enlace-instalar" class="enlace-pie">Instalar la app</button><span class="pie-separador" aria-hidden="true">·</span></span><a href="#/acceso" id="enlace-acceso">Acceso</a>
+        <span id="pie-instalar"><button type="button" id="enlace-instalar" class="enlace-pie">Instalar la app</button><span class="pie-separador" aria-hidden="true">·</span></span><a href="#/acceso" id="enlace-acceso">Acceso</a><span class="pie-separador" aria-hidden="true">·</span><a href="#/sobre">Sobre Backline</a>
       </p>
     </section>
 
@@ -130,6 +130,11 @@
     <!-- Mi panel: administrador y grupos -->
     <section id="pantalla-panel" class="pantalla" hidden>
       <div id="panel"></div>
+    </section>
+
+    <!-- Sobre Backline: quién está detrás, contacto, legal y apoyar el proyecto (no es pestaña) -->
+    <section id="pantalla-sobre" class="pantalla" hidden>
+      <div id="sobre" class="sobre"></div>
     </section>
 
     <!-- Kit para grupos: enlace, insignias y textos para compartir (no es pestaña) -->
@@ -182,10 +187,12 @@
   <script src="seguidos.js"></script>
   <script src="libs/supabase.js"></script>
   <script src="nube.js"></script>
+  <script src="denuncias.js"></script>
   <script src="conciertos.js"></script>
   <script src="novedades.js"></script>
   <script src="panel.js"></script>
   <script src="kit.js"></script>
+  <script src="sobre.js"></script>
   <script src="instalar.js"></script>
   <script src="avisos.js"></script>
   <script src="app.js"></script>

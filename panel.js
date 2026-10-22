@@ -181,6 +181,30 @@
         caja.appendChild(boton('Salir', 'boton-secundario boton-ancho', function () {
           Nube.salir().then(function () { pintarAcceso(contenedor); });
         }));
+        // Borrar la cuenta (lo exigen las tiendas). El administrador no puede.
+        if (!cuenta.admin) {
+          var borrar = crear('div', 'borrar-cuenta');
+          borrar.appendChild(crear('p', 'campo-nota', 'Al borrar tu cuenta se eliminan tu correo, tus solicitudes y tu acceso a las fichas que gestionas. Lo que hayas publicado se queda en la ficha del grupo. Los grupos que sigues siguen guardados en este móvil.'));
+          var avisoBorrar = crear('p', 'mensaje');
+          avisoBorrar.hidden = true;
+          var botonBorrar = boton('Borrar mi cuenta', 'boton-texto peligro', function () {
+            if (!confirm('¿Borrar tu cuenta (' + cuenta.correo + ')? Es inmediato y no se puede deshacer.')) return;
+            botonBorrar.disabled = true;
+            mensaje(avisoBorrar, 'Borrando…');
+            Nube.borrarCuenta().then(function () {
+              pintarAcceso(contenedor);
+              var hecho = crear('p', 'mensaje ok', 'Tu cuenta se ha borrado.');
+              contenedor.insertBefore(hecho, contenedor.children[1] || null);
+            }, function (err) {
+              botonBorrar.disabled = false;
+              mensaje(avisoBorrar, err.message, 'error');
+            });
+          });
+          borrar.appendChild(botonBorrar);
+          borrar.appendChild(avisoBorrar);
+          caja.appendChild(borrar);
+        }
+        caja.appendChild(enlacePrivacidad());
         return;
       }
 
@@ -189,7 +213,16 @@
         if (tienePanel(c)) location.hash = '#/panel';
         else pintarAcceso(contenedor);
       });
+      caja.appendChild(enlacePrivacidad());
     });
+  }
+
+  function enlacePrivacidad() {
+    var p = crear('p', 'campo-nota enlace-privacidad');
+    var a = crear('a', null, 'Política de privacidad');
+    a.href = 'privacidad.html';
+    p.appendChild(a);
+    return p;
   }
 
   // Los dos pasos del acceso (correo y código) dentro de "caja". Al entrar,
@@ -318,7 +351,7 @@
       // #/panel/concierto/nuevo · #/panel/gira/nueva · #/panel/disco/nuevo
       // #/panel/video/nuevo · #/panel/noticia/nueva · #/panel/editar/<id>
       // Solo administrador: #/panel/solicitudes · #/panel/miembros · #/panel/avisos
-      // · #/panel/comunicados
+      // · #/panel/comunicados · #/panel/denuncias
       if (cuenta.admin && partes[1] === 'solicitudes') {
         pintarSolicitudes(contenedor, cuenta);
       } else if (cuenta.admin && partes[1] === 'miembros') {
@@ -327,6 +360,8 @@
         pintarAvisosPorGrupo(contenedor);
       } else if (cuenta.admin && partes[1] === 'comunicados') {
         pintarComunicados(contenedor);
+      } else if (cuenta.admin && partes[1] === 'denuncias') {
+        pintarDenuncias(contenedor);
       } else if (partes[1] === 'concierto' || partes[1] === 'gira') {
         pintarFormulario(contenedor, { tipo: partes[1], fechas: [] }, cuenta);
       } else if (NOVEDADES[partes[1]]) {
@@ -431,7 +466,22 @@
       escribir.appendChild(crear('span', 'opcion-titulo', 'Escribir a los grupos'));
       escribir.appendChild(crear('span', 'opcion-detalle', 'Novedades de Backline para quien gestiona una ficha'));
       atajos.appendChild(escribir);
+      var denun = crear('a', 'opcion');
+      denun.href = '#/panel/denuncias';
+      var tituloDen = crear('span', 'opcion-titulo', 'Denuncias ');
+      var numeroDen = punto(0);
+      tituloDen.appendChild(numeroDen);
+      denun.appendChild(tituloDen);
+      var detalleDen = crear('span', 'opcion-detalle', 'Publicaciones denunciadas');
+      denun.appendChild(detalleDen);
+      atajos.appendChild(denun);
       contenedor.appendChild(atajos);
+      Nube.denuncias().then(function (lista) {
+        var n = lista.filter(function (d) { return d.estado === 'pendiente'; }).length;
+        numeroDen.textContent = String(n);
+        numeroDen.hidden = !n;
+        detalleDen.textContent = !n ? 'Ninguna pendiente' : n === 1 ? '1 pendiente' : n + ' pendientes';
+      }, function () { /* aún sin 13-denuncias.sql */ });
       Nube.contarPendientes().then(function (n) {
         numero.textContent = String(n);
         numero.hidden = !n;
@@ -1403,6 +1453,83 @@
     });
   }
 
+  // ---------- Denuncias (administrador) ----------
+
+  var MOTIVO_DENUNCIA = {
+    'ofensivo': 'Contenido ofensivo o inapropiado',
+    'no-es-del-grupo': 'No parece publicado por el grupo',
+    'derechos': 'Usa algo sin permiso',
+    'falso': 'Información falsa o engañosa',
+    'otro': 'Otro motivo'
+  };
+
+  function pintarDenuncias(contenedor) {
+    contenedor.textContent = '';
+    enlacePanel(contenedor);
+    titular(contenedor, 'Denuncias', 'Lo que alguien ha denunciado de una publicación. Revísalo en menos de 24 horas.');
+    var aviso = avisoGuardado(contenedor);
+    var caja = crear('div');
+    caja.appendChild(crear('p', 'vacio', 'Cargando…'));
+    contenedor.appendChild(caja);
+    Nube.denuncias().then(function (lista) {
+      caja.textContent = '';
+      var pendientes = lista.filter(function (d) { return d.estado === 'pendiente'; });
+      var revisadas = lista.filter(function (d) { return d.estado !== 'pendiente'; });
+      caja.appendChild(crear('p', 'etiqueta-seccion', 'Pendientes'));
+      var ul = crear('ul', 'lista');
+      if (!pendientes.length) ul.appendChild(crear('li', 'vacio', 'No hay denuncias pendientes.'));
+      pendientes.forEach(function (d) { ul.appendChild(filaDenuncia(d, aviso, contenedor, true)); });
+      caja.appendChild(ul);
+      if (revisadas.length) {
+        caja.appendChild(crear('p', 'etiqueta-seccion', 'Revisadas'));
+        var ul2 = crear('ul', 'lista');
+        revisadas.slice(0, 20).forEach(function (d) { ul2.appendChild(filaDenuncia(d, aviso, contenedor, false)); });
+        caja.appendChild(ul2);
+      }
+    }, function (e) {
+      caja.textContent = '';
+      caja.appendChild(crear('p', 'aviso', e.message));
+    });
+  }
+
+  function filaDenuncia(d, aviso, contenedor, conBotones) {
+    var grupo = ayuda.grupoPorId(d.grupo_id);
+    var li = crear('li', 'solicitud ' + (grupo ? grupo._acento : ''));
+    li.appendChild(crear('p', 'solicitud-tipo', MOTIVO_DENUNCIA[d.motivo] || d.motivo));
+    li.appendChild(crear('p', 'solicitud-quien', (grupo ? grupo.nombre : d.grupo_id) + (d.titulo ? ' · ' + d.titulo : '')));
+    if (d.texto) li.appendChild(crear('blockquote', 'solicitud-mensaje', d.texto));
+    if (d.contacto) li.appendChild(crear('p', 'solicitud-dato', 'Contacto: ' + d.contacto));
+    li.appendChild(crear('p', 'solicitud-dato', 'Recibida el ' + fechaHora(d.creado) +
+      (d.resuelto ? ' · revisada el ' + fechaHora(d.resuelto) : '') +
+      (d.publicacion_id ? '' : ' · la publicación ya no existe')));
+    if (!conBotones) return li;
+    var botones = crear('div', 'publicado-botones');
+    if (d.publicacion_id) {
+      var ver = crear('a', 'boton-secundario boton-pequeno', 'Ver publicación');
+      ver.href = '#/panel/editar/' + encodeURIComponent(d.publicacion_id);
+      botones.appendChild(ver);
+      botones.appendChild(boton('Retirar publicación', 'boton-secundario boton-pequeno peligro', function (e) {
+        if (!confirm('¿Retirar esta publicación de ' + (grupo ? grupo.nombre : d.grupo_id) + '? Se borra y no se puede deshacer.')) return;
+        resolver(e.currentTarget, true);
+      }));
+    }
+    botones.appendChild(boton('Dar por revisada', 'boton-secundario boton-pequeno', function (e) {
+      resolver(e.currentTarget, false);
+    }));
+    function resolver(b, retirar) {
+      b.disabled = true;
+      Nube.resolverDenuncia(d.id, retirar).then(function () {
+        avisoPanel = retirar ? 'Publicación retirada.' : 'Denuncia revisada.';
+        pintarDenuncias(contenedor);
+      }, function (err) {
+        b.disabled = false;
+        mensaje(aviso, err.message, 'error');
+      });
+    }
+    li.appendChild(botones);
+    return li;
+  }
+
   // ---------- Avisos por grupo (administrador) ----------
   // Solo cifras, solo para el administrador. Los grupos no lo ven.
 
@@ -1449,7 +1576,7 @@
 
   // ---------- ¿Es tu grupo? (gestionar o retirar la ficha) ----------
 
-  var CASILLA = 'Formo parte del grupo o lo represento, y tengo derecho a publicar lo que suba (por ejemplo, los carteles)';
+  var CASILLA = 'Formo parte del grupo o lo represento, tengo derecho a publicar lo que suba (por ejemplo, los carteles) y acepto las condiciones de uso';
 
   function pintarGestionar(contenedor, grupo, alVolver) {
     contenedor.textContent = '';
@@ -1574,6 +1701,11 @@
       etiqueta.appendChild(casilla);
       etiqueta.appendChild(crear('span', null, CASILLA));
       form.appendChild(etiqueta);
+      var verCondiciones = crear('p', 'campo-nota');
+      var enlaceCond = crear('a', null, 'Leer las condiciones de uso');
+      enlaceCond.href = 'condiciones.html';
+      verCondiciones.appendChild(enlaceCond);
+      form.appendChild(verCondiciones);
       var pedir = crear('button', 'boton boton-ancho', 'Solicitar gestionar esta ficha');
       pedir.type = 'submit';
       form.appendChild(pedir);
