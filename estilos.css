@@ -809,9 +809,8 @@ button[disabled] { opacity: 0.55; cursor: default; }
 .sobre-seccion p { margin: 0 0 10px; line-height: 1.55; color: var(--texto); }
 .sobre-lista { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; line-height: 1.5; color: var(--texto); }
 .sobre-apoyo { padding: 16px; background: var(--superficie); border: 1px solid var(--linea); border-radius: 14px; }
-.sobre-importes { display: flex; gap: 10px; margin: 6px 0 10px; }
-.sobre-importe { flex: 1; text-align: center; text-decoration: none; }
-.sobre-seccion a { color: var(--cian); }
+.sobre-apoyo .boton { margin: 6px 0 10px; }
+.sobre-seccion a:not(.boton) { color: var(--cian); }
 .sobre-legal { margin-top: 30px; text-align: center; font-size: 14px; }
 .sobre-legal a { color: var(--tenue); }
 

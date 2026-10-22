@@ -15,9 +15,10 @@
   var CONTACTO = 'hibackline@gmail.com';
   var APOYO = {
     activo: false,
-    // Página de aportaciones para la web (Ko-fi, PayPal…). Vacío: sin enlace.
-    enlace: '',
-    importes: [2, 5, 10]
+    // Página de aportaciones para la web. En Ko-fi cada uno elige el importe
+    // y paga con tarjeta, PayPal, Apple Pay o Google Pay. (En las apps de las
+    // tiendas no se usará: Apple y Google obligan a usar su propio pago.)
+    enlace: 'https://ko-fi.com/backlineapp'
   };
 
   function crear(etiqueta, clase, texto) {
@@ -64,15 +65,12 @@
       var apoyo = seccion(contenedor, 'Apoya el proyecto');
       apoyo.classList.add('sobre-apoyo');
       apoyo.appendChild(crear('p', null, 'Backline es gratis y lo seguirá siendo, para fans y para grupos. Si te resulta útil y quieres ayudar a mantenerla, puedes hacer una aportación de una sola vez.'));
-      var importes = crear('div', 'sobre-importes');
-      APOYO.importes.forEach(function (n) {
-        var b = crear('a', 'boton-secundario sobre-importe', n + ' €');
-        b.href = APOYO.enlace || '#/sobre';
-        if (APOYO.enlace) { b.target = '_blank'; b.rel = 'noopener'; }
-        importes.appendChild(b);
-      });
-      apoyo.appendChild(importes);
-      apoyo.appendChild(crear('p', 'campo-nota', 'Gracias. No cambia nada en la app: es solo una forma de echar una mano.'));
+      var b = crear('a', 'boton boton-ancho', 'Apoyar en Ko-fi ↗');
+      b.href = APOYO.enlace;
+      b.target = '_blank';
+      b.rel = 'noopener';
+      apoyo.appendChild(b);
+      apoyo.appendChild(crear('p', 'campo-nota', 'Eliges el importe y pagas con tarjeta, PayPal, Apple Pay o Google Pay en Ko-fi. Backline no ve tus datos de pago. Gracias: no cambia nada en la app, es solo una forma de echar una mano.'));
     }
 
     if (irAlApoyo) {
