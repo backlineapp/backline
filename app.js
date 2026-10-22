@@ -482,11 +482,16 @@
       el.listaInicio.appendChild(crear('li', 'vacio', mensajeVacioInicio()));
     }
 
+    // Tarjeta discreta de «Apoya Backline» después de las 6 primeras
+    // novedades (o al final, si hay menos). Ver sobre.js.
+    var apoyo = todos.length && window.Sobre ? Sobre.tarjetaInicio(mios.length) : null;
     var trozo = document.createDocumentFragment();
-    todos.slice(0, visiblesInicio).forEach(function (item) {
+    todos.slice(0, visiblesInicio).forEach(function (item, i) {
       var c = casilla(item, true);
       if (c) trozo.appendChild(c);
+      if (apoyo && i === 5) { trozo.appendChild(apoyo); apoyo = null; }
     });
+    if (apoyo) trozo.appendChild(apoyo);
     el.listaInicio.appendChild(trozo);
     el.verMas.hidden = todos.length <= visiblesInicio;
   }
@@ -944,10 +949,10 @@
     }
 
     if (partes[0] === 'sobre') {
-      Sobre.pintar(el.contenidoSobre);
-      document.title = 'Sobre Backline';
       mostrar('sobre');
       window.scrollTo(0, 0);
+      Sobre.pintar(el.contenidoSobre, partes[1] === 'apoyo');
+      document.title = 'Sobre Backline';
       return;
     }
 

@@ -7,7 +7,8 @@
 // en las apps de las tiendas, la compra integrada de Apple o Google).
 //
 // Orden que usa el resto de la app:
-//   Sobre.pintar(contenedor)
+//   Sobre.pintar(contenedor, irAlApoyo)
+//   Sobre.tarjetaInicio(numeroSeguidos) -> tarjeta discreta para Inicio, o null
 
 (function () {
   'use strict';
@@ -34,7 +35,39 @@
     return s;
   }
 
-  function pintar(contenedor) {
+  // ---------- Tarjeta discreta en Inicio ----------
+  // Solo si el apoyo está activo, si sigue al menos 3 grupos y si no ha
+  // pulsado «No, gracias» en este móvil (entonces no vuelve a salir nunca).
+  var CLAVE_OCULTO = 'backline.apoyo.oculto';
+  var MINIMO_GRUPOS = 3;
+
+  function oculta() {
+    try { return localStorage.getItem(CLAVE_OCULTO) === '1'; } catch (e) { return false; }
+  }
+
+  function tarjetaInicio(numeroSeguidos) {
+    if (!APOYO.activo || numeroSeguidos < MINIMO_GRUPOS || oculta()) return null;
+    var li = crear('li', 'tarjeta-apoyo');
+    var texto = crear('p', 'tarjeta-apoyo-texto');
+    texto.appendChild(crear('strong', null, 'Backline es gratis y sin publicidad. '));
+    texto.appendChild(document.createTextNode('Si te resulta útil, puedes apoyarla con una aportación.'));
+    li.appendChild(texto);
+    var botones = crear('div', 'tarjeta-apoyo-botones');
+    var apoyar = crear('a', 'boton-secundario boton-pequeno', 'Apoyar');
+    apoyar.href = '#/sobre/apoyo';
+    var no = crear('button', 'boton-texto', 'No, gracias');
+    no.type = 'button';
+    no.addEventListener('click', function () {
+      try { localStorage.setItem(CLAVE_OCULTO, '1'); } catch (e) { /* sin memoria: volverá a salir */ }
+      if (li.parentNode) li.parentNode.removeChild(li);
+    });
+    botones.appendChild(apoyar);
+    botones.appendChild(no);
+    li.appendChild(botones);
+    return li;
+  }
+
+  function pintar(contenedor, irAlApoyo) {
     contenedor.textContent = '';
 
     var cabecera = crear('div', 'sobre-cabecera');
@@ -75,6 +108,11 @@
       apoyo.appendChild(crear('p', 'campo-nota', 'Gracias. No cambia nada en la app: es solo una forma de echar una mano.'));
     }
 
+    if (irAlApoyo) {
+      var destino = contenedor.querySelector('.sobre-apoyo');
+      if (destino) setTimeout(function () { destino.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+    }
+
     var contacto = seccion(contenedor, 'Contacto');
     var p = crear('p');
     p.appendChild(document.createTextNode('¿Una sugerencia, un error, un grupo que falta? Escribe a '));
@@ -96,5 +134,5 @@
     contenedor.appendChild(legal);
   }
 
-  window.Sobre = { pintar: pintar, APOYO: APOYO };
+  window.Sobre = { pintar: pintar, tarjetaInicio: tarjetaInicio, APOYO: APOYO };
 })();

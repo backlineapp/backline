@@ -814,6 +814,22 @@ button[disabled] { opacity: 0.55; cursor: default; }
 .sobre-seccion a { color: var(--cian); }
 .sobre-legal { margin-top: 30px; text-align: center; font-size: 14px; }
 .sobre-legal a { color: var(--tenue); }
+
+/* Tarjeta discreta de «Apoya Backline» en Inicio */
+.tarjeta-apoyo {
+  grid-column: 1 / -1;
+  list-style: none;
+  padding: 14px 16px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tarjeta-apoyo-texto { margin: 0; font-size: 14px; line-height: 1.5; color: var(--tenue); }
+.tarjeta-apoyo-texto strong { color: var(--texto); font-weight: 600; }
+.tarjeta-apoyo-botones { display: flex; gap: 14px; align-items: center; }
 #pie-instalar[hidden] { display: none; }
 
 /* ---------- Formularios (acceso y panel) ---------- */
