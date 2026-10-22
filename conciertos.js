@@ -517,6 +517,7 @@
       calendario.addEventListener('click', function () { descargarIcs(f, grupo); });
       acciones.appendChild(calendario);
       contenedor.appendChild(acciones);
+      if (window.Denuncias) contenedor.appendChild(Denuncias.enlace(f.publicacion.id));
     }, function () {
       if (mio !== turno) return;
       contenedor.textContent = '';

@@ -74,13 +74,13 @@
   // Nombre de cada pantalla, para el botón de volver desde la ficha, un concierto o una novedad.
   var NOMBRES = {
     inicio: 'Inicio', explorar: 'Explorar', conciertos: 'Conciertos', 'mis-grupos': 'Mis grupos',
-    acceso: 'Acceso', panel: 'Mi panel'
+    acceso: 'Acceso', panel: 'Mi panel', sobre: 'Sobre Backline'
   };
 
   // Pantallas de detalle (se vuelve de ellas a la pantalla de origen) y
   // pestaña de la barra que se ilumina en las que no son pestaña.
   var DETALLES = { ficha: true, concierto: true, novedad: true };
-  var PESTANA_DE = { acceso: 'mis-grupos', panel: 'mis-grupos' };
+  var PESTANA_DE = { acceso: 'mis-grupos', panel: 'mis-grupos', sobre: 'mis-grupos' };
   // "¿Es tu grupo?" cuelga de la ficha: no cambia la pantalla de origen.
   var DE_LA_FICHA = { gestionar: true };
 
@@ -124,6 +124,8 @@
     panel: document.getElementById('pantalla-panel'),
     contenidoPanel: document.getElementById('panel'),
     kit: document.getElementById('pantalla-kit'),
+    sobre: document.getElementById('pantalla-sobre'),
+    contenidoSobre: document.getElementById('sobre'),
     contenidoKit: document.getElementById('kit'),
     gestionar: document.getElementById('pantalla-gestionar'),
     contenidoGestionar: document.getElementById('gestionar'),
@@ -820,7 +822,7 @@
     if (DETALLES[pantalla] && !DETALLES[pantallaActual] && !DE_LA_FICHA[pantallaActual]) origen = pantallaActual;
     pantallaActual = pantalla;
 
-    ['inicio', 'explorar', 'conciertos', 'misGrupos', 'ficha', 'concierto', 'novedad', 'gestionar', 'acceso', 'panel', 'kit'].forEach(function (k) {
+    ['inicio', 'explorar', 'conciertos', 'misGrupos', 'ficha', 'concierto', 'novedad', 'gestionar', 'acceso', 'panel', 'kit', 'sobre'].forEach(function (k) {
       var nombre = k === 'misGrupos' ? 'mis-grupos' : k;
       el[k].hidden = pantalla !== nombre;
     });
@@ -937,6 +939,14 @@
       var grupoK = Kit.pintar(el.contenidoKit, partes[1] ? decodeURIComponent(partes[1]) : '', pantallaActual === 'panel');
       document.title = (grupoK ? 'Kit de ' + grupoK.nombre : 'Kit para grupos') + ' · Backline';
       mostrar('kit');
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (partes[0] === 'sobre') {
+      Sobre.pintar(el.contenidoSobre);
+      document.title = 'Sobre Backline';
+      mostrar('sobre');
       window.scrollTo(0, 0);
       return;
     }
