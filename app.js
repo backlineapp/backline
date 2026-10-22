@@ -125,6 +125,7 @@
     contenidoPanel: document.getElementById('panel'),
     kit: document.getElementById('pantalla-kit'),
     sobre: document.getElementById('pantalla-sobre'),
+    atajoApoyo: document.getElementById('atajo-apoyo'),
     contenidoSobre: document.getElementById('sobre'),
     contenidoKit: document.getElementById('kit'),
     gestionar: document.getElementById('pantalla-gestionar'),
@@ -482,16 +483,11 @@
       el.listaInicio.appendChild(crear('li', 'vacio', mensajeVacioInicio()));
     }
 
-    // Tarjeta discreta de «Apoya Backline» después de las 6 primeras
-    // novedades (o al final, si hay menos). Ver sobre.js.
-    var apoyo = todos.length && window.Sobre ? Sobre.tarjetaInicio(mios.length) : null;
     var trozo = document.createDocumentFragment();
-    todos.slice(0, visiblesInicio).forEach(function (item, i) {
+    todos.slice(0, visiblesInicio).forEach(function (item) {
       var c = casilla(item, true);
       if (c) trozo.appendChild(c);
-      if (apoyo && i === 5) { trozo.appendChild(apoyo); apoyo = null; }
     });
-    if (apoyo) trozo.appendChild(apoyo);
     el.listaInicio.appendChild(trozo);
     el.verMas.hidden = todos.length <= visiblesInicio;
   }
@@ -968,6 +964,9 @@
     mostrar('explorar');
     window.scrollTo(0, scrolls.explorar);
   }
+
+  // Atajo «Apoyar» junto al título de Inicio: solo si el apoyo está activo (sobre.js).
+  if (el.atajoApoyo && window.Sobre) el.atajoApoyo.hidden = !Sobre.APOYO.activo;
 
   Array.prototype.forEach.call(el.volver, function (b) {
     b.addEventListener('click', function () {

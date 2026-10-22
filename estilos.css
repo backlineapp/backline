@@ -815,21 +815,22 @@ button[disabled] { opacity: 0.55; cursor: default; }
 .sobre-legal { margin-top: 30px; text-align: center; font-size: 14px; }
 .sobre-legal a { color: var(--tenue); }
 
-/* Tarjeta discreta de «Apoya Backline» en Inicio */
-.tarjeta-apoyo {
-  grid-column: 1 / -1;
-  list-style: none;
-  padding: 14px 16px;
-  background: var(--superficie);
-  border: 1px solid var(--linea);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* Atajos junto al título de Inicio: Sobre Backline y Apoyar */
+.titular-inicio { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.atajos-inicio { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-top: 4px; flex: none; }
+.atajo-sobre { font-size: 12.5px; color: var(--tenue); text-decoration: none; }
+.atajo-sobre:hover, .atajo-sobre:active { color: var(--texto); }
+.atajo-apoyo {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ambar);
+  text-decoration: none;
+  padding: 4px 12px;
+  border: 1px solid rgba(232, 161, 58, 0.45);
+  border-radius: 999px;
 }
-.tarjeta-apoyo-texto { margin: 0; font-size: 14px; line-height: 1.5; color: var(--tenue); }
-.tarjeta-apoyo-texto strong { color: var(--texto); font-weight: 600; }
-.tarjeta-apoyo-botones { display: flex; gap: 14px; align-items: center; }
+.atajo-apoyo:hover, .atajo-apoyo:active { background: rgba(232, 161, 58, 0.10); }
+.atajo-apoyo[hidden] { display: none; }
 #pie-instalar[hidden] { display: none; }
 
 /* ---------- Formularios (acceso y panel) ---------- */
