@@ -18,6 +18,11 @@
 // muestra sw.js. Al tocar uno, sw.js abre la app en ese concierto, disco,
 // vídeo o noticia.
 //
+// En la app de Android de Google Play no hay sw.js: los avisos llegan por el
+// sistema del propio móvil (Google Firebase) y los muestra Android. Lo que
+// sabe Supabase es lo mismo: una dirección de avisos (que empieza por "fcm:")
+// y la lista de grupos. En iPhone (App Store) llegará en otro paso.
+//
 // Órdenes que usa el resto de la app:
 //   Avisos.pintar(contenedor)  -> pinta el recuadro de Mis grupos
 //   Avisos.campanita(grupo)    -> botón de la campanita para la ficha
@@ -38,7 +43,14 @@
 
   // ---------- Qué permite este móvil ----------
 
+  function enApp() {
+    return !!(window.Nativa && Nativa.es);
+  }
+
   function soportado() {
+    // En la app de las tiendas los avisos van por el sistema del móvil (de
+    // momento solo en Android); los avisos de la web no funcionan ahí.
+    if (enApp()) return nativa();
     return 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
   }
 
@@ -61,8 +73,181 @@
   }
 
   function suscripcionActual() {
-    if (!soportado() || Notification.permission !== 'granted') return Promise.resolve(null);
+    if (!soportado()) return Promise.resolve(null);
+    if (nativa()) return suscripcionNativaActual();
+    if (Notification.permission !== 'granted') return Promise.resolve(null);
     return registro().then(function (r) { return r.pushManager.getSubscription(); }).catch(function () { return null; });
+  }
+
+  // ¿Ha bloqueado los avisos de Backline en este móvil?
+  function bloqueados() {
+    if (nativa()) {
+      return pluginNativo().checkPermissions()
+        .then(function (r) { return r.receive === 'denied'; }, function () { return false; });
+    }
+    return Promise.resolve(Notification.permission === 'denied');
+  }
+
+  // ---------- App de Android (Google Play) ----------
+
+  // Lo que guarda el móvil: { token: dirección de Firebase, clave: aleatoria }.
+  var CLAVE_NATIVA = 'backline.avisos.app';
+  var esperandoToken = null;
+
+  function pluginNativo() {
+    var c = window.Capacitor;
+    return (enApp() && c && c.Plugins && c.Plugins.PushNotifications) || null;
+  }
+
+  function nativa() {
+    return !!pluginNativo() && Nativa.plataforma === 'android';
+  }
+
+  function leerNativo() {
+    try { return JSON.parse(localStorage.getItem(CLAVE_NATIVA)) || {}; } catch (e) { return {}; }
+  }
+
+  function escribirNativo(datos) {
+    try {
+      if (datos) localStorage.setItem(CLAVE_NATIVA, JSON.stringify(datos));
+      else localStorage.removeItem(CLAVE_NATIVA);
+    } catch (e) { /* nada */ }
+  }
+
+  // 22 letras al azar (16 bytes), para poder borrarse luego.
+  function claveAleatoria() {
+    var b = new Uint8Array(16);
+    crypto.getRandomValues(b);
+    var t = '';
+    for (var i = 0; i < b.length; i++) t += String.fromCharCode(b[i]);
+    return btoa(t).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+
+  // Se comporta como la suscripción de un navegador, para que el resto del
+  // archivo no tenga que distinguir.
+  function suscripcionNativa(datos) {
+    var endpoint = 'fcm:' + datos.token;
+    return {
+      endpoint: endpoint,
+      toJSON: function () { return { endpoint: endpoint, keys: { auth: datos.clave } }; },
+      unsubscribe: function () {
+        return pluginNativo().unregister().catch(function () {}).then(function () { escribirNativo(null); });
+      }
+    };
+  }
+
+  function suscripcionNativaActual() {
+    var datos = leerNativo();
+    if (!datos.token || !datos.clave) return Promise.resolve(null);
+    return pluginNativo().checkPermissions().then(function (r) {
+      return r.receive === 'granted' ? suscripcionNativa(datos) : null;
+    }, function () { return null; });
+  }
+
+  // El "canal" de Android: el nombre que se ve en Ajustes > Notificaciones.
+  function crearCanal() {
+    return pluginNativo().createChannel({
+      id: 'avisos',
+      name: 'Novedades de tus grupos',
+      description: 'Conciertos, discos, vídeos y noticias de los grupos que sigues',
+      importance: 3,
+      visibility: 1,
+      lightColor: '#E8A13A',
+      lights: true,
+      vibration: true
+    }).catch(function () {});
+  }
+
+  // Pide a Android la dirección de avisos de este móvil.
+  function registrarNativo() {
+    return new Promise(function (resolver, rechazar) {
+      var limite = setTimeout(function () {
+        esperandoToken = null;
+        rechazar(new Error('No se han podido activar los avisos. Comprueba la conexión y vuelve a intentarlo.'));
+      }, 20000);
+      var espera = {
+        resolver: function (v) { clearTimeout(limite); resolver(v); },
+        rechazar: function (e) { clearTimeout(limite); rechazar(e); }
+      };
+      esperandoToken = espera;
+      pluginNativo().register().catch(function () {
+        if (esperandoToken === espera) esperandoToken = null;
+        espera.rechazar(new Error('No se han podido activar los avisos.'));
+      });
+    });
+  }
+
+  function activarNativo() {
+    return pluginNativo().requestPermissions()
+      .then(function (r) {
+        if (r.receive !== 'granted') throw new Error('sin-permiso');
+        return crearCanal().then(registrarNativo);
+      })
+      .then(function (token) {
+        var datos = { token: token, clave: leerNativo().clave || claveAleatoria() };
+        escribirNativo(datos);
+        return suscripcionNativa(datos);
+      });
+  }
+
+  // Android puede cambiar la dirección de avisos sin avisar: al abrir la app
+  // se pide de nuevo y, si ha cambiado, se sustituye en Supabase.
+  function alNuevoToken(token) {
+    var datos = leerNativo();
+    if (!token || !datos.token || token === datos.token) return;
+    var vieja = suscripcionNativa(datos).toJSON();
+    var nueva = { token: token, clave: datos.clave };
+    escribirNativo(nueva);
+    Nube.listo
+      .then(function () { return Nube.borrarAvisos(vieja).catch(function () {}); })
+      .then(function () { return enviarLista(suscripcionNativa(nueva), true); })
+      .catch(function () { /* sin conexión: se reintenta al abrir la app */ });
+  }
+
+  // Ruta segura dentro de la app ("#/concierto/…", "#/panel"…).
+  function irA(ruta) {
+    if (typeof ruta === 'string' && /^#\/[a-z0-9/_-]*$/i.test(ruta)) location.hash = ruta;
+  }
+
+  function prepararNativo() {
+    var P = pluginNativo();
+    P.addListener('registration', function (t) {
+      var token = t && t.value;
+      if (esperandoToken) {
+        var e = esperandoToken;
+        esperandoToken = null;
+        e.resolver(token);
+      } else {
+        alNuevoToken(token);
+      }
+    });
+    P.addListener('registrationError', function () {
+      if (!esperandoToken) return;
+      var e = esperandoToken;
+      esperandoToken = null;
+      e.rechazar(new Error('No se han podido activar los avisos.'));
+    });
+    // Al tocar un aviso (con la app cerrada o en segundo plano).
+    P.addListener('pushNotificationActionPerformed', function (a) {
+      var d = (a && a.notification && a.notification.data) || {};
+      irA(d.ruta);
+    });
+    // Con la app abierta, Android no enseña el aviso: se muestra aquí.
+    P.addListener('pushNotificationReceived', function (n) {
+      if (n && n.title) avisoBreve(n.title);
+    });
+
+    var datos = leerNativo();
+    if (!datos.token) return;
+    P.checkPermissions().then(function (r) {
+      if (r.receive === 'granted') {
+        return crearCanal().then(function () { return P.register(); });
+      }
+      // Ha quitado el permiso desde los ajustes: se borra de Supabase.
+      return Nube.listo
+        .then(function () { return Nube.borrarAvisos(suscripcionNativa(datos).toJSON()); })
+        .then(function () { escribirNativo(null); escribir(null); });
+    }).catch(function () { /* se reintenta al abrir la app */ });
   }
 
   // ---------- Memoria del móvil ----------
@@ -143,12 +328,9 @@
     });
   }
 
-  function activar() {
-    if (ocupado) return;
-    ocupado = true;
-    pintarDeNuevo('Activando avisos…');
+  function activarWeb() {
     // El permiso se pide lo primero, justo al pulsar (iPhone lo exige así).
-    pedirPermiso()
+    return pedirPermiso()
       .then(function (permiso) {
         if (permiso !== 'granted') throw new Error('sin-permiso');
         return Promise.all([registro(), Nube.claveAvisos()]);
@@ -163,7 +345,14 @@
         }).then(function (sus) {
           return sus || reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: bytes(clave) });
         });
-      })
+      });
+  }
+
+  function activar() {
+    if (ocupado) return;
+    ocupado = true;
+    pintarDeNuevo('Activando avisos…');
+    (nativa() ? activarNativo() : activarWeb())
       .then(function (sus) { return Nube.listo.then(function () { return enviarLista(sus, true); }); })
       .then(function () {
         ocupado = false;
@@ -245,7 +434,7 @@
     return c;
   }
 
-  function pintarEstado(contenedor, sus, texto, esError) {
+  function pintarEstado(contenedor, sus, bloqueado, texto, esError) {
     contenedor.textContent = '';
     var c;
     if (sus) {
@@ -254,9 +443,10 @@
       c.classList.add('activos');
       if (esAdmin()) c.appendChild(crear('p', 'avisos-nota', 'Como administrador, también te avisaremos de cada solicitud nueva para gestionar o retirar una ficha.'));
       c.appendChild(boton('Desactivar avisos', 'boton-texto', desactivar));
-    } else if (Notification.permission === 'denied') {
-      c = caja('Avisos bloqueados',
-        'Has bloqueado los avisos de Backline en este móvil. Para recibirlos, permítelos en los ajustes del navegador o del móvil y vuelve aquí.');
+    } else if (bloqueado) {
+      c = caja('Avisos bloqueados', nativa()
+        ? 'Has bloqueado los avisos de Backline en este móvil. Para recibirlos, permítelos en Ajustes > Aplicaciones > Backline > Notificaciones y vuelve aquí.'
+        : 'Has bloqueado los avisos de Backline en este móvil. Para recibirlos, permítelos en los ajustes del navegador o del móvil y vuelve aquí.');
     } else {
       c = caja('Recibe un aviso cuando tus grupos publiquen algo',
         'Conciertos, discos, vídeos y noticias de los grupos que sigues. Como mucho uno al día por grupo, sin cuenta y nunca de noche.');
@@ -272,13 +462,13 @@
     if (!soportado()) {
       contenedor.textContent = '';
       // iPhone sin instalar: se explica cómo instalarla. Otros navegadores sin
-      // avisos: no se muestra nada.
-      if (esIphone() && !instalada()) contenedor.appendChild(instalarPrimero());
+      // avisos (y, de momento, la app de iPhone): no se muestra nada.
+      if (!enApp() && esIphone() && !instalada()) contenedor.appendChild(instalarPrimero());
       return;
     }
-    suscripcionActual().then(function (sus) {
+    Promise.all([suscripcionActual(), bloqueados()]).then(function (r) {
       if (mio !== turno) return;
-      pintarEstado(contenedor, sus, texto, esError);
+      pintarEstado(contenedor, r[0], r[1], texto, esError);
     });
   }
 
@@ -337,6 +527,8 @@
     if (!ocupado) pintarDeNuevo('');
   });
 
+  if (nativa()) prepararNativo();
+
   // Al abrir la app (con la sesión ya cargada), se repasa que Supabase tenga
   // la lista al día.
   Nube.listo.then(suscripcionActual).then(function (sus) {
@@ -347,9 +539,7 @@
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.addEventListener('message', function (e) {
       var d = e.data || {};
-      if (d.tipo === 'abrir' && typeof d.ruta === 'string' && /^#\/[a-z0-9/_-]*$/i.test(d.ruta)) {
-        location.hash = d.ruta;
-      }
+      if (d.tipo === 'abrir') irA(d.ruta);
     });
   }
 
