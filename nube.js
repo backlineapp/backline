@@ -26,7 +26,8 @@
 //   Nube.miembros()                    -> quién gestiona cada grupo (administrador)
 //   Nube.quitarMiembro(grupoId, usuario)
 //   Nube.claveAvisos()                 -> clave pública de los avisos al móvil
-//   Nube.apuntarAvisos(sus, grupos)    -> apunta este móvil (o le cambia la lista)
+//   Nube.apuntarAvisos(sus, grupos)    -> apunta este móvil (o le cambia la lista),
+//                                         en el navegador o en la app de las tiendas
 //   Nube.borrarAvisos(sus)             -> borra este móvil de los avisos
 //
 // La clave de abajo es la PÚBLICA (publishable): puede estar a la vista.
@@ -510,8 +511,16 @@
   }
 
   // sus = suscripción del navegador en forma JSON: { endpoint, keys: { p256dh, auth } }
+  // En la app de las tiendas: { endpoint: 'fcm:…' o 'apns:…', keys: { auth } }.
   function apuntarAvisos(sus, grupos) {
     if (!cliente) return sinConexion();
+    if (!/^https:/.test(sus.endpoint)) {
+      return cliente.rpc('avisos_apuntar_nativo', {
+        p_endpoint: sus.endpoint,
+        p_auth: sus.keys.auth,
+        p_grupos: grupos
+      }).then(comprobar);
+    }
     return cliente.rpc('avisos_apuntar', {
       p_endpoint: sus.endpoint,
       p_p256dh: sus.keys.p256dh,
