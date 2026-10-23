@@ -1,7 +1,8 @@
 # Compila la app de Android de Backline (versión de prueba) en los ordenadores
 # de GitHub, sin instalar nada en el Mac. Se lanza sola al fusionar cambios en
 # la web o en la carpeta app, o a mano desde la pestaña «Actions».
-# El resultado (Backline-prueba.apk) se descarga desde la ejecución, en «Artifacts».
+# Resultado (en «Artifacts» de cada ejecución): Backline-prueba.apk para instalar a
+# mano y Backline-sin-firmar.aab para Google Play (hay que firmarlo antes de subirlo).
 name: App Android (prueba)
 
 on:
@@ -41,11 +42,24 @@ jobs:
           npx cap sync android
       - name: Compilar
         working-directory: app/android
-        run: ./gradlew assembleDebug --no-daemon
-      - name: Guardar el APK
-        run: cp app/android/app/build/outputs/apk/debug/app-debug.apk Backline-prueba.apk
+        env:
+          VERSION_CODE: ${{ github.run_number }}
+        # APK de prueba (se instala a mano) y AAB para Google Play. El AAB sale
+        # SIN firmar: se firma después con la clave de subida, que nunca está en
+        # GitHub.
+        run: ./gradlew assembleDebug bundleRelease --no-daemon
+      - name: Guardar los archivos
+        run: |
+          cp app/android/app/build/outputs/apk/debug/app-debug.apk Backline-prueba.apk
+          cp app/android/app/build/outputs/bundle/release/app-release.aab Backline-sin-firmar.aab
+          echo "Número de versión (versionCode): ${{ github.run_number }}"
       - uses: actions/upload-artifact@v4
         with:
           name: Backline-prueba-android
           path: Backline-prueba.apk
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Backline-google-play-sin-firmar
+          path: Backline-sin-firmar.aab
           retention-days: 30
