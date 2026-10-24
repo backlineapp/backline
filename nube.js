@@ -4,6 +4,7 @@
 // El resto de la app solo usa estas órdenes:
 //   Nube.enviarCodigo(correo)          -> manda un código de 6 cifras por email
 //   Nube.entrar(correo, codigo)        -> entra con ese código
+//   Nube.entrarConClave(correo, clave) -> solo la cuenta de revisión de las tiendas
 //   Nube.salir()
 //   Nube.cuenta()                      -> { correo, admin, grupos } o null
 //                                         (grupos = ids de los grupos que gestiona)
@@ -64,6 +65,7 @@
         : 'Revisa los datos: falta algo obligatorio o algún texto es demasiado largo.';
     }
     if (error && error.code === '23505') return 'Ya tienes una solicitud pendiente como esta. Espera a que la revisemos.';
+    if (/invalid login credentials/.test(t)) return 'La contraseña no es correcta.';
     if (/expired|invalid|otp|token/.test(t)) return 'El código no es correcto o ha caducado. Pide uno nuevo.';
     if (/rate limit|too many|seconds/.test(t)) return 'Has pedido varios códigos seguidos. Espera unos minutos y vuelve a probar.';
     if (/email/.test(t) && /valid/.test(t)) return 'Revisa el correo: no parece válido.';
@@ -133,6 +135,15 @@
   function entrar(correo, codigo) {
     if (!cliente) return sinConexion();
     return cliente.auth.verifyOtp({ email: correo, token: codigo, type: 'email' })
+      .then(comprobar)
+      .then(function (datos) { return actualizarCuenta(datos.session); });
+  }
+
+  // Solo para la cuenta de revisión de Google Play y la App Store (panel.js):
+  // entra con contraseña en lugar de con un código por correo.
+  function entrarConClave(correo, clave) {
+    if (!cliente) return sinConexion();
+    return cliente.auth.signInWithPassword({ email: correo, password: clave })
       .then(comprobar)
       .then(function (datos) { return actualizarCuenta(datos.session); });
   }
@@ -542,6 +553,7 @@
     refrescarCuenta: refrescarCuenta,
     enviarCodigo: enviarCodigo,
     entrar: entrar,
+    entrarConClave: entrarConClave,
     salir: salir,
     borrarCuenta: borrarCuenta,
     proximasFechas: proximasFechas,

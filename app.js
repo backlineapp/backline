@@ -85,6 +85,16 @@
   var DE_LA_FICHA = { gestionar: true };
 
   var grupos = [];
+
+  // Grupo de prueba para los revisores de Google Play y la App Store: lo
+  // gestiona la cuenta de revisión y nadie más lo ve (no sale en Explorar ni
+  // en el kit). Sus publicaciones solo aparecen a quien lo siga, y no se
+  // puede seguir sin conocer su enlace.
+  var GRUPO_REVISION = {
+    id: 'grupo-de-prueba', nombre: 'Grupo de prueba', estilos: 'Prueba', ciudad: 'España',
+    estado: 'Activo', enlace_principal: '', bandcamp: '', spotify: '', apple_music: '',
+    youtube: '', web: '', discografia: '', portada: '', discos: [], oculto: true
+  };
   var estado = { texto: '', familia: null };
   // Cuántos lanzamientos se ven ahora mismo en Inicio.
   var visiblesInicio = POR_TANDA;
@@ -591,6 +601,7 @@
   function pintarLista() {
     var busqueda = normalizar(estado.texto);
     var visibles = grupos.filter(function (g) {
+      if (g.oculto) return false;
       if (busqueda && g._nombre.indexOf(busqueda) === -1) return false;
       if (estado.familia && g._familias.indexOf(estado.familia) === -1) return false;
       return true;
@@ -1070,7 +1081,7 @@
       return r.json();
     })
     .then(function (datos) {
-      grupos = (datos.grupos || [])
+      grupos = (datos.grupos || []).concat([GRUPO_REVISION])
         .map(function (g) {
           g._nombre = normalizar(g.nombre);
           g._familias = familiasDe(g.estilos);
