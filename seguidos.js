@@ -12,6 +12,11 @@
 //                              true si queda silenciado
 //   Seguidos.idsConAvisos() -> grupos seguidos y no silenciados (los que
 //                              mandan avisos a este móvil)
+//   Seguidos.oculto(id)     -> ¿he ocultado este grupo? (sí / no)
+//   Seguidos.ocultar(id)    -> deja de seguirlo y lo oculta de Explorar
+//                              (lo exige Apple: poder bloquear contenido)
+//   Seguidos.mostrar(id)    -> deja de ocultarlo
+//   Seguidos.idsOcultos()   -> identificadores de los grupos ocultos
 //
 // Hoy la lista se guarda solo en el propio móvil, sin cuentas.
 // Cuando lleguen las cuentas ("registro para guardar" con Supabase) solo
@@ -22,6 +27,7 @@
   'use strict';
 
   var CLAVE = 'backline.seguidos';
+  var CLAVE_OCULTOS = 'backline.ocultos';
   var VERSION = 1;
 
   // ---------- Dónde se guarda: memoria del propio móvil ----------
@@ -48,6 +54,19 @@
   // "desde" servirá más adelante para el feed y para subir la lista a la cuenta.
   var lista = limpiar(almacenLocal.leer());
   var oyentes = [];
+
+  // Grupos ocultos: una lista aparte de identificadores, en el propio móvil.
+  function leerOcultos() {
+    try {
+      var d = JSON.parse(localStorage.getItem(CLAVE_OCULTOS));
+      if (Array.isArray(d)) return d.filter(function (x) { return typeof x === 'string' && x; });
+    } catch (e) { /* datos dañados o sin permiso */ }
+    return [];
+  }
+  function escribirOcultos() {
+    try { localStorage.setItem(CLAVE_OCULTOS, JSON.stringify(ocultos)); } catch (e) { /* solo en memoria */ }
+  }
+  var ocultos = leerOcultos();
 
   function limpiar(elementos) {
     var vistos = {};
@@ -84,6 +103,11 @@
     },
     seguir: function (id) {
       if (!id || posicion(id) !== -1) return;
+      // Seguir a un grupo oculto lo vuelve a mostrar.
+      if (ocultos.indexOf(id) !== -1) {
+        ocultos.splice(ocultos.indexOf(id), 1);
+        escribirOcultos();
+      }
       lista.push({ id: id, desde: new Date().toISOString() });
       guardarYAvisar();
     },
@@ -115,13 +139,37 @@
     },
     idsConAvisos: function () {
       return lista.filter(function (s) { return !s.silencio; }).map(function (s) { return s.id; });
+    },
+    oculto: function (id) {
+      return ocultos.indexOf(id) !== -1;
+    },
+    ocultar: function (id) {
+      if (!id) return;
+      if (ocultos.indexOf(id) === -1) {
+        ocultos.push(id);
+        escribirOcultos();
+      }
+      var i = posicion(id);
+      if (i !== -1) lista.splice(i, 1);
+      guardarYAvisar();
+    },
+    mostrar: function (id) {
+      var i = ocultos.indexOf(id);
+      if (i === -1) return;
+      ocultos.splice(i, 1);
+      escribirOcultos();
+      avisar();
+    },
+    idsOcultos: function () {
+      return ocultos.slice();
     }
   };
 
   // Si la app está abierta en dos pestañas, ambas ven la misma lista.
   window.addEventListener('storage', function (e) {
-    if (e.key !== CLAVE) return;
-    lista = limpiar(almacenLocal.leer());
+    if (e.key === CLAVE) lista = limpiar(almacenLocal.leer());
+    else if (e.key === CLAVE_OCULTOS) ocultos = leerOcultos();
+    else return;
     avisar();
   });
 

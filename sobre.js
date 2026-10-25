@@ -61,7 +61,9 @@
     ].forEach(function (t) { ul.appendChild(crear('li', null, t)); });
     como.appendChild(ul);
 
-    if (APOYO.activo) {
+    // En las apps de las tiendas no se muestra: Apple y Google no permiten
+    // enlaces a pagos fuera de su sistema. Solo en la web.
+    if (APOYO.activo && !(window.Nativa && Nativa.es)) {
       var apoyo = seccion(contenedor, 'Apoya el proyecto');
       apoyo.classList.add('sobre-apoyo');
       apoyo.appendChild(crear('p', null, 'Backline es gratis y lo seguirá siendo, para fans y para grupos. Si te resulta útil y quieres ayudar a mantenerla, puedes hacer una aportación de una sola vez.'));

@@ -1564,3 +1564,13 @@ a.volver { display: inline-block; text-decoration: none; }
   .kit-bloque { padding: 20px; }
   .kit-boton { flex: 0 0 auto; min-width: 150px; }
 }
+
+/* Ocultar un grupo (bloquear su contenido) */
+.ocultar-pie { margin: 8px 0 0; }
+.enlace-ocultar { background: none; border: 0; padding: 4px 0; font: inherit; font-size: 13px; color: var(--tenue); text-decoration: underline; cursor: pointer; }
+.oculto-aviso { margin-top: 12px; padding: 10px 12px; border: 1px solid var(--linea); border-radius: 10px; color: var(--suave); font-size: 14px; }
+.oculto-aviso p { margin: 0 0 6px; }
+.ocultos { margin-top: 28px; }
+.ocultos-lista { list-style: none; margin: 0; padding: 0; }
+.ocultos-lista li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--linea); }
+.ocultos-lista a { color: var(--suave); }
