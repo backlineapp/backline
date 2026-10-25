@@ -1,6 +1,6 @@
 {
- "total": 228,
- "actualizado": "2026-10-22",
+ "total": 241,
+ "actualizado": "2026-10-25",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -13234,6 +13234,843 @@
      "tipo": "disco",
      "enlace": "https://kaiosama.bandcamp.com/album/una-columna-de-humo",
      "portada": "https://f4.bcbits.com/img/a4182348644_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "altarage",
+   "nombre": "Altarage",
+   "estilos": "Doom / Death metal / Drone",
+   "ciudad": "Bilbao",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://altarage.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/channel/UCYu0MiBlCLYt_RDV9BRGuNg",
+   "web": "https://altarage.com",
+   "discografia": "Cogwheel (2026), Worst Case Scenario (2023), Cataract EP (2023), Sol Corrupto (2022), Succumb (2021), The Approaching Roar (2019), Endinghent (2017), Nihl (2016), MMXV demo (2015)",
+   "portada": "https://f4.bcbits.com/img/a0135934005_16.jpg",
+   "discos": [
+    {
+     "titulo": "Cogwheel",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://altarage.bandcamp.com/album/cogwheel",
+     "portada": "https://f4.bcbits.com/img/a0135934005_16.jpg"
+    },
+    {
+     "titulo": "Worst Case Scenario",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://altarage.bandcamp.com/album/worst-case-scenario",
+     "portada": "https://f4.bcbits.com/img/a2378191363_16.jpg"
+    },
+    {
+     "titulo": "Cataract EP",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://altarage.bandcamp.com/album/cataract-ep",
+     "portada": "https://f4.bcbits.com/img/a3801563461_16.jpg"
+    },
+    {
+     "titulo": "Sol Corrupto",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://altarage.bandcamp.com/album/sol-corrupto",
+     "portada": "https://f4.bcbits.com/img/a3929071479_16.jpg"
+    },
+    {
+     "titulo": "Succumb",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://altarage.bandcamp.com/album/succumb",
+     "portada": "https://f4.bcbits.com/img/a3770911539_16.jpg"
+    },
+    {
+     "titulo": "The Approaching Roar",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://altarage.bandcamp.com/album/the-approaching-roar",
+     "portada": "https://f4.bcbits.com/img/a1079394448_16.jpg"
+    },
+    {
+     "titulo": "Endinghent",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://altarage.bandcamp.com/album/endinghent",
+     "portada": "https://f4.bcbits.com/img/a1384929781_16.jpg"
+    },
+    {
+     "titulo": "Nihl",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://altarage.bandcamp.com/album/nihl",
+     "portada": "https://f4.bcbits.com/img/a3694453159_16.jpg"
+    },
+    {
+     "titulo": "MMXV demo",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://altarage.bandcamp.com/album/mmxv-demo",
+     "portada": "https://f4.bcbits.com/img/a3190071347_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "rosy-finch",
+   "nombre": "Rosy Finch",
+   "estilos": "Grunge / Stoner / Sludge",
+   "ciudad": "Alicante",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://rosyfinch.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/rosyfinchband",
+   "web": "https://www.rosyfinchband.com",
+   "discografia": "Venus in furs (2023), Seconda Morte (2022), Black Lodge (2021), Love (2021), Scarlet (2020), The Sunset Acoustic Sessions Vol.1 (2017), Witchboro (2015), Wolves Waiting (2013)",
+   "portada": "https://f4.bcbits.com/img/a3512169664_16.jpg",
+   "discos": [
+    {
+     "titulo": "Venus in furs",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://rosyfinch.bandcamp.com/track/venus-in-furs",
+     "portada": "https://f4.bcbits.com/img/a3512169664_16.jpg"
+    },
+    {
+     "titulo": "Seconda Morte",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://rosyfinch.bandcamp.com/album/seconda-morte",
+     "portada": "https://f4.bcbits.com/img/a3217380933_16.jpg"
+    },
+    {
+     "titulo": "Black Lodge",
+     "anio": "2021",
+     "tipo": "single",
+     "enlace": "https://rosyfinch.bandcamp.com/track/black-lodge",
+     "portada": "https://f4.bcbits.com/img/a0680848710_16.jpg"
+    },
+    {
+     "titulo": "Love",
+     "anio": "2021",
+     "tipo": "single",
+     "enlace": "https://rosyfinch.bandcamp.com/track/love",
+     "portada": "https://f4.bcbits.com/img/a2425571847_16.jpg"
+    },
+    {
+     "titulo": "Scarlet",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://rosyfinch.bandcamp.com/album/scarlet",
+     "portada": "https://f4.bcbits.com/img/a3549663646_16.jpg"
+    },
+    {
+     "titulo": "The Sunset Acoustic Sessions Vol.1",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://rosyfinch.bandcamp.com/album/the-sunset-acoustic-sessions-vol-1",
+     "portada": "https://f4.bcbits.com/img/a3032888209_16.jpg"
+    },
+    {
+     "titulo": "Witchboro",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://rosyfinch.bandcamp.com/album/witchboro",
+     "portada": "https://f4.bcbits.com/img/a1006634858_16.jpg"
+    },
+    {
+     "titulo": "Wolves Waiting",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://rosyfinch.bandcamp.com/album/wolves-waiting",
+     "portada": "https://f4.bcbits.com/img/a3417120387_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "bala",
+   "nombre": "Bala",
+   "estilos": "Grunge / Stoner / Punk",
+   "ciudad": "Galicia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://somosbala.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/5Cqy5kUi1EY01scjbz87eJ",
+   "apple_music": "",
+   "youtube": "",
+   "web": "https://somosbala.com",
+   "discografia": "Bodies (The Smashing Pumpkins cover) (2019) (2021), Lume (2017) (2017), Human Flesh (2015) (2015)",
+   "portada": "https://f4.bcbits.com/img/a2536843468_16.jpg",
+   "discos": [
+    {
+     "titulo": "Bodies (The Smashing Pumpkins cover) (2019)",
+     "anio": "2021",
+     "tipo": "single",
+     "enlace": "https://somosbala.bandcamp.com/track/bodies-the-smashing-pumpkins-cover-2019",
+     "portada": "https://f4.bcbits.com/img/a2536843468_16.jpg"
+    },
+    {
+     "titulo": "Lume (2017)",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://somosbala.bandcamp.com/album/lume-2017",
+     "portada": "https://f4.bcbits.com/img/a1857674342_16.jpg"
+    },
+    {
+     "titulo": "Human Flesh (2015)",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://somosbala.bandcamp.com/album/human-flesh-2015",
+     "portada": "https://f4.bcbits.com/img/a0088083261_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "medalla",
+   "nombre": "Medalla",
+   "estilos": "Heavy psych / Metal / Post-punk",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://medalla.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/channel/UCNYYtA2VqvgWd3-ooawrNNw?sub_confirmation=1",
+   "web": "https://medallamusica.com",
+   "discografia": "Arquitectura del Caos – Vol. I (2026), Modo Diablo (2026), Música Máquina (2025), Sacrilegio (2025), Mechero (2025), Amigo Mercado ft. Bala (2025), BMW 666 (2024), PUEDE QUE SUCEDA (2024), ESPECTROS DE LA TRISTEZA (2024), DUELO (2023), Doce Espadas / Esperpento (Directo) (2023), Arista Rota (Instrumental) (2022), Esperpento (Single) (2022), Arista Rota (2021), Café Para Todos (Single) (2020), Monopatín (Single) (2020), Medalla (2019), Emblema y Poder (2017)",
+   "portada": "https://f4.bcbits.com/img/a0726078062_16.jpg",
+   "discos": [
+    {
+     "titulo": "Arquitectura del Caos – Vol. I",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/arquitectura-del-caos-vol-i",
+     "portada": "https://f4.bcbits.com/img/a0726078062_16.jpg"
+    },
+    {
+     "titulo": "Modo Diablo",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://medalla.bandcamp.com/track/modo-diablo",
+     "portada": "https://f4.bcbits.com/img/a1673497248_16.jpg"
+    },
+    {
+     "titulo": "Música Máquina",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/m-sica-m-quina",
+     "portada": "https://f4.bcbits.com/img/a1298416754_16.jpg"
+    },
+    {
+     "titulo": "Sacrilegio",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://medalla.bandcamp.com/track/sacrilegio",
+     "portada": "https://f4.bcbits.com/img/a0698675420_16.jpg"
+    },
+    {
+     "titulo": "Mechero",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://medalla.bandcamp.com/track/mechero",
+     "portada": "https://f4.bcbits.com/img/a3145158238_16.jpg"
+    },
+    {
+     "titulo": "Amigo Mercado ft. Bala",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://medalla.bandcamp.com/track/amigo-mercado-ft-bala",
+     "portada": "https://f4.bcbits.com/img/a3693683586_16.jpg"
+    },
+    {
+     "titulo": "BMW 666",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/bmw-666",
+     "portada": "https://f4.bcbits.com/img/a2700728619_16.jpg"
+    },
+    {
+     "titulo": "PUEDE QUE SUCEDA",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://medalla.bandcamp.com/track/puede-que-suceda",
+     "portada": "https://f4.bcbits.com/img/a2398579387_16.jpg"
+    },
+    {
+     "titulo": "ESPECTROS DE LA TRISTEZA",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/espectros-de-la-tristeza",
+     "portada": "https://f4.bcbits.com/img/a2960854067_16.jpg"
+    },
+    {
+     "titulo": "DUELO",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/duelo",
+     "portada": "https://f4.bcbits.com/img/a1705716273_16.jpg"
+    },
+    {
+     "titulo": "Doce Espadas / Esperpento (Directo)",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/doce-espadas-esperpento-directo",
+     "portada": "https://f4.bcbits.com/img/a1543340442_16.jpg"
+    },
+    {
+     "titulo": "Arista Rota (Instrumental)",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/arista-rota-instrumental",
+     "portada": "https://f4.bcbits.com/img/a1950784321_16.jpg"
+    },
+    {
+     "titulo": "Esperpento (Single)",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/esperpento-single",
+     "portada": "https://f4.bcbits.com/img/a3461161535_16.jpg"
+    },
+    {
+     "titulo": "Arista Rota",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/arista-rota",
+     "portada": "https://f4.bcbits.com/img/a1493636232_16.jpg"
+    },
+    {
+     "titulo": "Café Para Todos (Single)",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/caf-para-todos-single",
+     "portada": "https://f4.bcbits.com/img/a1683761772_16.jpg"
+    },
+    {
+     "titulo": "Monopatín (Single)",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/monopat-n-single",
+     "portada": "https://f4.bcbits.com/img/a3863896477_16.jpg"
+    },
+    {
+     "titulo": "Medalla",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/medalla",
+     "portada": "https://f4.bcbits.com/img/a4043222080_16.jpg"
+    },
+    {
+     "titulo": "Emblema y Poder",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://medalla.bandcamp.com/album/emblema-y-poder",
+     "portada": "https://f4.bcbits.com/img/a0119867668_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "teksuo",
+   "nombre": "Teksuo",
+   "estilos": "Metal alternativo / Metalcore",
+   "ciudad": "Asturias",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://teksuo.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/user/teksuoband",
+   "web": "",
+   "discografia": "The Glow Before I Go (2026), Erased By Mistake (2026), Thirst For Tears (2025), Rip My Heart Out (Reimagined) (2025), Lost In A Dream (2024), Rip My Heart Out (2023), Raise The Flag (2023), Natural Born Liars (2022), LET IT RAIN (Acoustic) (2021), Endless (2020), Holes (live) (2020), Take What You Want (Post Malone Cover) (2019), Nure-Onna EP (2017), A New Way To Bleed (2015), Diamonds EP (2014), Thrênos (2012), Jiang Shi (2010), PHANTOMS (Acoustic)",
+   "portada": "https://f4.bcbits.com/img/a3882318271_16.jpg",
+   "discos": [
+    {
+     "titulo": "The Glow Before I Go",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://teksuo.bandcamp.com/album/the-glow-before-i-go",
+     "portada": "https://f4.bcbits.com/img/a3882318271_16.jpg"
+    },
+    {
+     "titulo": "Erased By Mistake",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/erased-by-mistake",
+     "portada": "https://f4.bcbits.com/img/a2529477464_16.jpg"
+    },
+    {
+     "titulo": "Thirst For Tears",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/thirst-for-tears",
+     "portada": "https://f4.bcbits.com/img/a2766606728_16.jpg"
+    },
+    {
+     "titulo": "Rip My Heart Out (Reimagined)",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/rip-my-heart-out-reimagined",
+     "portada": "https://f4.bcbits.com/img/a4159903569_16.jpg"
+    },
+    {
+     "titulo": "Lost In A Dream",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/lost-in-a-dream",
+     "portada": "https://f4.bcbits.com/img/a1129551633_16.jpg"
+    },
+    {
+     "titulo": "Rip My Heart Out",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/rip-my-heart-out",
+     "portada": "https://f4.bcbits.com/img/a3277184578_16.jpg"
+    },
+    {
+     "titulo": "Raise The Flag",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/raise-the-flag",
+     "portada": "https://f4.bcbits.com/img/a2788382127_16.jpg"
+    },
+    {
+     "titulo": "Natural Born Liars",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/natural-born-liars",
+     "portada": "https://f4.bcbits.com/img/a1439905988_16.jpg"
+    },
+    {
+     "titulo": "LET IT RAIN (Acoustic)",
+     "anio": "2021",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/let-it-rain-acoustic",
+     "portada": "https://f4.bcbits.com/img/a1320856526_16.jpg"
+    },
+    {
+     "titulo": "Endless",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://teksuo.bandcamp.com/album/endless",
+     "portada": "https://f4.bcbits.com/img/a2724359252_16.jpg"
+    },
+    {
+     "titulo": "Holes (live)",
+     "anio": "2020",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/holes-live",
+     "portada": "https://f4.bcbits.com/img/a1285391793_16.jpg"
+    },
+    {
+     "titulo": "Take What You Want (Post Malone Cover)",
+     "anio": "2019",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/take-what-you-want-post-malone-cover",
+     "portada": "https://f4.bcbits.com/img/a1453255750_16.jpg"
+    },
+    {
+     "titulo": "Nure-Onna EP",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://teksuo.bandcamp.com/album/nure-onna-ep",
+     "portada": "https://f4.bcbits.com/img/a2146336046_16.jpg"
+    },
+    {
+     "titulo": "A New Way To Bleed",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://teksuo.bandcamp.com/album/a-new-way-to-bleed",
+     "portada": "https://f4.bcbits.com/img/a2841502475_16.jpg"
+    },
+    {
+     "titulo": "Diamonds EP",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://teksuo.bandcamp.com/album/diamonds-ep",
+     "portada": "https://f4.bcbits.com/img/a3696258931_16.jpg"
+    },
+    {
+     "titulo": "Thrênos",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://teksuo.bandcamp.com/album/thr-nos",
+     "portada": "https://f4.bcbits.com/img/a0884852976_16.jpg"
+    },
+    {
+     "titulo": "Jiang Shi",
+     "anio": "2010",
+     "tipo": "disco",
+     "enlace": "https://teksuo.bandcamp.com/album/jiang-shi",
+     "portada": "https://f4.bcbits.com/img/a1397831128_16.jpg"
+    },
+    {
+     "titulo": "PHANTOMS (Acoustic)",
+     "anio": "",
+     "tipo": "single",
+     "enlace": "https://teksuo.bandcamp.com/track/phantoms-acoustic",
+     "portada": "https://f4.bcbits.com/img/a2065202933_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "cobra",
+   "nombre": "Cobra",
+   "estilos": "Stoner / Sludge / Southern rock",
+   "ciudad": "Bilbao",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://cobrarocks.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "https://www.cobrarocks.com",
+   "discografia": "Henko (2025), Fyre (2020), Riffyard (2016), Covered - A Selection of Film Scores [EP] (2012), Thriller! (2011), The Strong Arm of the Rock (2007)",
+   "portada": "https://f4.bcbits.com/img/a3679020286_16.jpg",
+   "discos": [
+    {
+     "titulo": "Henko",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://cobrarocks.bandcamp.com/album/henko",
+     "portada": "https://f4.bcbits.com/img/a3679020286_16.jpg"
+    },
+    {
+     "titulo": "Fyre",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://cobrarocks.bandcamp.com/album/fyre",
+     "portada": "https://f4.bcbits.com/img/a0719099209_16.jpg"
+    },
+    {
+     "titulo": "Riffyard",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://cobrarocks.bandcamp.com/album/riffyard",
+     "portada": "https://f4.bcbits.com/img/a3447695567_16.jpg"
+    },
+    {
+     "titulo": "Covered - A Selection of Film Scores [EP]",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://cobrarocks.bandcamp.com/album/covered-a-selection-of-film-scores-ep",
+     "portada": "https://f4.bcbits.com/img/a1540096031_16.jpg"
+    },
+    {
+     "titulo": "Thriller!",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://cobrarocks.bandcamp.com/album/thriller",
+     "portada": "https://f4.bcbits.com/img/a0810228319_16.jpg"
+    },
+    {
+     "titulo": "The Strong Arm of the Rock",
+     "anio": "2007",
+     "tipo": "disco",
+     "enlace": "https://cobrarocks.bandcamp.com/album/the-strong-arm-of-the-rock",
+     "portada": "https://f4.bcbits.com/img/a4188608702_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "dunaviva",
+   "nombre": "Dunaviva",
+   "estilos": "Post-rock / Post-hardcore / Post-grunge",
+   "ciudad": "Valencia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://dunaviva.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Thalassa Therapeia (2025), Personas (2025), Vacío (2025), Islas (2025), Te Has Vuelto a Dejar la Luz Encendida (2025), Ruido Rosa, Pt.2 (2024), Yermo (2023), Calígine (2020)",
+   "portada": "https://f4.bcbits.com/img/a2607807247_16.jpg",
+   "discos": [
+    {
+     "titulo": "Thalassa Therapeia",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://dunaviva.bandcamp.com/album/thalassa-therapeia",
+     "portada": "https://f4.bcbits.com/img/a2607807247_16.jpg"
+    },
+    {
+     "titulo": "Personas",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://dunaviva.bandcamp.com/track/personas",
+     "portada": "https://f4.bcbits.com/img/a0846885693_16.jpg"
+    },
+    {
+     "titulo": "Vacío",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://dunaviva.bandcamp.com/track/vac-o",
+     "portada": "https://f4.bcbits.com/img/a0984549463_16.jpg"
+    },
+    {
+     "titulo": "Islas",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://dunaviva.bandcamp.com/track/islas",
+     "portada": "https://f4.bcbits.com/img/a4210824276_16.jpg"
+    },
+    {
+     "titulo": "Te Has Vuelto a Dejar la Luz Encendida",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://dunaviva.bandcamp.com/track/te-has-vuelto-a-dejar-la-luz-encendida",
+     "portada": "https://f4.bcbits.com/img/a4209830901_16.jpg"
+    },
+    {
+     "titulo": "Ruido Rosa, Pt.2",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://dunaviva.bandcamp.com/track/ruido-rosa-pt-2",
+     "portada": "https://f4.bcbits.com/img/a1763631045_16.jpg"
+    },
+    {
+     "titulo": "Yermo",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://dunaviva.bandcamp.com/album/yermo",
+     "portada": "https://f4.bcbits.com/img/a3129192878_16.jpg"
+    },
+    {
+     "titulo": "Calígine",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://dunaviva.bandcamp.com/album/cal-gine",
+     "portada": "https://f4.bcbits.com/img/a1261738975_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "rodeo",
+   "nombre": "Rodeo",
+   "estilos": "Stoner / Desert rock / Post-rock",
+   "ciudad": "Zestoa (Gipuzkoa)",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://rodeodesert.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "X (2025), HYBRIS (2022), MOIRA (2022), EZHERRIAN (2020), DILMUN (2018), Rodeo (2017)",
+   "portada": "https://f4.bcbits.com/img/a1629460151_16.jpg",
+   "discos": [
+    {
+     "titulo": "X",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://rodeodesert.bandcamp.com/album/x",
+     "portada": "https://f4.bcbits.com/img/a1629460151_16.jpg"
+    },
+    {
+     "titulo": "HYBRIS",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://rodeodesert.bandcamp.com/album/hybris",
+     "portada": "https://f4.bcbits.com/img/a0518225052_16.jpg"
+    },
+    {
+     "titulo": "MOIRA",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://rodeodesert.bandcamp.com/album/moira",
+     "portada": "https://f4.bcbits.com/img/a0213015211_16.jpg"
+    },
+    {
+     "titulo": "EZHERRIAN",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://rodeodesert.bandcamp.com/album/ezherrian",
+     "portada": "https://f4.bcbits.com/img/a3263966298_16.jpg"
+    },
+    {
+     "titulo": "DILMUN",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://rodeodesert.bandcamp.com/album/dilmun",
+     "portada": "https://f4.bcbits.com/img/a0751392365_16.jpg"
+    },
+    {
+     "titulo": "Rodeo",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://rodeodesert.bandcamp.com/album/rodeo",
+     "portada": "https://f4.bcbits.com/img/a0704790808_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "al-final-solo-habra-cenizas",
+   "nombre": "Al Final Solo Habrá Cenizas",
+   "estilos": "Doom / Post-metal / Sludge",
+   "ciudad": "A Coruña",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://alfinalsolohabracenizas.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Lodo (2024), Nuestra propia destrucción (2021)",
+   "portada": "https://f4.bcbits.com/img/a2488400885_16.jpg",
+   "discos": [
+    {
+     "titulo": "Lodo",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://alfinalsolohabracenizas.bandcamp.com/album/lodo",
+     "portada": "https://f4.bcbits.com/img/a2488400885_16.jpg"
+    },
+    {
+     "titulo": "Nuestra propia destrucción",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://alfinalsolohabracenizas.bandcamp.com/album/nuestra-propia-destrucci-n",
+     "portada": "https://f4.bcbits.com/img/a3892939496_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "gutmann",
+   "nombre": "Gutmann",
+   "estilos": "Stoner / Rock alternativo / Post-punk",
+   "ciudad": "Málaga",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://gutmann.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "SHRINE (2026)",
+   "portada": "https://f4.bcbits.com/img/a3122546320_16.jpg",
+   "discos": [
+    {
+     "titulo": "SHRINE",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://gutmann.bandcamp.com/album/shrine",
+     "portada": "https://f4.bcbits.com/img/a3122546320_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "northern-lights",
+   "nombre": "Northern Lights",
+   "estilos": "Stoner / Rock progresivo / Space rock (instrumental)",
+   "ciudad": "España",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://northern-lights-official.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1tG9yztAN2Y1fNzgeVgJXa",
+   "apple_music": "https://music.apple.com/us/artist/northern-lights/1550975828",
+   "youtube": "https://www.youtube.com/channel/UCT3QPhJLreroQFd37iPeT8A",
+   "web": "",
+   "discografia": "So Below [ALBUM 2026] (2026), As Above [ALBUM 2023] (2023), Travels Into Several Remote Parts of the Brain  [ALBUM 2021] (2021)",
+   "portada": "https://f4.bcbits.com/img/a1118617786_16.jpg",
+   "discos": [
+    {
+     "titulo": "So Below [ALBUM 2026]",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://northern-lights-official.bandcamp.com/album/so-below-album-2026",
+     "portada": "https://f4.bcbits.com/img/a1118617786_16.jpg"
+    },
+    {
+     "titulo": "As Above [ALBUM 2023]",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://northern-lights-official.bandcamp.com/album/as-above-album-2023",
+     "portada": "https://f4.bcbits.com/img/a3548774307_16.jpg"
+    },
+    {
+     "titulo": "Travels Into Several Remote Parts of the Brain  [ALBUM 2021]",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://northern-lights-official.bandcamp.com/album/travels-into-several-remote-parts-of-the-brain-album-2021",
+     "portada": "https://f4.bcbits.com/img/a1634846784_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "the-toucan-puffins",
+   "nombre": "The Toucan Puffins",
+   "estilos": "Rock progresivo / Prog folk",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://thetoucanpuffins.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "The Toucan Puffins and the Giant Muffin (2026), In Lack of a Humdrum Supper (2022)",
+   "portada": "https://f4.bcbits.com/img/a2408594084_16.jpg",
+   "discos": [
+    {
+     "titulo": "The Toucan Puffins and the Giant Muffin",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://thetoucanpuffins.bandcamp.com/album/the-toucan-puffins-and-the-giant-muffin",
+     "portada": "https://f4.bcbits.com/img/a2408594084_16.jpg"
+    },
+    {
+     "titulo": "In Lack of a Humdrum Supper",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://thetoucanpuffins.bandcamp.com/album/in-lack-of-a-humdrum-supper",
+     "portada": "https://f4.bcbits.com/img/a3183209586_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "annacrusa",
+   "nombre": "Annacrusa",
+   "estilos": "Rock alternativo / Rock progresivo / Rock experimental",
+   "ciudad": "Castellón de la Plana",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://annacrusa.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/channel/UC1-6seWo0lAupqkeDxpriPQ",
+   "web": "",
+   "discografia": "Perder la fe (2026), Comenzar de cero (2024), La espina (2023), Duelo (2020)",
+   "portada": "https://f4.bcbits.com/img/a1389708757_16.jpg",
+   "discos": [
+    {
+     "titulo": "Perder la fe",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://annacrusa.bandcamp.com/album/perder-la-fe",
+     "portada": "https://f4.bcbits.com/img/a1389708757_16.jpg"
+    },
+    {
+     "titulo": "Comenzar de cero",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://annacrusa.bandcamp.com/track/comenzar-de-cero",
+     "portada": "https://f4.bcbits.com/img/a1225747004_16.jpg"
+    },
+    {
+     "titulo": "La espina",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://annacrusa.bandcamp.com/album/la-espina",
+     "portada": "https://f4.bcbits.com/img/a3927665212_16.jpg"
+    },
+    {
+     "titulo": "Duelo",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://annacrusa.bandcamp.com/album/duelo",
+     "portada": "https://f4.bcbits.com/img/a1349826383_16.jpg"
     }
    ]
   }

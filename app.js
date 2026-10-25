@@ -17,6 +17,7 @@
     { nombre: 'Post-metal', patron: /post-?metal/ },
     { nombre: 'Math rock', patron: /math/ },
     { nombre: 'Stoner', patron: /stoner|desert rock/ },
+    { nombre: 'Grunge', patron: /grunge/ },
     { nombre: 'Psicodelia', patron: /psicodel|psych|kraut|space rock|acid/ },
     { nombre: 'Shoegaze', patron: /shoegaze|blackgaze|dream pop/ },
     { nombre: 'Doom', patron: /doom/ },
