@@ -1052,7 +1052,7 @@
   }
 
   // Atajo «Apoyar» junto al título de Inicio: solo si el apoyo está activo (sobre.js).
-  if (el.atajoApoyo && window.Sobre) el.atajoApoyo.hidden = !Sobre.APOYO.activo || !!(window.Nativa && Nativa.es);
+  if (el.atajoApoyo && window.Sobre) el.atajoApoyo.hidden = !Sobre.APOYO.activo;
 
   Array.prototype.forEach.call(el.volver, function (b) {
     b.addEventListener('click', function () {

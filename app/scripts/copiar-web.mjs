@@ -13,7 +13,7 @@ const ARCHIVOS = [
   'index.html', 'privacidad.html', 'condiciones.html',
   'estilos.css', 'manifest.json', 'grupos.json',
   'nativa.js', 'seguidos.js', 'nube.js', 'denuncias.js', 'conciertos.js', 'novedades.js',
-  'panel.js', 'kit.js', 'sobre.js', 'instalar.js', 'avisos.js', 'app.js',
+  'panel.js', 'kit.js', 'propinas.js', 'sobre.js', 'instalar.js', 'avisos.js', 'app.js',
   'logo.svg', 'icono.svg', 'icono-192.png', 'icono-512.png', 'apple-touch-icon.png'
 ];
 const CARPETAS = ['libs', 'fuentes', 'kit', 'portadas'];

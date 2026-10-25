@@ -1574,3 +1574,7 @@ a.volver { display: inline-block; text-decoration: none; }
 .ocultos-lista { list-style: none; margin: 0; padding: 0; }
 .ocultos-lista li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--linea); }
 .ocultos-lista a { color: var(--suave); }
+
+/* Propinas dentro de la app de las tiendas */
+.propinas-botones { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; }
+.propinas-botones .boton { flex: 1 1 30%; min-width: 96px; }
