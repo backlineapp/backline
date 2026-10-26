@@ -1,6 +1,6 @@
 {
- "total": 241,
- "actualizado": "2026-10-25",
+ "total": 242,
+ "actualizado": "2026-10-26",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -14071,6 +14071,30 @@
      "tipo": "disco",
      "enlace": "https://annacrusa.bandcamp.com/album/duelo",
      "portada": "https://f4.bcbits.com/img/a1349826383_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "bow-to-the-lions",
+   "nombre": "Bow To The Lions",
+   "estilos": "Metalcore / Hardcore / Post-hardcore",
+   "ciudad": "Pamplona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://bowtothelions.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Bow To The Lions (2017)",
+   "portada": "https://f4.bcbits.com/img/a0191568247_16.jpg",
+   "discos": [
+    {
+     "titulo": "Bow To The Lions",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://bowtothelions.bandcamp.com/album/bow-to-the-lions",
+     "portada": "https://f4.bcbits.com/img/a0191568247_16.jpg"
     }
    ]
   }
