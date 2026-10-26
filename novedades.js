@@ -334,6 +334,12 @@
       }
       if (acciones.childNodes.length) contenedor.appendChild(acciones);
       if (window.Denuncias) contenedor.appendChild(Denuncias.enlace(pub.id));
+      var grupoOcultar = ayuda.grupoPorId(pub.grupo_id);
+      if (grupoOcultar) {
+        var pieOcultar = crear('p', 'ocultar-pie');
+        pieOcultar.appendChild(ayuda.botonOcultar(grupoOcultar, function () { location.hash = '#/inicio'; }));
+        contenedor.appendChild(pieOcultar);
+      }
     }, function () {
       if (mio !== turno) return;
       contenedor.textContent = '';

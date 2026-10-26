@@ -1,0 +1,23 @@
+{
+  "name": "backline-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Backline para App Store y Google Play: la misma web, dentro de una app (Capacitor).",
+  "scripts": {
+    "copiar": "node scripts/copiar-web.mjs",
+    "iconos": "capacitor-assets generate --iconBackgroundColor '#0B0E13' --iconBackgroundColorDark '#0B0E13' --splashBackgroundColor '#0B0E13' --splashBackgroundColorDark '#0B0E13'",
+    "preparar": "npm run copiar && cap sync"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/ios": "8.5.3",
+    "@capacitor/push-notifications": "8.1.3",
+    "cordova-plugin-purchase": "13.18.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "3.0.5",
+    "@capacitor/cli": "8.5.3"
+  }
+}

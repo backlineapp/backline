@@ -225,6 +225,12 @@
     return p;
   }
 
+  // Cuenta para los revisores de Google Play y la App Store: entra con
+  // contraseña (no pueden recibir el código por correo) y gestiona un grupo
+  // de prueba que nadie más ve. La contraseña está solo en Supabase y en las
+  // tiendas, nunca aquí.
+  var CUENTA_REVISION = 'hibackline+revision@gmail.com';
+
   // Los dos pasos del acceso (correo y código) dentro de "caja". Al entrar,
   // llama a alEntrar(cuenta). Lo usan Acceso y "¿Es tu grupo?".
   function formularioAcceso(caja, alEntrar) {
@@ -258,9 +264,10 @@
     otras.appendChild(boton('Cambiar de correo', 'boton-texto', function () {
       mostrarPaso(1);
     }));
-    otras.appendChild(boton('Enviar otro código', 'boton-texto', function () {
+    var otroCodigo = boton('Enviar otro código', 'boton-texto', function () {
       pedirCodigo();
-    }));
+    });
+    otras.appendChild(otroCodigo);
     formCodigo.appendChild(otras);
 
     caja.appendChild(formCorreo);
@@ -273,16 +280,46 @@
       mensaje(aviso, '');
       if (n === 1) correo.focus();
       else {
-        explicacion.textContent = 'Te hemos enviado un código a ' + correoPendiente + '. Escríbelo aquí (mira también en correo no deseado).';
+        var revision = correoPendiente === CUENTA_REVISION;
+        explicacion.textContent = revision
+          ? 'Cuenta de revisión: escribe la contraseña.'
+          : 'Te hemos enviado un código a ' + correoPendiente + '. Escríbelo aquí (mira también en correo no deseado).';
+        modoClave(revision);
         codigo.value = '';
         codigo.focus();
       }
+    }
+
+    // El mismo campo sirve para el código (6 cifras) o, solo en la cuenta de
+    // revisión, para la contraseña.
+    function modoClave(si) {
+      codigo.type = si ? 'password' : 'text';
+      codigo.autocomplete = si ? 'current-password' : 'one-time-code';
+      codigo.placeholder = si ? 'Contraseña' : '······';
+      codigo.setAttribute('aria-label', si ? 'Contraseña' : 'Código de 6 cifras');
+      if (si) {
+        codigo.removeAttribute('inputmode');
+        codigo.removeAttribute('pattern');
+        codigo.removeAttribute('maxlength');
+        codigo.classList.remove('codigo');
+      } else {
+        codigo.setAttribute('inputmode', 'numeric');
+        codigo.setAttribute('pattern', '[0-9]*');
+        codigo.setAttribute('maxlength', '6');
+        codigo.classList.add('codigo');
+      }
+      otroCodigo.hidden = si;
     }
 
     function pedirCodigo() {
       var valor = correo.value.trim().toLowerCase();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) {
         mensaje(aviso, 'Revisa el correo: no parece válido.', 'error');
+        return;
+      }
+      if (valor === CUENTA_REVISION) {
+        correoPendiente = valor;
+        mostrarPaso(2);
         return;
       }
       enviar.disabled = true;
@@ -302,14 +339,15 @@
 
     formCodigo.addEventListener('submit', function (e) {
       e.preventDefault();
-      var valor = codigo.value.replace(/\D/g, '');
-      if (valor.length !== 6) {
-        mensaje(aviso, 'El código tiene 6 cifras.', 'error');
+      var revision = correoPendiente === CUENTA_REVISION;
+      var valor = revision ? codigo.value : codigo.value.replace(/\D/g, '');
+      if (revision ? !valor : valor.length !== 6) {
+        mensaje(aviso, revision ? 'Escribe la contraseña.' : 'El código tiene 6 cifras.', 'error');
         return;
       }
       entrar.disabled = true;
       mensaje(aviso, 'Comprobando…');
-      Nube.entrar(correoPendiente, valor).then(function (cuenta) {
+      (revision ? Nube.entrarConClave(correoPendiente, valor) : Nube.entrar(correoPendiente, valor)).then(function (cuenta) {
         correoPendiente = '';
         alEntrar(cuenta);
       }, function (err) {

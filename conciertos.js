@@ -518,6 +518,11 @@
       acciones.appendChild(calendario);
       contenedor.appendChild(acciones);
       if (window.Denuncias) contenedor.appendChild(Denuncias.enlace(f.publicacion.id));
+      if (grupo) {
+        var pieOcultar = ayuda.crear('p', 'ocultar-pie');
+        pieOcultar.appendChild(ayuda.botonOcultar(grupo, function () { location.hash = '#/inicio'; }));
+        contenedor.appendChild(pieOcultar);
+      }
     }, function () {
       if (mio !== turno) return;
       contenedor.textContent = '';

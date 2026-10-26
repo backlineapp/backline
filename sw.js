@@ -24,12 +24,13 @@
 // IMPORTANTE: cada vez que cambie un archivo de la app (pantallas, estilos,
 // código, iconos, tipografías), hay que subir este número. Es el único número
 // de versión. Para cambiar grupos.json NO hace falta tocarlo.
-var VERSION = 25;
+var VERSION = 29;
 
 var CACHE = 'backline-v' + VERSION;
 var ARCHIVOS = [
   './',
   'index.html',
+  'nativa.js',
   'privacidad.html',
   'condiciones.html',
   'estilos.css',
@@ -40,6 +41,7 @@ var ARCHIVOS = [
   'novedades.js',
   'panel.js',
   'kit.js',
+  'propinas.js',
   'sobre.js',
   'denuncias.js',
   'instalar.js',

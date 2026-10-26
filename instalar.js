@@ -39,6 +39,8 @@
   var ua = navigator.userAgent || '';
 
   function instalada() {
+    // La app de App Store / Google Play ya está instalada (nativa.js).
+    if (window.Nativa && Nativa.es) return true;
     return navigator.standalone === true ||
       (window.matchMedia && (window.matchMedia('(display-mode: standalone)').matches ||
         window.matchMedia('(display-mode: fullscreen)').matches));

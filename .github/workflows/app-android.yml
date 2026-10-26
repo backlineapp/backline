@@ -1,0 +1,65 @@
+# Compila la app de Android de Backline (versión de prueba) en los ordenadores
+# de GitHub, sin instalar nada en el Mac. Se lanza sola al fusionar cambios en
+# la web o en la carpeta app, o a mano desde la pestaña «Actions».
+# Resultado (en «Artifacts» de cada ejecución): Backline-prueba.apk para instalar a
+# mano y Backline-sin-firmar.aab para Google Play (hay que firmarlo antes de subirlo).
+name: App Android (prueba)
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'app/**'
+      - '.github/workflows/app-android.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - '*.js'
+      - '*.html'
+      - 'estilos.css'
+      - '.github/workflows/app-android.yml'
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Preparar la app
+        working-directory: app
+        run: |
+          npm ci
+          npm run copiar
+          npx cap sync android
+      - name: Compilar
+        working-directory: app/android
+        env:
+          VERSION_CODE: ${{ github.run_number }}
+        # APK de prueba (se instala a mano) y AAB para Google Play. El AAB sale
+        # SIN firmar: se firma después con la clave de subida, que nunca está en
+        # GitHub.
+        run: ./gradlew assembleDebug bundleRelease --no-daemon
+      - name: Guardar los archivos
+        run: |
+          cp app/android/app/build/outputs/apk/debug/app-debug.apk Backline-prueba.apk
+          cp app/android/app/build/outputs/bundle/release/app-release.aab Backline-sin-firmar.aab
+          echo "Número de versión (versionCode): ${{ github.run_number }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Backline-prueba-android
+          path: Backline-prueba.apk
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Backline-google-play-sin-firmar
+          path: Backline-sin-firmar.aab
+          retention-days: 30

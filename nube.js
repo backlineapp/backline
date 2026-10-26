@@ -4,6 +4,7 @@
 // El resto de la app solo usa estas órdenes:
 //   Nube.enviarCodigo(correo)          -> manda un código de 6 cifras por email
 //   Nube.entrar(correo, codigo)        -> entra con ese código
+//   Nube.entrarConClave(correo, clave) -> solo la cuenta de revisión de las tiendas
 //   Nube.salir()
 //   Nube.cuenta()                      -> { correo, admin, grupos } o null
 //                                         (grupos = ids de los grupos que gestiona)
@@ -26,7 +27,8 @@
 //   Nube.miembros()                    -> quién gestiona cada grupo (administrador)
 //   Nube.quitarMiembro(grupoId, usuario)
 //   Nube.claveAvisos()                 -> clave pública de los avisos al móvil
-//   Nube.apuntarAvisos(sus, grupos)    -> apunta este móvil (o le cambia la lista)
+//   Nube.apuntarAvisos(sus, grupos)    -> apunta este móvil (o le cambia la lista),
+//                                         en el navegador o en la app de las tiendas
 //   Nube.borrarAvisos(sus)             -> borra este móvil de los avisos
 //
 // La clave de abajo es la PÚBLICA (publishable): puede estar a la vista.
@@ -63,6 +65,7 @@
         : 'Revisa los datos: falta algo obligatorio o algún texto es demasiado largo.';
     }
     if (error && error.code === '23505') return 'Ya tienes una solicitud pendiente como esta. Espera a que la revisemos.';
+    if (/invalid login credentials/.test(t)) return 'La contraseña no es correcta.';
     if (/expired|invalid|otp|token/.test(t)) return 'El código no es correcto o ha caducado. Pide uno nuevo.';
     if (/rate limit|too many|seconds/.test(t)) return 'Has pedido varios códigos seguidos. Espera unos minutos y vuelve a probar.';
     if (/email/.test(t) && /valid/.test(t)) return 'Revisa el correo: no parece válido.';
@@ -132,6 +135,15 @@
   function entrar(correo, codigo) {
     if (!cliente) return sinConexion();
     return cliente.auth.verifyOtp({ email: correo, token: codigo, type: 'email' })
+      .then(comprobar)
+      .then(function (datos) { return actualizarCuenta(datos.session); });
+  }
+
+  // Solo para la cuenta de revisión de Google Play y la App Store (panel.js):
+  // entra con contraseña en lugar de con un código por correo.
+  function entrarConClave(correo, clave) {
+    if (!cliente) return sinConexion();
+    return cliente.auth.signInWithPassword({ email: correo, password: clave })
       .then(comprobar)
       .then(function (datos) { return actualizarCuenta(datos.session); });
   }
@@ -510,8 +522,16 @@
   }
 
   // sus = suscripción del navegador en forma JSON: { endpoint, keys: { p256dh, auth } }
+  // En la app de las tiendas: { endpoint: 'fcm:…' o 'apns:…', keys: { auth } }.
   function apuntarAvisos(sus, grupos) {
     if (!cliente) return sinConexion();
+    if (!/^https:/.test(sus.endpoint)) {
+      return cliente.rpc('avisos_apuntar_nativo', {
+        p_endpoint: sus.endpoint,
+        p_auth: sus.keys.auth,
+        p_grupos: grupos
+      }).then(comprobar);
+    }
     return cliente.rpc('avisos_apuntar', {
       p_endpoint: sus.endpoint,
       p_p256dh: sus.keys.p256dh,
@@ -533,6 +553,7 @@
     refrescarCuenta: refrescarCuenta,
     enviarCodigo: enviarCodigo,
     entrar: entrar,
+    entrarConClave: entrarConClave,
     salir: salir,
     borrarCuenta: borrarCuenta,
     proximasFechas: proximasFechas,

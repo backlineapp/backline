@@ -86,6 +86,16 @@
   var DE_LA_FICHA = { gestionar: true };
 
   var grupos = [];
+
+  // Grupo de prueba para los revisores de Google Play y la App Store: lo
+  // gestiona la cuenta de revisión y nadie más lo ve (no sale en Explorar ni
+  // en el kit). Sus publicaciones solo aparecen a quien lo siga, y no se
+  // puede seguir sin conocer su enlace.
+  var GRUPO_REVISION = {
+    id: 'grupo-de-prueba', nombre: 'Grupo de prueba', estilos: 'Prueba', ciudad: 'España',
+    estado: 'Activo', enlace_principal: '', bandcamp: '', spotify: '', apple_music: '',
+    youtube: '', web: '', discografia: '', portada: '', discos: [], oculto: true
+  };
   var estado = { texto: '', familia: null };
   // Cuántos lanzamientos se ven ahora mismo en Inicio.
   var visiblesInicio = POR_TANDA;
@@ -592,6 +602,7 @@
   function pintarLista() {
     var busqueda = normalizar(estado.texto);
     var visibles = grupos.filter(function (g) {
+      if (g.oculto || Seguidos.oculto(g.id)) return false;
       if (busqueda && g._nombre.indexOf(busqueda) === -1) return false;
       if (estado.familia && g._familias.indexOf(estado.familia) === -1) return false;
       return true;
@@ -649,6 +660,37 @@
     el.contadorMios.hidden = !mios.length;
     el.contadorMios.textContent = mios.length === 1 ? 'Sigues 1 grupo' : 'Sigues ' + mios.length + ' grupos';
     el.listaMios.appendChild(filas(mios));
+    pintarOcultos();
+  }
+
+  // Grupos ocultos, al final de Mis grupos, para poder volver a mostrarlos.
+  function pintarOcultos() {
+    var caja = document.getElementById('ocultos-mis-grupos');
+    if (!caja) {
+      caja = crear('div', 'ocultos');
+      caja.id = 'ocultos-mis-grupos';
+      el.sinGrupos.parentNode.insertBefore(caja, el.sinGrupos.nextSibling);
+    }
+    caja.textContent = '';
+    var ocultos = Seguidos.idsOcultos().map(function (id) {
+      return grupos.filter(function (g) { return g.id === id; })[0];
+    }).filter(Boolean);
+    caja.hidden = !ocultos.length;
+    if (!ocultos.length) return;
+    caja.appendChild(crear('p', 'etiqueta-seccion', 'Grupos ocultos · ' + ocultos.length));
+    var ul = crear('ul', 'ocultos-lista');
+    ocultos.forEach(function (g) {
+      var li = crear('li');
+      var a = crear('a', null, g.nombre);
+      a.href = '#/grupo/' + encodeURIComponent(g.id);
+      li.appendChild(a);
+      var b = crear('button', 'boton-texto', 'Mostrar');
+      b.type = 'button';
+      b.addEventListener('click', function () { Seguidos.mostrar(g.id); pintarMisGrupos(); });
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    caja.appendChild(ul);
   }
 
   // ---------- Pantalla 3: Ficha de grupo ----------
@@ -683,11 +725,25 @@
     datos.appendChild(crear('h1', 'perfil-nombre', grupo.nombre));
     datos.appendChild(crear('p', 'perfil-estilos', grupo.estilos));
     if (grupo.ciudad) datos.appendChild(crear('p', 'perfil-ciudad', grupo.ciudad));
-    // Seguir y, si lo sigo, la campanita para silenciar sus avisos.
-    var botones = crear('div', 'perfil-botones');
-    botones.appendChild(botonSeguir(grupo));
-    botones.appendChild(Avisos.campanita(grupo));
-    datos.appendChild(botones);
+    // Seguir y, si lo sigo, la campanita para silenciar sus avisos. Si lo he
+    // ocultado, en su lugar se explica y se puede volver a mostrar.
+    if (Seguidos.oculto(grupo.id)) {
+      var aviso = crear('div', 'oculto-aviso');
+      aviso.appendChild(crear('p', null, 'Has ocultado este grupo: no aparece en Explorar ni te llegan sus novedades.'));
+      var mostrarDeNuevo = crear('button', 'boton-texto', 'Mostrar de nuevo');
+      mostrarDeNuevo.type = 'button';
+      mostrarDeNuevo.addEventListener('click', function () {
+        Seguidos.mostrar(grupo.id);
+        pintarFicha(grupo);
+      });
+      aviso.appendChild(mostrarDeNuevo);
+      datos.appendChild(aviso);
+    } else {
+      var botones = crear('div', 'perfil-botones');
+      botones.appendChild(botonSeguir(grupo));
+      botones.appendChild(Avisos.campanita(grupo));
+      datos.appendChild(botones);
+    }
     perfil.appendChild(datos);
     f.appendChild(perfil);
 
@@ -746,6 +802,35 @@
     var pie = crear('p', 'reclamar-pie');
     pie.appendChild(reclamar);
     f.appendChild(pie);
+
+    // Ocultar el grupo (bloquear su contenido). Discreto, al final.
+    if (!Seguidos.oculto(grupo.id)) {
+      var ocultar = botonOcultar(grupo, function () {
+        pintarFicha(grupo);
+        window.scrollTo(0, 0);
+      });
+      var pieOcultar = crear('p', 'ocultar-pie');
+      pieOcultar.appendChild(ocultar);
+      f.appendChild(pieOcultar);
+    }
+  }
+
+  // «Ocultar este grupo»: pide confirmación con un segundo toque.
+  function botonOcultar(grupo, despues) {
+    var b = crear('button', 'enlace-ocultar', 'Ocultar este grupo');
+    b.type = 'button';
+    var listo = false;
+    b.addEventListener('click', function () {
+      if (!listo) {
+        listo = true;
+        b.textContent = 'Toca otra vez para ocultar a ' + grupo.nombre;
+        setTimeout(function () { listo = false; b.textContent = 'Ocultar este grupo'; }, 5000);
+        return;
+      }
+      Seguidos.ocultar(grupo.id);
+      if (despues) despues();
+    });
+    return b;
   }
 
   // Discografía de la ficha, separando discos y singles. publicados: los
@@ -1055,7 +1140,8 @@
     grupoPorId: function (id) { return grupos.filter(function (g) { return g.id === id; })[0] || null; },
     todosLosGrupos: function () { return grupos; },
     gruposSeguidos: function () { return grupos.filter(function (g) { return Seguidos.sigo(g.id); }); },
-    actualizarAcceso: function () { actualizarAcceso(); }
+    actualizarAcceso: function () { actualizarAcceso(); },
+    botonOcultar: botonOcultar
   };
   Conciertos.iniciar(piezas);
   Novedades.iniciar(piezas);
@@ -1064,13 +1150,14 @@
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-  fetch('grupos.json')
+  // Dentro de la app de las tiendas se piden a la web publicada (nativa.js).
+  (window.Nativa ? Nativa.datos('grupos.json') : fetch('grupos.json'))
     .then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     })
     .then(function (datos) {
-      grupos = (datos.grupos || [])
+      grupos = (datos.grupos || []).concat([GRUPO_REVISION])
         .map(function (g) {
           g._nombre = normalizar(g.nombre);
           g._familias = familiasDe(g.estilos);
@@ -1094,7 +1181,8 @@
   // Guarda la app en el móvil para que cargue rápido y se pueda instalar.
   // sw.js guarda cada versión entera; cuando hay una nueva completa, la
   // activa de golpe y aquí se recarga la pantalla una sola vez.
-  if ('serviceWorker' in navigator) {
+  // (Dentro de la app de las tiendas no hace falta: ya va todo dentro.)
+  if ('serviceWorker' in navigator && !(window.Nativa && Nativa.es)) {
     var habiaVersion = !!navigator.serviceWorker.controller;
     var recargando = false;
     navigator.serviceWorker.addEventListener('controllerchange', function () {
