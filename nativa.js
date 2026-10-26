@@ -8,6 +8,7 @@
 //     usa la copia que va dentro de la app.
 //   · No se usa el «ayudante» sw.js ni el aviso de «Instalar la app»: la
 //     app ya está instalada.
+//   · En Android, el gesto de «atrás» vuelve a la pantalla anterior.
 //
 // Órdenes que usa el resto de la app:
 //   Nativa.es                -> true dentro de la app de las tiendas
@@ -31,6 +32,20 @@
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r;
     }).catch(function () { return fetch(ruta); });
+  }
+
+  // Gesto (o botón) de «atrás» de Android: vuelve a la pantalla anterior,
+  // como el gesto de deslizar en el iPhone. En la primera pantalla, en vez de
+  // cerrar la app, la manda al fondo (al volver, sigue donde estaba).
+  if (es && plataforma === 'android') {
+    var app = cap.Plugins && cap.Plugins.App;
+    if (app && typeof app.addListener === 'function') {
+      app.addListener('backButton', function (e) {
+        if (e && e.canGoBack) history.back();
+        else if (typeof app.minimizeApp === 'function') app.minimizeApp();
+        else if (typeof app.exitApp === 'function') app.exitApp();
+      });
+    }
   }
 
   window.Nativa = { es: es, plataforma: plataforma, datos: datos, WEB: WEB };
