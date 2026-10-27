@@ -24,6 +24,11 @@
     { nombre: 'Sludge', patron: /sludge/ },
     // "Post-metal" y "post-black" tienen su propia familia; aquí no cuentan.
     { nombre: 'Heavy/Metal', patron: /metal|heavy|djent|black|death|hard rock/, quitar: /post-?(metal|black)/g },
+    { nombre: 'Thrash/Speed', patron: /thrash|speed metal|crossover/, quitar: /crossover prog/g },
+    { nombre: 'Death metal', patron: /death|grind/ },
+    // "Blackgaze" va con Shoegaze y "post-black" con Post-metal.
+    { nombre: 'Black metal', patron: /black/, quitar: /post-?black|blackgaze/g },
+    { nombre: 'Power/Sinfónico', patron: /power metal|metal sinfonico|symphonic metal|metal gotico|gothic metal/ },
     { nombre: 'Post-hardcore / Screamo', patron: /post-?hardcore|screamo/ }
   ];
 
