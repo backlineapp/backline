@@ -1,6 +1,6 @@
 {
- "total": 260,
- "actualizado": "2026-10-27",
+ "total": 265,
+ "actualizado": "2026-10-28",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -14870,6 +14870,280 @@
      "tipo": "disco",
      "enlace": "https://curvaturabanda.bandcamp.com/album/oc-ano-y-desierto",
      "portada": "https://f4.bcbits.com/img/a1063914437_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "etjm",
+   "nombre": "ETJM",
+   "estilos": "Metal progresivo instrumental",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/7cMkTy3iBxeyZyJUJ9YqCi",
+   "apple_music": "https://music.apple.com/es/artist/etjm/1821668039",
+   "youtube": "",
+   "web": "",
+   "discografia": "When Everyone Sleeps (2026), CAT DANCE (2026), Roots (2025), STUFFEDFLOWER (2025), New Point (2025), HOPE (2025)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/e9/4f/2de94f84-ad56-5e40-0c18-69259ba4eaf7/cover.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "When Everyone Sleeps",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/when-everyone-sleeps-ep/1875999194",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/e9/4f/2de94f84-ad56-5e40-0c18-69259ba4eaf7/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "CAT DANCE",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/cat-dance-ep/6795898745",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/70/54/0f/70540fc5-41ea-ed32-761d-9bc7b34a1310/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Roots",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/roots-ep/1855966146",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/25/db/9f/25db9ffe-4430-5764-a33d-f1844ffe25aa/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "STUFFEDFLOWER",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/stuffedflower-single/1842900929",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/42/a5/fc/42a5fc66-d5ef-a30b-45ab-1f14d333f0c7/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "New Point",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/new-point-single/1820207087",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d8/df/a1/d8dfa198-11cc-816f-50ed-cc03466c8e56/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "HOPE",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/hope-single/1828773325",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/98/7a/3a/987a3a67-cef3-0f5f-7de0-10a35e26bb68/cover.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "against-myself",
+   "nombre": "Against Myself",
+   "estilos": "Metal progresivo / Metal sinfónico",
+   "ciudad": "Argamasilla de Alba (Ciudad Real)",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/2yoaZdFiI362NRtFPF3YTN",
+   "apple_music": "https://music.apple.com/es/artist/against-myself/441962638",
+   "youtube": "",
+   "web": "",
+   "discografia": "Act II - Reflections (feat. Saurom) (2025), Tides of Insanity (2023), Providence (2023), Sweet Chants of Death (2023), Beyond the Deep (2022), The Phantom of the Opera (feat. Unai Iglesias Lecuona) (2022), The Tempest (2020), Unity (2019), The Hidden Truth (feat. Diego Teksuo) (2016), Odyssey to Reflexion (2015), Sky Ashes (2011)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a6/be/76/a6be7611-abe5-f41b-22dd-fff7354e09d7/199806126288.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "Act II - Reflections (feat. Saurom)",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/act-ii-reflections-feat-saurom-single/1846352717",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a6/be/76/a6be7611-abe5-f41b-22dd-fff7354e09d7/199806126288.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Tides of Insanity",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/tides-of-insanity/1682071005",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/69/18/91/69189195-0798-2ebd-ce17-4054ea45cb9c/8445162881708.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Providence",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/providence-single/1672751706",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/33/49/b8/3349b830-60ac-7b30-6b9c-116c2e4214cd/8445162844871.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Sweet Chants of Death",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/sweet-chants-of-death-single/1663050665",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/23/72/be/2372be9e-9c3d-a051-2204-24e2f6adff36/8445162813785.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Beyond the Deep",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/beyond-the-deep-single/1654515064",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/98/86/dc/9886dc79-8f5d-bc35-76fe-daa31e544edb/8445162781831.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "The Phantom of the Opera (feat. Unai Iglesias Lecuona)",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/the-phantom-of-the-opera-feat-unai-iglesias-lecuona-single/1601301978",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/6a/81/d7/6a81d75c-621a-851c-a92a-ff843f6a57fe/8445162575874.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "The Tempest",
+     "anio": "2020",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/the-tempest-single/1510471067",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/cd/e5/09/cde50970-bb8d-bf39-7f78-dff2360e2b33/8445162092685.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Unity",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/unity/1449332133",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/cc/a7/68/cca76806-fce3-1086-96f3-2208ed465b37/8429006341665.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "The Hidden Truth (feat. Diego Teksuo)",
+     "anio": "2016",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/the-hidden-truth-feat-diego-teksuo-single/1152923689",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music71/v4/25/d4/7f/25d47fdf-8735-f192-4413-ce5ab957794a/8436022729223.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Odyssey to Reflexion",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/odyssey-to-reflexion/943085632",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music5/v4/a7/2e/2d/a72e2dd5-583c-6001-ec5a-1c254dbaaa0c/8436022726185.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Sky Ashes",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/sky-ashes/594844109",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/55/b1/7f/55b17fc3-eb2d-f31c-fa03-3d10be9740ce/8436022724679.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "lampr3a",
+   "nombre": "LAMPR3A",
+   "estilos": "Metal progresivo técnico instrumental",
+   "ciudad": "País Vasco",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/3jIBGr0NVe9cmBRI09itgn",
+   "apple_music": "https://music.apple.com/es/artist/lampr3a/1257932415",
+   "youtube": "",
+   "web": "",
+   "discografia": "ESnSE (2023), The AGR Sessions (En Vivo) (2023), KOE (2023), EVØKE (2023), MAGLA (2023), 22:22 (2022), Neurocoalescence (2017)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/9b/ae/ce/9baece2e-9688-0a21-5cf8-3b8f8aa2015a/cover.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "ESnSE",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/esnse/1707675736",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/9b/ae/ce/9baece2e-9688-0a21-5cf8-3b8f8aa2015a/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "The AGR Sessions (En Vivo)",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/the-agr-sessions-en-vivo-single/1707582126",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/73/69/de/7369de17-5e2c-b273-2664-5e628a730f55/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "KOE",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/koe-single/1707582401",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a1/e3/51/a1e351cb-9e9f-6832-30df-9722a2c3e8a2/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "EVØKE",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/ev%C3%B8ke-single/1707577653",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/24/b5/19/24b5196b-cc53-b391-1e11-33ad0add99d9/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "MAGLA",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/magla-single/1707673848",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/87/93/72/87937201-5f5e-1c0f-9481-81d74ea91378/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "22:22",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/22-22-single/1611111046",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/98/3e/dc/983edc9f-a359-b0dc-21be-a46ca0994d1b/859753660555_cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Neurocoalescence",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/neurocoalescence-ep/1257932170",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/49/ad/2e/49ad2e18-a7d7-cf9e-0962-64dc4ad76183/859721894470_cover.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "manners",
+   "nombre": "Manners",
+   "estilos": "Rock progresivo",
+   "ciudad": "Menorca",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/3FWCrjkkJC7Bb7kPOKAIHE",
+   "apple_music": "https://music.apple.com/es/artist/manners/1711381292",
+   "youtube": "",
+   "web": "",
+   "discografia": "Punctum (2023), A Winter Song (Short Version) (2023)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a6/52/64/a652640d-4da4-5c4d-4cd9-053e24b598c0/197190510188.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "Punctum",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/punctum/1718602629",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a6/52/64/a652640d-4da4-5c4d-4cd9-053e24b598c0/197190510188.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "A Winter Song (Short Version)",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/a-winter-song-short-version-single/1711073955",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/82/9b/ec/829bec05-4fcf-4818-7d50-75749be72f83/197190149722.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "atroz",
+   "nombre": "Atroz",
+   "estilos": "Space rock / Rock progresivo / Psicodelia",
+   "ciudad": "Zaragoza",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://atroz.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Atroz (2021)",
+   "portada": "https://f4.bcbits.com/img/a3141989432_16.jpg",
+   "discos": [
+    {
+     "titulo": "Atroz",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://atroz.bandcamp.com/album/atroz",
+     "portada": "https://f4.bcbits.com/img/a3141989432_16.jpg"
     }
    ]
   }
