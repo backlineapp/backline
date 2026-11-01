@@ -1,6 +1,6 @@
 {
- "total": 265,
- "actualizado": "2026-10-28",
+ "total": 269,
+ "actualizado": "2026-11-01",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -15144,6 +15144,144 @@
      "tipo": "disco",
      "enlace": "https://atroz.bandcamp.com/album/atroz",
      "portada": "https://f4.bcbits.com/img/a3141989432_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "twin-forest",
+   "nombre": "Twin Forest",
+   "estilos": "Rock alternativo / Post-hardcore",
+   "ciudad": "Valencia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://twinforest.bandcamp.com",
+   "spotify": "",
+   "apple_music": "https://music.apple.com/es/artist/twin-forest/1491413690",
+   "youtube": "",
+   "web": "",
+   "discografia": "Balance In Defeat (2023), Silhouettes (Edit) (2023), A Distant Home (2021), Concept (2019)",
+   "portada": "https://f4.bcbits.com/img/a2138920368_16.jpg",
+   "discos": [
+    {
+     "titulo": "Balance In Defeat",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://twinforest.bandcamp.com/album/balance-in-defeat",
+     "portada": "https://f4.bcbits.com/img/a2138920368_16.jpg"
+    },
+    {
+     "titulo": "Silhouettes (Edit)",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://twinforest.bandcamp.com/track/silhouettes-edit",
+     "portada": "https://f4.bcbits.com/img/a2176348828_16.jpg"
+    },
+    {
+     "titulo": "A Distant Home",
+     "anio": "2021",
+     "tipo": "single",
+     "enlace": "https://twinforest.bandcamp.com/track/a-distant-home",
+     "portada": "https://f4.bcbits.com/img/a3072683774_16.jpg"
+    },
+    {
+     "titulo": "Concept",
+     "anio": "2019",
+     "tipo": "single",
+     "enlace": "https://twinforest.bandcamp.com/track/concept",
+     "portada": "https://f4.bcbits.com/img/a0517024373_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "cadaver-de-cabra",
+   "nombre": "Cadáver de Cabra",
+   "estilos": "Sludge / Stoner doom",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://nooirax.bandcamp.com/album/cadaver-de-cabra",
+   "spotify": "",
+   "apple_music": "https://music.apple.com/es/artist/cadaver-de-cabra/6774271166",
+   "youtube": "",
+   "web": "",
+   "discografia": "Cadáver de Cabra (2026)",
+   "portada": "https://f4.bcbits.com/img/a0128952731_16.jpg",
+   "discos": [
+    {
+     "titulo": "Cadáver de Cabra",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://nooirax.bandcamp.com/album/cadaver-de-cabra",
+     "portada": "https://f4.bcbits.com/img/a0128952731_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "myseria",
+   "nombre": "Myseria",
+   "estilos": "Metal moderno",
+   "ciudad": "España",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/3CSS0n5vO8tQvZB4hrtfQF",
+   "apple_music": "https://music.apple.com/es/artist/myseria/1839487918",
+   "youtube": "https://www.youtube.com/@somosmyseria",
+   "web": "",
+   "discografia": "Todas Las Bestias (2025), La Plata (2025), Serpientes (2025), Fantasmas (2025)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/25/49/ee254935-0d2d-8403-7625-a29ec2e5d905/199806293324.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "Todas Las Bestias",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/todas-las-bestias/1848967479",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/25/49/ee254935-0d2d-8403-7625-a29ec2e5d905/199806293324.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "La Plata",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/la-plata-single/1848965276",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/c3/f7/7fc3f747-e0b7-ff2b-9747-104d4a67c0a0/199806196908.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Serpientes",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/serpientes-single/1848165619",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/75/40/8f/75408ff5-096e-8863-050b-f629736ff5cc/199806289044.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Fantasmas",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/fantasmas-single/1848164990",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c2/06/66/c20666af-3264-32cb-fcc4-34448b85823e/199806230763.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "lina-morgan-freeman",
+   "nombre": "Lina Morgan Freeman",
+   "estilos": "Metal moderno / Metal melódico",
+   "ciudad": "España",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/42ZfJWxGs9sqRl0S629S8M",
+   "apple_music": "https://music.apple.com/es/artist/lina-morgan-freeman/1843920650",
+   "youtube": "https://www.youtube.com/@linamorganfreemanband",
+   "web": "https://linamorganfreeman.com",
+   "discografia": "Luz (2026)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/eb/67/e1/eb67e12a-f76d-c32f-3982-fad31d6b7121/artwork.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "Luz",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/luz/1847010765",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/eb/67/e1/eb67e12a-f76d-c32f-3982-fad31d6b7121/artwork.jpg/600x600bb.jpg"
     }
    ]
   }
