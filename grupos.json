@@ -1,5 +1,5 @@
 {
- "total": 286,
+ "total": 287,
  "actualizado": "2026-11-01",
  "grupos": [
   {
@@ -16033,6 +16033,30 @@
      "tipo": "disco",
      "enlace": "https://projecteastrolabi.bandcamp.com/album/projecte-astrolabi",
      "portada": "https://f4.bcbits.com/img/a0508455460_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "chloride-falls",
+   "nombre": "Chloride Falls",
+   "estilos": "Rock progresivo / Post-rock / Experimental",
+   "ciudad": "España",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://chloridefalls.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1kUsJiFr0Ox7bOjsPnv4DX",
+   "apple_music": "https://music.apple.com/es/artist/chloride-falls/1852301565",
+   "youtube": "",
+   "web": "",
+   "discografia": "On the Evening of the Soul (2026)",
+   "portada": "https://f4.bcbits.com/img/a1427627129_16.jpg",
+   "discos": [
+    {
+     "titulo": "On the Evening of the Soul",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://chloridefalls.bandcamp.com/album/on-the-evening-of-the-soul",
+     "portada": "https://f4.bcbits.com/img/a1427627129_16.jpg"
     }
    ]
   }
