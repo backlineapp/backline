@@ -1,5 +1,5 @@
 {
- "total": 279,
+ "total": 285,
  "actualizado": "2026-11-01",
  "grupos": [
   {
@@ -15739,6 +15739,255 @@
      "tipo": "single",
      "enlace": "https://blackverraco.bandcamp.com/track/totomo",
      "portada": "https://f4.bcbits.com/img/a4253314727_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "mordida",
+   "nombre": "Mordida",
+   "estilos": "Post-rock / Metal industrial / Ambient",
+   "ciudad": "Sevilla",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://mordida.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Opio (2025), [DDNS16] Junky's Box (Debaga) (2019), The Wind Ashes (2017), END OF INFINITY - Into the Sun (2014), END OF INFINITY vol.II (2013), END OF INFINITY vol.I (2012)",
+   "portada": "https://f4.bcbits.com/img/a3316621474_16.jpg",
+   "discos": [
+    {
+     "titulo": "Opio",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/opio",
+     "portada": "https://f4.bcbits.com/img/a3316621474_16.jpg"
+    },
+    {
+     "titulo": "[DDNS16] Junky's Box (Debaga)",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/ddns16-junkys-box-debaga",
+     "portada": "https://f4.bcbits.com/img/a0360386106_16.jpg"
+    },
+    {
+     "titulo": "The Wind Ashes",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/the-wind-ashes",
+     "portada": "https://f4.bcbits.com/img/a0670168220_16.jpg"
+    },
+    {
+     "titulo": "END OF INFINITY - Into the Sun",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/end-of-infinity-into-the-sun",
+     "portada": "https://f4.bcbits.com/img/a1898695455_16.jpg"
+    },
+    {
+     "titulo": "END OF INFINITY vol.II",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/end-of-infinity-vol-ii",
+     "portada": "https://f4.bcbits.com/img/a2721290795_16.jpg"
+    },
+    {
+     "titulo": "END OF INFINITY vol.I",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/end-of-infinity-vol-i",
+     "portada": "https://f4.bcbits.com/img/a0523299600_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "korasek",
+   "nombre": "Korasek",
+   "estilos": "Post-rock / Screamo / Crust",
+   "ciudad": "Segovia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://korasek.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Białowieża (2024)",
+   "portada": "https://f4.bcbits.com/img/a3517400699_16.jpg",
+   "discos": [
+    {
+     "titulo": "Białowieża",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://korasek.bandcamp.com/album/bia-owie-a",
+     "portada": "https://f4.bcbits.com/img/a3517400699_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "meltem",
+   "nombre": "Meltem",
+   "estilos": "Doom psicodélico / Heavy psych",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://meltemband.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Mare Nostrum (2024), demo (2022)",
+   "portada": "https://f4.bcbits.com/img/a3283068589_16.jpg",
+   "discos": [
+    {
+     "titulo": "Mare Nostrum",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://meltemband.bandcamp.com/album/mare-nostrum",
+     "portada": "https://f4.bcbits.com/img/a3283068589_16.jpg"
+    },
+    {
+     "titulo": "demo",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://meltemband.bandcamp.com/album/demo",
+     "portada": "https://f4.bcbits.com/img/a0935382799_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "rheia-gorecki",
+   "nombre": "Rheia Gorecki",
+   "estilos": "Post-rock / Post-metal / Shoegaze",
+   "ciudad": "Santiago de Compostela",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://rheiagorecki.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "MONOCHROME (2024), VVV (2021)",
+   "portada": "https://f4.bcbits.com/img/a2702616473_16.jpg",
+   "discos": [
+    {
+     "titulo": "MONOCHROME",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://rheiagorecki.bandcamp.com/album/monochrome",
+     "portada": "https://f4.bcbits.com/img/a2702616473_16.jpg"
+    },
+    {
+     "titulo": "VVV",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://rheiagorecki.bandcamp.com/album/vvv",
+     "portada": "https://f4.bcbits.com/img/a3110636644_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "terrestre",
+   "nombre": "Terrestre",
+   "estilos": "Post-metal / Post-rock instrumental",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://terrestre-terrestre.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Maere (2024), Montuhotep (2018), Terrestre (2014)",
+   "portada": "https://f4.bcbits.com/img/a3155015212_16.jpg",
+   "discos": [
+    {
+     "titulo": "Maere",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://terrestre-terrestre.bandcamp.com/album/maere",
+     "portada": "https://f4.bcbits.com/img/a3155015212_16.jpg"
+    },
+    {
+     "titulo": "Montuhotep",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://terrestre-terrestre.bandcamp.com/album/montuhotep",
+     "portada": "https://f4.bcbits.com/img/a3602920537_16.jpg"
+    },
+    {
+     "titulo": "Terrestre",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://terrestre-terrestre.bandcamp.com/album/terrestre",
+     "portada": "https://f4.bcbits.com/img/a2409805119_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "the-mothercrow",
+   "nombre": "The Mothercrow",
+   "estilos": "Heavy psych / Hard rock / Blues rock",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://themothercrow.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Foráneo (2024), Howling (2024), Magara (2019), Revolution (2019), On The Road (2017), The Mothercrow (2016), Hard Attack (2016)",
+   "portada": "https://f4.bcbits.com/img/a1973191188_16.jpg",
+   "discos": [
+    {
+     "titulo": "Foráneo",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/for-neo",
+     "portada": "https://f4.bcbits.com/img/a1973191188_16.jpg"
+    },
+    {
+     "titulo": "Howling",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://themothercrow.bandcamp.com/track/howling",
+     "portada": "https://f4.bcbits.com/img/a2705627085_16.jpg"
+    },
+    {
+     "titulo": "Magara",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/magara",
+     "portada": "https://f4.bcbits.com/img/a2397005812_16.jpg"
+    },
+    {
+     "titulo": "Revolution",
+     "anio": "2019",
+     "tipo": "single",
+     "enlace": "https://themothercrow.bandcamp.com/track/revolution",
+     "portada": "https://f4.bcbits.com/img/a2407402281_16.jpg"
+    },
+    {
+     "titulo": "On The Road",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/on-the-road",
+     "portada": "https://f4.bcbits.com/img/a1900936582_16.jpg"
+    },
+    {
+     "titulo": "The Mothercrow",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/the-mothercrow",
+     "portada": "https://f4.bcbits.com/img/a1301121762_16.jpg"
+    },
+    {
+     "titulo": "Hard Attack",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/hard-attack",
+     "portada": "https://f4.bcbits.com/img/a3178503155_16.jpg"
     }
    ]
   }
