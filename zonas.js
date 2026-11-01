@@ -141,5 +141,94 @@
     return Object.keys(PROVINCIAS).filter(function (p) { return PROVINCIAS[p] === comunidad; });
   }
 
-  window.Zonas = { zonaDe: zonaDe, provinciasDe: provinciasDe, normalizar: normalizar };
+  // Todas las comunidades, por orden alfabético.
+  function comunidades() {
+    var vistas = {};
+    Object.keys(PROVINCIAS).forEach(function (p) { vistas[PROVINCIAS[p]] = true; });
+    return Object.keys(vistas).sort(function (a, b) { return a.localeCompare(b, 'es'); });
+  }
+
+  // Zona de un concierto por su provincia (la lista de conciertos.js dice
+  // "Baleares" donde aquí pone "Illes Balears"). null si es de fuera de España.
+  function zonaDeProvincia(provincia) {
+    if (!provincia) return null;
+    var n = normalizar(provincia);
+    var p = NOMBRES[n] || CIUDADES[n];
+    return p ? deProvincia(p) : null;
+  }
+
+  // ¿Está esa zona dentro del filtro? filtro: '' (todo), 'c:Comunidad' o 'p:Provincia'.
+  function dentro(zona, filtro) {
+    if (!filtro) return true;
+    if (!zona) return false;
+    return filtro.slice(0, 2) === 'p:' ? zona.provincia === filtro.slice(2) : zona.comunidad === filtro.slice(2);
+  }
+
+  // Botón de zona como el de Explorar: icono, texto y flecha, con el selector
+  // del móvil invisible encima. opciones(select) rellena el selector.
+  // Devuelve { nodo, select, marcar(valor) }.
+  var ICONO_ZONA = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">' +
+    '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>' +
+    '<circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>';
+  var ICONO_FLECHA = '<svg class="zona-flecha" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">' +
+    '<path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function crearBoton(etiqueta, textoTodo, alCambiar) {
+    var nodo = document.createElement('label');
+    nodo.className = 'zona-boton';
+    nodo.insertAdjacentHTML('beforeend', ICONO_ZONA);
+    var texto = document.createElement('span');
+    texto.className = 'zona-texto';
+    nodo.appendChild(texto);
+    nodo.insertAdjacentHTML('beforeend', ICONO_FLECHA);
+    var select = document.createElement('select');
+    select.setAttribute('aria-label', etiqueta);
+    nodo.appendChild(select);
+    function marcar(valor) {
+      select.value = valor;
+      texto.textContent = valor ? valor.slice(2) : textoTodo;
+      nodo.classList.toggle('activa', !!valor);
+    }
+    select.addEventListener('change', function () {
+      marcar(select.value);
+      alCambiar(select.value);
+    });
+    return { nodo: nodo, select: select, marcar: marcar };
+  }
+
+  // Opciones con todas las comunidades y provincias de España (sin números),
+  // para elegir zona aunque todavía no haya nada en ella.
+  function opcionesTodas(select, textoTodo) {
+    var opcion = function (valor, texto) {
+      var o = document.createElement('option');
+      o.value = valor;
+      o.textContent = texto;
+      return o;
+    };
+    select.textContent = '';
+    select.appendChild(opcion('', textoTodo));
+    comunidades().forEach(function (c) {
+      var provincias = provinciasDe(c).sort(function (a, b) { return a.localeCompare(b, 'es'); });
+      if (provincias.length < 2) {
+        select.appendChild(opcion('c:' + c, c));
+        return;
+      }
+      var grupo = document.createElement('optgroup');
+      grupo.label = c;
+      grupo.appendChild(opcion('c:' + c, 'Toda ' + c));
+      provincias.forEach(function (p) { grupo.appendChild(opcion('p:' + p, p)); });
+      select.appendChild(grupo);
+    });
+  }
+
+  window.Zonas = {
+    zonaDe: zonaDe,
+    zonaDeProvincia: zonaDeProvincia,
+    dentro: dentro,
+    provinciasDe: provinciasDe,
+    comunidades: comunidades,
+    crearBoton: crearBoton,
+    opcionesTodas: opcionesTodas,
+    normalizar: normalizar
+  };
 })();

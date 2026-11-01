@@ -64,6 +64,12 @@
     { nombre: 'VK', patron: /(^|\.)vk\.com$/ }
   ];
 
+  // Dirección pública de la app: la que se comparte (también desde la app de las tiendas).
+  var DIRECCION = 'https://backlineapp.github.io/backline/';
+
+  // Con cuántos grupos seguidos aparece el buscador de Mis grupos.
+  var BUSCADOR_MIOS_DESDE = 8;
+
   // Lanzamientos que muestra Inicio de una vez; "Ver más" añade otros tantos.
   var POR_TANDA = 30;
 
@@ -154,6 +160,8 @@
     zonaTexto: document.getElementById('zona-texto'),
     lista: document.getElementById('lista'),
     contadorMios: document.getElementById('contador-mis-grupos'),
+    buscadorMios: document.getElementById('buscador-mis-grupos'),
+    cajaBuscadorMios: document.getElementById('caja-buscador-mis-grupos'),
     listaMios: document.getElementById('lista-mis-grupos'),
     sinGrupos: document.getElementById('sin-grupos'),
     avisosMios: document.getElementById('avisos-mis-grupos'),
@@ -338,6 +346,59 @@
   // Portada de un lanzamiento, en tamaño mediano para las cuadrículas.
   function portadaLanzamiento(d) {
     return imagen(d.portada, { clase: 'portada', mediana: true, perezosa: true, alternativa: nota });
+  }
+
+  // ---------- Compartir ----------
+
+  // Abre el menú de compartir del móvil (WhatsApp, Telegram...). Si el
+  // navegador no lo tiene, copia el enlace y lo dice abajo.
+  function compartir(titulo, texto, ruta) {
+    var url = DIRECCION + ruta;
+    if (navigator.share) {
+      navigator.share({ title: titulo, text: texto, url: url }).catch(function () { /* cancelado: nada */ });
+      return;
+    }
+    copiar(url).then(function () {
+      Avisos.breve('Enlace copiado. Ya puedes pegarlo donde quieras.');
+    }, function () {
+      Avisos.breve('No se ha podido copiar el enlace: ' + url);
+    });
+  }
+
+  function copiar(texto) {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(texto);
+    return new Promise(function (resolver, fallar) {
+      var area = document.createElement('textarea');
+      area.value = texto;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      document.body.appendChild(area);
+      area.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      area.remove();
+      if (ok) resolver(); else fallar();
+    });
+  }
+
+  var ICONO_COMPARTIR = '<svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">' +
+    '<path d="M12 3v12M7.5 7.5L12 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<path d="M5 12v6.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  // Botón cuadrado con el icono de compartir, junto a Seguir y la campanita.
+  function botonCompartir(grupo) {
+    var b = crear('button', 'campanita compartir');
+    b.type = 'button';
+    b.innerHTML = ICONO_COMPARTIR;
+    b.setAttribute('aria-label', 'Compartir la ficha de ' + grupo.nombre);
+    b.title = 'Compartir';
+    b.addEventListener('click', function () {
+      compartir(grupo.nombre + ' · Backline',
+        grupo.nombre + (grupo.estilos ? ' (' + grupo.estilos + ')' : '') + ' en Backline, el backstage de tus grupos favoritos.',
+        '#/grupo/' + encodeURIComponent(grupo.id));
+    });
+    return b;
   }
 
   // Enlace que abre fuera de la app, en una pestaña nueva.
@@ -738,15 +799,33 @@
 
   // Mismo orden alfabético que Explorar. Si un grupo seguido ya no está en
   // grupos.json, no se muestra, pero sigue guardado.
+  // Con muchos grupos seguidos aparece un buscador por nombre.
+  var textoMios = '';
+
   function pintarMisGrupos() {
-    var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
     actualizarAcceso();
     Avisos.pintar(el.avisosMios);
+    pintarListaMios();
+  }
+
+  function pintarListaMios() {
+    var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
+    var conBuscador = mios.length >= BUSCADOR_MIOS_DESDE;
+    if (!conBuscador && textoMios) { textoMios = ''; el.buscadorMios.value = ''; }
+    el.cajaBuscadorMios.hidden = !conBuscador;
+    var busqueda = normalizar(textoMios);
+    var visibles = busqueda ? mios.filter(function (g) { return g._nombre.indexOf(busqueda) !== -1; }) : mios;
     el.listaMios.textContent = '';
     el.sinGrupos.hidden = mios.length > 0;
     el.contadorMios.hidden = !mios.length;
-    el.contadorMios.textContent = mios.length === 1 ? 'Sigues 1 grupo' : 'Sigues ' + mios.length + ' grupos';
-    el.listaMios.appendChild(filas(mios));
+    el.contadorMios.textContent = busqueda
+      ? visibles.length + ' de ' + mios.length + ' grupos'
+      : mios.length === 1 ? 'Sigues 1 grupo' : 'Sigues ' + mios.length + ' grupos';
+    if (busqueda && !visibles.length) {
+      el.listaMios.appendChild(crear('li', 'vacio', 'Ninguno de tus grupos se llama así.'));
+      return;
+    }
+    el.listaMios.appendChild(filas(visibles));
   }
 
   // ---------- Pantalla 3: Ficha de grupo ----------
@@ -785,6 +864,7 @@
     var botones = crear('div', 'perfil-botones');
     botones.appendChild(botonSeguir(grupo));
     botones.appendChild(Avisos.campanita(grupo));
+    botones.appendChild(botonCompartir(grupo));
     datos.appendChild(botones);
     perfil.appendChild(datos);
     f.appendChild(perfil);
@@ -1143,6 +1223,11 @@
     pintarLista();
   });
 
+  el.buscadorMios.addEventListener('input', function () {
+    textoMios = el.buscadorMios.value;
+    pintarListaMios();
+  });
+
   el.zona.addEventListener('change', function () {
     cambiarZona(el.zona.value);
     pintarLista();
@@ -1160,6 +1245,7 @@
     grupoPorId: function (id) { return grupos.filter(function (g) { return g.id === id; })[0] || null; },
     todosLosGrupos: function () { return grupos; },
     gruposSeguidos: function () { return grupos.filter(function (g) { return Seguidos.sigo(g.id); }); },
+    compartir: compartir,
     actualizarAcceso: function () { actualizarAcceso(); }
   };
   Conciertos.iniciar(piezas);

@@ -337,7 +337,24 @@ button { font-family: inherit; }
   border-radius: 8px;
   cursor: pointer;
 }
-.zona-boton #zona-texto { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.zona-boton #zona-texto,
+.zona-boton .zona-texto { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Conciertos: de qué grupos (botones) y zona, en una fila que baja si no cabe */
+.controles-conciertos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between; /* si la zona baja de línea, se queda a la izquierda */
+  gap: 8px;
+}
+.controles-conciertos .filtros-conciertos { margin: 0; padding: 0; overflow: visible; }
+.controles-conciertos .zona-boton { max-width: 100%; }
+.sin-grupos .boton-texto { display: inline-block; margin-top: 10px; }
+
+/* Buscador de Mis grupos (con muchos grupos seguidos) */
+.buscador-mios { margin-bottom: 2px; }
+.buscador-mios[hidden] { display: none; }
 .zona-boton svg { flex: none; }
 .zona-boton .zona-flecha { opacity: 0.8; }
 .zona-boton.activa {
@@ -748,7 +765,8 @@ a.lanzamiento-portada:active .portada { border-color: var(--acento); }
 }
 .concierto-gira { color: var(--apagado); font-style: italic; }
 .ficha-conciertos .lista { margin-bottom: 4px; }
-#lista-conciertos .etiqueta-seccion:first-child { margin-top: 0; }
+#lista-conciertos .conciertos-lista > .etiqueta-seccion:first-child { margin-top: 18px; }
+#lista-conciertos .conciertos-lista > .sin-grupos, #lista-conciertos .conciertos-lista > .vacio { margin-top: 16px; }
 
 /* Pantalla de un concierto: el cartel manda */
 .cartel-grande {
@@ -1076,6 +1094,13 @@ button[disabled] { opacity: 0.55; cursor: default; }
 .avisos-caja .boton-texto { margin-top: 6px; }
 .avisos-mensaje { margin: 10px 0 0; font-size: 13px; color: var(--cian); }
 .avisos-mensaje.error { color: #F0A291; }
+/* El recuadro se pliega tocando el título (details/summary) */
+.avisos-caja > summary { list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.avisos-caja > summary::-webkit-details-marker { display: none; }
+.avisos-flecha { flex: none; margin-left: auto; color: var(--apagado); transition: transform .2s ease; }
+.avisos-caja:not([open]) { padding-top: 12px; padding-bottom: 12px; }
+.avisos-caja:not([open]) .avisos-flecha { transform: rotate(-90deg); }
+.avisos-caja:not([open]) .avisos-titulo { font-size: 14.5px; }
 
 /* Seguir + campanita en la ficha */
 .perfil-botones { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
