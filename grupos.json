@@ -1,5 +1,5 @@
 {
- "total": 273,
+ "total": 279,
  "actualizado": "2026-11-01",
  "grupos": [
   {
@@ -15469,6 +15469,276 @@
      "tipo": "disco",
      "enlace": "https://rojo5oficial.bandcamp.com/album/cr-ptico",
      "portada": "https://f4.bcbits.com/img/a2550379961_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "bones-of-minerva",
+   "nombre": "Bones of Minerva",
+   "estilos": "Metal alternativo / Prog / Doom",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://bonesofminerva.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "https://bonesofminerva.com",
+   "discografia": "Sky (2023), EMBERS (2022), Privilege (2018), Blue Mountains (2017)",
+   "portada": "https://f4.bcbits.com/img/a1980057706_16.jpg",
+   "discos": [
+    {
+     "titulo": "Sky",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://bonesofminerva.bandcamp.com/track/sky-4",
+     "portada": "https://f4.bcbits.com/img/a1980057706_16.jpg"
+    },
+    {
+     "titulo": "EMBERS",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://bonesofminerva.bandcamp.com/album/embers",
+     "portada": "https://f4.bcbits.com/img/a4142968120_16.jpg"
+    },
+    {
+     "titulo": "Privilege",
+     "anio": "2018",
+     "tipo": "single",
+     "enlace": "https://bonesofminerva.bandcamp.com/track/privilege",
+     "portada": "https://f4.bcbits.com/img/a3781341902_16.jpg"
+    },
+    {
+     "titulo": "Blue Mountains",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://bonesofminerva.bandcamp.com/album/blue-mountains",
+     "portada": "https://f4.bcbits.com/img/a3175216938_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "caballo-muerte",
+   "nombre": "Caballo Muerte",
+   "estilos": "Noise rock / Post-punk / Post-rock",
+   "ciudad": "Vitoria-Gasteiz",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://caballomuerte.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "CABALLO MUERTE (2025), LAS FLORES (2025), GARDENIA (2025)",
+   "portada": "https://f4.bcbits.com/img/a2535043843_16.jpg",
+   "discos": [
+    {
+     "titulo": "CABALLO MUERTE",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://caballomuerte.bandcamp.com/album/caballo-muerte-2",
+     "portada": "https://f4.bcbits.com/img/a2535043843_16.jpg"
+    },
+    {
+     "titulo": "LAS FLORES",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://caballomuerte.bandcamp.com/album/las-flores",
+     "portada": "https://f4.bcbits.com/img/a3859651775_16.jpg"
+    },
+    {
+     "titulo": "GARDENIA",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://caballomuerte.bandcamp.com/album/gardenia",
+     "portada": "https://f4.bcbits.com/img/a4140582271_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "linalab",
+   "nombre": "Linalab",
+   "estilos": "Post-rock / Electrónica experimental",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://linalab.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Objects in mirror are closer than they appear (2023), Ivy King (2023), Desire Paths (2021), Still Alive (2018), Doom (2015), Eclíptica (2011)",
+   "portada": "https://f4.bcbits.com/img/a2287103045_16.jpg",
+   "discos": [
+    {
+     "titulo": "Objects in mirror are closer than they appear",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/objects-in-mirror-are-closer-than-they-appear",
+     "portada": "https://f4.bcbits.com/img/a2287103045_16.jpg"
+    },
+    {
+     "titulo": "Ivy King",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://linalab.bandcamp.com/track/ivy-king-2",
+     "portada": "https://f4.bcbits.com/img/a1921378788_16.jpg"
+    },
+    {
+     "titulo": "Desire Paths",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/desire-paths",
+     "portada": "https://f4.bcbits.com/img/a3203517246_16.jpg"
+    },
+    {
+     "titulo": "Still Alive",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/still-alive",
+     "portada": "https://f4.bcbits.com/img/a1675696666_16.jpg"
+    },
+    {
+     "titulo": "Doom",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/doom",
+     "portada": "https://f4.bcbits.com/img/a3273846048_16.jpg"
+    },
+    {
+     "titulo": "Eclíptica",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/ecl-ptica",
+     "portada": "https://f4.bcbits.com/img/a0111100448_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "palmeras-negras",
+   "nombre": "Palmeras Negras",
+   "estilos": "Post-rock / Slowcore / Doomgaze",
+   "ciudad": "Almería",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://palmerasnegras.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "s/t (2024)",
+   "portada": "https://f4.bcbits.com/img/a3678823996_16.jpg",
+   "discos": [
+    {
+     "titulo": "s/t",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://palmerasnegras.bandcamp.com/album/s-t",
+     "portada": "https://f4.bcbits.com/img/a3678823996_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "the-last-3-lines",
+   "nombre": "The Last 3 Lines",
+   "estilos": "Rock psicodélico / Folk",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://thelast3lines.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Portals (2017), New songs for old rites (2013), Leafless (2013), Visions from Oniria (2012), Crows (2009), You Are a Deep Forest (2008)",
+   "portada": "https://f4.bcbits.com/img/a1786154612_16.jpg",
+   "discos": [
+    {
+     "titulo": "Portals",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/portals",
+     "portada": "https://f4.bcbits.com/img/a1786154612_16.jpg"
+    },
+    {
+     "titulo": "New songs for old rites",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/new-songs-for-old-rites",
+     "portada": "https://f4.bcbits.com/img/a0808408679_16.jpg"
+    },
+    {
+     "titulo": "Leafless",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/leafless",
+     "portada": "https://f4.bcbits.com/img/a3906401513_16.jpg"
+    },
+    {
+     "titulo": "Visions from Oniria",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/visions-from-oniria",
+     "portada": "https://f4.bcbits.com/img/a2020224425_16.jpg"
+    },
+    {
+     "titulo": "Crows",
+     "anio": "2009",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/crows-2",
+     "portada": "https://f4.bcbits.com/img/a3107122400_16.jpg"
+    },
+    {
+     "titulo": "You Are a Deep Forest",
+     "anio": "2008",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/you-are-a-deep-forest",
+     "portada": "https://f4.bcbits.com/img/a1940006879_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "black-verraco",
+   "nombre": "Black Verraco",
+   "estilos": "Doom / Sludge / Stoner",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://blackverraco.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "SED DE MAL (2025), RITUALES (2024), SUS TROZOS (2023), TOTOMO (2023)",
+   "portada": "https://f4.bcbits.com/img/a1488993234_16.jpg",
+   "discos": [
+    {
+     "titulo": "SED DE MAL",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://blackverraco.bandcamp.com/album/sed-de-mal",
+     "portada": "https://f4.bcbits.com/img/a1488993234_16.jpg"
+    },
+    {
+     "titulo": "RITUALES",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://blackverraco.bandcamp.com/track/rituales",
+     "portada": "https://f4.bcbits.com/img/a0438326555_16.jpg"
+    },
+    {
+     "titulo": "SUS TROZOS",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://blackverraco.bandcamp.com/track/sus-trozos-2",
+     "portada": "https://f4.bcbits.com/img/a2573901332_16.jpg"
+    },
+    {
+     "titulo": "TOTOMO",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://blackverraco.bandcamp.com/track/totomo",
+     "portada": "https://f4.bcbits.com/img/a4253314727_16.jpg"
     }
    ]
   }
