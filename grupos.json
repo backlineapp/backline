@@ -1,5 +1,5 @@
 {
- "total": 269,
+ "total": 273,
  "actualizado": "2026-11-01",
  "grupos": [
   {
@@ -15199,20 +15199,20 @@
    "ciudad": "Madrid",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
-   "bandcamp": "https://nooirax.bandcamp.com/album/cadaver-de-cabra",
+   "bandcamp": "https://cadaverdecabra.bandcamp.com",
    "spotify": "",
    "apple_music": "https://music.apple.com/es/artist/cadaver-de-cabra/6774271166",
    "youtube": "",
    "web": "",
-   "discografia": "Cadáver de Cabra (2026)",
-   "portada": "https://f4.bcbits.com/img/a0128952731_16.jpg",
+   "discografia": "CADAVER DE CABRA S/t (2026)",
+   "portada": "https://f4.bcbits.com/img/a2454662547_16.jpg",
    "discos": [
     {
-     "titulo": "Cadáver de Cabra",
+     "titulo": "CADAVER DE CABRA S/t",
      "anio": "2026",
      "tipo": "disco",
-     "enlace": "https://nooirax.bandcamp.com/album/cadaver-de-cabra",
-     "portada": "https://f4.bcbits.com/img/a0128952731_16.jpg"
+     "enlace": "https://cadaverdecabra.bandcamp.com/album/cadaver-de-cabra-s-t-4",
+     "portada": "https://f4.bcbits.com/img/a2454662547_16.jpg"
     }
    ]
   },
@@ -15282,6 +15282,193 @@
      "tipo": "disco",
      "enlace": "https://music.apple.com/es/album/luz/1847010765",
      "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/eb/67/e1/eb67e12a-f76d-c32f-3982-fad31d6b7121/artwork.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "grajo",
+   "nombre": "Grajo",
+   "estilos": "Doom / Stoner / Psicodelia",
+   "ciudad": "Córdoba",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://grajo.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "S L O W G O D  I I (2018), Grajo/Orthodox 7 (2016), Grajo (2016), Feeding Our Demons-Split 7 with Atavismo (2015), Golden Cemetery (demo) (2015)",
+   "portada": "https://f4.bcbits.com/img/a1628592359_16.jpg",
+   "discos": [
+    {
+     "titulo": "S L O W G O D  I I",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://grajo.bandcamp.com/album/s-l-o-w-g-o-d-i-i",
+     "portada": "https://f4.bcbits.com/img/a1628592359_16.jpg"
+    },
+    {
+     "titulo": "Grajo/Orthodox 7",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://grajo.bandcamp.com/album/grajo-orthodox-7",
+     "portada": "https://f4.bcbits.com/img/a0187874258_16.jpg"
+    },
+    {
+     "titulo": "Grajo",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://grajo.bandcamp.com/album/grajo",
+     "portada": "https://f4.bcbits.com/img/a2133107652_16.jpg"
+    },
+    {
+     "titulo": "Feeding Our Demons-Split 7 with Atavismo",
+     "anio": "2015",
+     "tipo": "single",
+     "enlace": "https://grajo.bandcamp.com/track/feeding-our-demons-split-7-with-atavismo",
+     "portada": "https://f4.bcbits.com/img/a1747235494_16.jpg"
+    },
+    {
+     "titulo": "Golden Cemetery (demo)",
+     "anio": "2015",
+     "tipo": "single",
+     "enlace": "https://grajo.bandcamp.com/track/golden-cemetery-demo",
+     "portada": "https://f4.bcbits.com/img/a2799415820_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "firmam3nt",
+   "nombre": "Firmam3nt",
+   "estilos": "Post-metal / Doom / Experimental",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://firmam3nt.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Firmament (2016)",
+   "portada": "https://f4.bcbits.com/img/a3976855279_16.jpg",
+   "discos": [
+    {
+     "titulo": "Firmament",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://firmam3nt.bandcamp.com/album/firmament",
+     "portada": "https://f4.bcbits.com/img/a3976855279_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "tao-te-kin",
+   "nombre": "Tao Te Kin",
+   "estilos": "Rock alternativo / Prog / Stoner",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://taotekin.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Whipping (2017), Snot (2017), 7 infiernos (2015), Abada (2015), Noise Off Unplugged (2015), Cuaderno de Bitacora de un viaje aun por hacer (2012), El Pajaro Que Da Cuerda Al Mundo (2009), Anatomía del equilibrio (2006)",
+   "portada": "https://f4.bcbits.com/img/a0543805890_16.jpg",
+   "discos": [
+    {
+     "titulo": "Whipping",
+     "anio": "2017",
+     "tipo": "single",
+     "enlace": "https://taotekin.bandcamp.com/track/whipping",
+     "portada": "https://f4.bcbits.com/img/a0543805890_16.jpg"
+    },
+    {
+     "titulo": "Snot",
+     "anio": "2017",
+     "tipo": "single",
+     "enlace": "https://taotekin.bandcamp.com/track/snot",
+     "portada": "https://f4.bcbits.com/img/a1126393599_16.jpg"
+    },
+    {
+     "titulo": "7 infiernos",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/7-infiernos",
+     "portada": "https://f4.bcbits.com/img/a1464192156_16.jpg"
+    },
+    {
+     "titulo": "Abada",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/abada",
+     "portada": "https://f4.bcbits.com/img/a3243693089_16.jpg"
+    },
+    {
+     "titulo": "Noise Off Unplugged",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/noise-off-unplugged",
+     "portada": "https://f4.bcbits.com/img/a3951907985_16.jpg"
+    },
+    {
+     "titulo": "Cuaderno de Bitacora de un viaje aun por hacer",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/cuaderno-de-bitacora-de-un-viaje-aun-por-hacer",
+     "portada": "https://f4.bcbits.com/img/a3910291264_16.jpg"
+    },
+    {
+     "titulo": "El Pajaro Que Da Cuerda Al Mundo",
+     "anio": "2009",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/el-pajaro-que-da-cuerda-al-mundo",
+     "portada": "https://f4.bcbits.com/img/a1408220655_16.jpg"
+    },
+    {
+     "titulo": "Anatomía del equilibrio",
+     "anio": "2006",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/anatom-a-del-equilibrio",
+     "portada": "https://f4.bcbits.com/img/a3193041158_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "rojo-5",
+   "nombre": "Rojo 5",
+   "estilos": "Rock alternativo / Post-hardcore / Post-rock",
+   "ciudad": "Toledo",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://rojo5oficial.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Bestiario (2020), Masa Crítica (2018), Críptico (2016)",
+   "portada": "https://f4.bcbits.com/img/a0432562553_16.jpg",
+   "discos": [
+    {
+     "titulo": "Bestiario",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://rojo5oficial.bandcamp.com/album/bestiario",
+     "portada": "https://f4.bcbits.com/img/a0432562553_16.jpg"
+    },
+    {
+     "titulo": "Masa Crítica",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://rojo5oficial.bandcamp.com/album/masa-cr-tica",
+     "portada": "https://f4.bcbits.com/img/a2678752325_16.jpg"
+    },
+    {
+     "titulo": "Críptico",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://rojo5oficial.bandcamp.com/album/cr-ptico",
+     "portada": "https://f4.bcbits.com/img/a2550379961_16.jpg"
     }
    ]
   }
