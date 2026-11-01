@@ -4,7 +4,8 @@
 // y Kit para grupos.
 // La lista de grupos seguidos la gestiona seguidos.js; los conciertos,
 // conciertos.js; los discos, vídeos y noticias publicados, novedades.js; el acceso, "¿Es tu grupo?" y el panel, panel.js; los avisos al móvil,
-// avisos.js; instalar la app en el móvil, instalar.js; el kit para grupos, kit.js; Supabase, nube.js.
+// avisos.js; instalar la app en el móvil, instalar.js; el kit para grupos, kit.js; Supabase, nube.js;
+// la comunidad y provincia de cada grupo (filtro por zona), zonas.js.
 
 (function () {
   'use strict';
@@ -91,7 +92,10 @@
   var DE_LA_FICHA = { gestionar: true };
 
   var grupos = [];
-  var estado = { texto: '', familia: null };
+  // Filtros de Explorar. zona: '' (toda España), 'c:Andalucía' (una
+  // comunidad) o 'p:Cádiz' (una provincia). La zona se recuerda en el móvil.
+  var CLAVE_ZONA = 'backline-zona';
+  var estado = { texto: '', familia: null, zona: leerZona() };
   // Cuántos lanzamientos se ven ahora mismo en Inicio.
   var visiblesInicio = POR_TANDA;
   // Posición de la lista en cada pantalla, para volver al mismo sitio.
@@ -145,6 +149,9 @@
     buscador: document.getElementById('buscador'),
     filtros: document.getElementById('filtros'),
     contador: document.getElementById('contador'),
+    zona: document.getElementById('zona'),
+    zonaBoton: document.getElementById('zona-boton'),
+    zonaTexto: document.getElementById('zona-texto'),
     lista: document.getElementById('lista'),
     contadorMios: document.getElementById('contador-mis-grupos'),
     listaMios: document.getElementById('lista-mis-grupos'),
@@ -599,6 +606,7 @@
     var visibles = grupos.filter(function (g) {
       if (busqueda && g._nombre.indexOf(busqueda) === -1) return false;
       if (estado.familia && g._familias.indexOf(estado.familia) === -1) return false;
+      if (estado.zona && !enZona(g, estado.zona)) return false;
       return true;
     });
 
@@ -606,11 +614,94 @@
     el.lista.textContent = '';
 
     if (!visibles.length) {
-      el.lista.appendChild(crear('li', 'vacio', 'No hay grupos que coincidan.'));
+      var vacio = crear('li', 'vacio', 'No hay grupos que coincidan.');
+      // Con estilo o zona elegidos, un atajo para volver a verlos todos.
+      if (estado.familia || estado.zona) {
+        var quitar = crear('button', 'quitar-filtros', 'Quitar filtros');
+        quitar.type = 'button';
+        quitar.addEventListener('click', function () {
+          estado.familia = null;
+          cambiarZona('');
+          pintarFiltros();
+          pintarLista();
+        });
+        vacio.appendChild(quitar);
+      }
+      el.lista.appendChild(vacio);
       return;
     }
 
     el.lista.appendChild(filas(visibles));
+  }
+
+  // ---------- Filtro por zona (Explorar) ----------
+
+  // ¿Es el grupo de esa zona? Una comunidad incluye a los grupos de sus
+  // provincias y a los que solo dicen la comunidad ("Galicia").
+  function enZona(g, zona) {
+    if (!g._zona) return false;
+    var tipo = zona.slice(0, 2);
+    var nombre = zona.slice(2);
+    return tipo === 'p:' ? g._zona.provincia === nombre : g._zona.comunidad === nombre;
+  }
+
+  // Opciones del selector: Toda España y, por orden alfabético, cada
+  // comunidad con grupos. Si tiene varias provincias, va como grupo de
+  // opciones: «Toda Andalucía» y cada provincia. Cada opción lleva cuántos grupos tiene.
+  function pintarZonas() {
+    var comunidades = {};
+    grupos.forEach(function (g) {
+      if (!g._zona) return;
+      var c = comunidades[g._zona.comunidad] = comunidades[g._zona.comunidad] || { total: 0, provincias: {} };
+      c.total++;
+      if (g._zona.provincia) c.provincias[g._zona.provincia] = (c.provincias[g._zona.provincia] || 0) + 1;
+    });
+    var orden = function (a, b) { return a.localeCompare(b, 'es'); };
+    var opcion = function (valor, texto, n) {
+      var o = crear('option', null, texto + ' (' + n + ')');
+      o.value = valor;
+      return o;
+    };
+    el.zona.textContent = '';
+    el.zona.appendChild(opcion('', 'Toda España', grupos.length));
+    Object.keys(comunidades).sort(orden).forEach(function (nombre) {
+      var c = comunidades[nombre];
+      var provincias = Object.keys(c.provincias);
+      var sinProvincia = c.total - provincias.reduce(function (s, p) { return s + c.provincias[p]; }, 0);
+      // Si no hay nada que elegir dentro (una sola provincia con grupos, o
+      // solo grupos sin provincia), la comunidad va como una sola opción.
+      if (Zonas.provinciasDe(nombre).length < 2 || provincias.length + (sinProvincia ? 1 : 0) < 2) {
+        el.zona.appendChild(opcion('c:' + nombre, nombre, c.total));
+        return;
+      }
+      var grupo = document.createElement('optgroup');
+      grupo.label = nombre;
+      grupo.appendChild(opcion('c:' + nombre, 'Toda ' + nombre, c.total));
+      Object.keys(c.provincias).sort(orden).forEach(function (p) {
+        grupo.appendChild(opcion('p:' + p, p, c.provincias[p]));
+      });
+      el.zona.appendChild(grupo);
+    });
+    // Una zona guardada que ya no tiene grupos se olvida.
+    if (estado.zona && !el.zona.querySelector('option[value="' + estado.zona.replace(/"/g, '') + '"]')) estado.zona = '';
+    el.zona.value = estado.zona;
+    pintarBotonZona();
+  }
+
+  function pintarBotonZona() {
+    el.zonaTexto.textContent = estado.zona ? estado.zona.slice(2) : 'Toda España';
+    el.zonaBoton.classList.toggle('activa', !!estado.zona);
+  }
+
+  function cambiarZona(valor) {
+    estado.zona = valor;
+    el.zona.value = valor;
+    pintarBotonZona();
+    try { localStorage.setItem(CLAVE_ZONA, valor); } catch (e) { /* sin permiso para guardar: no pasa nada */ }
+  }
+
+  function leerZona() {
+    try { return localStorage.getItem(CLAVE_ZONA) || ''; } catch (e) { return ''; }
   }
 
   // Fila de un grupo (portada, nombre, estilo · ciudad). La usan Explorar y Mis grupos.
@@ -626,7 +717,9 @@
     }));
     var texto = crear('div', 'tarjeta-texto');
     texto.appendChild(crear('h3', 'tarjeta-nombre', g.nombre));
-    texto.appendChild(crear('p', 'tarjeta-detalle', [g.estilos, g.ciudad].filter(Boolean).join(' · ')));
+    texto.appendChild(crear('p', 'tarjeta-detalle', g.estilos));
+    // La ciudad, en su propia línea para que no se corte detrás de estilos largos.
+    if (g.ciudad) texto.appendChild(crear('p', 'tarjeta-ciudad', g.ciudad));
     a.appendChild(texto);
     var flecha = crear('span', 'flecha', '›');
     flecha.setAttribute('aria-hidden', 'true');
@@ -1010,6 +1103,8 @@
     })));
     el.enlaceAcceso.textContent = conPanel ? 'Mi panel' : 'Acceso';
     el.enlaceAcceso.href = conPanel ? '#/panel' : '#/acceso';
+    // Quien gestiona un grupo lo ve destacado; para el resto es un enlace discreto.
+    el.enlaceAcceso.classList.toggle('con-panel', conPanel);
     el.enlaceAcceso.removeAttribute('aria-label');
     var mio = ++pidiendoPendientes;
     if (!cuenta || !cuenta.admin) {
@@ -1048,6 +1143,11 @@
     pintarLista();
   });
 
+  el.zona.addEventListener('change', function () {
+    cambiarZona(el.zona.value);
+    pintarLista();
+  });
+
   // ---------- Arranque ----------
 
   // Piezas comunes que usan conciertos.js, novedades.js, panel.js y kit.js.
@@ -1079,6 +1179,7 @@
         .map(function (g) {
           g._nombre = normalizar(g.nombre);
           g._familias = familiasDe(g.estilos);
+          g._zona = Zonas.zonaDe(g.ciudad);
           return g;
         })
         .sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); })
@@ -1087,6 +1188,7 @@
           return g;
         });
       pintarFiltros();
+      pintarZonas();
       pintarLista();
       window.addEventListener('hashchange', alCambiarRuta);
       alCambiarRuta();
