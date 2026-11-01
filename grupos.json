@@ -1,5 +1,5 @@
 {
- "total": 285,
+ "total": 286,
  "actualizado": "2026-11-01",
  "grupos": [
   {
@@ -8271,9 +8271,16 @@
    "apple_music": "https://music.apple.com/es/artist/kant-freud-kafka/881915797",
    "youtube": "",
    "web": "https://www.kantfreudkafka.com",
-   "discografia": "Historias del Acantilado",
-   "portada": "https://f4.bcbits.com/img/a1522700895_16.jpg",
+   "discografia": "No tengas miedo - un cuento cantado (2026), Historias del acantilado (2021), Onírico Live (2019), Onírico (2017), No tengas miedo (2014)",
+   "portada": "https://f4.bcbits.com/img/a2608349430_16.jpg",
    "discos": [
+    {
+     "titulo": "No tengas miedo - un cuento cantado",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://kantfreudkafka.bandcamp.com/album/no-tengas-miedo-un-cuento-cantado",
+     "portada": "https://f4.bcbits.com/img/a2608349430_16.jpg"
+    },
     {
      "titulo": "Historias del acantilado",
      "anio": "2021",
@@ -15988,6 +15995,44 @@
      "tipo": "disco",
      "enlace": "https://themothercrow.bandcamp.com/album/hard-attack",
      "portada": "https://f4.bcbits.com/img/a3178503155_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "projecte-astrolabi",
+   "nombre": "Projecte Astrolabi",
+   "estilos": "Jazz-rock / Prog / Psicodelia",
+   "ciudad": "Vic (Barcelona)",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://projecteastrolabi.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "L'antiga energia (2026), La Singularitat (2023), Projecte Astrolabi (2019)",
+   "portada": "https://f4.bcbits.com/img/a4067929952_16.jpg",
+   "discos": [
+    {
+     "titulo": "L'antiga energia",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://projecteastrolabi.bandcamp.com/album/lantiga-energia",
+     "portada": "https://f4.bcbits.com/img/a4067929952_16.jpg"
+    },
+    {
+     "titulo": "La Singularitat",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://projecteastrolabi.bandcamp.com/album/la-singularitat",
+     "portada": "https://f4.bcbits.com/img/a1745026363_16.jpg"
+    },
+    {
+     "titulo": "Projecte Astrolabi",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://projecteastrolabi.bandcamp.com/album/projecte-astrolabi",
+     "portada": "https://f4.bcbits.com/img/a0508455460_16.jpg"
     }
    ]
   }
