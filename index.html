@@ -110,6 +110,10 @@
       </div>
       <!-- Avisos al móvil: activar / desactivar (lo pinta avisos.js) -->
       <div id="avisos-mis-grupos"></div>
+      <!-- Buscador por nombre: solo aparece si sigues muchos grupos (app.js) -->
+      <div id="caja-buscador-mis-grupos" class="buscador buscador-mios" hidden>
+        <input id="buscador-mis-grupos" type="search" placeholder="Buscar en tus grupos" autocomplete="off" aria-label="Buscar en tus grupos">
+      </div>
       <p id="contador-mis-grupos" class="etiqueta-seccion" aria-live="polite"></p>
       <ul id="lista-mis-grupos" class="lista"></ul>
       <div id="sin-grupos" class="sin-grupos" hidden>
@@ -128,7 +132,7 @@
     <section id="pantalla-conciertos" class="pantalla" hidden>
       <div class="titular">
         <h1>Conciertos</h1>
-        <p>Próximas fechas de los grupos que sigues.</p>
+        <p>Próximas fechas de tus grupos o de toda la escena.</p>
       </div>
       <div id="lista-conciertos"></div>
     </section>
@@ -222,8 +226,8 @@
   <script src="kit.js"></script>
   <script src="sobre.js"></script>
   <script src="instalar.js"></script>
-  <script src="avisos.js"></script>
   <script src="zonas.js"></script>
+  <script src="avisos.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

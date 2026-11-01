@@ -376,15 +376,26 @@
     return li;
   }
 
-  function cajaMensaje(titulo, texto, boton) {
+  // boton: { texto, href } (enlace) o { texto, alPulsar } (botón).
+  // otro: un segundo botón, discreto, debajo.
+  function cajaMensaje(titulo, texto, boton, otro) {
     var caja = ayuda.crear('div', 'sin-grupos');
     caja.appendChild(ayuda.crear('p', 'sin-grupos-titulo', titulo));
     caja.appendChild(ayuda.crear('p', 'sin-grupos-texto', texto));
-    if (boton) {
-      var a = ayuda.crear('a', 'boton', boton.texto);
-      a.href = boton.href;
-      caja.appendChild(a);
-    }
+    [boton, otro].forEach(function (b, i) {
+      if (!b) return;
+      var nodo;
+      if (b.href) {
+        nodo = ayuda.crear('a', i ? 'boton-texto' : 'boton', b.texto);
+        nodo.href = b.href;
+      } else {
+        nodo = ayuda.crear('button', i ? 'boton-texto' : 'boton', b.texto);
+        nodo.type = 'button';
+        nodo.addEventListener('click', b.alPulsar);
+      }
+      if (i) caja.appendChild(document.createElement('br'));
+      caja.appendChild(nodo);
+    });
     return caja;
   }
 
@@ -393,36 +404,111 @@
   var turno = 0;
 
   // ---------- Pestaña Conciertos ----------
+  // Arriba se elige de qué grupos (los que sigo o todos los de Backline) y en
+  // qué zona (comunidad o provincia). Siempre por orden de fecha, sin más.
+  // La elección se recuerda en el móvil.
+
+  var CLAVE_FILTRO = 'backline-conciertos';
+  var TODO_LUGAR = 'Cualquier lugar';
+  var filtro = leerFiltro();
+
+  function leerFiltro() {
+    var g = {};
+    try { g = JSON.parse(localStorage.getItem(CLAVE_FILTRO)) || {}; } catch (e) { /* sin permiso: lo de siempre */ }
+    return { quien: g.quien === 'todos' ? 'todos' : 'mios', zona: typeof g.zona === 'string' ? g.zona : '' };
+  }
+
+  function guardarFiltro() {
+    try { localStorage.setItem(CLAVE_FILTRO, JSON.stringify(filtro)); } catch (e) { /* sin permiso: no pasa nada */ }
+  }
+
+  // Comunidad y provincia de un concierto (null si es fuera de España).
+  function zonaDeFecha(f) {
+    return esEspana(paisDe(f)) ? Zonas.zonaDeProvincia(provinciaDe(f)) : null;
+  }
+
+  function controles(alCambiar) {
+    var fila = ayuda.crear('div', 'controles-conciertos');
+    var botones = ayuda.crear('div', 'filtros filtros-conciertos');
+    botones.setAttribute('role', 'group');
+    botones.setAttribute('aria-label', 'Conciertos de mis grupos o de todos los grupos de Backline');
+    [{ valor: 'mios', texto: 'Mis grupos' }, { valor: 'todos', texto: 'Todos' }].forEach(function (op) {
+      var b = ayuda.crear('button', 'filtro', op.texto);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(filtro.quien === op.valor));
+      b.addEventListener('click', function () {
+        if (filtro.quien === op.valor) return;
+        filtro.quien = op.valor;
+        guardarFiltro();
+        alCambiar();
+      });
+      botones.appendChild(b);
+    });
+    fila.appendChild(botones);
+    var zona = Zonas.crearBoton('Filtrar conciertos por zona', TODO_LUGAR, function (valor) {
+      filtro.zona = valor;
+      guardarFiltro();
+      alCambiar();
+    });
+    Zonas.opcionesTodas(zona.select, TODO_LUGAR);
+    if (!zona.select.querySelector('option[value="' + filtro.zona.replace(/"/g, '') + '"]')) filtro.zona = '';
+    zona.marcar(filtro.zona);
+    fila.appendChild(zona.nodo);
+    return fila;
+  }
 
   function pintarPestana(contenedor) {
     var mio = ++turno;
     contenedor.textContent = '';
-    var ids = ayuda.gruposSeguidos().map(function (g) { return g.id; });
+    var repintar = function () { pintarPestana(contenedor); };
+    contenedor.appendChild(controles(repintar));
+    var lista = ayuda.crear('div', 'conciertos-lista');
+    contenedor.appendChild(lista);
+    var verTodos = { texto: 'Ver los conciertos de todos los grupos', alPulsar: function () {
+      filtro.quien = 'todos';
+      guardarFiltro();
+      repintar();
+    } };
+    var donde = filtro.zona ? filtro.zona.slice(2) : '';
+    var ids = filtro.quien === 'mios' ? ayuda.gruposSeguidos().map(function (g) { return g.id; }) : null;
 
-    if (!ids.length) {
-      contenedor.appendChild(cajaMensaje(
+    if (ids && !ids.length) {
+      lista.appendChild(cajaMensaje(
         'Aquí verás los conciertos de tus grupos',
         'Sigue a tus grupos favoritos y te diremos cuándo y dónde tocan.',
-        { texto: 'Ir a Explorar', href: '#/explorar' }));
+        { texto: 'Ir a Explorar', href: '#/explorar' }, verTodos));
       return;
     }
 
-    contenedor.appendChild(ayuda.crear('p', 'vacio', 'Cargando conciertos…'));
+    lista.appendChild(ayuda.crear('p', 'vacio', 'Cargando conciertos…'));
     Nube.proximasFechas(ids).then(function (fechas) {
       if (mio !== turno) return;
-      contenedor.textContent = '';
+      lista.textContent = '';
+      fechas = fechas.filter(function (f) {
+        return ayuda.grupoPorId(f.publicacion.grupo_id) && Zonas.dentro(zonaDeFecha(f), filtro.zona);
+      });
       if (!fechas.length) {
-        contenedor.appendChild(cajaMensaje(
-          'De momento no hay fechas',
-          'Tus grupos no tienen conciertos anunciados. En cuanto publiquen uno, aparecerá aquí.',
-          { texto: 'Descubrir más grupos', href: '#/explorar' }));
+        if (ids) {
+          lista.appendChild(cajaMensaje(
+            'De momento no hay fechas',
+            donde
+              ? 'Tus grupos no tienen conciertos anunciados en ' + donde + '.'
+              : 'Tus grupos no tienen conciertos anunciados. En cuanto publiquen uno, aparecerá aquí.',
+            donde ? verTodos : { texto: 'Descubrir más grupos', href: '#/explorar' },
+            donde ? null : verTodos));
+        } else {
+          lista.appendChild(cajaMensaje(
+            'De momento no hay fechas',
+            (donde ? 'Ningún grupo de Backline tiene conciertos anunciados en ' + donde + '.' : 'Ningún grupo de Backline tiene conciertos anunciados.') +
+              ' En cuanto publiquen uno, aparecerá aquí.'));
+        }
         return;
       }
-      contenedor.appendChild(listaPorMeses(fechas, true));
+      lista.appendChild(listaPorMeses(fechas, true));
     }, function () {
       if (mio !== turno) return;
-      contenedor.textContent = '';
-      contenedor.appendChild(ayuda.crear('p', 'aviso', 'No se han podido cargar los conciertos. Revisa la conexión y vuelve a intentarlo.'));
+      lista.textContent = '';
+      lista.appendChild(ayuda.crear('p', 'aviso', 'No se han podido cargar los conciertos. Revisa la conexión y vuelve a intentarlo.'));
     });
   }
 
@@ -516,6 +602,14 @@
       calendario.type = 'button';
       calendario.addEventListener('click', function () { descargarIcs(f, grupo); });
       acciones.appendChild(calendario);
+      var compartir = ayuda.crear('button', 'boton-secundario', 'Compartir');
+      compartir.type = 'button';
+      compartir.addEventListener('click', function () {
+        ayuda.compartir(grupo.nombre + ' en ' + f.sala,
+          grupo.nombre + ' · ' + fechaCorta(f.fecha) + ' · ' + f.sala + ', ' + ciudadConPais(f),
+          '#/concierto/' + encodeURIComponent(f.id));
+      });
+      acciones.appendChild(compartir);
       contenedor.appendChild(acciones);
       if (window.Denuncias) contenedor.appendChild(Denuncias.enlace(f.publicacion.id));
     }, function () {
