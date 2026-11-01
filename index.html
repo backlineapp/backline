@@ -71,21 +71,42 @@
     <section id="pantalla-explorar" class="pantalla" hidden>
       <div class="titular">
         <h1>Explorar</h1>
-        <p>Busca grupos por nombre o por estilo.</p>
+        <p>Busca grupos por nombre, estilo o zona.</p>
       </div>
       <div class="buscador">
         <input id="buscador" type="search" placeholder="Buscar grupo por nombre" autocomplete="off" aria-label="Buscar grupo por nombre">
       </div>
       <div id="filtros" class="filtros" role="group" aria-label="Filtrar por estilo"></div>
-      <p id="contador" class="etiqueta-seccion" aria-live="polite"></p>
+      <!-- Número de grupos y, a la derecha, el filtro por zona (comunidad o provincia).
+           El selector es el del propio móvil, invisible encima del botón. -->
+      <div class="fila-contador">
+        <p id="contador" class="etiqueta-seccion" aria-live="polite"></p>
+        <label id="zona-boton" class="zona-boton">
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+            <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="12" cy="10" r="2.3" fill="currentColor"/>
+          </svg>
+          <span id="zona-texto">Toda España</span>
+          <svg class="zona-flecha" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <select id="zona" aria-label="Filtrar por zona"></select>
+        </label>
+      </div>
       <ul id="lista" class="lista"></ul>
     </section>
 
     <!-- Pantalla 2: Mis grupos -->
     <section id="pantalla-mis-grupos" class="pantalla" hidden>
-      <div class="titular">
-        <h1>Mis grupos</h1>
-        <p>Los grupos que sigues.</p>
+      <!-- Arriba a la derecha: Acceso o, si gestiona algún grupo, Mi panel -->
+      <div class="titular titular-inicio">
+        <div>
+          <h1>Mis grupos</h1>
+          <p>Los grupos que sigues.</p>
+        </div>
+        <div class="atajos-inicio">
+          <a href="#/acceso" id="enlace-acceso" class="atajo-acceso">Acceso</a>
+        </div>
       </div>
       <!-- Avisos al móvil: activar / desactivar (lo pinta avisos.js) -->
       <div id="avisos-mis-grupos"></div>
@@ -96,10 +117,10 @@
         <p class="sin-grupos-texto">Explora la escena y pulsa <strong>Seguir</strong> en los grupos que te gusten. Aparecerán aquí.</p>
         <a href="#/explorar" class="boton">Ir a Explorar</a>
       </div>
-      <!-- Pie discreto: volver a ver cómo instalar la app (lo abre instalar.js) y
-           acceso con correo y código (administrador y grupos que gestionan su ficha) -->
+      <!-- Pie discreto: volver a ver cómo instalar la app (lo abre instalar.js) y Sobre Backline.
+           El acceso (administrador y grupos que gestionan su ficha) está arriba, junto al título. -->
       <p class="pie-acceso">
-        <span id="pie-instalar"><button type="button" id="enlace-instalar" class="enlace-pie">Instalar la app</button><span class="pie-separador" aria-hidden="true">·</span></span><a href="#/acceso" id="enlace-acceso">Acceso</a><span class="pie-separador" aria-hidden="true">·</span><a href="#/sobre">Sobre Backline</a>
+        <span id="pie-instalar"><button type="button" id="enlace-instalar" class="enlace-pie">Instalar la app</button><span class="pie-separador" aria-hidden="true">·</span></span><a href="#/sobre">Sobre Backline</a>
       </p>
     </section>
 
@@ -202,6 +223,7 @@
   <script src="sobre.js"></script>
   <script src="instalar.js"></script>
   <script src="avisos.js"></script>
+  <script src="zonas.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
