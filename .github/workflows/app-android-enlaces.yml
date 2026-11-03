@@ -2,7 +2,7 @@ name: App Android (prueba de calendario y mapas)
 
 # Prueba automática en un móvil Android simulado: abre un concierto y pulsa
 # «Cómo llegar» y «Añadir al calendario», y guarda capturas y el registro de
-# qué app se abre. Solo se ejecuta cuando cambia este archivo.
+# qué app se abre. Solo se ejecuta cuando cambia este archivo (prueba 2).
 on:
   pull_request:
     paths:
@@ -29,8 +29,6 @@ jobs:
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
-      - name: Playwright
-        run: npm install --no-save playwright-core@1.48.2
       - name: Probar en el emulador
         uses: reactivecircus/android-emulator-runner@v2
         with:
