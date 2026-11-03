@@ -68,5 +68,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>Para añadir los conciertos que elijas a tu calendario.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Para añadir los conciertos que elijas a tu calendario.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Para añadir los conciertos que elijas a tu calendario.</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Backline no usa tus recordatorios.</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Backline no usa tus recordatorios.</string>
 </dict>
 </plist>
