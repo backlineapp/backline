@@ -2,7 +2,7 @@ name: App Android (prueba de calendario y mapas)
 
 # Prueba automática en un móvil Android simulado: abre un concierto y pulsa
 # «Cómo llegar» y «Añadir al calendario», y guarda capturas y el registro de
-# qué app se abre. Solo se ejecuta cuando cambia este archivo (prueba 2).
+# qué app se abre. Solo se ejecuta cuando cambia este archivo (prueba 3).
 on:
   pull_request:
     paths:

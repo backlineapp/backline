@@ -18,6 +18,14 @@ async function cdp(expr) {
   return res.result && res.result.result && res.result.result.value;
 }
 
+function posicion(texto) {
+  sh('adb shell uiautomator dump /sdcard/ui.xml');
+  const xml = sh('adb shell cat /sdcard/ui.xml');
+  const re = new RegExp('(?:text|content-desc)="' + texto + '"[^>]*bounds="\\[(\\d+),(\\d+)\\]\\[(\\d+),(\\d+)\\]"');
+  const m = xml.match(re);
+  return m ? [(+m[1] + +m[3]) >> 1, (+m[2] + +m[4]) >> 1] : null;
+}
+
 function tocar(texto) {
   sh('adb shell uiautomator dump /sdcard/ui.xml');
   const xml = sh('adb shell cat /sdcard/ui.xml');
@@ -39,7 +47,14 @@ function tocar(texto) {
   captura('1-concierto');
 
   sh('adb logcat -c');
-  tocar('Cómo llegar');
+  if (!tocar('Cómo llegar')) {
+    // El enlace no siempre sale en el árbol de accesibilidad: se toca a la
+    // altura que le corresponde respecto al botón del calendario.
+    const cal = posicion('Añadir al calendario');
+    const d = await cdp(`(function(){var t=[].slice.call(document.querySelectorAll('a,button'));function r(x){return t.filter(function(e){return e.textContent.trim()===x})[0].getBoundingClientRect().top}return (r('Añadir al calendario')-r('Cómo llegar'))*devicePixelRatio})()`);
+    console.log('Toco Cómo llegar (calculado) en', cal[0], Math.round(cal[1] - d));
+    sh(`adb shell input tap ${cal[0]} ${Math.round(cal[1] - d)}`);
+  }
   await espera(7000);
   captura('2-como-llegar');
   console.log('Tras Cómo llegar:\n' + sh('adb logcat -d | grep -E "START u0|ActivityNotFound" || true'));
