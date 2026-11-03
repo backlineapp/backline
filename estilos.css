@@ -300,7 +300,97 @@ button { font-family: inherit; }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.tarjeta-ciudad {
+  margin: 1px 0 0;
+  font-size: 12px;
+  color: var(--tenue);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .flecha { color: var(--apagado); font-size: 16px; }
+
+/* Número de grupos y filtro por zona, en la misma línea */
+.fila-contador {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px 0 12px;
+}
+.fila-contador .etiqueta-seccion { margin: 0; flex: none; }
+/* Botón de zona: mismo aspecto que los filtros de estilo. Encima va el
+   selector del móvil, invisible, para que se abra la lista nativa. */
+.zona-boton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 64%;
+  padding: 7px 10px 7px 9px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--tenue);
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.zona-boton #zona-texto,
+.zona-boton .zona-texto { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Conciertos: de qué grupos (botones) y zona, en una fila que baja si no cabe */
+.controles-conciertos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between; /* si la zona baja de línea, se queda a la izquierda */
+  gap: 8px;
+}
+.controles-conciertos .filtros-conciertos { margin: 0; padding: 0; overflow: visible; }
+.controles-conciertos .zona-boton { max-width: 100%; }
+.sin-grupos .boton-texto { display: inline-block; margin-top: 10px; }
+
+/* Buscador de Mis grupos (con muchos grupos seguidos) */
+.buscador-mios { margin-bottom: 2px; }
+.buscador-mios[hidden] { display: none; }
+.zona-boton svg { flex: none; }
+.zona-boton .zona-flecha { opacity: 0.8; }
+.zona-boton.activa {
+  color: var(--cian);
+  background: rgba(79, 196, 214, 0.10);
+  border-color: rgba(79, 196, 214, 0.35);
+}
+.zona-boton:focus-within { border-color: var(--cian); }
+.zona-boton select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  font-size: 16px; /* 16px evita que el iPhone haga zoom al abrir la lista */
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.zona-boton select option,
+.zona-boton select optgroup { color: #111; background: #fff; }
+
+/* "Quitar filtros" cuando Explorar no encuentra nada */
+.quitar-filtros {
+  display: block;
+  margin: 14px auto 0;
+  padding: 7px 14px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cian);
+  background: rgba(79, 196, 214, 0.10);
+  border: 1px solid rgba(79, 196, 214, 0.35);
+  border-radius: 8px;
+  cursor: pointer;
+}
 
 .vacio,
 .aviso {
@@ -675,7 +765,8 @@ a.lanzamiento-portada:active .portada { border-color: var(--acento); }
 }
 .concierto-gira { color: var(--apagado); font-style: italic; }
 .ficha-conciertos .lista { margin-bottom: 4px; }
-#lista-conciertos .etiqueta-seccion:first-child { margin-top: 0; }
+#lista-conciertos .conciertos-lista > .etiqueta-seccion:first-child { margin-top: 18px; }
+#lista-conciertos .conciertos-lista > .sin-grupos, #lista-conciertos .conciertos-lista > .vacio { margin-top: 16px; }
 
 /* Pantalla de un concierto: el cartel manda */
 .cartel-grande {
@@ -1003,6 +1094,13 @@ button[disabled] { opacity: 0.55; cursor: default; }
 .avisos-caja .boton-texto { margin-top: 6px; }
 .avisos-mensaje { margin: 10px 0 0; font-size: 13px; color: var(--cian); }
 .avisos-mensaje.error { color: #F0A291; }
+/* El recuadro se pliega tocando el título (details/summary) */
+.avisos-caja > summary { list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.avisos-caja > summary::-webkit-details-marker { display: none; }
+.avisos-flecha { flex: none; margin-left: auto; color: var(--apagado); transition: transform .2s ease; }
+.avisos-caja:not([open]) { padding-top: 12px; padding-bottom: 12px; }
+.avisos-caja:not([open]) .avisos-flecha { transform: rotate(-90deg); }
+.avisos-caja:not([open]) .avisos-titulo { font-size: 14.5px; }
 
 /* Seguir + campanita en la ficha */
 .perfil-botones { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
@@ -1065,7 +1163,18 @@ a.volver { display: inline-block; text-decoration: none; }
   border-radius: 999px;
 }
 .punto[hidden] { display: none; }
-.pie-acceso a .punto { margin-left: 2px; }
+/* Acceso / Mi panel, arriba a la derecha de Mis grupos */
+.atajo-acceso { font-size: 12.5px; color: var(--tenue); text-decoration: none; white-space: nowrap; }
+.atajo-acceso:hover, .atajo-acceso:active { color: var(--texto); }
+.atajo-acceso.con-panel {
+  font-weight: 600;
+  color: var(--cian);
+  padding: 4px 12px;
+  border: 1px solid rgba(79, 196, 214, 0.45);
+  border-radius: 999px;
+}
+.atajo-acceso.con-panel:hover, .atajo-acceso.con-panel:active { color: var(--cian); background: rgba(79, 196, 214, 0.10); }
+.atajo-acceso .punto { margin-left: 4px; }
 .pestana { position: relative; }
 .pestana .punto-pestana {
   position: absolute;

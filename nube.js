@@ -10,7 +10,7 @@
 //                                         (grupos = ids de los grupos que gestiona)
 //   Nube.alCambiarCuenta(fn)           -> avisa al entrar o salir
 //   Nube.refrescarCuenta()             -> vuelve a preguntar permisos y grupos
-//   Nube.proximasFechas(gruposIds)     -> próximos conciertos de esos grupos (con el día en que se publicaron)
+//   Nube.proximasFechas(gruposIds)     -> próximos conciertos de esos grupos, o de todos con null (con el día en que se publicaron)
 //   Nube.fecha(id)                     -> un concierto (fecha) con su publicación
 //   Nube.novedades(gruposIds)          -> discos, vídeos y noticias de esos grupos
 //   Nube.novedad(id)                   -> un disco, vídeo o noticia
@@ -193,14 +193,16 @@
   }
 
   // Próximas fechas de varios grupos (o de uno), por orden de fecha y hora.
+  // gruposIds = null: los próximos conciertos de todos los grupos.
   function proximasFechas(gruposIds) {
     if (!cliente) return sinConexion();
-    if (!gruposIds.length) return Promise.resolve([]);
+    if (gruposIds && !gruposIds.length) return Promise.resolve([]);
     // Se pide desde ayer (en Canarias aún puede ser "ayer") y se afina aquí.
     var ayer = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-    return cliente.from('fechas')
-      .select(CAMPOS_FECHA + ', publicacion:publicaciones!inner(' + CAMPOS_PUBLICACION + ')')
-      .in('publicacion.grupo_id', gruposIds)
+    var consulta = cliente.from('fechas')
+      .select(CAMPOS_FECHA + ', publicacion:publicaciones!inner(' + CAMPOS_PUBLICACION + ')');
+    if (gruposIds) consulta = consulta.in('publicacion.grupo_id', gruposIds);
+    return consulta
       .in('publicacion.tipo', ['concierto', 'gira'])
       .gte('fecha', ayer)
       .order('fecha', { ascending: true })

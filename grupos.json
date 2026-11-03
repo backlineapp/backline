@@ -1,12 +1,12 @@
 {
- "total": 241,
- "actualizado": "2026-10-25",
+ "total": 287,
+ "actualizado": "2026-11-02",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
    "nombre": "El Altar del Holocausto",
    "estilos": "Post-rock instrumental / Doom / Post-metal",
-   "ciudad": "España",
+   "ciudad": "Salamanca",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://elaltardelholocausto.bandcamp.com",
@@ -356,7 +356,7 @@
    "bandcamp": "https://quaoar.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2S16cLmkZRd4KEfKPsKsG4",
    "apple_music": "https://music.apple.com/es/artist/quaoar/584344124",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@QuaoarBand",
    "web": "https://quaoarband.com",
    "discografia": "Five Friends Floating, Dreamers. Dreaming (2015), The River & The Soul (2011), Man't (2007)",
    "portada": "https://f4.bcbits.com/img/a3884003755_16.jpg",
@@ -415,7 +415,7 @@
    "bandcamp": "https://syberia.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/6kCPpsg07MsL7lm6tWzyCY",
    "apple_music": "https://music.apple.com/es/artist/syberia/456068147",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@syberiabcn",
    "web": "",
    "discografia": "Quan Tot S'Apagui (2026), Statement On Death (2022), Seeds of Change (2019), Resiliency (2016), Drawing A Future (2012)",
    "portada": "https://f4.bcbits.com/img/a1850814297_16.jpg",
@@ -533,7 +533,7 @@
    "bandcamp": "https://lafruteria.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/08CNy4RlTcqBmNabr5E4Js",
    "apple_music": "https://music.apple.com/es/artist/fruter%C3%ADa-to%C3%B1i/1230123390",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@FruteriaTogni",
    "web": "",
    "discografia": "El porvenir está en las huevas, Tengo Mis Días Buenos",
    "portada": "https://f4.bcbits.com/img/a2309963490_16.jpg",
@@ -630,7 +630,7 @@
    "bandcamp": "https://glasswork.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/7oso4eudAkMEk8VTDFbgsR",
    "apple_music": "https://music.apple.com/es/artist/glasswork/321170481",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@glassworkband",
    "web": "",
    "discografia": "Metabol",
    "portada": "https://f4.bcbits.com/img/a4259122859_16.jpg",
@@ -1008,7 +1008,7 @@
    "bandcamp": "https://sigmaori.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/7orEk9Oq44vtCvKULjL8Ur?si=4isHmPx3QtyYozvvl3-8Gg&nd=1",
    "apple_music": "https://music.apple.com/es/artist/sigma-ori/1470312939",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@sigmaori4851",
    "web": "",
    "discografia": "Beyond the Dome",
    "portada": "https://f4.bcbits.com/img/a2013722623_16.jpg",
@@ -1139,7 +1139,7 @@
    "bandcamp": "https://decimals.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4KfK6yTEaLwErochfXZ9J4",
    "apple_music": "https://music.apple.com/es/artist/decimals/1440591514",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@Decimals",
    "web": "",
    "discografia": "Convergence, Mirages, Atlas, Self-Reflect, Signals",
    "portada": "https://f4.bcbits.com/img/a0082172562_16.jpg",
@@ -1226,7 +1226,7 @@
    "bandcamp": "https://lemuralternative.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/5JHSLDmbF5fx9necHlvi0e",
    "apple_music": "https://music.apple.com/es/artist/le-mur/749892347",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@Lemursum",
    "web": "",
    "discografia": "Bruto",
    "portada": "https://f4.bcbits.com/img/a0437945656_16.jpg",
@@ -1295,7 +1295,7 @@
    "bandcamp": "https://malabriega.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0d2O3ERAOLECMOFsl3v626",
    "apple_music": "https://music.apple.com/es/artist/malabriega/1085184366",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@MalabriegaOficial",
    "web": "",
    "discografia": "Fiebre",
    "portada": "https://f4.bcbits.com/img/a3154638580_16.jpg",
@@ -1371,7 +1371,7 @@
    "bandcamp": "https://arenna.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1YUiXnfOn9yhYSn8kRjpK5",
    "apple_music": "https://music.apple.com/es/artist/arenna/145978964",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@Arennaband",
    "web": "",
    "discografia": "Given to Emptiness (2015), Beats of Olarizu (2011)",
    "portada": "https://f4.bcbits.com/img/a3455057312_16.jpg",
@@ -1423,7 +1423,7 @@
    "bandcamp": "https://ciconia.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/5kvvBH4RXDE84Xuu7y2BgN",
    "apple_music": "https://music.apple.com/es/artist/ciconia/873370640",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@ciconiaofficial",
    "web": "",
    "discografia": "Meraki, Winterize, Animal Chapters, Synaesthetic Garbage",
    "portada": "https://f4.bcbits.com/img/a3813669153_16.jpg",
@@ -1548,7 +1548,7 @@
    "bandcamp": "https://eltercersemestre.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0pVa3fLd2YHtYEnU4cPAvj",
    "apple_music": "https://music.apple.com/es/artist/el-tercer-semestre/592124877",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@semestres",
    "web": "https://www.eltercersemestre.com",
    "discografia": "",
    "portada": "https://f4.bcbits.com/img/a1285696531_16.jpg",
@@ -1808,7 +1808,7 @@
    "bandcamp": "https://hyedra.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/3wMo5S1HJXBWyRjgckjMeI",
    "apple_music": "https://music.apple.com/es/artist/hyedra/1364412424",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@Hyedra",
    "web": "",
    "discografia": "Séptimo Invierno, Nonbait, Heryda, Carabelle, Hyedra, Toro, Prologue",
    "portada": "https://f4.bcbits.com/img/a2143413764_16.jpg",
@@ -1874,7 +1874,7 @@
    "bandcamp": "https://captainsofseaandwar.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1Axw3M4PXg7xXmm0e4Q0k2",
    "apple_music": "https://music.apple.com/es/artist/captains-of-sea-and-war/917353246",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@captainsofseaandwar",
    "web": "",
    "discografia": "Remote",
    "portada": "https://f4.bcbits.com/img/a1209018000_16.jpg",
@@ -1957,7 +1957,7 @@
    "bandcamp": "https://thisisblak.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2dm1ErFrLGbPPIFdvnyo1E",
    "apple_music": "https://music.apple.com/es/artist/blak/959439654",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@thisisblak",
    "web": "",
    "discografia": "Mont Solitud",
    "portada": "https://f4.bcbits.com/img/a3060907679_16.jpg",
@@ -2030,7 +2030,7 @@
    "bandcamp": "https://aldertree.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@aldertreeband",
    "web": "",
    "discografia": "Earthrise, Even the Mud Holds Beauty, Where the Light Hesitates, Sunshine, Sector Light Failure",
    "portada": "https://f4.bcbits.com/img/a1449917141_16.jpg",
@@ -2172,7 +2172,7 @@
    "bandcamp": "https://aathma.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4f1M0PJRhYLjWYPuj3BLYf",
    "apple_music": "https://music.apple.com/es/artist/aathma/572940201",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@aathmaband",
    "web": "",
    "discografia": "Dust From a Dark Sun, Avesta, Deadly Lake, Decline... Towers of Silence, The Call of Shivá",
    "portada": "https://f4.bcbits.com/img/a3758024171_16.jpg",
@@ -2307,7 +2307,7 @@
    "bandcamp": "https://letempsduloup.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/45CqBDl6PZQRGgvbVa0i9j",
    "apple_music": "https://music.apple.com/es/artist/le-temps-du-loup/932958061",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@ltdlband",
    "web": "",
    "discografia": "Le temps du loup",
    "portada": "https://f4.bcbits.com/img/a3165814267_16.jpg",
@@ -2547,7 +2547,7 @@
    "bandcamp": "https://troubledmind.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1W19K2Jjes583lDLrLdd1q",
    "apple_music": "https://music.apple.com/es/artist/troubled-mind/1420420210",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@troubledmind181",
    "web": "",
    "discografia": "Flow",
    "portada": "https://f4.bcbits.com/img/a3170631874_16.jpg",
@@ -2624,7 +2624,7 @@
    "id": "abstraccion",
    "nombre": "Abstracción",
    "estilos": "Rock progresivo / Psicodélico / Acid folk",
-   "ciudad": "España",
+   "ciudad": "Madrid (y Córdoba)",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://abstraccion.bandcamp.com",
@@ -2648,13 +2648,13 @@
    "id": "amoeba-split",
    "nombre": "Amoeba Split",
    "estilos": "Prog Canterbury / Jazz rock / Proto-prog",
-   "ciudad": "Spain (Galicia)",
+   "ciudad": "A Coruña",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://amoebasplit.bandcamp.com",
    "spotify": "https://open.spotify.com/album/382e4hPOvKKo2G7QInWxq2",
    "apple_music": "https://music.apple.com/es/artist/amoeba-split/1188693181",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@amoebasplit",
    "web": "https://www.amoebasplit.com/",
    "discografia": "Dance of the Goodbyes, Second Split, Quiet Euphoria",
    "portada": "https://f4.bcbits.com/img/a3346515733_16.jpg",
@@ -2758,7 +2758,7 @@
    "bandcamp": "https://backtorlyeh.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/6ki2pKjOz3SntGUECF3noj",
    "apple_music": "https://music.apple.com/es/artist/back-to-rlyeh/795684166",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@BackToRlyeh",
    "web": "",
    "discografia": "Back To R'lyeh",
    "portada": "https://f4.bcbits.com/img/a2852836710_16.jpg",
@@ -2883,7 +2883,7 @@
    "bandcamp": "https://highfire.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/5szqb9k5bFiYh8ZNu5h4W6",
    "apple_music": "https://music.apple.com/es/artist/ascent/262159241",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@ascentprogband",
    "web": "",
    "discografia": "Forward, Deep Schyzo Cycle",
    "portada": "https://f4.bcbits.com/img/a3461495287_16.jpg",
@@ -2921,7 +2921,7 @@
    "bandcamp": "https://anteros.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/7LJMGHODeEQaZYgZbFk2OL",
    "apple_music": "https://music.apple.com/es/artist/%C3%A0nteros/1126451317",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@anteros5059",
    "web": "",
    "discografia": "Montenegro, ...y en paz la oscuridad, Cuerpos celestes, Coventa, Wires, Lunas",
    "portada": "https://f4.bcbits.com/img/a0558807294_16.jpg",
@@ -2987,7 +2987,7 @@
    "bandcamp": "https://facethemaybe.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/69AOSPJvA39QIGmi2urqcN",
    "apple_music": "https://music.apple.com/es/artist/face-the-maybe/509556205",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@FaceTheMaybeOfficial",
    "web": "",
    "discografia": "Embrace",
    "portada": "https://f4.bcbits.com/img/a1864899731_16.jpg",
@@ -3120,7 +3120,7 @@
    "id": "we-were-heading-north",
    "nombre": "We Were Heading North",
    "estilos": "Post-rock instrumental",
-   "ciudad": "España",
+   "ciudad": "Tenerife",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://wewereheadingnorth.bandcamp.com",
@@ -3164,7 +3164,7 @@
    "bandcamp": "https://whalenado.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1rGEW7ce4O6Ky361xHTPIw",
    "apple_music": "https://music.apple.com/es/artist/whale-nado/1350369057",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@whalenado3945",
    "web": "",
    "discografia": "No Volveré a Ser Joven, The Original Wave and The Small Riot",
    "portada": "https://f4.bcbits.com/img/a0562147781_16.jpg",
@@ -3379,7 +3379,7 @@
    "bandcamp": "https://jardindelacroix.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0LGX3mkYo7ckQz4JyZrifu",
    "apple_music": "https://music.apple.com/es/artist/jard%C3%ADn-de-la-croix/572931350",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@jardindelacroix",
    "web": "https://www.jardindelacroix.com",
    "discografia": "Circadia, Letargo, Ognitza, Pomeroy",
    "portada": "https://f4.bcbits.com/img/a2663247265_16.jpg",
@@ -3462,7 +3462,7 @@
    "bandcamp": "https://axiom9.bandcamp.com",
    "spotify": "",
    "apple_music": "https://music.apple.com/es/artist/axiom9/1486762037",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@Axiom9_Band",
    "web": "",
    "discografia": "Mission Unknown, The Harmonic Continuum, Neural Singularity, The Riff From Outer Space",
    "portada": "https://f4.bcbits.com/img/a2005819345_16.jpg",
@@ -3871,7 +3871,7 @@
    "bandcamp": "https://ikarass.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1ymshM6FNscPt6IHMZM81V",
    "apple_music": "https://music.apple.com/es/artist/ikarass/1503574971",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@ikarass7469",
    "web": "https://www.ikarasscvlt.com",
    "discografia": "Relapse Into Desolation",
    "portada": "https://f4.bcbits.com/img/a0071970788_16.jpg",
@@ -4020,7 +4020,7 @@
    "bandcamp": "https://delbergrady.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/3vqi2YXBZvQUFGfIgnFVa4",
    "apple_music": "https://music.apple.com/es/artist/delber-grady/1012664000",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@DelberGrady",
    "web": "",
    "discografia": "",
    "portada": "https://f4.bcbits.com/img/a3954946948_16.jpg",
@@ -4065,7 +4065,7 @@
    "bandcamp": "https://degraey.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/6eyT3zHLSv65xN8d6hoiqM",
    "apple_music": "https://music.apple.com/es/artist/degraey/1172205528",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@degraey1013",
    "web": "",
    "discografia": "Reveries",
    "portada": "https://f4.bcbits.com/img/a4172463257_16.jpg",
@@ -4096,7 +4096,7 @@
    "bandcamp": "https://spacecro.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2Rjj9su4jtyQaAGoM8gsij",
    "apple_music": "https://music.apple.com/es/artist/c-r-o/1015977713",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@cro3906",
    "web": "https://www.spacecro.com",
    "discografia": "BUAH!, Diola gigante, Lille, Mounstros, PERA",
    "portada": "https://f4.bcbits.com/img/a3000297813_16.jpg",
@@ -4398,7 +4398,7 @@
    "bandcamp": "https://ournextmovement.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4ngJg2oqUOsWkK77TlKUyl",
    "apple_music": "https://music.apple.com/es/artist/our-next-movement/916236177",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@ournextmovementband",
    "web": "",
    "discografia": "This Room, This Battlefield",
    "portada": "https://f4.bcbits.com/img/a0437633517_16.jpg",
@@ -4679,7 +4679,7 @@
    "bandcamp": "https://sekba.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4Kve98pPUPYv8ZzTYy9Xhg",
    "apple_music": "https://music.apple.com/es/artist/sekba/1072151574",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@Sekbarock",
    "web": "",
    "discografia": "Enjambre",
    "portada": "https://f4.bcbits.com/img/a0290671996_16.jpg",
@@ -4804,7 +4804,7 @@
    "bandcamp": "https://proyectoc5.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/437FORQQdfvLsmekTi8J1z",
    "apple_music": "https://music.apple.com/es/artist/proyecto-c5/1453577108",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@proyectoc5356",
    "web": "",
    "discografia": "Polimorfismo",
    "portada": "https://f4.bcbits.com/img/a0329663552_16.jpg",
@@ -4880,7 +4880,7 @@
    "bandcamp": "https://toundra.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/3cgIU3hh7Y4pUsPgHB8aYT",
    "apple_music": "https://music.apple.com/es/artist/toundra/373473641",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@Toundra",
    "web": "https://toundra.es",
    "discografia": "Das Cabinet des Dr. Caligari, Hex, Vortex, (IV), (III), (II), (I), Rapier",
    "portada": "https://f4.bcbits.com/img/a2474176249_16.jpg",
@@ -5074,7 +5074,7 @@
    "bandcamp": "https://acid-mess.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1hrWeOJbqOlePBC687tPNi",
    "apple_music": "https://music.apple.com/es/artist/acid-mess/1083466982",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@AcidMess",
    "web": "",
    "discografia": "Sangre de otros mundos, Madre Muerte, Creedless, II, I",
    "portada": "https://f4.bcbits.com/img/a0167604031_16.jpg",
@@ -5251,7 +5251,7 @@
    "bandcamp": "https://alicianurho.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2Nir6sw0HjownrLyBnhraD",
    "apple_music": "https://music.apple.com/es/artist/alicia-nurho/1239383454",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@AliciaNurho",
    "web": "https://www.alicianurhomusic.com",
    "discografia": "EtLux",
    "portada": "https://f4.bcbits.com/img/a3717389196_16.jpg",
@@ -5431,7 +5431,7 @@
    "bandcamp": "https://maybeviolet.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4lJy3AcbgjOEYseJzGvpy8",
    "apple_music": "https://music.apple.com/es/artist/maybe-violet/1611563422",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@maybeviolet8343",
    "web": "https://www.maybeviolet.com",
    "discografia": "in a few words, for the time being",
    "portada": "https://f4.bcbits.com/img/a0156377915_16.jpg",
@@ -5521,7 +5521,7 @@
    "bandcamp": "https://minorempires.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2OeCkBG5TS2nnmpZWonfns",
    "apple_music": "https://music.apple.com/es/artist/minor-empires/845606238",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@MinorEmpiresOfficial",
    "web": "https://www.minorempires.com",
    "discografia": "United States of Emergency Vol. 1",
    "portada": "https://f4.bcbits.com/img/a3096761972_16.jpg",
@@ -5743,7 +5743,7 @@
    "bandcamp": "https://spacedeer.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0vA29pa3eLHSRCS7h9Oq6D",
    "apple_music": "https://music.apple.com/es/artist/space-deer/1442342717",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@spacedeerband",
    "web": "",
    "discografia": "Blinding Mountain",
    "portada": "https://f4.bcbits.com/img/a1653697966_16.jpg",
@@ -5892,7 +5892,7 @@
    "bandcamp": "https://maremotus.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/7ELhtWvsDUGKEhMjPVRxxD",
    "apple_music": "https://music.apple.com/es/artist/maremotus/1538155264",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@maremotusband3037",
    "web": "",
    "discografia": "Superposición, Donde el Lobo es El Rey, Cabeza Borradora, Maremotus",
    "portada": "https://f4.bcbits.com/img/a0934754203_16.jpg",
@@ -6265,7 +6265,7 @@
    "bandcamp": "https://aphonnic.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0fJ1uLCAxmCnkmaOY0jtAl",
    "apple_music": "https://music.apple.com/es/artist/aphonnic/161318978",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@AphonnicVigo",
    "web": "",
    "discografia": "",
    "portada": "https://f4.bcbits.com/img/a0232899644_16.jpg",
@@ -6296,7 +6296,7 @@
    "bandcamp": "https://elcirculodewillis.bandcamp.com",
    "spotify": "",
    "apple_music": "https://music.apple.com/es/artist/el-circulo-de-willis/583845752",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@elcirculodewillis6102",
    "web": "https://www.elcirculodewillis.net",
    "discografia": "Retales",
    "portada": "https://f4.bcbits.com/img/a4281662561_16.jpg",
@@ -6334,7 +6334,7 @@
    "bandcamp": "https://thecircleproject.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@thecircleprojectband",
    "web": "",
    "discografia": "Bestiario II",
    "portada": "https://f4.bcbits.com/img/a1719136980_16.jpg",
@@ -6473,13 +6473,13 @@
    "id": "ekzilo",
    "nombre": "Ekzilo",
    "estilos": "Post-rock / atmosférico",
-   "ciudad": "España",
+   "ciudad": "Lorca (Murcia)",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://ekzilomusic.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4heSQWbef22RcpxuoaYHVI",
    "apple_music": "https://music.apple.com/es/artist/ekzilo/1479216697",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@ekzilorock9446",
    "web": "",
    "discografia": "Stargazers",
    "portada": "https://f4.bcbits.com/img/a0632232500_16.jpg",
@@ -6576,7 +6576,7 @@
    "bandcamp": "https://hugobentomusic.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4e4VIkIjv4azjjc9SDC8Qm",
    "apple_music": "https://music.apple.com/es/artist/hugo-bento/1525004205",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@hugobentomusic",
    "web": "",
    "discografia": "Sounds True, Now That I Heard Your Voice",
    "portada": "https://f4.bcbits.com/img/a0564242969_16.jpg",
@@ -6749,7 +6749,7 @@
    "bandcamp": "https://diabulusinmusica.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2g98DnPyHWcZXg8cLg0sNF",
    "apple_music": "https://music.apple.com/es/artist/diabulus-in-musica/365991611",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@DiabulusinMusica",
    "web": "",
    "discografia": "Euphonic Entropy, Dirge for the Archons, The Wanderer",
    "portada": "https://f4.bcbits.com/img/a4268356100_16.jpg",
@@ -6794,7 +6794,7 @@
    "bandcamp": "https://somewhereout.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2F6LzPcBOFctO7gShLcAWF",
    "apple_music": "https://music.apple.com/es/artist/somewhereout/1449247017",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@somewhereout1099",
    "web": "",
    "discografia": "Providence",
    "portada": "https://f4.bcbits.com/img/a1259427646_16.jpg",
@@ -6933,7 +6933,7 @@
    "bandcamp": "https://astrobahn.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0PyYVmXyFTqd8QGLL1B8OQ",
    "apple_music": "https://music.apple.com/es/artist/astrobahn/468031264",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@Astrobahn",
    "web": "",
    "discografia": "Fuego, El mundo se para, Ausencias EP",
    "portada": "https://f4.bcbits.com/img/a3815758913_16.jpg",
@@ -7196,7 +7196,7 @@
    "bandcamp": "https://svdestada.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1f1Cx9BgjVFahvlntKMc6R?si=CxYDM0n5Rt-xhctL2ulilA",
    "apple_music": "https://music.apple.com/es/artist/svdestada/1475885573",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@svdestada7741",
    "web": "",
    "discografia": "Candela, Miseria, Antracita",
    "portada": "https://f4.bcbits.com/img/a2570408461_16.jpg",
@@ -7234,7 +7234,7 @@
    "bandcamp": "https://piedraroja.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@piedraroja7792",
    "web": "",
    "discografia": "Mar en el Desierto",
    "portada": "https://f4.bcbits.com/img/a2003922598_16.jpg",
@@ -7414,7 +7414,7 @@
    "bandcamp": "https://somoshest.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/3H4GR4x9r4qbYsF0oapypL",
    "apple_music": "https://music.apple.com/es/artist/hoy-es-siempre-todav%C3%ADa/1552268147",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@somoshest",
    "web": "",
    "discografia": "El mapa de mi albedrío",
    "portada": "https://f4.bcbits.com/img/a3156175181_16.jpg",
@@ -7452,7 +7452,7 @@
    "bandcamp": "https://ellalarabiamusic.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/5HMsiVoBvxtUHhq0wyopCp",
    "apple_music": "https://music.apple.com/es/artist/ella-la-rabia/1348125459",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@EllaLaRabia",
    "web": "",
    "discografia": "Canción de Cuna Oceánica, Ella La Rabia",
    "portada": "https://f4.bcbits.com/img/a3070556160_16.jpg",
@@ -7585,7 +7585,7 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://eondry.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/1Y4StUZ281xRg9qZh5RVhn",
    "apple_music": "https://music.apple.com/es/artist/eondry/1541736084",
    "youtube": "https://www.youtube.com/channel/UCFZt5HYdq6g6kL7HoOyMG5A",
    "web": "",
@@ -7694,7 +7694,7 @@
    "bandcamp": "https://pasamonte.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/3AwjuJyJhLIo9IVDellOun",
    "apple_music": "https://music.apple.com/es/artist/pasamonte/1346767300",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@pasamonteband",
    "web": "",
    "discografia": "Acto Cero, Limerencia, GIGANTE",
    "portada": "https://f4.bcbits.com/img/a1473856344_16.jpg",
@@ -7732,7 +7732,7 @@
    "bandcamp": "https://friedasstillinlove.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4uEgcrBjmZPLBWpqA0KZYU",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@friedasstillinlove5650",
    "web": "",
    "discografia": "Frieda's Still in Love",
    "portada": "https://f4.bcbits.com/img/a2006912138_16.jpg",
@@ -7829,7 +7829,7 @@
    "bandcamp": "https://wearepiramide.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/78PdITr5DhicJ7b1E6Mhe6",
    "apple_music": "https://music.apple.com/es/artist/pir%C3%A1mide/1544639987",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@piramide8868",
    "web": "",
    "discografia": "Campo Modular",
    "portada": "https://f4.bcbits.com/img/a1016546792_16.jpg",
@@ -7881,7 +7881,7 @@
    "bandcamp": "https://plasticwoods.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0WxqohtYjcMrcnfowsB6Gt",
    "apple_music": "https://music.apple.com/es/artist/plastic-woods/1448785825",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@plasticwoods2172",
    "web": "",
    "discografia": "Flesh & Bones (live)",
    "portada": "https://f4.bcbits.com/img/a3254289882_16.jpg",
@@ -7932,7 +7932,7 @@
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://dunaband.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4GrPQiMGutDoHrGq0e4VXR",
-   "apple_music": "",
+   "apple_music": "https://music.apple.com/es/artist/duna/122338492",
    "youtube": "",
    "web": "",
    "discografia": "Duna",
@@ -7964,7 +7964,7 @@
    "bandcamp": "https://sepermitensubmarinos.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2ETiJMsB4vnIiMyG6HF6D5",
    "apple_music": "https://music.apple.com/es/artist/se-permiten-submarinos/1469704469",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@sepermitensubmarinos",
    "web": "",
    "discografia": "Se Permiten Submarinos, Grassa's Blues, Camino de Domingo Negro",
    "portada": "https://f4.bcbits.com/img/a1854476819_16.jpg",
@@ -8009,7 +8009,7 @@
    "bandcamp": "https://desdemarte.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/5RFyghZuURX1r7TkyqEAMU",
    "apple_music": "https://music.apple.com/es/artist/desde-marte/1511459033",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@desdemarteband",
    "web": "",
    "discografia": "Desde Marte, Denova",
    "portada": "https://f4.bcbits.com/img/a0577732341_16.jpg",
@@ -8040,7 +8040,7 @@
    "bandcamp": "https://electricvalley.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/6pntNqrU5SCToWGsTuIyes",
    "apple_music": "https://music.apple.com/es/artist/electric-valley/865648041",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@electricvalley327",
    "web": "",
    "discografia": "Tapes from the Galactic Tavern",
    "portada": "https://f4.bcbits.com/img/a2776807107_16.jpg",
@@ -8147,7 +8147,7 @@
    "bandcamp": "https://jhufus.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/6N2KnYliBQnl4JdvxqyxwP",
    "apple_music": "https://music.apple.com/es/artist/jhufus/1478471668",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@jhufus2137",
    "web": "",
    "discografia": "Horizon I",
    "portada": "https://f4.bcbits.com/img/a0019558706_16.jpg",
@@ -8269,11 +8269,18 @@
    "bandcamp": "https://kantfreudkafka.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/24tGLSJa8StWCgyzUv5MeV",
    "apple_music": "https://music.apple.com/es/artist/kant-freud-kafka/881915797",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@kanftreudkafka",
    "web": "https://www.kantfreudkafka.com",
-   "discografia": "Historias del Acantilado",
-   "portada": "https://f4.bcbits.com/img/a1522700895_16.jpg",
+   "discografia": "No tengas miedo - un cuento cantado (2026), Historias del acantilado (2021), Onírico Live (2019), Onírico (2017), No tengas miedo (2014)",
+   "portada": "https://f4.bcbits.com/img/a2608349430_16.jpg",
    "discos": [
+    {
+     "titulo": "No tengas miedo - un cuento cantado",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://kantfreudkafka.bandcamp.com/album/no-tengas-miedo-un-cuento-cantado",
+     "portada": "https://f4.bcbits.com/img/a2608349430_16.jpg"
+    },
     {
      "titulo": "Historias del acantilado",
      "anio": "2021",
@@ -8314,7 +8321,7 @@
    "bandcamp": "https://oscuroculto.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/3OQPFpYYDtfNZtEMWUIxly",
    "apple_music": "https://music.apple.com/es/artist/oscuro-culto/1529992479",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@oscuroculto1352",
    "web": "",
    "discografia": "Ceniza",
    "portada": "https://f4.bcbits.com/img/a0830285223_16.jpg",
@@ -8456,7 +8463,7 @@
    "bandcamp": "https://medussaband.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/7dYQWjUXGp8StjTtNEgpWC",
    "apple_music": "https://music.apple.com/es/artist/medussa/1739081166",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@medussabanda9614",
    "web": "",
    "discografia": "Mueran las Ideas",
    "portada": "https://f4.bcbits.com/img/a3978813838_16.jpg",
@@ -8552,7 +8559,7 @@
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://johnserrano.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1K75uETeg4UkXCMVhtJuUu",
-   "apple_music": "",
+   "apple_music": "https://music.apple.com/es/artist/john-serrano/909024089",
    "youtube": "",
    "web": "",
    "discografia": "come alive, still alive, alive (deluxe)",
@@ -8900,7 +8907,7 @@
    "id": "cuneo",
    "nombre": "Cuneo",
    "estilos": "Punk / post-hardcore",
-   "ciudad": "Comunidad Valenciana",
+   "ciudad": "Vega Baja (Alicante)",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://cuneo.bandcamp.com",
@@ -8944,7 +8951,7 @@
    "bandcamp": "https://psychotropicswamp.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2bmVUweE6N01lVvJ6h26kF",
    "apple_music": "https://music.apple.com/es/artist/psychotropic-swamp/1201652167",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@psychotropicswamp8796",
    "web": "",
    "discografia": "Coitus Interruptus",
    "portada": "https://f4.bcbits.com/img/a2034117157_16.jpg",
@@ -9020,7 +9027,7 @@
    "bandcamp": "https://miaturbia.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1Xi180SRLpXZN4BKaZ521y",
    "apple_music": "https://music.apple.com/es/artist/m%C3%ADa-turbia/1595784867",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@miaturbia8328",
    "web": "",
    "discografia": "El Camino",
    "portada": "https://f4.bcbits.com/img/a2086468190_16.jpg",
@@ -9172,7 +9179,7 @@
    "bandcamp": "https://narwhale.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/6vxuPq7dqYTcX7hj3eBwb7",
    "apple_music": "https://music.apple.com/es/artist/narwhale/1232151169",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@narwhaleband",
    "web": "",
    "discografia": "El Espacio Interior, Heart of the Corpse-Whale, narwhale",
    "portada": "https://f4.bcbits.com/img/a2941857746_16.jpg",
@@ -9276,7 +9283,7 @@
    "bandcamp": "https://auroraclara.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4RzRvpvVzE5qORpuo555kV",
    "apple_music": "https://music.apple.com/es/artist/aurora-clara/1489224002",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@auroraclaraband4016",
    "web": "",
    "discografia": "Transformation, Clear Dawn",
    "portada": "https://f4.bcbits.com/img/a3804375801_16.jpg",
@@ -9307,7 +9314,7 @@
    "bandcamp": "https://gravityfields.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0GLeMuK2oJinazO9cKsNRT",
    "apple_music": "https://music.apple.com/es/artist/gravity-fields/1677485219",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@gravityfieldsband",
    "web": "",
    "discografia": "Disruption",
    "portada": "https://f4.bcbits.com/img/a2136131177_16.jpg",
@@ -9564,7 +9571,7 @@
    "bandcamp": "https://undertaiga.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4sLj5YhmwLlW2yHFElUof5",
    "apple_music": "https://music.apple.com/es/artist/under-taiga/1606457346",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@undertaiga9300",
    "web": "",
    "discografia": "Ecstasy, Bones, The Veil, Fading Light, One Will",
    "portada": "https://f4.bcbits.com/img/a3556010379_16.jpg",
@@ -9630,7 +9637,7 @@
    "bandcamp": "https://monasteriodeculturarec.bandcamp.com",
    "spotify": "",
    "apple_music": "",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@monasteriodecultura",
    "web": "https://www.monasteriodecultura.com",
    "discografia": "Upper Middle Class Heroes",
    "portada": "https://f4.bcbits.com/img/a0602760104_16.jpg",
@@ -10298,7 +10305,7 @@
    "bandcamp": "https://vientosmoderadosdeleste.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/3V9oOuEVanL2hC8AFbZirV",
    "apple_music": "https://music.apple.com/es/artist/vientos-moderados-del-este/1759260845",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@vientosmoderadosdeleste",
    "web": "",
    "discografia": "Un Manual de Signos y Síntomas",
    "portada": "https://f4.bcbits.com/img/a2964376053_16.jpg",
@@ -10403,9 +10410,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://phantomspell.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/6jZGmfzyMFEaRvxr2rXtgN",
    "apple_music": "https://music.apple.com/es/artist/phantom-spell/1631527340",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@phantomspell",
    "web": "",
    "discografia": "Immortal's Requiem, Tales From the Black Spire, Heather & Hearth",
    "portada": "https://f4.bcbits.com/img/a2671329826_16.jpg",
@@ -10488,7 +10495,7 @@
    "bandcamp": "https://elagentenaranja.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2cPCd8d4KzoEZ74GvIyHuO",
    "apple_music": "https://music.apple.com/es/artist/el-agente-naranja/308876083",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@ElAgenteNaranja",
    "web": "https://elagentenaranja.com",
    "discografia": "Impermanencia",
    "portada": "https://f4.bcbits.com/img/a1211066345_16.jpg",
@@ -10686,7 +10693,7 @@
    "bandcamp": "https://elephantriders.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2gdnRIu8LXGLiDca9vNfoO",
    "apple_music": "https://music.apple.com/es/artist/elephant-riders/1230741661",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@ElephantRidersband",
    "web": "",
    "discografia": "Impure",
    "portada": "https://f4.bcbits.com/img/a0921776412_16.jpg",
@@ -10808,13 +10815,13 @@
    "id": "sangre-de-muerdago",
    "nombre": "Sangre de Muérdago",
    "estilos": "Folk oscuro / neofolk (en gallego)",
-   "ciudad": "Galicia",
+   "ciudad": "Ourense",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://sangredemuerdago.bandcamp.com",
-   "spotify": "",
+   "spotify": "https://open.spotify.com/artist/31B0gbLzmTRdprWvyq5S2y",
    "apple_music": "https://music.apple.com/es/artist/sangre-de-muerdago/896255723",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/user/sangredemuerdago",
    "web": "https://www.sangredemuerdago.com",
    "discografia": "O Xardín, O Vento que Lambe as miñas Feridas",
    "portada": "https://f4.bcbits.com/img/a3866960585_16.jpg",
@@ -11047,7 +11054,7 @@
    "bandcamp": "https://greengoat.bandcamp.com",
    "spotify": "",
    "apple_music": "https://music.apple.com/es/artist/greengoat/1625719256",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@GreengoatBand",
    "web": "https://www.greengoatband.com",
    "discografia": "Aloft, Charles, A.I., The Seed",
    "portada": "https://f4.bcbits.com/img/a0693454875_16.jpg",
@@ -11113,7 +11120,7 @@
    "bandcamp": "https://svuco.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4UgFbxvAhnfbQDkgIqidzV",
    "apple_music": "https://music.apple.com/es/artist/svuco/715051599",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@svucoband",
    "web": "",
    "discografia": "Nagoy",
    "portada": "https://f4.bcbits.com/img/a3755095963_16.jpg",
@@ -11447,13 +11454,13 @@
    "id": "sageness",
    "nombre": "SageNESS",
    "estilos": "Instrumental / Stoner / Psicodelia",
-   "ciudad": "Castilla y León",
+   "ciudad": "León",
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://sageness.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/5mvzI5W46NPdXVksscB7Pp",
    "apple_music": "https://music.apple.com/es/artist/sageness/1295216799",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@sagenessproduction",
    "web": "",
    "discografia": "Inner Empires, Tr3s, Akmé, SAGENESS",
    "portada": "https://f4.bcbits.com/img/a1114178541_16.jpg",
@@ -11543,7 +11550,7 @@
    "bandcamp": "https://ethiva.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/2pqJuivqJlfRzTrygg3TVf",
    "apple_music": "https://music.apple.com/es/artist/ethiva/1483072200",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@ethiva",
    "web": "",
    "discografia": "Beaten Track, Sublime Island, Ethiva",
    "portada": "https://f4.bcbits.com/img/a0286297128_16.jpg",
@@ -11581,7 +11588,7 @@
    "bandcamp": "https://tsode.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0tUxX57FkMWh5Td9O6SOLi",
    "apple_music": "https://music.apple.com/es/artist/tsode/379810022",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@TsodeOfficial",
    "web": "",
    "discografia": "TOTUM, Sound Polarities, Corduba: Mitos y Leyendas",
    "portada": "https://f4.bcbits.com/img/a3348327192_16.jpg",
@@ -11713,7 +11720,7 @@
    "bandcamp": "https://lucifernaga.bandcamp.com",
    "spotify": "",
    "apple_music": "https://music.apple.com/es/artist/lucif%C3%A9rnaga/1804377606",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@Lucifernaga_Doom",
    "web": "",
    "discografia": "Mala Bèsta",
    "portada": "https://f4.bcbits.com/img/a2130002845_16.jpg",
@@ -11737,7 +11744,7 @@
    "bandcamp": "https://honara.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/78ue9aAtLpI8siWqvpXvV4",
    "apple_music": "https://music.apple.com/es/artist/honara/1788059636",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@HonaraBand",
    "web": "",
    "discografia": "Resemblance, Covenant",
    "portada": "https://f4.bcbits.com/img/a0092134920_16.jpg",
@@ -11768,7 +11775,7 @@
    "bandcamp": "https://thesoulbreakercompany.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/0aMSIGPTVuu9zCcfA9CKZv",
    "apple_music": "https://music.apple.com/es/artist/the-soulbreaker-company/408718610",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@thesoulbreakercompany4413",
    "web": "",
    "discografia": "Sins, The Black Cup of the Nihil...",
    "portada": "https://f4.bcbits.com/img/a2595142660_16.jpg",
@@ -11893,7 +11900,7 @@
    "bandcamp": "https://altamiraadofficial.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/1DYbmB0Ok3B6c2jPHWTW0G",
    "apple_music": "https://music.apple.com/es/artist/altamira-a-d/1748802831",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@altamiraadofficial",
    "web": "",
    "discografia": "Manta (2024), Starcrossed (2024), Division (2023)",
    "portada": "https://f4.bcbits.com/img/a1429102031_16.jpg",
@@ -11931,7 +11938,7 @@
    "bandcamp": "https://lostinmyperception.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4X597en7tb5M0gNp1vN6gk",
    "apple_music": "https://music.apple.com/es/artist/lost-in-my-perception/1578237497",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@lostinmyperception",
    "web": "",
    "discografia": "Laying on Leaves \"Feat\" Carme Neira - Vocal Version (2023), Expressions \"Feat\" Carme Neira (2023), In the Name of Progress (2022)",
    "portada": "https://f4.bcbits.com/img/a0572873124_16.jpg",
@@ -11993,7 +12000,7 @@
    "bandcamp": "https://testus.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4z2zHDtJT7qwaVEoVD1uuO",
    "apple_music": "https://music.apple.com/es/artist/testus/1617289689",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@testusband",
    "web": "",
    "discografia": "Azurone (2025), Valme (2025), Inner (2024)",
    "portada": "https://f4.bcbits.com/img/a0919494386_16.jpg",
@@ -12245,7 +12252,7 @@
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://taltheband.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/6JLwyyc3LBwRXEODjugQ4D",
-   "apple_music": "",
+   "apple_music": "https://music.apple.com/es/artist/tal/448219103",
    "youtube": "",
    "web": "https://taltheband.com",
    "discografia": "Winner (2025), Wall (2025), Aphelion (2024), City Of Lies (2024), Boogeyman (2024), TAL (2024), Neptuno (2023)",
@@ -12358,7 +12365,7 @@
    "id": "after-lapse",
    "nombre": "After Lapse",
    "estilos": "Metal progresivo melódico",
-   "ciudad": "España",
+   "ciudad": "Madrid",
    "estado": "Activo",
    "enlace_principal": "Web",
    "bandcamp": "",
@@ -12604,7 +12611,7 @@
    "bandcamp": "https://gyozaisnotfood.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/3x0Dc0uyJqE1JEk1lkCaSB",
    "apple_music": "https://music.apple.com/es/artist/gyoza/1230357706",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/gyozaisnotfood",
    "web": "https://gyozaisnotfood.com/",
    "discografia": "Beber y soltar (2026), Si el dolor no es para tanto (2025), Un error (2025), Beber y doler (2024), Afterlife feat Bala (2024), Opacitas Vinum (2024), Beber y doler (2024), GHOST TRACKS (2022), It Never Rains But It Pours (2022), Deliverance (2022), Bitter End (2022), Early Bird Alternate Versions EP (2021), Covers Volume 1 (2020), Describe (Perfume Genius) feat Grauwi (2020), Ruptura (Triángulo de Amor Bizarro) (2020), Early Bird (2020), Nothing To Be Ashamed Of (2020), In My Room (2020), Veins (2019), GYOZA (2017), What Can I Do? - BEAROID REMIX (2017), What Can I Do? (2017), EP 2015 (2015)",
    "portada": "https://f4.bcbits.com/img/a2131312291_16.jpg",
@@ -12782,7 +12789,7 @@
    "bandcamp": "https://bernalsomos.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/36qikjyD6tDDJdlbnULZKv",
    "apple_music": "https://music.apple.com/es/artist/bernal/1596806898",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@bernalsomos",
    "web": "",
    "discografia": "Vida y milagros (2026), Rutina (2025), Dolores Marqués (2025), Dientes (2025), Una amistad perdida (2025), Mi hermana ha preguntado por ti (2024), Alivio Intermitente (Fon Smith Rework While Dawning At Patraix) (2023), La necesidad de contarlo (2023), Ciudad (2023), Alivio intermitente (2023), ¿Qué tal todo allí fuera? (2022), Iglú (2022), Parques (2022), Perspectiva / Tiempo (2021)",
    "portada": "https://f4.bcbits.com/img/a2339576338_16.jpg",
@@ -12928,7 +12935,7 @@
    "bandcamp": "https://serapisproject.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/4IkgfrxMBaceKvBB1p5vBJ",
    "apple_music": "https://music.apple.com/es/artist/serapis-project/1613423844",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@serapisproject",
    "web": "",
    "discografia": "The Instrumental Archives Vol. III (2025), Side Stories (2025), Palingenesis - SerapiS Project (2023), The Instrumental Archives Vol. II (2023), The Instrumental Archives Vol. I (2022)",
    "portada": "https://f4.bcbits.com/img/a3743482803_16.jpg",
@@ -13031,7 +13038,7 @@
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://tenuepunx.bandcamp.com",
    "spotify": "",
-   "apple_music": "",
+   "apple_music": "https://music.apple.com/es/artist/tenue/1560759182",
    "youtube": "",
    "web": "",
    "discografia": "Arcos, bóvedas, pórticos (2024), Territorios (2021), Anábasis (2018), Demo MMXVII (2017)",
@@ -13077,7 +13084,7 @@
    "bandcamp": "https://kaleikia.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/13hfwhc4OY49NBznn3e3yy",
    "apple_music": "https://music.apple.com/es/artist/kaleikia/1479427909",
-   "youtube": "",
+   "youtube": "https://www.youtube.com/@kaleikia",
    "web": "",
    "discografia": "Makali (2025), Oileán Fada V (2024), Live in Partovia (2022), Oileán Fada (2019)",
    "portada": "https://f4.bcbits.com/img/a3878989492_16.jpg",
@@ -13245,8 +13252,8 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://altarage.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
+   "spotify": "https://open.spotify.com/artist/1t6R1cmictIjcNCPKO4Nsp",
+   "apple_music": "https://music.apple.com/es/artist/altarage/1024240428",
    "youtube": "https://www.youtube.com/channel/UCYu0MiBlCLYt_RDV9BRGuNg",
    "web": "https://altarage.com",
    "discografia": "Cogwheel (2026), Worst Case Scenario (2023), Cataract EP (2023), Sol Corrupto (2022), Succumb (2021), The Approaching Roar (2019), Endinghent (2017), Nihl (2016), MMXV demo (2015)",
@@ -13325,8 +13332,8 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://rosyfinch.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
+   "spotify": "https://open.spotify.com/artist/59GJCXTWrYEkwLtpsFo5yQ",
+   "apple_music": "https://music.apple.com/es/artist/rosy-finch/737997559",
    "youtube": "https://www.youtube.com/rosyfinchband",
    "web": "https://www.rosyfinchband.com",
    "discografia": "Venus in furs (2023), Seconda Morte (2022), Black Lodge (2021), Love (2021), Scarlet (2020), The Sunset Acoustic Sessions Vol.1 (2017), Witchboro (2015), Wolves Waiting (2013)",
@@ -13399,8 +13406,8 @@
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://somosbala.bandcamp.com",
    "spotify": "https://open.spotify.com/artist/5Cqy5kUi1EY01scjbz87eJ",
-   "apple_music": "",
-   "youtube": "",
+   "apple_music": "https://music.apple.com/es/artist/bala/1552046452",
+   "youtube": "https://www.youtube.com/channel/UCJkaa4KLoJoFG3YnYscF5Ag",
    "web": "https://somosbala.com",
    "discografia": "Bodies (The Smashing Pumpkins cover) (2019) (2021), Lume (2017) (2017), Human Flesh (2015) (2015)",
    "portada": "https://f4.bcbits.com/img/a2536843468_16.jpg",
@@ -13436,8 +13443,8 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://medalla.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
+   "spotify": "https://open.spotify.com/artist/7gF2UrWGq0htyQ1SeF7jet",
+   "apple_music": "https://music.apple.com/es/artist/medalla/1465173956",
    "youtube": "https://www.youtube.com/channel/UCNYYtA2VqvgWd3-ooawrNNw?sub_confirmation=1",
    "web": "https://medallamusica.com",
    "discografia": "Arquitectura del Caos – Vol. I (2026), Modo Diablo (2026), Música Máquina (2025), Sacrilegio (2025), Mechero (2025), Amigo Mercado ft. Bala (2025), BMW 666 (2024), PUEDE QUE SUCEDA (2024), ESPECTROS DE LA TRISTEZA (2024), DUELO (2023), Doce Espadas / Esperpento (Directo) (2023), Arista Rota (Instrumental) (2022), Esperpento (Single) (2022), Arista Rota (2021), Café Para Todos (Single) (2020), Monopatín (Single) (2020), Medalla (2019), Emblema y Poder (2017)",
@@ -13579,8 +13586,8 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://teksuo.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
+   "spotify": "https://open.spotify.com/artist/2URLgFU8cs25UsJvOlSjzN",
+   "apple_music": "https://music.apple.com/es/artist/teksuo/570822987",
    "youtube": "https://www.youtube.com/user/teksuoband",
    "web": "",
    "discografia": "The Glow Before I Go (2026), Erased By Mistake (2026), Thirst For Tears (2025), Rip My Heart Out (Reimagined) (2025), Lost In A Dream (2024), Rip My Heart Out (2023), Raise The Flag (2023), Natural Born Liars (2022), LET IT RAIN (Acoustic) (2021), Endless (2020), Holes (live) (2020), Take What You Want (Post Malone Cover) (2019), Nure-Onna EP (2017), A New Way To Bleed (2015), Diamonds EP (2014), Thrênos (2012), Jiang Shi (2010), PHANTOMS (Acoustic)",
@@ -13722,9 +13729,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://cobrarocks.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
-   "youtube": "",
+   "spotify": "https://open.spotify.com/artist/4tp31pMpaIQp4wYwkOx83M",
+   "apple_music": "https://music.apple.com/es/artist/cobra/1081804254",
+   "youtube": "https://www.youtube.com/user/cobrettirocks",
    "web": "https://www.cobrarocks.com",
    "discografia": "Henko (2025), Fyre (2020), Riffyard (2016), Covered - A Selection of Film Scores [EP] (2012), Thriller! (2011), The Strong Arm of the Rock (2007)",
    "portada": "https://f4.bcbits.com/img/a3679020286_16.jpg",
@@ -13781,9 +13788,9 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://dunaviva.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
-   "youtube": "",
+   "spotify": "https://open.spotify.com/artist/1KukajH8TEx1c09iFRNGaK",
+   "apple_music": "https://music.apple.com/es/artist/dunaviva/1547401421",
+   "youtube": "https://www.youtube.com/@dunavivamusic2675",
    "web": "",
    "discografia": "Thalassa Therapeia (2025), Personas (2025), Vacío (2025), Islas (2025), Te Has Vuelto a Dejar la Luz Encendida (2025), Ruido Rosa, Pt.2 (2024), Yermo (2023), Calígine (2020)",
    "portada": "https://f4.bcbits.com/img/a2607807247_16.jpg",
@@ -13854,8 +13861,8 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://rodeodesert.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
+   "spotify": "https://open.spotify.com/artist/0LjFLVs8xGlfyPxUZrG5NZ",
+   "apple_music": "https://music.apple.com/es/artist/rodeo/1261104684",
    "youtube": "",
    "web": "",
    "discografia": "X (2025), HYBRIS (2022), MOIRA (2022), EZHERRIAN (2020), DILMUN (2018), Rodeo (2017)",
@@ -13914,8 +13921,8 @@
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://alfinalsolohabracenizas.bandcamp.com",
    "spotify": "",
-   "apple_music": "",
-   "youtube": "",
+   "apple_music": "https://music.apple.com/es/artist/al-final-solo-habr%C3%A1-cenizas/1756830082",
+   "youtube": "https://www.youtube.com/@alfinalsolohabracenizas",
    "web": "",
    "discografia": "Lodo (2024), Nuestra propia destrucción (2021)",
    "portada": "https://f4.bcbits.com/img/a2488400885_16.jpg",
@@ -13944,8 +13951,8 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://gutmann.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
+   "spotify": "https://open.spotify.com/artist/4oByfng65RbkcY3KbS8Ext",
+   "apple_music": "https://music.apple.com/es/artist/gutmann/6813263429",
    "youtube": "",
    "web": "",
    "discografia": "SHRINE (2026)",
@@ -14006,8 +14013,8 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://thetoucanpuffins.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
+   "spotify": "https://open.spotify.com/artist/2DzWG1QRODGiF3Lu2PHFBB",
+   "apple_music": "https://music.apple.com/es/artist/the-toucan-puffins/1760893120",
    "youtube": "",
    "web": "",
    "discografia": "The Toucan Puffins and the Giant Muffin (2026), In Lack of a Humdrum Supper (2022)",
@@ -14037,8 +14044,8 @@
    "estado": "Activo",
    "enlace_principal": "Bandcamp",
    "bandcamp": "https://annacrusa.bandcamp.com",
-   "spotify": "",
-   "apple_music": "",
+   "spotify": "https://open.spotify.com/artist/35wZzAxyK1bHLBY0ssGhOh",
+   "apple_music": "https://music.apple.com/es/artist/annacrusa/1496354201",
    "youtube": "https://www.youtube.com/channel/UC1-6seWo0lAupqkeDxpriPQ",
    "web": "",
    "discografia": "Perder la fe (2026), Comenzar de cero (2024), La espina (2023), Duelo (2020)",
@@ -14071,6 +14078,1985 @@
      "tipo": "disco",
      "enlace": "https://annacrusa.bandcamp.com/album/duelo",
      "portada": "https://f4.bcbits.com/img/a1349826383_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "bow-to-the-lions",
+   "nombre": "Bow To The Lions",
+   "estilos": "Metalcore / Hardcore / Post-hardcore",
+   "ciudad": "Pamplona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://bowtothelions.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/0RXyzuE0zOAxPk55oWZciy",
+   "apple_music": "https://music.apple.com/es/artist/bow-to-the-lions/1191817578",
+   "youtube": "https://www.youtube.com/@bowtothelions3186",
+   "web": "",
+   "discografia": "Bow To The Lions (2017)",
+   "portada": "https://f4.bcbits.com/img/a0191568247_16.jpg",
+   "discos": [
+    {
+     "titulo": "Bow To The Lions",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://bowtothelions.bandcamp.com/album/bow-to-the-lions",
+     "portada": "https://f4.bcbits.com/img/a0191568247_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "electrikeel",
+   "nombre": "Electrikeel",
+   "estilos": "Thrash metal / Crossover / Black thrash",
+   "ciudad": "Pamplona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://electrikeel.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/5vQqaKOKykwp5iFp0udAYm",
+   "apple_music": "https://music.apple.com/es/artist/electrikeel/1479564856",
+   "youtube": "https://www.youtube.com/@electrikeel949",
+   "web": "",
+   "discografia": "Solve Et Coagula (2026), Death in Plastic (2026), Feel The Eel (2026), Power Trip Medley (2023), Straight Outta Depths (2023), Punks (2023), Kingslayers (2021), To Protect And Sever (2019)",
+   "portada": "https://f4.bcbits.com/img/a0778041855_16.jpg",
+   "discos": [
+    {
+     "titulo": "Solve Et Coagula",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://electrikeel.bandcamp.com/album/solve-et-coagula",
+     "portada": "https://f4.bcbits.com/img/a0778041855_16.jpg"
+    },
+    {
+     "titulo": "Death in Plastic",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://electrikeel.bandcamp.com/track/death-in-plastic-2",
+     "portada": "https://f4.bcbits.com/img/a2704014310_16.jpg"
+    },
+    {
+     "titulo": "Feel The Eel",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://electrikeel.bandcamp.com/track/feel-the-eel-3",
+     "portada": "https://f4.bcbits.com/img/a1592908300_16.jpg"
+    },
+    {
+     "titulo": "Power Trip Medley",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://electrikeel.bandcamp.com/track/power-trip-medley",
+     "portada": "https://f4.bcbits.com/img/a3794488401_16.jpg"
+    },
+    {
+     "titulo": "Straight Outta Depths",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://electrikeel.bandcamp.com/album/straight-outta-depths-2",
+     "portada": "https://f4.bcbits.com/img/a1857074094_16.jpg"
+    },
+    {
+     "titulo": "Punks",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://electrikeel.bandcamp.com/track/punks-3",
+     "portada": "https://f4.bcbits.com/img/a3988032227_16.jpg"
+    },
+    {
+     "titulo": "Kingslayers",
+     "anio": "2021",
+     "tipo": "single",
+     "enlace": "https://electrikeel.bandcamp.com/track/kingslayers",
+     "portada": "https://f4.bcbits.com/img/a1069285092_16.jpg"
+    },
+    {
+     "titulo": "To Protect And Sever",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://electrikeel.bandcamp.com/album/to-protect-and-sever",
+     "portada": "https://f4.bcbits.com/img/a1213411458_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "taken",
+   "nombre": "Taken",
+   "estilos": "Power metal / Heavy metal",
+   "ciudad": "Pamplona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://takenmetal.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/7xjoliFtezAg2VsFIGvUG0",
+   "apple_music": "https://music.apple.com/es/artist/taken/1151478388",
+   "youtube": "https://www.youtube.com/c/TakenPowerMetal",
+   "web": "https://www.takenmetal.com",
+   "discografia": "Unchained (2019), Taken (2016)",
+   "portada": "https://f4.bcbits.com/img/a2295110328_16.jpg",
+   "discos": [
+    {
+     "titulo": "Unchained",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://takenmetal.bandcamp.com/album/unchained",
+     "portada": "https://f4.bcbits.com/img/a2295110328_16.jpg"
+    },
+    {
+     "titulo": "Taken",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://takenmetal.bandcamp.com/album/taken",
+     "portada": "https://f4.bcbits.com/img/a3239090743_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "dawn-of-the-maya",
+   "nombre": "Dawn Of The Maya",
+   "estilos": "Metalcore / Post-hardcore / Metal alternativo",
+   "ciudad": "Pamplona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://dawnofthemaya.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1Knc8COVspURhfPfMvBg1u",
+   "apple_music": "https://music.apple.com/es/artist/dawn-of-the-maya/341345723",
+   "youtube": "https://youtube.com/dawnofthemayadotm",
+   "web": "",
+   "discografia": "Colossal (2016), The Truth Is In Front Of You - Deluxe Edition - (2014), The Truth Is In Front Of You (2012), Me, The Planet (2010)",
+   "portada": "https://f4.bcbits.com/img/a0193085031_16.jpg",
+   "discos": [
+    {
+     "titulo": "Colossal",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://dawnofthemaya.bandcamp.com/album/colossal",
+     "portada": "https://f4.bcbits.com/img/a0193085031_16.jpg"
+    },
+    {
+     "titulo": "The Truth Is In Front Of You - Deluxe Edition -",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://dawnofthemaya.bandcamp.com/album/the-truth-is-in-front-of-you-deluxe-edition",
+     "portada": "https://f4.bcbits.com/img/a0946247826_16.jpg"
+    },
+    {
+     "titulo": "The Truth Is In Front Of You",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://dawnofthemaya.bandcamp.com/album/the-truth-is-in-front-of-you",
+     "portada": "https://f4.bcbits.com/img/a4212579134_16.jpg"
+    },
+    {
+     "titulo": "Me, The Planet",
+     "anio": "2010",
+     "tipo": "disco",
+     "enlace": "https://dawnofthemaya.bandcamp.com/album/me-the-planet",
+     "portada": "https://f4.bcbits.com/img/a4046423763_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "damned-ritual",
+   "nombre": "Damned Ritual",
+   "estilos": "Death metal melódico / Deathcore / Thrash metal",
+   "ciudad": "Pamplona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://damnedritual.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1lLT8M9bh8nGwMEUfLfo15",
+   "apple_music": "https://music.apple.com/es/artist/damned-ritual/1285511899",
+   "youtube": "https://www.youtube.com/@damnedritual1231",
+   "web": "",
+   "discografia": "Obliteration (2023), Roots of Evil (2017)",
+   "portada": "https://f4.bcbits.com/img/a4008097699_16.jpg",
+   "discos": [
+    {
+     "titulo": "Obliteration",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://damnedritual.bandcamp.com/album/obliteration",
+     "portada": "https://f4.bcbits.com/img/a4008097699_16.jpg"
+    },
+    {
+     "titulo": "Roots of Evil",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://damnedritual.bandcamp.com/album/roots-of-evil",
+     "portada": "https://f4.bcbits.com/img/a0494520672_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "oxido",
+   "nombre": "Óxido",
+   "estilos": "Heavy metal / Hard rock",
+   "ciudad": "Pamplona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://oxido1.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/3R9gPIZzzSwJa48w5IWMvq",
+   "apple_music": "https://music.apple.com/es/artist/%C3%B3xido/1288576672",
+   "youtube": "https://www.youtube.com/@Oxidometal",
+   "web": "",
+   "discografia": "I,M THE STORM (2024), Soy La Tormenta (2021), SOÑARAS (2019), Diez balas (2014)",
+   "portada": "https://f4.bcbits.com/img/a3873761309_16.jpg",
+   "discos": [
+    {
+     "titulo": "I,M THE STORM",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://oxido1.bandcamp.com/album/i-m-the-storm",
+     "portada": "https://f4.bcbits.com/img/a3873761309_16.jpg"
+    },
+    {
+     "titulo": "Soy La Tormenta",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://oxido1.bandcamp.com/album/soy-la-tormenta",
+     "portada": "https://f4.bcbits.com/img/a3648424077_16.jpg"
+    },
+    {
+     "titulo": "SOÑARAS",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://oxido1.bandcamp.com/album/so-aras",
+     "portada": "https://f4.bcbits.com/img/a3071974664_16.jpg"
+    },
+    {
+     "titulo": "Diez balas",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://oxido1.bandcamp.com/album/diez-balas",
+     "portada": "https://f4.bcbits.com/img/a0485486758_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "evil-killer",
+   "nombre": "Evil Killer",
+   "estilos": "Heavy metal / Speed metal / Thrash metal",
+   "ciudad": "Pamplona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://evilkiller.bandcamp.com",
+   "spotify": "",
+   "apple_music": "https://music.apple.com/es/artist/evil-killer/1491822939",
+   "youtube": "https://www.youtube.com/@EvilKillerOfficial",
+   "web": "",
+   "discografia": "WITCHCRAFT (2016), Lethal Assault (2015), Midnight Assassin (2015), Demo 2013 (2013)",
+   "portada": "https://f4.bcbits.com/img/a0398300251_16.jpg",
+   "discos": [
+    {
+     "titulo": "WITCHCRAFT",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://evilkiller.bandcamp.com/album/witchcraft",
+     "portada": "https://f4.bcbits.com/img/a0398300251_16.jpg"
+    },
+    {
+     "titulo": "Lethal Assault",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://evilkiller.bandcamp.com/album/lethal-assault",
+     "portada": "https://f4.bcbits.com/img/a1986244410_16.jpg"
+    },
+    {
+     "titulo": "Midnight Assassin",
+     "anio": "2015",
+     "tipo": "single",
+     "enlace": "https://evilkiller.bandcamp.com/track/midnight-assassin",
+     "portada": "https://f4.bcbits.com/img/a0753191038_16.jpg"
+    },
+    {
+     "titulo": "Demo 2013",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://evilkiller.bandcamp.com/album/demo-2013",
+     "portada": "https://f4.bcbits.com/img/a2197390380_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "la-sonrisa-metalica",
+   "nombre": "La Sonrisa Metálica",
+   "estilos": "Heavy metal / Rock",
+   "ciudad": "Pamplona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://lasonrisametalica.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1UNEyuLUDPduqLipVpIjo2",
+   "apple_music": "https://music.apple.com/es/artist/la-sonrisa-met%C3%A1lica/1444433131",
+   "youtube": "https://www.youtube.com/@lasonrisametalica",
+   "web": "",
+   "discografia": "Tierra Sin Ley (2022), Aquí no hay nadie (2018), Despertaré (2014), LSM (2011)",
+   "portada": "https://f4.bcbits.com/img/a0666868444_16.jpg",
+   "discos": [
+    {
+     "titulo": "Tierra Sin Ley",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://lasonrisametalica.bandcamp.com/album/tierra-sin-ley",
+     "portada": "https://f4.bcbits.com/img/a0666868444_16.jpg"
+    },
+    {
+     "titulo": "Aquí no hay nadie",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://lasonrisametalica.bandcamp.com/album/aqu-no-hay-nadie",
+     "portada": "https://f4.bcbits.com/img/a0680140287_16.jpg"
+    },
+    {
+     "titulo": "Despertaré",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://lasonrisametalica.bandcamp.com/album/despertar",
+     "portada": "https://f4.bcbits.com/img/a2353202533_16.jpg"
+    },
+    {
+     "titulo": "LSM",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://lasonrisametalica.bandcamp.com/album/lsm",
+     "portada": "https://f4.bcbits.com/img/a0713793980_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "eternal-storm",
+   "nombre": "Eternal Storm",
+   "estilos": "Death metal melódico / Black metal melódico",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://eternalstorm.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/6aY20pktUlFq04loIY0azZ",
+   "apple_music": "https://music.apple.com/es/artist/eternal-storm/843621835",
+   "youtube": "",
+   "web": "",
+   "discografia": "A Giant Bound to Fall (2024), Last Refuge (2023), Grey Skies (MMXXIII) (2023), Come The Tide (2019), Elemental Nightmares V (split with Kaos Vortex, Will of the Ancients & Stortregn) (2014), From the Ashes (2013)",
+   "portada": "https://f4.bcbits.com/img/a2601943870_16.jpg",
+   "discos": [
+    {
+     "titulo": "A Giant Bound to Fall",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://eternalstorm.bandcamp.com/album/a-giant-bound-to-fall-2",
+     "portada": "https://f4.bcbits.com/img/a2601943870_16.jpg"
+    },
+    {
+     "titulo": "Last Refuge",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://eternalstorm.bandcamp.com/track/last-refuge",
+     "portada": "https://f4.bcbits.com/img/a3846634295_16.jpg"
+    },
+    {
+     "titulo": "Grey Skies (MMXXIII)",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://eternalstorm.bandcamp.com/track/grey-skies-mmxxiii",
+     "portada": "https://f4.bcbits.com/img/a1579706504_16.jpg"
+    },
+    {
+     "titulo": "Come The Tide",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://eternalstorm.bandcamp.com/album/come-the-tide",
+     "portada": "https://f4.bcbits.com/img/a2195004091_16.jpg"
+    },
+    {
+     "titulo": "Elemental Nightmares V (split with Kaos Vortex, Will of the Ancients & Stortregn)",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://eternalstorm.bandcamp.com/album/elemental-nightmares-v-split-with-kaos-vortex-will-of-the-ancients-stortregn",
+     "portada": "https://f4.bcbits.com/img/a1050649233_16.jpg"
+    },
+    {
+     "titulo": "From the Ashes",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://eternalstorm.bandcamp.com/album/from-the-ashes",
+     "portada": "https://f4.bcbits.com/img/a1674475339_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "vidres-a-la-sang",
+   "nombre": "Vidres a la Sang",
+   "estilos": "Black metal / Death metal / Metal progresivo",
+   "ciudad": "Terrassa",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://vidresalasang.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/4HYoaDFfg2c6I5pLS64Q6L",
+   "apple_music": "https://music.apple.com/es/artist/vidres-a-la-sang/331449290",
+   "youtube": "https://www.youtube.com/@vidresalasangofficial6392",
+   "web": "",
+   "discografia": "VIRTUT DEL DESENCÍS (2024), FRAGMENTS DE L'ESDEVENIR (2022), SET DE SANG (2018), SOM (2009), ENDINS (2007), VIDRES A LA SANG (2004)",
+   "portada": "https://f4.bcbits.com/img/a3080828021_16.jpg",
+   "discos": [
+    {
+     "titulo": "VIRTUT DEL DESENCÍS",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://vidresalasang.bandcamp.com/album/virtut-del-desenc-s",
+     "portada": "https://f4.bcbits.com/img/a3080828021_16.jpg"
+    },
+    {
+     "titulo": "FRAGMENTS DE L'ESDEVENIR",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://vidresalasang.bandcamp.com/album/fragments-de-lesdevenir",
+     "portada": "https://f4.bcbits.com/img/a0988397012_16.jpg"
+    },
+    {
+     "titulo": "SET DE SANG",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://vidresalasang.bandcamp.com/album/set-de-sang",
+     "portada": "https://f4.bcbits.com/img/a2994837958_16.jpg"
+    },
+    {
+     "titulo": "SOM",
+     "anio": "2009",
+     "tipo": "disco",
+     "enlace": "https://vidresalasang.bandcamp.com/album/som",
+     "portada": "https://f4.bcbits.com/img/a3643939430_16.jpg"
+    },
+    {
+     "titulo": "ENDINS",
+     "anio": "2007",
+     "tipo": "disco",
+     "enlace": "https://vidresalasang.bandcamp.com/album/endins",
+     "portada": "https://f4.bcbits.com/img/a1539779357_16.jpg"
+    },
+    {
+     "titulo": "VIDRES A LA SANG",
+     "anio": "2004",
+     "tipo": "disco",
+     "enlace": "https://vidresalasang.bandcamp.com/album/vidres-a-la-sang",
+     "portada": "https://f4.bcbits.com/img/a2519347118_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "cryo",
+   "nombre": "Cryo",
+   "estilos": "Metal instrumental / Djent / Metal progresivo",
+   "ciudad": "España",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://cryosite.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/0D01sFcOJ0LqnLtdUxaEVG",
+   "apple_music": "https://music.apple.com/es/artist/cry-o/1247849495",
+   "youtube": "https://www.youtube.com/@Cryometal1",
+   "web": "",
+   "discografia": "Eclipse (2026), Discarded Material [remastered tracks] (2026), Luminous Collapse [old version] (2025)",
+   "portada": "https://f4.bcbits.com/img/a4154105141_16.jpg",
+   "discos": [
+    {
+     "titulo": "Eclipse",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://cryosite.bandcamp.com/album/eclipse",
+     "portada": "https://f4.bcbits.com/img/a4154105141_16.jpg"
+    },
+    {
+     "titulo": "Discarded Material [remastered tracks]",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://cryosite.bandcamp.com/album/discarded-material-remastered-tracks",
+     "portada": "https://f4.bcbits.com/img/a0326540445_16.jpg"
+    },
+    {
+     "titulo": "Luminous Collapse [old version]",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://cryosite.bandcamp.com/album/luminous-collapse-old-version",
+     "portada": "https://f4.bcbits.com/img/a3269374832_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "reek",
+   "nombre": "Reek",
+   "estilos": "Thrash metal / Metal progresivo",
+   "ciudad": "Sabadell",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://reekofficial.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/reekofficial",
+   "web": "",
+   "discografia": "Necrogenesis (2014), Rubbish Through Your Veins (2012)",
+   "portada": "https://f4.bcbits.com/img/a3785606246_16.jpg",
+   "discos": [
+    {
+     "titulo": "Necrogenesis",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://reekofficial.bandcamp.com/album/necrogenesis",
+     "portada": "https://f4.bcbits.com/img/a3785606246_16.jpg"
+    },
+    {
+     "titulo": "Rubbish Through Your Veins",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://reekofficial.bandcamp.com/album/rubbish-through-your-veins",
+     "portada": "https://f4.bcbits.com/img/a2929130834_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "dissocia",
+   "nombre": "Dissocia",
+   "estilos": "Metal progresivo / Death metal técnico",
+   "ciudad": "España / EE. UU.",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://dissociaofficial.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1EVVnGiTJk0l17hDOScYrg",
+   "apple_music": "https://music.apple.com/es/artist/dissocia/1792325911",
+   "youtube": "",
+   "web": "https://dissociaofficial.com",
+   "discografia": "To Lift the Veil (2025)",
+   "portada": "https://f4.bcbits.com/img/a2052858281_16.jpg",
+   "discos": [
+    {
+     "titulo": "To Lift the Veil",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://dissociaofficial.bandcamp.com/album/to-lift-the-veil",
+     "portada": "https://f4.bcbits.com/img/a2052858281_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "stench-of-sorcery",
+   "nombre": "Stench Of Sorcery",
+   "estilos": "Death metal / Black metal / Old school",
+   "ciudad": "Polinyà (Barcelona)",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://stenchofsorcery.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/5Wsc3A6SGeXWSfUsCYRj2L",
+   "apple_music": "https://music.apple.com/es/artist/stench-of-sorcery/1775813497",
+   "youtube": "https://www.youtube.com/@StenchofSorcery",
+   "web": "",
+   "discografia": "The Palegold Menace (2026), Alric's Deadly Omen (2026), Stain of Suspicion (2026), Dual Spell - 2 CD Pack (2025), Spellcaster (2025), Unseen Battles (2024)",
+   "portada": "https://f4.bcbits.com/img/a2436559577_16.jpg",
+   "discos": [
+    {
+     "titulo": "The Palegold Menace",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://stenchofsorcery.bandcamp.com/album/the-palegold-menace",
+     "portada": "https://f4.bcbits.com/img/a2436559577_16.jpg"
+    },
+    {
+     "titulo": "Alric's Deadly Omen",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://stenchofsorcery.bandcamp.com/track/alrics-deadly-omen",
+     "portada": "https://f4.bcbits.com/img/a4230671250_16.jpg"
+    },
+    {
+     "titulo": "Stain of Suspicion",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://stenchofsorcery.bandcamp.com/track/stain-of-suspicion",
+     "portada": "https://f4.bcbits.com/img/a1658234962_16.jpg"
+    },
+    {
+     "titulo": "Dual Spell - 2 CD Pack",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://stenchofsorcery.bandcamp.com/album/dual-spell-2-cd-pack",
+     "portada": "https://f4.bcbits.com/img/a1756557853_16.jpg"
+    },
+    {
+     "titulo": "Spellcaster",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://stenchofsorcery.bandcamp.com/album/spellcaster",
+     "portada": "https://f4.bcbits.com/img/a3516104667_16.jpg"
+    },
+    {
+     "titulo": "Unseen Battles",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://stenchofsorcery.bandcamp.com/album/unseen-battles",
+     "portada": "https://f4.bcbits.com/img/a3422514144_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "indar",
+   "nombre": "Indar",
+   "estilos": "Death metal / Metal alternativo / Post-metal",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://indar.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/74k4iNbxgbqjOXPt2g6Ewk",
+   "apple_music": "https://music.apple.com/es/artist/indar/1707077753",
+   "youtube": "https://www.youtube.com/@IndarBand",
+   "web": "",
+   "discografia": "Anlage (2025), Oxyde (2024), Nostalgia (2024), Udol (2024), Prey (2023), Rotten Roots (2023)",
+   "portada": "https://f4.bcbits.com/img/a1190843245_16.jpg",
+   "discos": [
+    {
+     "titulo": "Anlage",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://indar.bandcamp.com/album/anlage",
+     "portada": "https://f4.bcbits.com/img/a1190843245_16.jpg"
+    },
+    {
+     "titulo": "Oxyde",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://indar.bandcamp.com/track/oxyde-2",
+     "portada": "https://f4.bcbits.com/img/a0409098998_16.jpg"
+    },
+    {
+     "titulo": "Nostalgia",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://indar.bandcamp.com/track/nostalgia",
+     "portada": "https://f4.bcbits.com/img/a1704494484_16.jpg"
+    },
+    {
+     "titulo": "Udol",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://indar.bandcamp.com/track/udol",
+     "portada": "https://f4.bcbits.com/img/a3001766315_16.jpg"
+    },
+    {
+     "titulo": "Prey",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://indar.bandcamp.com/track/prey",
+     "portada": "https://f4.bcbits.com/img/a2774549810_16.jpg"
+    },
+    {
+     "titulo": "Rotten Roots",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://indar.bandcamp.com/track/rotten-roots",
+     "portada": "https://f4.bcbits.com/img/a0874986099_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "santacreu",
+   "nombre": "Santacreu",
+   "estilos": "Doom / Post-metal / Metal progresivo",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://santacreu.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/5MbhUHF92sQiD0HHZB7gWr",
+   "apple_music": "https://music.apple.com/es/artist/santacreu/1503048192",
+   "youtube": "https://www.youtube.com/channel/UC1GPfqj6dbUojs19cCEXymQ",
+   "web": "",
+   "discografia": "Cançons d'Amor, Dol i Enyorança (2024), l'Oblit (2020)",
+   "portada": "https://f4.bcbits.com/img/a0650456105_16.jpg",
+   "discos": [
+    {
+     "titulo": "Cançons d'Amor, Dol i Enyorança",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://santacreu.bandcamp.com/album/canc-ons-damor-dol-i-enyoran-a",
+     "portada": "https://f4.bcbits.com/img/a0650456105_16.jpg"
+    },
+    {
+     "titulo": "l'Oblit",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://santacreu.bandcamp.com/album/loblit",
+     "portada": "https://f4.bcbits.com/img/a1123966835_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "wormed",
+   "nombre": "Wormed",
+   "estilos": "Brutal death metal / Death metal técnico",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://wormedsom.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1YXwL0RvyKn9swZ6CsVDwk",
+   "apple_music": "https://music.apple.com/es/artist/wormed/341334269",
+   "youtube": "https://www.youtube.com/@Wormed",
+   "web": "",
+   "discografia": "Omegon (2024), Metaportal (2019), Krighsu (2016)",
+   "portada": "https://f4.bcbits.com/img/a3972211394_16.jpg",
+   "discos": [
+    {
+     "titulo": "Omegon",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://wormedsom.bandcamp.com/album/omegon",
+     "portada": "https://f4.bcbits.com/img/a3972211394_16.jpg"
+    },
+    {
+     "titulo": "Metaportal",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://wormedsom.bandcamp.com/album/metaportal",
+     "portada": "https://f4.bcbits.com/img/a2010039027_16.jpg"
+    },
+    {
+     "titulo": "Krighsu",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://wormedsom.bandcamp.com/album/krighsu",
+     "portada": "https://f4.bcbits.com/img/a1678489046_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "aeolian",
+   "nombre": "Aeolian",
+   "estilos": "Death metal melódico / Black metal melódico",
+   "ciudad": "Mallorca",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://aeolianband.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/0ysxQz40akfXxNwuoIIGEe",
+   "apple_music": "https://music.apple.com/es/artist/aeolian/1420611201",
+   "youtube": "https://www.youtube.com/channel/UCj9ocjfbFOKEPS_NRbppbOg",
+   "web": "https://www.aeolianofficial.com",
+   "discografia": "Echoes of the Future (2023), The Negationist (2020), Silent Witness (2018)",
+   "portada": "https://f4.bcbits.com/img/a3637656689_16.jpg",
+   "discos": [
+    {
+     "titulo": "Echoes of the Future",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://aeolianband.bandcamp.com/album/echoes-of-the-future",
+     "portada": "https://f4.bcbits.com/img/a3637656689_16.jpg"
+    },
+    {
+     "titulo": "The Negationist",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://aeolianband.bandcamp.com/album/the-negationist",
+     "portada": "https://f4.bcbits.com/img/a2658826358_16.jpg"
+    },
+    {
+     "titulo": "Silent Witness",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://aeolianband.bandcamp.com/album/silent-witness",
+     "portada": "https://f4.bcbits.com/img/a0557951217_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "curvatura",
+   "nombre": "Curvatura",
+   "estilos": "Rock progresivo",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://curvaturabanda.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/4MiEj3qSGKgVLXfnoCcyle",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/@curvatura_banda",
+   "web": "",
+   "discografia": "Océano y Desierto (2026)",
+   "portada": "https://f4.bcbits.com/img/a1063914437_16.jpg",
+   "discos": [
+    {
+     "titulo": "Océano y Desierto",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://curvaturabanda.bandcamp.com/album/oc-ano-y-desierto",
+     "portada": "https://f4.bcbits.com/img/a1063914437_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "etjm",
+   "nombre": "ETJM",
+   "estilos": "Metal progresivo instrumental",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/7cMkTy3iBxeyZyJUJ9YqCi",
+   "apple_music": "https://music.apple.com/es/artist/etjm/1821668039",
+   "youtube": "",
+   "web": "",
+   "discografia": "When Everyone Sleeps (2026), CAT DANCE (2026), Roots (2025), STUFFEDFLOWER (2025), New Point (2025), HOPE (2025)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/e9/4f/2de94f84-ad56-5e40-0c18-69259ba4eaf7/cover.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "When Everyone Sleeps",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/when-everyone-sleeps-ep/1875999194",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/e9/4f/2de94f84-ad56-5e40-0c18-69259ba4eaf7/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "CAT DANCE",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/cat-dance-ep/6795898745",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/70/54/0f/70540fc5-41ea-ed32-761d-9bc7b34a1310/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Roots",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/roots-ep/1855966146",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/25/db/9f/25db9ffe-4430-5764-a33d-f1844ffe25aa/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "STUFFEDFLOWER",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/stuffedflower-single/1842900929",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/42/a5/fc/42a5fc66-d5ef-a30b-45ab-1f14d333f0c7/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "New Point",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/new-point-single/1820207087",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d8/df/a1/d8dfa198-11cc-816f-50ed-cc03466c8e56/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "HOPE",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/hope-single/1828773325",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/98/7a/3a/987a3a67-cef3-0f5f-7de0-10a35e26bb68/cover.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "against-myself",
+   "nombre": "Against Myself",
+   "estilos": "Metal progresivo / Metal sinfónico",
+   "ciudad": "Argamasilla de Alba (Ciudad Real)",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/2yoaZdFiI362NRtFPF3YTN",
+   "apple_music": "https://music.apple.com/es/artist/against-myself/441962638",
+   "youtube": "https://www.youtube.com/@AgainstMyselfOfficial",
+   "web": "",
+   "discografia": "Act II - Reflections (feat. Saurom) (2025), Tides of Insanity (2023), Providence (2023), Sweet Chants of Death (2023), Beyond the Deep (2022), The Phantom of the Opera (feat. Unai Iglesias Lecuona) (2022), The Tempest (2020), Unity (2019), The Hidden Truth (feat. Diego Teksuo) (2016), Odyssey to Reflexion (2015), Sky Ashes (2011)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a6/be/76/a6be7611-abe5-f41b-22dd-fff7354e09d7/199806126288.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "Act II - Reflections (feat. Saurom)",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/act-ii-reflections-feat-saurom-single/1846352717",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a6/be/76/a6be7611-abe5-f41b-22dd-fff7354e09d7/199806126288.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Tides of Insanity",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/tides-of-insanity/1682071005",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/69/18/91/69189195-0798-2ebd-ce17-4054ea45cb9c/8445162881708.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Providence",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/providence-single/1672751706",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/33/49/b8/3349b830-60ac-7b30-6b9c-116c2e4214cd/8445162844871.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Sweet Chants of Death",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/sweet-chants-of-death-single/1663050665",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/23/72/be/2372be9e-9c3d-a051-2204-24e2f6adff36/8445162813785.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Beyond the Deep",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/beyond-the-deep-single/1654515064",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/98/86/dc/9886dc79-8f5d-bc35-76fe-daa31e544edb/8445162781831.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "The Phantom of the Opera (feat. Unai Iglesias Lecuona)",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/the-phantom-of-the-opera-feat-unai-iglesias-lecuona-single/1601301978",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/6a/81/d7/6a81d75c-621a-851c-a92a-ff843f6a57fe/8445162575874.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "The Tempest",
+     "anio": "2020",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/the-tempest-single/1510471067",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/cd/e5/09/cde50970-bb8d-bf39-7f78-dff2360e2b33/8445162092685.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Unity",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/unity/1449332133",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/cc/a7/68/cca76806-fce3-1086-96f3-2208ed465b37/8429006341665.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "The Hidden Truth (feat. Diego Teksuo)",
+     "anio": "2016",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/the-hidden-truth-feat-diego-teksuo-single/1152923689",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music71/v4/25/d4/7f/25d47fdf-8735-f192-4413-ce5ab957794a/8436022729223.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Odyssey to Reflexion",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/odyssey-to-reflexion/943085632",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music5/v4/a7/2e/2d/a72e2dd5-583c-6001-ec5a-1c254dbaaa0c/8436022726185.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Sky Ashes",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/sky-ashes/594844109",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/55/b1/7f/55b17fc3-eb2d-f31c-fa03-3d10be9740ce/8436022724679.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "lampr3a",
+   "nombre": "LAMPR3A",
+   "estilos": "Metal progresivo técnico instrumental",
+   "ciudad": "País Vasco",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/3jIBGr0NVe9cmBRI09itgn",
+   "apple_music": "https://music.apple.com/es/artist/lampr3a/1257932415",
+   "youtube": "https://www.youtube.com/@lampr3a",
+   "web": "",
+   "discografia": "ESnSE (2023), The AGR Sessions (En Vivo) (2023), KOE (2023), EVØKE (2023), MAGLA (2023), 22:22 (2022), Neurocoalescence (2017)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/9b/ae/ce/9baece2e-9688-0a21-5cf8-3b8f8aa2015a/cover.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "ESnSE",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/esnse/1707675736",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/9b/ae/ce/9baece2e-9688-0a21-5cf8-3b8f8aa2015a/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "The AGR Sessions (En Vivo)",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/the-agr-sessions-en-vivo-single/1707582126",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/73/69/de/7369de17-5e2c-b273-2664-5e628a730f55/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "KOE",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/koe-single/1707582401",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a1/e3/51/a1e351cb-9e9f-6832-30df-9722a2c3e8a2/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "EVØKE",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/ev%C3%B8ke-single/1707577653",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/24/b5/19/24b5196b-cc53-b391-1e11-33ad0add99d9/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "MAGLA",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/magla-single/1707673848",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/87/93/72/87937201-5f5e-1c0f-9481-81d74ea91378/cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "22:22",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/22-22-single/1611111046",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/98/3e/dc/983edc9f-a359-b0dc-21be-a46ca0994d1b/859753660555_cover.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Neurocoalescence",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/neurocoalescence-ep/1257932170",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/49/ad/2e/49ad2e18-a7d7-cf9e-0962-64dc4ad76183/859721894470_cover.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "manners",
+   "nombre": "Manners",
+   "estilos": "Rock progresivo",
+   "ciudad": "Menorca",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/3FWCrjkkJC7Bb7kPOKAIHE",
+   "apple_music": "https://music.apple.com/es/artist/manners/1711381292",
+   "youtube": "",
+   "web": "",
+   "discografia": "Punctum (2023), A Winter Song (Short Version) (2023)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a6/52/64/a652640d-4da4-5c4d-4cd9-053e24b598c0/197190510188.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "Punctum",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/punctum/1718602629",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a6/52/64/a652640d-4da4-5c4d-4cd9-053e24b598c0/197190510188.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "A Winter Song (Short Version)",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/a-winter-song-short-version-single/1711073955",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/82/9b/ec/829bec05-4fcf-4818-7d50-75749be72f83/197190149722.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "atroz",
+   "nombre": "Atroz",
+   "estilos": "Space rock / Rock progresivo / Psicodelia",
+   "ciudad": "Zaragoza",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://atroz.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Atroz (2021)",
+   "portada": "https://f4.bcbits.com/img/a3141989432_16.jpg",
+   "discos": [
+    {
+     "titulo": "Atroz",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://atroz.bandcamp.com/album/atroz",
+     "portada": "https://f4.bcbits.com/img/a3141989432_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "twin-forest",
+   "nombre": "Twin Forest",
+   "estilos": "Rock alternativo / Post-hardcore",
+   "ciudad": "Valencia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://twinforest.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/40WyQ8Y0ubmKafaYalj3Rd",
+   "apple_music": "https://music.apple.com/es/artist/twin-forest/1491413690",
+   "youtube": "https://www.youtube.com/@twinforest359",
+   "web": "",
+   "discografia": "Balance In Defeat (2023), Silhouettes (Edit) (2023), A Distant Home (2021), Concept (2019)",
+   "portada": "https://f4.bcbits.com/img/a2138920368_16.jpg",
+   "discos": [
+    {
+     "titulo": "Balance In Defeat",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://twinforest.bandcamp.com/album/balance-in-defeat",
+     "portada": "https://f4.bcbits.com/img/a2138920368_16.jpg"
+    },
+    {
+     "titulo": "Silhouettes (Edit)",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://twinforest.bandcamp.com/track/silhouettes-edit",
+     "portada": "https://f4.bcbits.com/img/a2176348828_16.jpg"
+    },
+    {
+     "titulo": "A Distant Home",
+     "anio": "2021",
+     "tipo": "single",
+     "enlace": "https://twinforest.bandcamp.com/track/a-distant-home",
+     "portada": "https://f4.bcbits.com/img/a3072683774_16.jpg"
+    },
+    {
+     "titulo": "Concept",
+     "anio": "2019",
+     "tipo": "single",
+     "enlace": "https://twinforest.bandcamp.com/track/concept",
+     "portada": "https://f4.bcbits.com/img/a0517024373_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "cadaver-de-cabra",
+   "nombre": "Cadáver de Cabra",
+   "estilos": "Sludge / Stoner doom",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://cadaverdecabra.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/07zUmaeaT2ZYE688mD6xOA",
+   "apple_music": "https://music.apple.com/es/artist/cadaver-de-cabra/6774271166",
+   "youtube": "",
+   "web": "",
+   "discografia": "CADAVER DE CABRA S/t (2026)",
+   "portada": "https://f4.bcbits.com/img/a2454662547_16.jpg",
+   "discos": [
+    {
+     "titulo": "CADAVER DE CABRA S/t",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://cadaverdecabra.bandcamp.com/album/cadaver-de-cabra-s-t-4",
+     "portada": "https://f4.bcbits.com/img/a2454662547_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "myseria",
+   "nombre": "Myseria",
+   "estilos": "Metal moderno",
+   "ciudad": "Santander",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/3CSS0n5vO8tQvZB4hrtfQF",
+   "apple_music": "https://music.apple.com/es/artist/myseria/1839487918",
+   "youtube": "https://www.youtube.com/@somosmyseria",
+   "web": "",
+   "discografia": "Todas Las Bestias (2025), La Plata (2025), Serpientes (2025), Fantasmas (2025)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/25/49/ee254935-0d2d-8403-7625-a29ec2e5d905/199806293324.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "Todas Las Bestias",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/todas-las-bestias/1848967479",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/25/49/ee254935-0d2d-8403-7625-a29ec2e5d905/199806293324.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "La Plata",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/la-plata-single/1848965276",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/c3/f7/7fc3f747-e0b7-ff2b-9747-104d4a67c0a0/199806196908.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Serpientes",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/serpientes-single/1848165619",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/75/40/8f/75408ff5-096e-8863-050b-f629736ff5cc/199806289044.jpg/600x600bb.jpg"
+    },
+    {
+     "titulo": "Fantasmas",
+     "anio": "2025",
+     "tipo": "single",
+     "enlace": "https://music.apple.com/es/album/fantasmas-single/1848164990",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c2/06/66/c20666af-3264-32cb-fcc4-34448b85823e/199806230763.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "lina-morgan-freeman",
+   "nombre": "Lina Morgan Freeman",
+   "estilos": "Metal moderno / Metal melódico",
+   "ciudad": "Valencia",
+   "estado": "Activo",
+   "enlace_principal": "Spotify",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/42ZfJWxGs9sqRl0S629S8M",
+   "apple_music": "https://music.apple.com/es/artist/lina-morgan-freeman/1843920650",
+   "youtube": "https://www.youtube.com/@linamorganfreemanband",
+   "web": "https://linamorganfreeman.com",
+   "discografia": "Luz (2026)",
+   "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/eb/67/e1/eb67e12a-f76d-c32f-3982-fad31d6b7121/artwork.jpg/600x600bb.jpg",
+   "discos": [
+    {
+     "titulo": "Luz",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://music.apple.com/es/album/luz/1847010765",
+     "portada": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/eb/67/e1/eb67e12a-f76d-c32f-3982-fad31d6b7121/artwork.jpg/600x600bb.jpg"
+    }
+   ]
+  },
+  {
+   "id": "grajo",
+   "nombre": "Grajo",
+   "estilos": "Doom / Stoner / Psicodelia",
+   "ciudad": "Córdoba",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://grajo.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/4gS7IFgl43g1Cg0W7htDq5",
+   "apple_music": "https://music.apple.com/es/artist/grajo/1070757831",
+   "youtube": "",
+   "web": "",
+   "discografia": "S L O W G O D  I I (2018), Grajo/Orthodox 7 (2016), Grajo (2016), Feeding Our Demons-Split 7 with Atavismo (2015), Golden Cemetery (demo) (2015)",
+   "portada": "https://f4.bcbits.com/img/a1628592359_16.jpg",
+   "discos": [
+    {
+     "titulo": "S L O W G O D  I I",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://grajo.bandcamp.com/album/s-l-o-w-g-o-d-i-i",
+     "portada": "https://f4.bcbits.com/img/a1628592359_16.jpg"
+    },
+    {
+     "titulo": "Grajo/Orthodox 7",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://grajo.bandcamp.com/album/grajo-orthodox-7",
+     "portada": "https://f4.bcbits.com/img/a0187874258_16.jpg"
+    },
+    {
+     "titulo": "Grajo",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://grajo.bandcamp.com/album/grajo",
+     "portada": "https://f4.bcbits.com/img/a2133107652_16.jpg"
+    },
+    {
+     "titulo": "Feeding Our Demons-Split 7 with Atavismo",
+     "anio": "2015",
+     "tipo": "single",
+     "enlace": "https://grajo.bandcamp.com/track/feeding-our-demons-split-7-with-atavismo",
+     "portada": "https://f4.bcbits.com/img/a1747235494_16.jpg"
+    },
+    {
+     "titulo": "Golden Cemetery (demo)",
+     "anio": "2015",
+     "tipo": "single",
+     "enlace": "https://grajo.bandcamp.com/track/golden-cemetery-demo",
+     "portada": "https://f4.bcbits.com/img/a2799415820_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "firmam3nt",
+   "nombre": "Firmam3nt",
+   "estilos": "Post-metal / Doom / Experimental",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://firmam3nt.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/3XUgcPO4v2ItYswR0oSkQj",
+   "apple_music": "https://music.apple.com/es/artist/firmam3nt/1133182074",
+   "youtube": "https://www.youtube.com/@firmam3ntband188",
+   "web": "",
+   "discografia": "Firmament (2016)",
+   "portada": "https://f4.bcbits.com/img/a3976855279_16.jpg",
+   "discos": [
+    {
+     "titulo": "Firmament",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://firmam3nt.bandcamp.com/album/firmament",
+     "portada": "https://f4.bcbits.com/img/a3976855279_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "tao-te-kin",
+   "nombre": "Tao Te Kin",
+   "estilos": "Rock alternativo / Prog / Stoner",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://taotekin.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/2Un3m2BNpaQBbN1M07ms2q",
+   "apple_music": "https://music.apple.com/es/artist/tao-te-kin/308806908",
+   "youtube": "https://www.youtube.com/@taotekin9294",
+   "web": "",
+   "discografia": "Whipping (2017), Snot (2017), 7 infiernos (2015), Abada (2015), Noise Off Unplugged (2015), Cuaderno de Bitacora de un viaje aun por hacer (2012), El Pajaro Que Da Cuerda Al Mundo (2009), Anatomía del equilibrio (2006)",
+   "portada": "https://f4.bcbits.com/img/a0543805890_16.jpg",
+   "discos": [
+    {
+     "titulo": "Whipping",
+     "anio": "2017",
+     "tipo": "single",
+     "enlace": "https://taotekin.bandcamp.com/track/whipping",
+     "portada": "https://f4.bcbits.com/img/a0543805890_16.jpg"
+    },
+    {
+     "titulo": "Snot",
+     "anio": "2017",
+     "tipo": "single",
+     "enlace": "https://taotekin.bandcamp.com/track/snot",
+     "portada": "https://f4.bcbits.com/img/a1126393599_16.jpg"
+    },
+    {
+     "titulo": "7 infiernos",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/7-infiernos",
+     "portada": "https://f4.bcbits.com/img/a1464192156_16.jpg"
+    },
+    {
+     "titulo": "Abada",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/abada",
+     "portada": "https://f4.bcbits.com/img/a3243693089_16.jpg"
+    },
+    {
+     "titulo": "Noise Off Unplugged",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/noise-off-unplugged",
+     "portada": "https://f4.bcbits.com/img/a3951907985_16.jpg"
+    },
+    {
+     "titulo": "Cuaderno de Bitacora de un viaje aun por hacer",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/cuaderno-de-bitacora-de-un-viaje-aun-por-hacer",
+     "portada": "https://f4.bcbits.com/img/a3910291264_16.jpg"
+    },
+    {
+     "titulo": "El Pajaro Que Da Cuerda Al Mundo",
+     "anio": "2009",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/el-pajaro-que-da-cuerda-al-mundo",
+     "portada": "https://f4.bcbits.com/img/a1408220655_16.jpg"
+    },
+    {
+     "titulo": "Anatomía del equilibrio",
+     "anio": "2006",
+     "tipo": "disco",
+     "enlace": "https://taotekin.bandcamp.com/album/anatom-a-del-equilibrio",
+     "portada": "https://f4.bcbits.com/img/a3193041158_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "rojo-5",
+   "nombre": "Rojo 5",
+   "estilos": "Rock alternativo / Post-hardcore / Post-rock",
+   "ciudad": "Toledo",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://rojo5oficial.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/5MKqZs6hZXAIaiwrK5JXs2",
+   "apple_music": "https://music.apple.com/es/artist/rojo-5/1102434977",
+   "youtube": "https://www.youtube.com/@ROJO5oficial",
+   "web": "",
+   "discografia": "Bestiario (2020), Masa Crítica (2018), Críptico (2016)",
+   "portada": "https://f4.bcbits.com/img/a0432562553_16.jpg",
+   "discos": [
+    {
+     "titulo": "Bestiario",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://rojo5oficial.bandcamp.com/album/bestiario",
+     "portada": "https://f4.bcbits.com/img/a0432562553_16.jpg"
+    },
+    {
+     "titulo": "Masa Crítica",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://rojo5oficial.bandcamp.com/album/masa-cr-tica",
+     "portada": "https://f4.bcbits.com/img/a2678752325_16.jpg"
+    },
+    {
+     "titulo": "Críptico",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://rojo5oficial.bandcamp.com/album/cr-ptico",
+     "portada": "https://f4.bcbits.com/img/a2550379961_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "bones-of-minerva",
+   "nombre": "Bones of Minerva",
+   "estilos": "Metal alternativo / Prog / Doom",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://bonesofminerva.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/43EJ0fWSA2sQ5U3twJaZBZ",
+   "apple_music": "https://music.apple.com/es/artist/bones-of-minerva/1032225407",
+   "youtube": "https://www.youtube.com/@BonesOfMinerva",
+   "web": "https://bonesofminerva.com",
+   "discografia": "Sky (2023), EMBERS (2022), Privilege (2018), Blue Mountains (2017)",
+   "portada": "https://f4.bcbits.com/img/a1980057706_16.jpg",
+   "discos": [
+    {
+     "titulo": "Sky",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://bonesofminerva.bandcamp.com/track/sky-4",
+     "portada": "https://f4.bcbits.com/img/a1980057706_16.jpg"
+    },
+    {
+     "titulo": "EMBERS",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://bonesofminerva.bandcamp.com/album/embers",
+     "portada": "https://f4.bcbits.com/img/a4142968120_16.jpg"
+    },
+    {
+     "titulo": "Privilege",
+     "anio": "2018",
+     "tipo": "single",
+     "enlace": "https://bonesofminerva.bandcamp.com/track/privilege",
+     "portada": "https://f4.bcbits.com/img/a3781341902_16.jpg"
+    },
+    {
+     "titulo": "Blue Mountains",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://bonesofminerva.bandcamp.com/album/blue-mountains",
+     "portada": "https://f4.bcbits.com/img/a3175216938_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "caballo-muerte",
+   "nombre": "Caballo Muerte",
+   "estilos": "Noise rock / Post-punk / Post-rock",
+   "ciudad": "Vitoria-Gasteiz",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://caballomuerte.bandcamp.com",
+   "spotify": "",
+   "apple_music": "https://music.apple.com/es/artist/caballo-muerte/1821726057",
+   "youtube": "https://www.youtube.com/@caballomuerte",
+   "web": "",
+   "discografia": "CABALLO MUERTE (2025), LAS FLORES (2025), GARDENIA (2025)",
+   "portada": "https://f4.bcbits.com/img/a2535043843_16.jpg",
+   "discos": [
+    {
+     "titulo": "CABALLO MUERTE",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://caballomuerte.bandcamp.com/album/caballo-muerte-2",
+     "portada": "https://f4.bcbits.com/img/a2535043843_16.jpg"
+    },
+    {
+     "titulo": "LAS FLORES",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://caballomuerte.bandcamp.com/album/las-flores",
+     "portada": "https://f4.bcbits.com/img/a3859651775_16.jpg"
+    },
+    {
+     "titulo": "GARDENIA",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://caballomuerte.bandcamp.com/album/gardenia",
+     "portada": "https://f4.bcbits.com/img/a4140582271_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "linalab",
+   "nombre": "Linalab",
+   "estilos": "Post-rock / Electrónica experimental",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://linalab.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1XNvDmoo8IpcRtkzMdewNh",
+   "apple_music": "https://music.apple.com/es/artist/linalab/1566947287",
+   "youtube": "",
+   "web": "",
+   "discografia": "Objects in mirror are closer than they appear (2023), Ivy King (2023), Desire Paths (2021), Still Alive (2018), Doom (2015), Eclíptica (2011)",
+   "portada": "https://f4.bcbits.com/img/a2287103045_16.jpg",
+   "discos": [
+    {
+     "titulo": "Objects in mirror are closer than they appear",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/objects-in-mirror-are-closer-than-they-appear",
+     "portada": "https://f4.bcbits.com/img/a2287103045_16.jpg"
+    },
+    {
+     "titulo": "Ivy King",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://linalab.bandcamp.com/track/ivy-king-2",
+     "portada": "https://f4.bcbits.com/img/a1921378788_16.jpg"
+    },
+    {
+     "titulo": "Desire Paths",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/desire-paths",
+     "portada": "https://f4.bcbits.com/img/a3203517246_16.jpg"
+    },
+    {
+     "titulo": "Still Alive",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/still-alive",
+     "portada": "https://f4.bcbits.com/img/a1675696666_16.jpg"
+    },
+    {
+     "titulo": "Doom",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/doom",
+     "portada": "https://f4.bcbits.com/img/a3273846048_16.jpg"
+    },
+    {
+     "titulo": "Eclíptica",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://linalab.bandcamp.com/album/ecl-ptica",
+     "portada": "https://f4.bcbits.com/img/a0111100448_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "palmeras-negras",
+   "nombre": "Palmeras Negras",
+   "estilos": "Post-rock / Slowcore / Doomgaze",
+   "ciudad": "Almería",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://palmerasnegras.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/6fwVPzeG3TV3jaOammAx1x",
+   "apple_music": "https://music.apple.com/es/artist/palmeras-negras/1565321781",
+   "youtube": "https://www.youtube.com/@palmerasnegras",
+   "web": "",
+   "discografia": "s/t (2024)",
+   "portada": "https://f4.bcbits.com/img/a3678823996_16.jpg",
+   "discos": [
+    {
+     "titulo": "s/t",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://palmerasnegras.bandcamp.com/album/s-t",
+     "portada": "https://f4.bcbits.com/img/a3678823996_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "the-last-3-lines",
+   "nombre": "The Last 3 Lines",
+   "estilos": "Rock psicodélico / Folk",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://thelast3lines.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/3PFDeVkh7860QzsjdXwysy",
+   "apple_music": "https://music.apple.com/es/artist/the-last-3-lines/273027749",
+   "youtube": "",
+   "web": "",
+   "discografia": "Portals (2017), New songs for old rites (2013), Leafless (2013), Visions from Oniria (2012), Crows (2009), You Are a Deep Forest (2008)",
+   "portada": "https://f4.bcbits.com/img/a1786154612_16.jpg",
+   "discos": [
+    {
+     "titulo": "Portals",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/portals",
+     "portada": "https://f4.bcbits.com/img/a1786154612_16.jpg"
+    },
+    {
+     "titulo": "New songs for old rites",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/new-songs-for-old-rites",
+     "portada": "https://f4.bcbits.com/img/a0808408679_16.jpg"
+    },
+    {
+     "titulo": "Leafless",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/leafless",
+     "portada": "https://f4.bcbits.com/img/a3906401513_16.jpg"
+    },
+    {
+     "titulo": "Visions from Oniria",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/visions-from-oniria",
+     "portada": "https://f4.bcbits.com/img/a2020224425_16.jpg"
+    },
+    {
+     "titulo": "Crows",
+     "anio": "2009",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/crows-2",
+     "portada": "https://f4.bcbits.com/img/a3107122400_16.jpg"
+    },
+    {
+     "titulo": "You Are a Deep Forest",
+     "anio": "2008",
+     "tipo": "disco",
+     "enlace": "https://thelast3lines.bandcamp.com/album/you-are-a-deep-forest",
+     "portada": "https://f4.bcbits.com/img/a1940006879_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "black-verraco",
+   "nombre": "Black Verraco",
+   "estilos": "Doom / Sludge / Stoner",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://blackverraco.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/70bgtku0FwaRJJbhAc5S0M",
+   "apple_music": "https://music.apple.com/es/artist/black-verraco/1707024966",
+   "youtube": "https://www.youtube.com/@blackverraco",
+   "web": "",
+   "discografia": "SED DE MAL (2025), RITUALES (2024), SUS TROZOS (2023), TOTOMO (2023)",
+   "portada": "https://f4.bcbits.com/img/a1488993234_16.jpg",
+   "discos": [
+    {
+     "titulo": "SED DE MAL",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://blackverraco.bandcamp.com/album/sed-de-mal",
+     "portada": "https://f4.bcbits.com/img/a1488993234_16.jpg"
+    },
+    {
+     "titulo": "RITUALES",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://blackverraco.bandcamp.com/track/rituales",
+     "portada": "https://f4.bcbits.com/img/a0438326555_16.jpg"
+    },
+    {
+     "titulo": "SUS TROZOS",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://blackverraco.bandcamp.com/track/sus-trozos-2",
+     "portada": "https://f4.bcbits.com/img/a2573901332_16.jpg"
+    },
+    {
+     "titulo": "TOTOMO",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://blackverraco.bandcamp.com/track/totomo",
+     "portada": "https://f4.bcbits.com/img/a4253314727_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "mordida",
+   "nombre": "Mordida",
+   "estilos": "Post-rock / Metal industrial / Ambient",
+   "ciudad": "Sevilla",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://mordida.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/0D3ugxgyaBsdg7qE3yyKI8",
+   "apple_music": "https://music.apple.com/es/artist/mordida/935795811",
+   "youtube": "",
+   "web": "",
+   "discografia": "Opio (2025), [DDNS16] Junky's Box (Debaga) (2019), The Wind Ashes (2017), END OF INFINITY - Into the Sun (2014), END OF INFINITY vol.II (2013), END OF INFINITY vol.I (2012)",
+   "portada": "https://f4.bcbits.com/img/a3316621474_16.jpg",
+   "discos": [
+    {
+     "titulo": "Opio",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/opio",
+     "portada": "https://f4.bcbits.com/img/a3316621474_16.jpg"
+    },
+    {
+     "titulo": "[DDNS16] Junky's Box (Debaga)",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/ddns16-junkys-box-debaga",
+     "portada": "https://f4.bcbits.com/img/a0360386106_16.jpg"
+    },
+    {
+     "titulo": "The Wind Ashes",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/the-wind-ashes",
+     "portada": "https://f4.bcbits.com/img/a0670168220_16.jpg"
+    },
+    {
+     "titulo": "END OF INFINITY - Into the Sun",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/end-of-infinity-into-the-sun",
+     "portada": "https://f4.bcbits.com/img/a1898695455_16.jpg"
+    },
+    {
+     "titulo": "END OF INFINITY vol.II",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/end-of-infinity-vol-ii",
+     "portada": "https://f4.bcbits.com/img/a2721290795_16.jpg"
+    },
+    {
+     "titulo": "END OF INFINITY vol.I",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://mordida.bandcamp.com/album/end-of-infinity-vol-i",
+     "portada": "https://f4.bcbits.com/img/a0523299600_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "korasek",
+   "nombre": "Korasek",
+   "estilos": "Post-rock / Screamo / Crust",
+   "ciudad": "Segovia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://korasek.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/3bYKDubrKJWiLr7JdcgQ1y",
+   "apple_music": "https://music.apple.com/es/artist/korasek/1744633973",
+   "youtube": "https://www.youtube.com/@Korasekband",
+   "web": "",
+   "discografia": "Białowieża (2024)",
+   "portada": "https://f4.bcbits.com/img/a3517400699_16.jpg",
+   "discos": [
+    {
+     "titulo": "Białowieża",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://korasek.bandcamp.com/album/bia-owie-a",
+     "portada": "https://f4.bcbits.com/img/a3517400699_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "meltem",
+   "nombre": "Meltem",
+   "estilos": "Doom psicodélico / Heavy psych",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://meltemband.bandcamp.com",
+   "spotify": "",
+   "apple_music": "https://music.apple.com/es/artist/meltem/1883802106",
+   "youtube": "",
+   "web": "",
+   "discografia": "Mare Nostrum (2024), demo (2022)",
+   "portada": "https://f4.bcbits.com/img/a3283068589_16.jpg",
+   "discos": [
+    {
+     "titulo": "Mare Nostrum",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://meltemband.bandcamp.com/album/mare-nostrum",
+     "portada": "https://f4.bcbits.com/img/a3283068589_16.jpg"
+    },
+    {
+     "titulo": "demo",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://meltemband.bandcamp.com/album/demo",
+     "portada": "https://f4.bcbits.com/img/a0935382799_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "rheia-gorecki",
+   "nombre": "Rheia Gorecki",
+   "estilos": "Post-rock / Post-metal / Shoegaze",
+   "ciudad": "Santiago de Compostela",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://rheiagorecki.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/7IljF6ndaJGeHZjIpYfi9b",
+   "apple_music": "https://music.apple.com/es/artist/rheia-gorecki/1546451534",
+   "youtube": "https://www.youtube.com/channel/UCuOK0WnEk2MnmfCQRXh_D9A",
+   "web": "",
+   "discografia": "MONOCHROME (2024), VVV (2021)",
+   "portada": "https://f4.bcbits.com/img/a2702616473_16.jpg",
+   "discos": [
+    {
+     "titulo": "MONOCHROME",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://rheiagorecki.bandcamp.com/album/monochrome",
+     "portada": "https://f4.bcbits.com/img/a2702616473_16.jpg"
+    },
+    {
+     "titulo": "VVV",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://rheiagorecki.bandcamp.com/album/vvv",
+     "portada": "https://f4.bcbits.com/img/a3110636644_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "terrestre",
+   "nombre": "Terrestre",
+   "estilos": "Post-metal / Post-rock instrumental",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://terrestre-terrestre.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/5BUmS19nFf0l5ECEhMHYtC",
+   "apple_music": "https://music.apple.com/es/artist/terrestre/1453245799",
+   "youtube": "https://www.youtube.com/channel/UC-kUuHExzHzhauAGWGw478g",
+   "web": "",
+   "discografia": "Maere (2024), Montuhotep (2018), Terrestre (2014)",
+   "portada": "https://f4.bcbits.com/img/a3155015212_16.jpg",
+   "discos": [
+    {
+     "titulo": "Maere",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://terrestre-terrestre.bandcamp.com/album/maere",
+     "portada": "https://f4.bcbits.com/img/a3155015212_16.jpg"
+    },
+    {
+     "titulo": "Montuhotep",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://terrestre-terrestre.bandcamp.com/album/montuhotep",
+     "portada": "https://f4.bcbits.com/img/a3602920537_16.jpg"
+    },
+    {
+     "titulo": "Terrestre",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://terrestre-terrestre.bandcamp.com/album/terrestre",
+     "portada": "https://f4.bcbits.com/img/a2409805119_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "the-mothercrow",
+   "nombre": "The Mothercrow",
+   "estilos": "Heavy psych / Hard rock / Blues rock",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://themothercrow.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/35NGrXoceKToRwirliPvJr",
+   "apple_music": "https://music.apple.com/es/artist/the-mothercrow/1460842809",
+   "youtube": "https://www.youtube.com/@themothercrowofficial",
+   "web": "",
+   "discografia": "Foráneo (2024), Howling (2024), Magara (2019), Revolution (2019), On The Road (2017), The Mothercrow (2016), Hard Attack (2016)",
+   "portada": "https://f4.bcbits.com/img/a1973191188_16.jpg",
+   "discos": [
+    {
+     "titulo": "Foráneo",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/for-neo",
+     "portada": "https://f4.bcbits.com/img/a1973191188_16.jpg"
+    },
+    {
+     "titulo": "Howling",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://themothercrow.bandcamp.com/track/howling",
+     "portada": "https://f4.bcbits.com/img/a2705627085_16.jpg"
+    },
+    {
+     "titulo": "Magara",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/magara",
+     "portada": "https://f4.bcbits.com/img/a2397005812_16.jpg"
+    },
+    {
+     "titulo": "Revolution",
+     "anio": "2019",
+     "tipo": "single",
+     "enlace": "https://themothercrow.bandcamp.com/track/revolution",
+     "portada": "https://f4.bcbits.com/img/a2407402281_16.jpg"
+    },
+    {
+     "titulo": "On The Road",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/on-the-road",
+     "portada": "https://f4.bcbits.com/img/a1900936582_16.jpg"
+    },
+    {
+     "titulo": "The Mothercrow",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/the-mothercrow",
+     "portada": "https://f4.bcbits.com/img/a1301121762_16.jpg"
+    },
+    {
+     "titulo": "Hard Attack",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://themothercrow.bandcamp.com/album/hard-attack",
+     "portada": "https://f4.bcbits.com/img/a3178503155_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "projecte-astrolabi",
+   "nombre": "Projecte Astrolabi",
+   "estilos": "Jazz-rock / Prog / Psicodelia",
+   "ciudad": "Vic (Barcelona)",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://projecteastrolabi.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/4hNnw6gvplQr26Lkyikyig",
+   "apple_music": "https://music.apple.com/es/artist/projecte-astrolabi/1712272161",
+   "youtube": "",
+   "web": "",
+   "discografia": "L'antiga energia (2026), La Singularitat (2023), Projecte Astrolabi (2019)",
+   "portada": "https://f4.bcbits.com/img/a4067929952_16.jpg",
+   "discos": [
+    {
+     "titulo": "L'antiga energia",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://projecteastrolabi.bandcamp.com/album/lantiga-energia",
+     "portada": "https://f4.bcbits.com/img/a4067929952_16.jpg"
+    },
+    {
+     "titulo": "La Singularitat",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://projecteastrolabi.bandcamp.com/album/la-singularitat",
+     "portada": "https://f4.bcbits.com/img/a1745026363_16.jpg"
+    },
+    {
+     "titulo": "Projecte Astrolabi",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://projecteastrolabi.bandcamp.com/album/projecte-astrolabi",
+     "portada": "https://f4.bcbits.com/img/a0508455460_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "chloride-falls",
+   "nombre": "Chloride Falls",
+   "estilos": "Rock progresivo / Post-rock / Experimental",
+   "ciudad": "España",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://chloridefalls.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1kUsJiFr0Ox7bOjsPnv4DX",
+   "apple_music": "https://music.apple.com/es/artist/chloride-falls/1852301565",
+   "youtube": "https://www.youtube.com/@ChlorideFalls",
+   "web": "",
+   "discografia": "On the Evening of the Soul (2026)",
+   "portada": "https://f4.bcbits.com/img/a1427627129_16.jpg",
+   "discos": [
+    {
+     "titulo": "On the Evening of the Soul",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://chloridefalls.bandcamp.com/album/on-the-evening-of-the-soul",
+     "portada": "https://f4.bcbits.com/img/a1427627129_16.jpg"
     }
    ]
   }

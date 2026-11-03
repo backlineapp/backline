@@ -4,7 +4,8 @@
 // y Kit para grupos.
 // La lista de grupos seguidos la gestiona seguidos.js; los conciertos,
 // conciertos.js; los discos, vídeos y noticias publicados, novedades.js; el acceso, "¿Es tu grupo?" y el panel, panel.js; los avisos al móvil,
-// avisos.js; instalar la app en el móvil, instalar.js; el kit para grupos, kit.js; Supabase, nube.js.
+// avisos.js; instalar la app en el móvil, instalar.js; el kit para grupos, kit.js; Supabase, nube.js;
+// la comunidad y provincia de cada grupo (filtro por zona), zonas.js.
 
 (function () {
   'use strict';
@@ -24,6 +25,11 @@
     { nombre: 'Sludge', patron: /sludge/ },
     // "Post-metal" y "post-black" tienen su propia familia; aquí no cuentan.
     { nombre: 'Heavy/Metal', patron: /metal|heavy|djent|black|death|hard rock/, quitar: /post-?(metal|black)/g },
+    { nombre: 'Thrash/Speed', patron: /thrash|speed metal|crossover/, quitar: /crossover prog/g },
+    { nombre: 'Death metal', patron: /death|grind/ },
+    // "Blackgaze" va con Shoegaze y "post-black" con Post-metal.
+    { nombre: 'Black metal', patron: /black/, quitar: /post-?black|blackgaze/g },
+    { nombre: 'Power/Sinfónico', patron: /power metal|metal sinfonico|symphonic metal|metal gotico|gothic metal/ },
     { nombre: 'Post-hardcore / Screamo', patron: /post-?hardcore|screamo/ }
   ];
 
@@ -57,6 +63,12 @@
     { nombre: 'Pinterest', patron: /(^|\.)pinterest\.com$/ },
     { nombre: 'VK', patron: /(^|\.)vk\.com$/ }
   ];
+
+  // Dirección pública de la app: la que se comparte (también desde la app de las tiendas).
+  var DIRECCION = 'https://backlineapp.github.io/backline/';
+
+  // Con cuántos grupos seguidos aparece el buscador de Mis grupos.
+  var BUSCADOR_MIOS_DESDE = 8;
 
   // Lanzamientos que muestra Inicio de una vez; "Ver más" añade otros tantos.
   var POR_TANDA = 30;
@@ -96,7 +108,10 @@
     estado: 'Activo', enlace_principal: '', bandcamp: '', spotify: '', apple_music: '',
     youtube: '', web: '', discografia: '', portada: '', discos: [], oculto: true
   };
-  var estado = { texto: '', familia: null };
+  // Filtros de Explorar. zona: '' (toda España), 'c:Andalucía' (una
+  // comunidad) o 'p:Cádiz' (una provincia). La zona se recuerda en el móvil.
+  var CLAVE_ZONA = 'backline-zona';
+  var estado = { texto: '', familia: null, zona: leerZona() };
   // Cuántos lanzamientos se ven ahora mismo en Inicio.
   var visiblesInicio = POR_TANDA;
   // Posición de la lista en cada pantalla, para volver al mismo sitio.
@@ -150,8 +165,13 @@
     buscador: document.getElementById('buscador'),
     filtros: document.getElementById('filtros'),
     contador: document.getElementById('contador'),
+    zona: document.getElementById('zona'),
+    zonaBoton: document.getElementById('zona-boton'),
+    zonaTexto: document.getElementById('zona-texto'),
     lista: document.getElementById('lista'),
     contadorMios: document.getElementById('contador-mis-grupos'),
+    buscadorMios: document.getElementById('buscador-mis-grupos'),
+    cajaBuscadorMios: document.getElementById('caja-buscador-mis-grupos'),
     listaMios: document.getElementById('lista-mis-grupos'),
     sinGrupos: document.getElementById('sin-grupos'),
     avisosMios: document.getElementById('avisos-mis-grupos'),
@@ -336,6 +356,59 @@
   // Portada de un lanzamiento, en tamaño mediano para las cuadrículas.
   function portadaLanzamiento(d) {
     return imagen(d.portada, { clase: 'portada', mediana: true, perezosa: true, alternativa: nota });
+  }
+
+  // ---------- Compartir ----------
+
+  // Abre el menú de compartir del móvil (WhatsApp, Telegram...). Si el
+  // navegador no lo tiene, copia el enlace y lo dice abajo.
+  function compartir(titulo, texto, ruta) {
+    var url = DIRECCION + ruta;
+    if (navigator.share) {
+      navigator.share({ title: titulo, text: texto, url: url }).catch(function () { /* cancelado: nada */ });
+      return;
+    }
+    copiar(url).then(function () {
+      Avisos.breve('Enlace copiado. Ya puedes pegarlo donde quieras.');
+    }, function () {
+      Avisos.breve('No se ha podido copiar el enlace: ' + url);
+    });
+  }
+
+  function copiar(texto) {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(texto);
+    return new Promise(function (resolver, fallar) {
+      var area = document.createElement('textarea');
+      area.value = texto;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      document.body.appendChild(area);
+      area.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      area.remove();
+      if (ok) resolver(); else fallar();
+    });
+  }
+
+  var ICONO_COMPARTIR = '<svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">' +
+    '<path d="M12 3v12M7.5 7.5L12 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<path d="M5 12v6.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  // Botón cuadrado con el icono de compartir, junto a Seguir y la campanita.
+  function botonCompartir(grupo) {
+    var b = crear('button', 'campanita compartir');
+    b.type = 'button';
+    b.innerHTML = ICONO_COMPARTIR;
+    b.setAttribute('aria-label', 'Compartir la ficha de ' + grupo.nombre);
+    b.title = 'Compartir';
+    b.addEventListener('click', function () {
+      compartir(grupo.nombre + ' · Backline',
+        grupo.nombre + (grupo.estilos ? ' (' + grupo.estilos + ')' : '') + ' en Backline, el backstage de tus grupos favoritos.',
+        '#/grupo/' + encodeURIComponent(grupo.id));
+    });
+    return b;
   }
 
   // Enlace que abre fuera de la app, en una pestaña nueva.
@@ -605,6 +678,7 @@
       if (g.oculto || Seguidos.oculto(g.id)) return false;
       if (busqueda && g._nombre.indexOf(busqueda) === -1) return false;
       if (estado.familia && g._familias.indexOf(estado.familia) === -1) return false;
+      if (estado.zona && !enZona(g, estado.zona)) return false;
       return true;
     });
 
@@ -612,11 +686,94 @@
     el.lista.textContent = '';
 
     if (!visibles.length) {
-      el.lista.appendChild(crear('li', 'vacio', 'No hay grupos que coincidan.'));
+      var vacio = crear('li', 'vacio', 'No hay grupos que coincidan.');
+      // Con estilo o zona elegidos, un atajo para volver a verlos todos.
+      if (estado.familia || estado.zona) {
+        var quitar = crear('button', 'quitar-filtros', 'Quitar filtros');
+        quitar.type = 'button';
+        quitar.addEventListener('click', function () {
+          estado.familia = null;
+          cambiarZona('');
+          pintarFiltros();
+          pintarLista();
+        });
+        vacio.appendChild(quitar);
+      }
+      el.lista.appendChild(vacio);
       return;
     }
 
     el.lista.appendChild(filas(visibles));
+  }
+
+  // ---------- Filtro por zona (Explorar) ----------
+
+  // ¿Es el grupo de esa zona? Una comunidad incluye a los grupos de sus
+  // provincias y a los que solo dicen la comunidad ("Galicia").
+  function enZona(g, zona) {
+    if (!g._zona) return false;
+    var tipo = zona.slice(0, 2);
+    var nombre = zona.slice(2);
+    return tipo === 'p:' ? g._zona.provincia === nombre : g._zona.comunidad === nombre;
+  }
+
+  // Opciones del selector: Toda España y, por orden alfabético, cada
+  // comunidad con grupos. Si tiene varias provincias, va como grupo de
+  // opciones: «Toda Andalucía» y cada provincia. Cada opción lleva cuántos grupos tiene.
+  function pintarZonas() {
+    var comunidades = {};
+    grupos.forEach(function (g) {
+      if (!g._zona) return;
+      var c = comunidades[g._zona.comunidad] = comunidades[g._zona.comunidad] || { total: 0, provincias: {} };
+      c.total++;
+      if (g._zona.provincia) c.provincias[g._zona.provincia] = (c.provincias[g._zona.provincia] || 0) + 1;
+    });
+    var orden = function (a, b) { return a.localeCompare(b, 'es'); };
+    var opcion = function (valor, texto, n) {
+      var o = crear('option', null, texto + ' (' + n + ')');
+      o.value = valor;
+      return o;
+    };
+    el.zona.textContent = '';
+    el.zona.appendChild(opcion('', 'Toda España', grupos.length));
+    Object.keys(comunidades).sort(orden).forEach(function (nombre) {
+      var c = comunidades[nombre];
+      var provincias = Object.keys(c.provincias);
+      var sinProvincia = c.total - provincias.reduce(function (s, p) { return s + c.provincias[p]; }, 0);
+      // Si no hay nada que elegir dentro (una sola provincia con grupos, o
+      // solo grupos sin provincia), la comunidad va como una sola opción.
+      if (Zonas.provinciasDe(nombre).length < 2 || provincias.length + (sinProvincia ? 1 : 0) < 2) {
+        el.zona.appendChild(opcion('c:' + nombre, nombre, c.total));
+        return;
+      }
+      var grupo = document.createElement('optgroup');
+      grupo.label = nombre;
+      grupo.appendChild(opcion('c:' + nombre, 'Toda ' + nombre, c.total));
+      Object.keys(c.provincias).sort(orden).forEach(function (p) {
+        grupo.appendChild(opcion('p:' + p, p, c.provincias[p]));
+      });
+      el.zona.appendChild(grupo);
+    });
+    // Una zona guardada que ya no tiene grupos se olvida.
+    if (estado.zona && !el.zona.querySelector('option[value="' + estado.zona.replace(/"/g, '') + '"]')) estado.zona = '';
+    el.zona.value = estado.zona;
+    pintarBotonZona();
+  }
+
+  function pintarBotonZona() {
+    el.zonaTexto.textContent = estado.zona ? estado.zona.slice(2) : 'Toda España';
+    el.zonaBoton.classList.toggle('activa', !!estado.zona);
+  }
+
+  function cambiarZona(valor) {
+    estado.zona = valor;
+    el.zona.value = valor;
+    pintarBotonZona();
+    try { localStorage.setItem(CLAVE_ZONA, valor); } catch (e) { /* sin permiso para guardar: no pasa nada */ }
+  }
+
+  function leerZona() {
+    try { return localStorage.getItem(CLAVE_ZONA) || ''; } catch (e) { return ''; }
   }
 
   // Fila de un grupo (portada, nombre, estilo · ciudad). La usan Explorar y Mis grupos.
@@ -632,7 +789,9 @@
     }));
     var texto = crear('div', 'tarjeta-texto');
     texto.appendChild(crear('h3', 'tarjeta-nombre', g.nombre));
-    texto.appendChild(crear('p', 'tarjeta-detalle', [g.estilos, g.ciudad].filter(Boolean).join(' · ')));
+    texto.appendChild(crear('p', 'tarjeta-detalle', g.estilos));
+    // La ciudad, en su propia línea para que no se corte detrás de estilos largos.
+    if (g.ciudad) texto.appendChild(crear('p', 'tarjeta-ciudad', g.ciudad));
     a.appendChild(texto);
     var flecha = crear('span', 'flecha', '›');
     flecha.setAttribute('aria-hidden', 'true');
@@ -651,15 +810,34 @@
 
   // Mismo orden alfabético que Explorar. Si un grupo seguido ya no está en
   // grupos.json, no se muestra, pero sigue guardado.
+  // Con muchos grupos seguidos aparece un buscador por nombre.
+  var textoMios = '';
+
   function pintarMisGrupos() {
-    var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
     actualizarAcceso();
     Avisos.pintar(el.avisosMios);
+    pintarListaMios();
+  }
+
+  function pintarListaMios() {
+    var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
+    var conBuscador = mios.length >= BUSCADOR_MIOS_DESDE;
+    if (!conBuscador && textoMios) { textoMios = ''; el.buscadorMios.value = ''; }
+    el.cajaBuscadorMios.hidden = !conBuscador;
+    var busqueda = normalizar(textoMios);
+    var visibles = busqueda ? mios.filter(function (g) { return g._nombre.indexOf(busqueda) !== -1; }) : mios;
     el.listaMios.textContent = '';
     el.sinGrupos.hidden = mios.length > 0;
     el.contadorMios.hidden = !mios.length;
-    el.contadorMios.textContent = mios.length === 1 ? 'Sigues 1 grupo' : 'Sigues ' + mios.length + ' grupos';
-    el.listaMios.appendChild(filas(mios));
+    el.contadorMios.textContent = busqueda
+      ? visibles.length + ' de ' + mios.length + ' grupos'
+      : mios.length === 1 ? 'Sigues 1 grupo' : 'Sigues ' + mios.length + ' grupos';
+    if (busqueda && !visibles.length) {
+      el.listaMios.appendChild(crear('li', 'vacio', 'Ninguno de tus grupos se llama así.'));
+      pintarOcultos();
+      return;
+    }
+    el.listaMios.appendChild(filas(visibles));
     pintarOcultos();
   }
 
@@ -742,6 +920,7 @@
       var botones = crear('div', 'perfil-botones');
       botones.appendChild(botonSeguir(grupo));
       botones.appendChild(Avisos.campanita(grupo));
+      botones.appendChild(botonCompartir(grupo));
       datos.appendChild(botones);
     }
     perfil.appendChild(datos);
@@ -1090,6 +1269,8 @@
     })));
     el.enlaceAcceso.textContent = conPanel ? 'Mi panel' : 'Acceso';
     el.enlaceAcceso.href = conPanel ? '#/panel' : '#/acceso';
+    // Quien gestiona un grupo lo ve destacado; para el resto es un enlace discreto.
+    el.enlaceAcceso.classList.toggle('con-panel', conPanel);
     el.enlaceAcceso.removeAttribute('aria-label');
     var mio = ++pidiendoPendientes;
     if (!cuenta || !cuenta.admin) {
@@ -1128,6 +1309,16 @@
     pintarLista();
   });
 
+  el.buscadorMios.addEventListener('input', function () {
+    textoMios = el.buscadorMios.value;
+    pintarListaMios();
+  });
+
+  el.zona.addEventListener('change', function () {
+    cambiarZona(el.zona.value);
+    pintarLista();
+  });
+
   // ---------- Arranque ----------
 
   // Piezas comunes que usan conciertos.js, novedades.js, panel.js y kit.js.
@@ -1140,6 +1331,7 @@
     grupoPorId: function (id) { return grupos.filter(function (g) { return g.id === id; })[0] || null; },
     todosLosGrupos: function () { return grupos; },
     gruposSeguidos: function () { return grupos.filter(function (g) { return Seguidos.sigo(g.id); }); },
+    compartir: compartir,
     actualizarAcceso: function () { actualizarAcceso(); },
     botonOcultar: botonOcultar
   };
@@ -1161,6 +1353,7 @@
         .map(function (g) {
           g._nombre = normalizar(g.nombre);
           g._familias = familiasDe(g.estilos);
+          g._zona = Zonas.zonaDe(g.ciudad);
           return g;
         })
         .sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); })
@@ -1169,6 +1362,7 @@
           return g;
         });
       pintarFiltros();
+      pintarZonas();
       pintarLista();
       window.addEventListener('hashchange', alCambiarRuta);
       alCambiarRuta();

@@ -414,15 +414,37 @@
     '<path d="M10 19.5a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
     '<path d="M4 3.5l16 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
+  // El recuadro se puede plegar tocando el título: queda una sola línea.
+  // Se recuerda plegado mientras no cambie lo que dice (si pasa de
+  // "bloqueados" a "activados", vuelve a verse entero).
+  var CLAVE_PLEGADO = 'backline.avisos-plegado';
+
+  function leerPlegado() {
+    try { return localStorage.getItem(CLAVE_PLEGADO) || ''; } catch (e) { return ''; }
+  }
+
+  function guardarPlegado(titulo) {
+    try {
+      if (titulo) localStorage.setItem(CLAVE_PLEGADO, titulo);
+      else localStorage.removeItem(CLAVE_PLEGADO);
+    } catch (e) { /* sin permiso: no pasa nada */ }
+  }
+
+  var FLECHA = '<svg class="avisos-flecha" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">' +
+    '<path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
   function caja(titulo, texto) {
-    var c = crear('div', 'avisos-caja');
-    var cabecera = crear('div', 'avisos-cabecera');
+    var c = crear('details', 'avisos-caja');
+    c.open = leerPlegado() !== titulo;
+    var cabecera = crear('summary', 'avisos-cabecera');
     var icono = crear('span', 'avisos-icono');
     icono.innerHTML = ICONO;
     cabecera.appendChild(icono);
     cabecera.appendChild(crear('p', 'avisos-titulo', titulo));
+    cabecera.insertAdjacentHTML('beforeend', FLECHA);
     c.appendChild(cabecera);
     if (texto) c.appendChild(crear('p', 'avisos-texto', texto));
+    c.addEventListener('toggle', function () { guardarPlegado(c.open ? '' : titulo); });
     return c;
   }
 
@@ -545,6 +567,7 @@
 
   window.Avisos = {
     pintar: function (contenedor) { pintar(contenedor, '', false); },
-    campanita: campanita
+    campanita: campanita,
+    breve: avisoBreve
   };
 })();
