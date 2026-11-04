@@ -527,6 +527,58 @@
       }, function () { detalleSol.textContent = 'Gestionar y retirar fichas'; });
     }
 
+    // Bio del grupo (solo para miembros, no para el administrador global).
+    if (!cuenta.admin) {
+      mios.forEach(function (g) {
+        var MAX_BIO = 500;
+        var areaBio = areaTexto('', { maxlength: String(MAX_BIO), rows: '4', placeholder: 'Contad algo sobre el grupo: quiénes sois, de dónde venís, qué hacéis…' });
+        var contBio = contador(areaBio, MAX_BIO);
+        var avisoBio = crear('p', 'mensaje'); avisoBio.hidden = true;
+        var btnBio = boton('Guardar bio', 'boton-secundario boton-ancho');
+        btnBio.disabled = true;
+
+        var etiquetaBio = mios.length === 1 ? 'Sobre vuestro grupo' : 'Sobre ' + g.nombre;
+        var campoBio = campo(etiquetaBio, areaBio);
+        campoBio.appendChild(contBio);
+        campoBio.appendChild(avisoBio);
+        campoBio.appendChild(btnBio);
+        contenedor.appendChild(campoBio);
+
+        var bioOriginal = '';
+        areaBio.addEventListener('input', function () {
+          btnBio.disabled = areaBio.value === bioOriginal;
+        });
+
+        Nube.leerBio(g.id).then(function (texto) {
+          bioOriginal = texto || '';
+          areaBio.value = bioOriginal;
+          contBio.dispatchEvent || (function () {})();
+          // Forzar reconteo
+          areaBio.dispatchEvent(new Event('input'));
+          btnBio.disabled = true;
+        }, function () { /* sin conexión */ });
+
+        btnBio.addEventListener('click', function () {
+          var valor = areaBio.value.trim();
+          if (valor.length > MAX_BIO) {
+            mensaje(avisoBio, 'Demasiado largo: máximo ' + MAX_BIO + ' caracteres.', 'error');
+            return;
+          }
+          btnBio.disabled = true;
+          mensaje(avisoBio, 'Guardando…');
+          Nube.guardarBio(g.id, valor).then(function () {
+            bioOriginal = valor;
+            areaBio.value = valor;
+            btnBio.disabled = true;
+            mensaje(avisoBio, 'Bio guardada.', 'ok');
+          }, function (err) {
+            btnBio.disabled = false;
+            mensaje(avisoBio, err.message, 'error');
+          });
+        });
+      });
+    }
+
     // Botón "Publicar" con sus opciones
     var publicar = boton('Publicar', 'boton boton-ancho');
     var opciones = crear('div', 'opciones-publicar');

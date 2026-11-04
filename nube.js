@@ -547,6 +547,30 @@
     return cliente.rpc('avisos_borrar', { p_endpoint: sus.endpoint, p_auth: sus.keys.auth }).then(comprobar);
   }
 
+  // ---------- Bio del grupo ----------
+
+  function leerBio(grupoId) {
+    if (!cliente) return Promise.resolve('');
+    return cliente.from('bios').select('texto').eq('grupo_id', grupoId).maybeSingle()
+      .then(function (r) { return (r.data && r.data.texto) || ''; });
+  }
+
+  function leerBios(gruposIds) {
+    if (!cliente || !gruposIds || !gruposIds.length) return Promise.resolve({});
+    return cliente.from('bios').select('grupo_id, texto').in('grupo_id', gruposIds)
+      .then(function (r) {
+        var mapa = {};
+        (r.data || []).forEach(function (b) { mapa[b.grupo_id] = b.texto; });
+        return mapa;
+      });
+  }
+
+  function guardarBio(grupoId, texto) {
+    if (!cliente) return sinConexion();
+    return cliente.from('bios').upsert({ grupo_id: grupoId, texto: texto, actualizado: new Date().toISOString() })
+      .then(comprobar);
+  }
+
   window.Nube = {
     listo: listo,
     disponible: !!cliente,
@@ -583,6 +607,9 @@
     borrarComunicado: borrarComunicado,
     claveAvisos: claveAvisos,
     apuntarAvisos: apuntarAvisos,
-    borrarAvisos: borrarAvisos
+    borrarAvisos: borrarAvisos,
+    leerBio: leerBio,
+    leerBios: leerBios,
+    guardarBio: guardarBio
   };
 })();

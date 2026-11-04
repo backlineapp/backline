@@ -926,6 +926,17 @@
     perfil.appendChild(datos);
     f.appendChild(perfil);
 
+    // Bio del grupo (si la tiene en Supabase)
+    var cajaBio = crear('div', 'ficha-bio');
+    cajaBio.hidden = true;
+    f.appendChild(cajaBio);
+    Nube.leerBio(grupo.id).then(function (texto) {
+      if (texto) {
+        cajaBio.appendChild(crear('p', 'bio-texto', texto));
+        cajaBio.hidden = false;
+      }
+    }, function () { /* sin conexión: se ve la ficha sin bio */ });
+
     // Escúchalos
     var enlaces = ENLACES.filter(function (e) {
       return grupo[e.campo] && urlPermitida(grupo[e.campo]);

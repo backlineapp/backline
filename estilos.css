@@ -765,6 +765,10 @@ a.lanzamiento-portada:active .portada { border-color: var(--acento); }
 }
 .concierto-gira { color: var(--apagado); font-style: italic; }
 .ficha-conciertos .lista { margin-bottom: 4px; }
+
+/* Bio del grupo en la ficha */
+.ficha-bio { padding: 0 16px; margin-bottom: 8px; }
+.bio-texto { color: var(--texto); font-size: 14px; line-height: 1.5; white-space: pre-line; margin: 0; }
 #lista-conciertos .conciertos-lista > .etiqueta-seccion:first-child { margin-top: 18px; }
 #lista-conciertos .conciertos-lista > .sin-grupos, #lista-conciertos .conciertos-lista > .vacio { margin-top: 16px; }
 
