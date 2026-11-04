@@ -5,6 +5,10 @@ name: App iOS (TestFlight)
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'app/**'
+      - '.github/workflows/app-ios.yml'
   push:
     branches: [main]
     paths:
