@@ -230,6 +230,7 @@
       var busqueda = sinTildes(entrada.value);
       lista.textContent = '';
       var visibles = ayuda.todosLosGrupos().filter(function (g) {
+        if (g.oculto) return false;
         return !busqueda || sinTildes(g.nombre).indexOf(busqueda) !== -1;
       });
       if (!visibles.length) {
