@@ -8,7 +8,8 @@
   },
   "ios": {
     "backgroundColor": "#0B0E13",
-    "contentInset": "never"
+    "contentInset": "never",
+    "allowsBackForwardNavigationGestures": true
   },
   "plugins": {
     "SystemBars": {

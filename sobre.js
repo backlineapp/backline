@@ -14,7 +14,7 @@
 
   var CONTACTO = 'hibackline@gmail.com';
   var APOYO = {
-    activo: false,
+    activo: true,
     // Página de aportaciones para la web. En Ko-fi cada uno elige el importe
     // y paga con tarjeta, PayPal, Apple Pay o Google Pay. (En las apps de las
     // tiendas no se usará: Apple y Google obligan a usar su propio pago.)
