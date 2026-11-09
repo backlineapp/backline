@@ -547,6 +547,30 @@
     return cliente.rpc('avisos_borrar', { p_endpoint: sus.endpoint, p_auth: sus.keys.auth }).then(comprobar);
   }
 
+  // ---------- Localización personalizada del grupo ----------
+
+  function leerCiudad(grupoId) {
+    if (!cliente) return Promise.resolve('');
+    return cliente.from('ciudades').select('ciudad').eq('grupo_id', grupoId).maybeSingle()
+      .then(function (r) { return (r.data && r.data.ciudad) || ''; });
+  }
+
+  function leerCiudades(gruposIds) {
+    if (!cliente || !gruposIds || !gruposIds.length) return Promise.resolve({});
+    return cliente.from('ciudades').select('grupo_id, ciudad').in('grupo_id', gruposIds)
+      .then(function (r) {
+        var mapa = {};
+        (r.data || []).forEach(function (c) { mapa[c.grupo_id] = c.ciudad; });
+        return mapa;
+      });
+  }
+
+  function guardarCiudad(grupoId, ciudad) {
+    if (!cliente) return sinConexion();
+    return cliente.from('ciudades').upsert({ grupo_id: grupoId, ciudad: ciudad, actualizado: new Date().toISOString() })
+      .then(comprobar);
+  }
+
   // ---------- Bio del grupo ----------
 
   function leerBio(grupoId) {
@@ -608,6 +632,9 @@
     claveAvisos: claveAvisos,
     apuntarAvisos: apuntarAvisos,
     borrarAvisos: borrarAvisos,
+    leerCiudad: leerCiudad,
+    leerCiudades: leerCiudades,
+    guardarCiudad: guardarCiudad,
     leerBio: leerBio,
     leerBios: leerBios,
     guardarBio: guardarBio

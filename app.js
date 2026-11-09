@@ -1372,11 +1372,25 @@
           g._acento = i % 2 ? 'acento-ambar' : 'acento-cian';
           return g;
         });
-      pintarFiltros();
-      pintarZonas();
-      pintarLista();
-      window.addEventListener('hashchange', alCambiarRuta);
-      alCambiarRuta();
+      // Ciudades personalizadas: si un grupo ha cambiado su localización desde
+      // el panel, se aplica sobre el objeto del grupo para que todas las
+      // pantallas (listas, fichas, filtro por zona) la vean.
+      var ids = grupos.map(function (g) { return g.id; });
+      Nube.leerCiudades(ids).then(function (mapa) {
+        grupos.forEach(function (g) {
+          if (mapa[g.id]) {
+            g.ciudad = mapa[g.id];
+            g._zona = Zonas.zonaDe(g.ciudad);
+          }
+        });
+      }).catch(function () { /* sin conexión: se quedan las de grupos.json */ })
+      .then(function () {
+        pintarFiltros();
+        pintarZonas();
+        pintarLista();
+        window.addEventListener('hashchange', alCambiarRuta);
+        alCambiarRuta();
+      });
     })
     .catch(function () {
       el.aviso.textContent = 'No se han podido cargar los grupos. Revisa la conexión y vuelve a intentarlo.';

@@ -527,6 +527,54 @@
       }, function () { detalleSol.textContent = 'Gestionar y retirar fichas'; });
     }
 
+    // Localización del grupo (solo para miembros, no para el administrador global).
+    if (!cuenta.admin) {
+      mios.forEach(function (g) {
+        var MAX_CIUDAD = 120;
+        var inputCiudad = entrada('text', '', { maxlength: String(MAX_CIUDAD), autocomplete: 'off', placeholder: g.ciudad || 'Ej.: Bilbao, Madrid, Euskadi…' });
+        var avisoCiudad = crear('p', 'mensaje'); avisoCiudad.hidden = true;
+        var btnCiudad = boton('Guardar localización', 'boton-secundario boton-ancho');
+        btnCiudad.disabled = true;
+
+        var etiquetaCiudad = mios.length === 1 ? 'Localización' : 'Localización de ' + g.nombre;
+        var campoCiudad = campo(etiquetaCiudad, inputCiudad, 'Si habéis cambiado de ciudad o queréis poner otra cosa (comarca, comunidad…), cambiadlo aquí.');
+        campoCiudad.appendChild(avisoCiudad);
+        campoCiudad.appendChild(btnCiudad);
+        contenedor.appendChild(campoCiudad);
+
+        var ciudadOriginal = '';
+        inputCiudad.addEventListener('input', function () {
+          btnCiudad.disabled = inputCiudad.value === ciudadOriginal;
+        });
+
+        Nube.leerCiudad(g.id).then(function (texto) {
+          ciudadOriginal = texto || '';
+          inputCiudad.value = ciudadOriginal;
+          inputCiudad.placeholder = ciudadOriginal || g.ciudad || 'Ej.: Bilbao, Madrid, Euskadi…';
+          btnCiudad.disabled = true;
+        }, function () { /* sin conexión */ });
+
+        btnCiudad.addEventListener('click', function () {
+          var valor = inputCiudad.value.trim();
+          if (valor.length > MAX_CIUDAD) {
+            mensaje(avisoCiudad, 'Demasiado largo: máximo ' + MAX_CIUDAD + ' caracteres.', 'error');
+            return;
+          }
+          btnCiudad.disabled = true;
+          mensaje(avisoCiudad, 'Guardando…');
+          Nube.guardarCiudad(g.id, valor).then(function () {
+            ciudadOriginal = valor;
+            inputCiudad.value = valor;
+            btnCiudad.disabled = true;
+            mensaje(avisoCiudad, 'Localización guardada.', 'ok');
+          }, function (err) {
+            btnCiudad.disabled = false;
+            mensaje(avisoCiudad, err.message, 'error');
+          });
+        });
+      });
+    }
+
     // Bio del grupo (solo para miembros, no para el administrador global).
     if (!cuenta.admin) {
       mios.forEach(function (g) {
