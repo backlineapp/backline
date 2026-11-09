@@ -571,6 +571,48 @@
       .then(comprobar);
   }
 
+  // ---------- Foto de perfil del grupo ----------
+
+  function leerFotoPerfil(grupoId) {
+    if (!cliente) return Promise.resolve('');
+    return cliente.from('fotos_perfil').select('ruta').eq('grupo_id', grupoId).maybeSingle()
+      .then(function (r) { return (r.data && r.data.ruta) || ''; });
+  }
+
+  function leerFotosPerfil(gruposIds) {
+    if (!cliente || !gruposIds || !gruposIds.length) return Promise.resolve({});
+    return cliente.from('fotos_perfil').select('grupo_id, ruta').in('grupo_id', gruposIds)
+      .then(function (r) {
+        var mapa = {};
+        (r.data || []).forEach(function (f) { mapa[f.grupo_id] = urlCartel(f.ruta); });
+        return mapa;
+      });
+  }
+
+  function guardarFotoPerfil(grupoId, blob) {
+    if (!cliente) return sinConexion();
+    var ruta = grupoId + '/perfil-' + idAleatorio() + '.jpg';
+    var rutaAnterior = null;
+    // Primero leemos la foto anterior para borrarla después.
+    return leerFotoPerfil(grupoId)
+      .then(function (anterior) {
+        rutaAnterior = anterior;
+        return cliente.storage.from(CARPETA)
+          .upload(ruta, blob, { contentType: 'image/jpeg', cacheControl: '31536000', upsert: false })
+          .then(comprobar);
+      })
+      .then(function () {
+        return cliente.from('fotos_perfil')
+          .upsert({ grupo_id: grupoId, ruta: ruta, actualizado: new Date().toISOString() })
+          .then(comprobar);
+      })
+      .then(function () {
+        // Borrar la imagen anterior (si falla, no pasa nada).
+        if (rutaAnterior) borrarCartel(rutaAnterior).catch(function () {});
+        return urlCartel(ruta);
+      });
+  }
+
   // ---------- Bio del grupo ----------
 
   function leerBio(grupoId) {
@@ -635,6 +677,9 @@
     leerCiudad: leerCiudad,
     leerCiudades: leerCiudades,
     guardarCiudad: guardarCiudad,
+    leerFotoPerfil: leerFotoPerfil,
+    leerFotosPerfil: leerFotosPerfil,
+    guardarFotoPerfil: guardarFotoPerfil,
     leerBio: leerBio,
     leerBios: leerBios,
     guardarBio: guardarBio

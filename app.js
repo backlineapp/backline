@@ -1376,15 +1376,20 @@
       // el panel, se aplica sobre el objeto del grupo para que todas las
       // pantallas (listas, fichas, filtro por zona) la vean.
       var ids = grupos.map(function (g) { return g.id; });
-      Nube.leerCiudades(ids).then(function (mapa) {
+      Promise.all([
+        Nube.leerCiudades(ids).catch(function () { return {}; }),
+        Nube.leerFotosPerfil(ids).catch(function () { return {}; })
+      ]).then(function (r) {
+        var mapaCiudades = r[0];
+        var mapaFotos = r[1];
         grupos.forEach(function (g) {
-          if (mapa[g.id]) {
-            g.ciudad = mapa[g.id];
+          if (mapaCiudades[g.id]) {
+            g.ciudad = mapaCiudades[g.id];
             g._zona = Zonas.zonaDe(g.ciudad);
           }
+          if (mapaFotos[g.id]) g.portada = mapaFotos[g.id];
         });
-      }).catch(function () { /* sin conexión: se quedan las de grupos.json */ })
-      .then(function () {
+      }).then(function () {
         pintarFiltros();
         pintarZonas();
         pintarLista();

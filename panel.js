@@ -527,6 +527,87 @@
       }, function () { detalleSol.textContent = 'Gestionar y retirar fichas'; });
     }
 
+    // Foto de perfil del grupo (solo para miembros, no para el administrador global).
+    if (!cuenta.admin) {
+      mios.forEach(function (g) {
+        var avisoFoto = crear('p', 'mensaje'); avisoFoto.hidden = true;
+        var vistaFoto = crear('div', 'cartel-vista foto-perfil-vista');
+        var archivoFoto = entrada('file', null, { accept: 'image/*' });
+        var elegirFoto = crear('label', 'boton-secundario elegir-cartel');
+        elegirFoto.appendChild(document.createTextNode('Elegir foto'));
+        elegirFoto.appendChild(archivoFoto);
+        var btnFoto = boton('Guardar foto de perfil', 'boton-secundario boton-ancho');
+        btnFoto.disabled = true;
+        btnFoto.hidden = true;
+
+        var etiquetaFoto = mios.length === 1 ? 'Foto de perfil' : 'Foto de perfil de ' + g.nombre;
+        var cajaFoto = crear('div', 'campo');
+        cajaFoto.appendChild(crear('span', 'campo-etiqueta', etiquetaFoto));
+        cajaFoto.appendChild(vistaFoto);
+        cajaFoto.appendChild(elegirFoto);
+        cajaFoto.appendChild(crear('span', 'campo-nota', 'Se reducirá a 1200 px y se usará como imagen del grupo en toda la app.'));
+        cajaFoto.appendChild(avisoFoto);
+        cajaFoto.appendChild(btnFoto);
+        contenedor.appendChild(cajaFoto);
+
+        // Mostrar foto actual
+        function verFoto(src) {
+          vistaFoto.textContent = '';
+          if (!src) {
+            vistaFoto.appendChild(crear('span', 'cartel-vacio', 'Sin foto de perfil'));
+            elegirFoto.firstChild.textContent = 'Elegir foto';
+            return;
+          }
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = 'Foto de perfil';
+          vistaFoto.appendChild(img);
+          elegirFoto.firstChild.textContent = 'Cambiar foto';
+        }
+
+        // Cargar foto actual desde Supabase (si la tiene)
+        Nube.leerFotoPerfil(g.id).then(function (ruta) {
+          verFoto(ruta ? Nube.urlCartel(ruta) : (g.portada || ''));
+        }, function () {
+          verFoto(g.portada || '');
+        });
+
+        var fotoNueva = null;
+        archivoFoto.addEventListener('change', function () {
+          var f = archivoFoto.files && archivoFoto.files[0];
+          if (!f) return;
+          mensaje(avisoFoto, 'Preparando imagen…');
+          reducirImagen(f).then(function (r) {
+            fotoNueva = r.blob;
+            verFoto(URL.createObjectURL(r.blob));
+            mensaje(avisoFoto, 'Lista: ' + r.ancho + ' × ' + r.alto + ' px, ' + Math.round(r.blob.size / 1024) + ' KB.', 'ok');
+            btnFoto.disabled = false;
+            btnFoto.hidden = false;
+          }, function (e) {
+            fotoNueva = null;
+            archivoFoto.value = '';
+            mensaje(avisoFoto, e.message, 'error');
+          });
+        });
+
+        btnFoto.addEventListener('click', function () {
+          if (!fotoNueva) return;
+          btnFoto.disabled = true;
+          mensaje(avisoFoto, 'Subiendo foto…');
+          Nube.guardarFotoPerfil(g.id, fotoNueva).then(function (url) {
+            fotoNueva = null;
+            archivoFoto.value = '';
+            btnFoto.hidden = true;
+            verFoto(url);
+            mensaje(avisoFoto, 'Foto de perfil guardada.', 'ok');
+          }, function (err) {
+            btnFoto.disabled = false;
+            mensaje(avisoFoto, err.message, 'error');
+          });
+        });
+      });
+    }
+
     // Localización del grupo (solo para miembros, no para el administrador global).
     if (!cuenta.admin) {
       mios.forEach(function (g) {
