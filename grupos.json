@@ -1,6 +1,6 @@
 {
- "total": 287,
- "actualizado": "2026-11-02",
+ "total": 308,
+ "actualizado": "2026-11-10",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -16057,6 +16057,1014 @@
      "tipo": "disco",
      "enlace": "https://chloridefalls.bandcamp.com/album/on-the-evening-of-the-soul",
      "portada": "https://f4.bcbits.com/img/a1427627129_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "flying-dog",
+   "nombre": "Flying Dog",
+   "estilos": "Stoner / Metal alternativo / Rock",
+   "ciudad": "Palma (Mallorca)",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://flyingdog.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/4VDjaVP6CVIJyu3tHHzAME",
+   "apple_music": "https://music.apple.com/es/artist/flying-dog/257089955",
+   "youtube": "",
+   "web": "",
+   "discografia": "V (2021), These are the Dead Years (2016), So Far...So Fine (2005)",
+   "portada": "https://f4.bcbits.com/img/a3848782899_16.jpg",
+   "discos": [
+    {
+     "titulo": "V",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://flyingdog.bandcamp.com/album/v",
+     "portada": "https://f4.bcbits.com/img/a3848782899_16.jpg"
+    },
+    {
+     "titulo": "These are the Dead Years",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://flyingdog.bandcamp.com/album/these-are-the-dead-years",
+     "portada": "https://f4.bcbits.com/img/a1193538943_16.jpg"
+    },
+    {
+     "titulo": "So Far...So Fine",
+     "anio": "2005",
+     "tipo": "disco",
+     "enlace": "https://flyingdog.bandcamp.com/album/so-far-so-fine",
+     "portada": "https://f4.bcbits.com/img/a3280171448_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "dirty-army",
+   "nombre": "Dirty Army",
+   "estilos": "Stoner / Rock alternativo / Psicodelia",
+   "ciudad": "Andalucía",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://dirtyarmy.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1EQ8VUiansaR0vk8zker3y",
+   "apple_music": "https://music.apple.com/es/artist/dirty-army/1210436712",
+   "youtube": "https://www.youtube.com/channel/UCHRWEhQ1EVcaQQzPoW8LH6Q",
+   "web": "",
+   "discografia": "Living In Death (2021), Dirty Army (2017)",
+   "portada": "https://f4.bcbits.com/img/a1638157001_16.jpg",
+   "discos": [
+    {
+     "titulo": "Living In Death",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://dirtyarmy.bandcamp.com/album/living-in-death",
+     "portada": "https://f4.bcbits.com/img/a1638157001_16.jpg"
+    },
+    {
+     "titulo": "Dirty Army",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://dirtyarmy.bandcamp.com/album/dirty-army",
+     "portada": "https://f4.bcbits.com/img/a0203266335_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "thermic-boogie",
+   "nombre": "Thermic Boogie",
+   "estilos": "Sludge / Noise rock / Psych",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://thermicboogie.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/7dF8lobjonetczImAGWBQt",
+   "apple_music": "https://music.apple.com/es/artist/thermic-boogie/1288229215",
+   "youtube": "https://www.youtube.com/@thermicboogieband3775",
+   "web": "",
+   "discografia": "Sheer Madness (2020), Live at Fabra i Coats (2020), Fracture (2019), Vastness and Matter (2016)",
+   "portada": "https://f4.bcbits.com/img/a0996749294_16.jpg",
+   "discos": [
+    {
+     "titulo": "Sheer Madness",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://thermicboogie.bandcamp.com/album/sheer-madness",
+     "portada": "https://f4.bcbits.com/img/a0996749294_16.jpg"
+    },
+    {
+     "titulo": "Live at Fabra i Coats",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://thermicboogie.bandcamp.com/album/live-at-fabra-i-coats",
+     "portada": "https://f4.bcbits.com/img/a4142815710_16.jpg"
+    },
+    {
+     "titulo": "Fracture",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://thermicboogie.bandcamp.com/album/fracture",
+     "portada": "https://f4.bcbits.com/img/a1373174601_16.jpg"
+    },
+    {
+     "titulo": "Vastness and Matter",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://thermicboogie.bandcamp.com/album/vastness-and-matter",
+     "portada": "https://f4.bcbits.com/img/a0746576266_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "apuntador",
+   "nombre": "Apuntador",
+   "estilos": "Noise rock / Post-hardcore / Rock alternativo",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://apuntador.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/4gYity7c299XO2WM76JnfF",
+   "apple_music": "https://music.apple.com/es/artist/apuntador/1482798613",
+   "youtube": "https://www.youtube.com/ElApuntadorBand",
+   "web": "",
+   "discografia": "Altar (2024), ZOT (2020), Apuntador (2019), Aquest Mur Colossal (2019), Diss Track (2017), Animal (2015), Tangos (2011)",
+   "portada": "https://f4.bcbits.com/img/a1631769586_16.jpg",
+   "discos": [
+    {
+     "titulo": "Altar",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://apuntador.bandcamp.com/album/altar",
+     "portada": "https://f4.bcbits.com/img/a1631769586_16.jpg"
+    },
+    {
+     "titulo": "ZOT",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://apuntador.bandcamp.com/album/zot",
+     "portada": "https://f4.bcbits.com/img/a4052831766_16.jpg"
+    },
+    {
+     "titulo": "Apuntador",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://apuntador.bandcamp.com/album/apuntador",
+     "portada": "https://f4.bcbits.com/img/a1310477200_16.jpg"
+    },
+    {
+     "titulo": "Aquest Mur Colossal",
+     "anio": "2019",
+     "tipo": "single",
+     "enlace": "https://apuntador.bandcamp.com/track/aquest-mur-colossal-3",
+     "portada": "https://f4.bcbits.com/img/a0303729054_16.jpg"
+    },
+    {
+     "titulo": "Diss Track",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://apuntador.bandcamp.com/album/diss-track",
+     "portada": "https://f4.bcbits.com/img/a3857206316_16.jpg"
+    },
+    {
+     "titulo": "Animal",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://apuntador.bandcamp.com/album/animal",
+     "portada": "https://f4.bcbits.com/img/a4283030973_16.jpg"
+    },
+    {
+     "titulo": "Tangos",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://apuntador.bandcamp.com/album/tangos-2",
+     "portada": "https://f4.bcbits.com/img/a0295159592_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "avida-dollars",
+   "nombre": "Avida Dollars",
+   "estilos": "Rock alternativo / Post-rock / Stoner",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://avidadollarsbcn.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/0o64rYzL3Mz1EEb69u5rBo",
+   "apple_music": "https://music.apple.com/es/artist/avida-dollars/319188515",
+   "youtube": "https://www.youtube.com/avidadollarsband",
+   "web": "",
+   "discografia": "A PESAR DE TODO (2019), ÉXODO (Single) (2016), CATARSIS (EP) (2015), BERRIAK (Single) (2014), ESENCIA (LP) (2012), PARAMNESIA (LP) (2010)",
+   "portada": "https://f4.bcbits.com/img/a4280391613_16.jpg",
+   "discos": [
+    {
+     "titulo": "A PESAR DE TODO",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://avidadollarsbcn.bandcamp.com/album/a-pesar-de-todo",
+     "portada": "https://f4.bcbits.com/img/a4280391613_16.jpg"
+    },
+    {
+     "titulo": "ÉXODO (Single)",
+     "anio": "2016",
+     "tipo": "single",
+     "enlace": "https://avidadollarsbcn.bandcamp.com/track/xodo-single",
+     "portada": "https://f4.bcbits.com/img/a2872342638_16.jpg"
+    },
+    {
+     "titulo": "CATARSIS (EP)",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://avidadollarsbcn.bandcamp.com/album/catarsis-ep",
+     "portada": "https://f4.bcbits.com/img/a3661383858_16.jpg"
+    },
+    {
+     "titulo": "BERRIAK (Single)",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://avidadollarsbcn.bandcamp.com/album/berriak-single",
+     "portada": "https://f4.bcbits.com/img/a0324059879_16.jpg"
+    },
+    {
+     "titulo": "ESENCIA (LP)",
+     "anio": "2012",
+     "tipo": "disco",
+     "enlace": "https://avidadollarsbcn.bandcamp.com/album/esencia-lp",
+     "portada": "https://f4.bcbits.com/img/a1981323389_16.jpg"
+    },
+    {
+     "titulo": "PARAMNESIA (LP)",
+     "anio": "2010",
+     "tipo": "disco",
+     "enlace": "https://avidadollarsbcn.bandcamp.com/album/paramnesia-lp",
+     "portada": "https://f4.bcbits.com/img/a4279587984_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "trees-will-tell",
+   "nombre": "Trees Will Tell",
+   "estilos": "Post-hardcore / Post-rock / Experimental",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://treeswilltell.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/49zit7YjTSEIGnTJsgiUN2",
+   "apple_music": "https://music.apple.com/es/artist/trees-will-tell/1348843249",
+   "youtube": "https://www.youtube.com/@TreesWillTell",
+   "web": "",
+   "discografia": "NEGATIVE RESULTS (2020), L'Appel Du Vide (2018), Violent Sounds For Weary Eyes (2016)",
+   "portada": "https://f4.bcbits.com/img/a1393523241_16.jpg",
+   "discos": [
+    {
+     "titulo": "NEGATIVE RESULTS",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://treeswilltell.bandcamp.com/album/negative-results",
+     "portada": "https://f4.bcbits.com/img/a1393523241_16.jpg"
+    },
+    {
+     "titulo": "L'Appel Du Vide",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://treeswilltell.bandcamp.com/album/lappel-du-vide",
+     "portada": "https://f4.bcbits.com/img/a4114945317_16.jpg"
+    },
+    {
+     "titulo": "Violent Sounds For Weary Eyes",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://treeswilltell.bandcamp.com/album/violent-sounds-for-weary-eyes",
+     "portada": "https://f4.bcbits.com/img/a0786257466_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "wet-cactus",
+   "nombre": "Wet Cactus",
+   "estilos": "Stoner / Desert rock / Psicodelia",
+   "ciudad": "Cantabria",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://wetcactus.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/20sWZcEcz8FNoLZVgNNyMx",
+   "apple_music": "https://music.apple.com/es/artist/wet-cactus/1337884636",
+   "youtube": "https://www.youtube.com/@WetCactusBand",
+   "web": "",
+   "discografia": "Live at OVNI Estudio (2025), Magma Tres (2023), Dust, Hunger & Gloom (2018), Set The Controls For The Heart Of The Sun (2018), Wet Cactus (2015), Two Songs (2015)",
+   "portada": "https://f4.bcbits.com/img/a3342590854_16.jpg",
+   "discos": [
+    {
+     "titulo": "Live at OVNI Estudio",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://wetcactus.bandcamp.com/album/live-at-ovni-estudio",
+     "portada": "https://f4.bcbits.com/img/a3342590854_16.jpg"
+    },
+    {
+     "titulo": "Magma Tres",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://wetcactus.bandcamp.com/album/magma-tres",
+     "portada": "https://f4.bcbits.com/img/a1554280958_16.jpg"
+    },
+    {
+     "titulo": "Dust, Hunger & Gloom",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://wetcactus.bandcamp.com/album/dust-hunger-gloom",
+     "portada": "https://f4.bcbits.com/img/a3703486258_16.jpg"
+    },
+    {
+     "titulo": "Set The Controls For The Heart Of The Sun",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://wetcactus.bandcamp.com/album/set-the-controls-for-the-heart-of-the-sun",
+     "portada": "https://f4.bcbits.com/img/a1516751560_16.jpg"
+    },
+    {
+     "titulo": "Wet Cactus",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://wetcactus.bandcamp.com/album/wet-cactus",
+     "portada": "https://f4.bcbits.com/img/a4024133611_16.jpg"
+    },
+    {
+     "titulo": "Two Songs",
+     "anio": "2015",
+     "tipo": "disco",
+     "enlace": "https://wetcactus.bandcamp.com/album/two-songs",
+     "portada": "https://f4.bcbits.com/img/a3991968450_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "fungus",
+   "nombre": "Fungus",
+   "estilos": "Stoner / Rock psicodélico / Heavy",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://fungusrock.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/6wBcv6VyPF9aA1kETQBTb3",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "Exodus (Full album 2018) (2018), SIZIGIA (Full album 2013) (2013), Psychonaut (full album 2007) (2013), Lost in a lonely planet (full demo 2005) (2013)",
+   "portada": "https://f4.bcbits.com/img/a2908899440_16.jpg",
+   "discos": [
+    {
+     "titulo": "Exodus (Full album 2018)",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://fungusrock.bandcamp.com/album/exodus-full-album-2018-2",
+     "portada": "https://f4.bcbits.com/img/a2908899440_16.jpg"
+    },
+    {
+     "titulo": "SIZIGIA (Full album 2013)",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://fungusrock.bandcamp.com/album/sizigia-full-album-2013",
+     "portada": "https://f4.bcbits.com/img/a2978869339_16.jpg"
+    },
+    {
+     "titulo": "Psychonaut (full album 2007)",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://fungusrock.bandcamp.com/album/psychonaut-full-album-2007",
+     "portada": "https://f4.bcbits.com/img/a0394881976_16.jpg"
+    },
+    {
+     "titulo": "Lost in a lonely planet (full demo 2005)",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://fungusrock.bandcamp.com/album/lost-in-a-lonely-planet-full-demo-2005",
+     "portada": "https://f4.bcbits.com/img/a1173253660_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "voltaje-cadaver",
+   "nombre": "Voltaje Cadáver",
+   "estilos": "Sludge / Doom / Heavy metal",
+   "ciudad": "Torrelavega",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://voltajecadaver.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/6536xJolpcQCVANtS3ywJA",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/@voltajecadaver7495",
+   "web": "",
+   "discografia": "Manantial de Sangre y Muerte (2021), TODOS LOS COLORES DE LA OSCURIDAD (2018)",
+   "portada": "https://f4.bcbits.com/img/a3303057100_16.jpg",
+   "discos": [
+    {
+     "titulo": "Manantial de Sangre y Muerte",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://voltajecadaver.bandcamp.com/album/manantial-de-sangre-y-muerte",
+     "portada": "https://f4.bcbits.com/img/a3303057100_16.jpg"
+    },
+    {
+     "titulo": "TODOS LOS COLORES DE LA OSCURIDAD",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://voltajecadaver.bandcamp.com/album/todos-los-colores-de-la-oscuridad",
+     "portada": "https://f4.bcbits.com/img/a2598815838_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "fuzz-forward",
+   "nombre": "Fuzz Forward",
+   "estilos": "Stoner / Grunge / Hard rock",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://fuzzforward.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1X0xmhPi2Fk3vopMPaTZ0B",
+   "apple_music": "https://music.apple.com/es/artist/fuzz-forward/1356547107",
+   "youtube": "https://www.youtube.com/@fuzzforward1472",
+   "web": "",
+   "discografia": "Parasites (2024), These Flowers (2023), Intoxicate (2023), Revolve (2020), Out of Nowhere (2018)",
+   "portada": "https://f4.bcbits.com/img/a0704158921_16.jpg",
+   "discos": [
+    {
+     "titulo": "Parasites",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://fuzzforward.bandcamp.com/album/parasites",
+     "portada": "https://f4.bcbits.com/img/a0704158921_16.jpg"
+    },
+    {
+     "titulo": "These Flowers",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://fuzzforward.bandcamp.com/track/these-flowers",
+     "portada": "https://f4.bcbits.com/img/a0469770894_16.jpg"
+    },
+    {
+     "titulo": "Intoxicate",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://fuzzforward.bandcamp.com/track/intoxicate",
+     "portada": "https://f4.bcbits.com/img/a2828414175_16.jpg"
+    },
+    {
+     "titulo": "Revolve",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://fuzzforward.bandcamp.com/album/revolve",
+     "portada": "https://f4.bcbits.com/img/a0632544012_16.jpg"
+    },
+    {
+     "titulo": "Out of Nowhere",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://fuzzforward.bandcamp.com/album/out-of-nowhere",
+     "portada": "https://f4.bcbits.com/img/a3355051182_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "giante",
+   "nombre": "Giante",
+   "estilos": "Post-hardcore / Emo / Punk",
+   "ciudad": "Vitoria-Gasteiz",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://giante.bandcamp.com",
+   "spotify": "",
+   "apple_music": "https://music.apple.com/es/artist/giante/1318222022",
+   "youtube": "",
+   "web": "",
+   "discografia": "Beste Norbait Izan (2026), Orduak Gris Ilunez (2026), Hamaika (2021), This Is Fine (2018)",
+   "portada": "https://f4.bcbits.com/img/a3657630906_16.jpg",
+   "discos": [
+    {
+     "titulo": "Beste Norbait Izan",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://giante.bandcamp.com/album/beste-norbait-izan",
+     "portada": "https://f4.bcbits.com/img/a3657630906_16.jpg"
+    },
+    {
+     "titulo": "Orduak Gris Ilunez",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://giante.bandcamp.com/track/orduak-gris-ilunez",
+     "portada": "https://f4.bcbits.com/img/a2560082861_16.jpg"
+    },
+    {
+     "titulo": "Hamaika",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://giante.bandcamp.com/album/hamaika",
+     "portada": "https://f4.bcbits.com/img/a3010946941_16.jpg"
+    },
+    {
+     "titulo": "This Is Fine",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://giante.bandcamp.com/album/this-is-fine",
+     "portada": "https://f4.bcbits.com/img/a2134919203_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "grip",
+   "nombre": "Grip",
+   "estilos": "Stoner / Doom / Sludge",
+   "ciudad": "Reus (Tarragona)",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://grip.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/2W0BmWYJJCUaKi6MznxpeP",
+   "apple_music": "https://music.apple.com/es/artist/grip/1695970386",
+   "youtube": "",
+   "web": "",
+   "discografia": "Solstici (2023), Sessions from Beyond (2018)",
+   "portada": "https://f4.bcbits.com/img/a1376890464_16.jpg",
+   "discos": [
+    {
+     "titulo": "Solstici",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://grip.bandcamp.com/album/solstici",
+     "portada": "https://f4.bcbits.com/img/a1376890464_16.jpg"
+    },
+    {
+     "titulo": "Sessions from Beyond",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://grip.bandcamp.com/album/sessions-from-beyond",
+     "portada": "https://f4.bcbits.com/img/a0965948320_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "ajeeb",
+   "nombre": "AJEEB",
+   "estilos": "Rock alternativo / Grunge / Noise rock",
+   "ciudad": "Lanzarote",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://ajeebmusicband.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/7jLcAayHvs4zabi3tkVZ3l",
+   "apple_music": "https://music.apple.com/es/artist/ajeeb/1373948972",
+   "youtube": "",
+   "web": "",
+   "discografia": "Refractions (2023), Toss and Turn (2020), Duffer (Single) (2018), D.O.G.S. / AJEEB (Split) (2018)",
+   "portada": "https://f4.bcbits.com/img/a3003188990_16.jpg",
+   "discos": [
+    {
+     "titulo": "Refractions",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://ajeebmusicband.bandcamp.com/album/refractions",
+     "portada": "https://f4.bcbits.com/img/a3003188990_16.jpg"
+    },
+    {
+     "titulo": "Toss and Turn",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://ajeebmusicband.bandcamp.com/album/toss-and-turn",
+     "portada": "https://f4.bcbits.com/img/a3535488553_16.jpg"
+    },
+    {
+     "titulo": "Duffer (Single)",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://ajeebmusicband.bandcamp.com/album/duffer-single",
+     "portada": "https://f4.bcbits.com/img/a1057529360_16.jpg"
+    },
+    {
+     "titulo": "D.O.G.S. / AJEEB (Split)",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://ajeebmusicband.bandcamp.com/album/d-o-g-s-ajeeb-split",
+     "portada": "https://f4.bcbits.com/img/a3483513781_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "lamorte",
+   "nombre": "Lamorte",
+   "estilos": "Sludge / Doom / Noisecore",
+   "ciudad": "Sevilla",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://lamortevie.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1OHfA2rXIwEcDUZkJ5bT8Z",
+   "apple_music": "https://music.apple.com/es/artist/lamorte/1454996725",
+   "youtube": "https://www.youtube.com/@lamorte2810",
+   "web": "",
+   "discografia": "VIVE (2021), Lamorte & Föss Split (2019), VIE (2019)",
+   "portada": "https://f4.bcbits.com/img/a3910481254_16.jpg",
+   "discos": [
+    {
+     "titulo": "VIVE",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://lamortevie.bandcamp.com/album/vive",
+     "portada": "https://f4.bcbits.com/img/a3910481254_16.jpg"
+    },
+    {
+     "titulo": "Lamorte & Föss Split",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://lamortevie.bandcamp.com/album/lamorte-f-ss-split",
+     "portada": "https://f4.bcbits.com/img/a1128898883_16.jpg"
+    },
+    {
+     "titulo": "VIE",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://lamortevie.bandcamp.com/album/vie",
+     "portada": "https://f4.bcbits.com/img/a3787983430_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "dumange",
+   "nombre": "Dumange",
+   "estilos": "Crust / D-beat / Metal",
+   "ciudad": "Asturias",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://dumange.bandcamp.com",
+   "spotify": "",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/@dumange1365",
+   "web": "",
+   "discografia": "Entre ratas (2019)",
+   "portada": "https://f4.bcbits.com/img/a3963466519_16.jpg",
+   "discos": [
+    {
+     "titulo": "Entre ratas",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://dumange.bandcamp.com/album/entre-ratas-2",
+     "portada": "https://f4.bcbits.com/img/a3963466519_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "nazca",
+   "nombre": "Nazca",
+   "estilos": "Post-hardcore / Post-rock / Metal",
+   "ciudad": "Vigo",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://nazcatheband.bandcamp.com",
+   "spotify": "",
+   "apple_music": "https://music.apple.com/es/artist/nazca/1160227888",
+   "youtube": "",
+   "web": "",
+   "discografia": "Nazca - Repúblicas (2020), Sangran, no son dioses (2017), Vive Tempestad (2016)",
+   "portada": "https://f4.bcbits.com/img/a1814207243_16.jpg",
+   "discos": [
+    {
+     "titulo": "Nazca - Repúblicas",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://nazcatheband.bandcamp.com/album/nazca-rep-blicas",
+     "portada": "https://f4.bcbits.com/img/a1814207243_16.jpg"
+    },
+    {
+     "titulo": "Sangran, no son dioses",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://nazcatheband.bandcamp.com/album/sangran-no-son-dioses",
+     "portada": "https://f4.bcbits.com/img/a2733570876_16.jpg"
+    },
+    {
+     "titulo": "Vive Tempestad",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://nazcatheband.bandcamp.com/album/vive-tempestad",
+     "portada": "https://f4.bcbits.com/img/a0050675543_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "avern",
+   "nombre": "Avern",
+   "estilos": "Black metal / Death metal / Heavy metal",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://avernbcn.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/686gLCp1lJo63IK83ltBbv",
+   "apple_music": "https://music.apple.com/es/artist/avern/1506749017",
+   "youtube": "",
+   "web": "",
+   "discografia": "Unique And Eternal (2026), Hell on Earth (2023), ELS CARRERS SERAN SEMPRE MONSTRES (2022), A tribute to Black Sabbath (2021), Witch's Eyes (2020), Demo 2019 (2019)",
+   "portada": "https://f4.bcbits.com/img/a3868273080_16.jpg",
+   "discos": [
+    {
+     "titulo": "Unique And Eternal",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://avernbcn.bandcamp.com/album/unique-and-eternal",
+     "portada": "https://f4.bcbits.com/img/a3868273080_16.jpg"
+    },
+    {
+     "titulo": "Hell on Earth",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://avernbcn.bandcamp.com/album/hell-on-earth",
+     "portada": "https://f4.bcbits.com/img/a2716363371_16.jpg"
+    },
+    {
+     "titulo": "ELS CARRERS SERAN SEMPRE MONSTRES",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://avernbcn.bandcamp.com/album/els-carrers-seran-sempre-monstres",
+     "portada": "https://f4.bcbits.com/img/a0960186143_16.jpg"
+    },
+    {
+     "titulo": "A tribute to Black Sabbath",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://avernbcn.bandcamp.com/album/a-tribute-to-black-sabbath",
+     "portada": "https://f4.bcbits.com/img/a0091774659_16.jpg"
+    },
+    {
+     "titulo": "Witch's Eyes",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://avernbcn.bandcamp.com/album/witchs-eyes",
+     "portada": "https://f4.bcbits.com/img/a1565843431_16.jpg"
+    },
+    {
+     "titulo": "Demo 2019",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://avernbcn.bandcamp.com/album/demo-2019",
+     "portada": "https://f4.bcbits.com/img/a1898768617_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "the-wax",
+   "nombre": "The Wax",
+   "estilos": "Post-hardcore / Noise / Rock alternativo",
+   "ciudad": "Navarcles (Barcelona)",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://thewaxband.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/5hIwaWdnCJIUMbAayNuqi5",
+   "apple_music": "https://music.apple.com/es/artist/the-wax/409807614",
+   "youtube": "https://www.youtube.com/channel/UCUOpfmtXBviE13p4GmLyUIg",
+   "web": "",
+   "discografia": "L'Eufòria (2021), El Hombre que Luchaba con su Ansiedad (2019), A Place to Bury Our Sins Away (2018), Don't Belong (2017), We Are Failing (2014), End Know Sense (2013)",
+   "portada": "https://f4.bcbits.com/img/a1126264272_16.jpg",
+   "discos": [
+    {
+     "titulo": "L'Eufòria",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://thewaxband.bandcamp.com/album/leuf-ria",
+     "portada": "https://f4.bcbits.com/img/a1126264272_16.jpg"
+    },
+    {
+     "titulo": "El Hombre que Luchaba con su Ansiedad",
+     "anio": "2019",
+     "tipo": "single",
+     "enlace": "https://thewaxband.bandcamp.com/track/el-hombre-que-luchaba-con-su-ansiedad",
+     "portada": "https://f4.bcbits.com/img/a2479966392_16.jpg"
+    },
+    {
+     "titulo": "A Place to Bury Our Sins Away",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://thewaxband.bandcamp.com/album/a-place-to-bury-our-sins-away",
+     "portada": "https://f4.bcbits.com/img/a3031640921_16.jpg"
+    },
+    {
+     "titulo": "Don't Belong",
+     "anio": "2017",
+     "tipo": "disco",
+     "enlace": "https://thewaxband.bandcamp.com/album/dont-belong",
+     "portada": "https://f4.bcbits.com/img/a3354507221_16.jpg"
+    },
+    {
+     "titulo": "We Are Failing",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://thewaxband.bandcamp.com/album/we-are-failing",
+     "portada": "https://f4.bcbits.com/img/a0289894232_16.jpg"
+    },
+    {
+     "titulo": "End Know Sense",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://thewaxband.bandcamp.com/album/end-know-sense",
+     "portada": "https://f4.bcbits.com/img/a1248617098_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "bocc",
+   "nombre": "Bocc",
+   "estilos": "Death metal / Death doom / D-beat",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://bocc.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1C2gseREz7GJXKZ2qbtMyV",
+   "apple_music": "https://music.apple.com/es/artist/bocc/1137057112",
+   "youtube": "",
+   "web": "",
+   "discografia": "Ànima d'acer (2026), Demolarium (2026), Promo 2025 (2025), La forja dels cranis (EP) (2024), Split w/ God's Funeral (2024), Dolça mort en els llims del Rec Comtal (2022), La Fam Cavalca (2022), DEMO II (2022), Santa Eulàlia (EP) (2021), Els camins de la vesània (Single) (2021), A la Forca (EP) (2020), DEMO I (2019)",
+   "portada": "https://f4.bcbits.com/img/a0263702908_16.jpg",
+   "discos": [
+    {
+     "titulo": "Ànima d'acer",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://bocc.bandcamp.com/track/nima-dacer-2",
+     "portada": "https://f4.bcbits.com/img/a0263702908_16.jpg"
+    },
+    {
+     "titulo": "Demolarium",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://bocc.bandcamp.com/track/demolarium",
+     "portada": "https://f4.bcbits.com/img/a3703514029_16.jpg"
+    },
+    {
+     "titulo": "Promo 2025",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://bocc.bandcamp.com/album/promo-2025-2",
+     "portada": "https://f4.bcbits.com/img/a1224548552_16.jpg"
+    },
+    {
+     "titulo": "La forja dels cranis (EP)",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://bocc.bandcamp.com/album/la-forja-dels-cranis-ep",
+     "portada": "https://f4.bcbits.com/img/a1083216391_16.jpg"
+    },
+    {
+     "titulo": "Split w/ God's Funeral",
+     "anio": "2024",
+     "tipo": "disco",
+     "enlace": "https://bocc.bandcamp.com/album/split-w-gods-funeral",
+     "portada": "https://f4.bcbits.com/img/a0173876251_16.jpg"
+    },
+    {
+     "titulo": "Dolça mort en els llims del Rec Comtal",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://bocc.bandcamp.com/album/dol-a-mort-en-els-llims-del-rec-comtal",
+     "portada": "https://f4.bcbits.com/img/a0945540522_16.jpg"
+    },
+    {
+     "titulo": "La Fam Cavalca",
+     "anio": "2022",
+     "tipo": "single",
+     "enlace": "https://bocc.bandcamp.com/track/la-fam-cavalca",
+     "portada": "https://f4.bcbits.com/img/a1865733793_16.jpg"
+    },
+    {
+     "titulo": "DEMO II",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://bocc.bandcamp.com/album/demo-ii",
+     "portada": "https://f4.bcbits.com/img/a0649826422_16.jpg"
+    },
+    {
+     "titulo": "Santa Eulàlia (EP)",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://bocc.bandcamp.com/album/santa-eul-lia-ep",
+     "portada": "https://f4.bcbits.com/img/a3731729076_16.jpg"
+    },
+    {
+     "titulo": "Els camins de la vesània (Single)",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://bocc.bandcamp.com/album/els-camins-de-la-ves-nia-single",
+     "portada": "https://f4.bcbits.com/img/a1083610092_16.jpg"
+    },
+    {
+     "titulo": "A la Forca (EP)",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://bocc.bandcamp.com/album/a-la-forca-ep",
+     "portada": "https://f4.bcbits.com/img/a3184705844_16.jpg"
+    },
+    {
+     "titulo": "DEMO I",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://bocc.bandcamp.com/album/demo-i",
+     "portada": "https://f4.bcbits.com/img/a2266853309_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "refugio",
+   "nombre": "Refugiø",
+   "estilos": "Post-hardcore / Post-rock / Post-metal",
+   "ciudad": "Barcelona",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://refugiobcn.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/0SQDNj7hQvIJUK9KGG8AOm",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/channel/UCmnXy1ciYSRYYj6_Tk_H4pA",
+   "web": "",
+   "discografia": "A Través del Fuego (2022), Cosmogonía (2020)",
+   "portada": "https://f4.bcbits.com/img/a1541911507_16.jpg",
+   "discos": [
+    {
+     "titulo": "A Través del Fuego",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://refugiobcn.bandcamp.com/album/a-trav-s-del-fuego",
+     "portada": "https://f4.bcbits.com/img/a1541911507_16.jpg"
+    },
+    {
+     "titulo": "Cosmogonía",
+     "anio": "2020",
+     "tipo": "disco",
+     "enlace": "https://refugiobcn.bandcamp.com/album/cosmogon-a",
+     "portada": "https://f4.bcbits.com/img/a1596406119_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "polar",
+   "nombre": ".polar",
+   "estilos": "Post-hardcore / Emo / Rock alternativo",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://dotpolar.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/4bXMJVqx829zKwIMbABFqn",
+   "apple_music": "https://music.apple.com/es/artist/polar/1512265665",
+   "youtube": "https://www.youtube.com/@weare.polarband",
+   "web": "",
+   "discografia": "Morir matando (2026), Nostalgia (2024), Un espinar (2023), Tragaluz (2023), Desaparecer (2023), A lighthouse that wants to be (2021), Karma Police (Radiohead cover) (2020), Remembering a dreamless night (2018)",
+   "portada": "https://f4.bcbits.com/img/a2992633400_16.jpg",
+   "discos": [
+    {
+     "titulo": "Morir matando",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://dotpolar.bandcamp.com/album/morir-matando-2",
+     "portada": "https://f4.bcbits.com/img/a2992633400_16.jpg"
+    },
+    {
+     "titulo": "Nostalgia",
+     "anio": "2024",
+     "tipo": "single",
+     "enlace": "https://dotpolar.bandcamp.com/track/nostalgia",
+     "portada": "https://f4.bcbits.com/img/a3573902867_16.jpg"
+    },
+    {
+     "titulo": "Un espinar",
+     "anio": "2023",
+     "tipo": "disco",
+     "enlace": "https://dotpolar.bandcamp.com/album/un-espinar",
+     "portada": "https://f4.bcbits.com/img/a3602007894_16.jpg"
+    },
+    {
+     "titulo": "Tragaluz",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://dotpolar.bandcamp.com/track/tragaluz",
+     "portada": "https://f4.bcbits.com/img/a2467010584_16.jpg"
+    },
+    {
+     "titulo": "Desaparecer",
+     "anio": "2023",
+     "tipo": "single",
+     "enlace": "https://dotpolar.bandcamp.com/track/desaparecer",
+     "portada": "https://f4.bcbits.com/img/a1866055692_16.jpg"
+    },
+    {
+     "titulo": "A lighthouse that wants to be",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://dotpolar.bandcamp.com/album/a-lighthouse-that-wants-to-be",
+     "portada": "https://f4.bcbits.com/img/a3159386849_16.jpg"
+    },
+    {
+     "titulo": "Karma Police (Radiohead cover)",
+     "anio": "2020",
+     "tipo": "single",
+     "enlace": "https://dotpolar.bandcamp.com/track/karma-police-radiohead-cover",
+     "portada": "https://f4.bcbits.com/img/a2669692164_16.jpg"
+    },
+    {
+     "titulo": "Remembering a dreamless night",
+     "anio": "2018",
+     "tipo": "disco",
+     "enlace": "https://dotpolar.bandcamp.com/album/remembering-a-dreamless-night",
+     "portada": "https://f4.bcbits.com/img/a0159968568_16.jpg"
     }
    ]
   }
