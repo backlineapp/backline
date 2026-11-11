@@ -590,10 +590,48 @@
     }
 
     var trozo = document.createDocumentFragment();
-    todos.slice(0, visiblesInicio).forEach(function (item) {
-      var c = casilla(item, true);
-      if (c) trozo.appendChild(c);
-    });
+    var visibles = todos.slice(0, visiblesInicio);
+
+    // Agrupar items consecutivos del mismo grupo y mismo día.
+    // La clave de agrupación es grupo.id + los primeros 10 chars de la clave
+    // de orden (YYYY-MM-DD). Los discos de Bandcamp (clave "2024-00") no se
+    // agrupan porque no tienen día exacto.
+    var i = 0;
+    while (i < visibles.length) {
+      var item = visibles[i];
+      var dia = item.clave.slice(0, 10);
+      var agrupable = dia.length === 10 && dia.charAt(7) !== '0'; // tiene día real
+
+      // Contar cuántos items seguidos son del mismo grupo y mismo día.
+      var j = i + 1;
+      if (agrupable) {
+        while (j < visibles.length &&
+               visibles[j].grupo.id === item.grupo.id &&
+               visibles[j].clave.slice(0, 10) === dia) {
+          j++;
+        }
+      }
+
+      if (j - i >= 2 && agrupable) {
+        // Grupo de 2+: envolver en un contenedor con cabecera.
+        var li = crear('li', 'grupo-dia');
+        var cab = crear('a', 'grupo-dia-cabecera', item.grupo.nombre);
+        cab.href = '#/grupo/' + encodeURIComponent(item.grupo.id);
+        li.appendChild(cab);
+        var sub = crear('ul', 'rejilla grupo-dia-lista');
+        for (var k = i; k < j; k++) {
+          var c = casilla(visibles[k], false); // sin repetir el nombre del grupo
+          if (c) sub.appendChild(c);
+        }
+        li.appendChild(sub);
+        trozo.appendChild(li);
+      } else {
+        var c2 = casilla(item, true);
+        if (c2) trozo.appendChild(c2);
+      }
+      i = j;
+    }
+
     el.listaInicio.appendChild(trozo);
     el.verMas.hidden = todos.length <= visiblesInicio;
   }

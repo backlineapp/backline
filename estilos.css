@@ -739,6 +739,27 @@ button { font-family: inherit; }
 }
 /* Mensaje de "no hay nada" a lo ancho de la cuadrícula */
 .rejilla > .vacio { grid-column: 1 / -1; }
+
+/* Agrupación de publicaciones del mismo día de un grupo */
+.grupo-dia {
+  grid-column: 1 / -1;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--superficie);
+}
+.grupo-dia-cabecera {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cian);
+  text-decoration: none;
+}
+.grupo-dia-cabecera:hover { text-decoration: underline; }
+.grupo-dia-lista {
+  margin: 0;
+  padding: 0;
+}
 .lanzamiento .portada {
   width: 100%;
   height: 100%;
