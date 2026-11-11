@@ -30,6 +30,36 @@
     <p class="arranque-pista">Toca para entrar</p>
   </div>
 
+  <!-- Pantalla de bienvenida: solo aparece la primera vez que entras -->
+  <div id="bienvenida" class="bienvenida" hidden>
+    <div class="bienvenida-contenido">
+      <img class="bienvenida-logo" src="logo.svg" alt="Backline">
+      <h1 class="bienvenida-titulo">Bienvenido a Backline</h1>
+      <p class="bienvenida-sub">El backstage de tus grupos favoritos</p>
+
+      <div class="bienvenida-pasos">
+        <div class="bienvenida-paso">
+          <span class="bienvenida-icono">🔍</span>
+          <h2>Explora</h2>
+          <p>Descubre más de 300 grupos de la escena underground española.</p>
+        </div>
+        <div class="bienvenida-paso">
+          <span class="bienvenida-icono">⚡</span>
+          <h2>Sigue</h2>
+          <p>Sigue a los que te gustan y ten sus novedades en un solo sitio.</p>
+        </div>
+        <div class="bienvenida-paso">
+          <span class="bienvenida-icono">🎸</span>
+          <h2>Descubre</h2>
+          <p>Discos, vídeos, conciertos y noticias. Sin publicidad, sin algoritmos.</p>
+        </div>
+      </div>
+
+      <button id="bienvenida-entrar" class="boton bienvenida-boton" type="button">Empezar a explorar</button>
+      <p class="bienvenida-nota">Sin cuenta · Sin registro · Gratis</p>
+    </div>
+  </div>
+
   <header class="cabecera">
     <a href="#/explorar" class="logo" aria-label="Backline, ir a Explorar">
       <img src="logo.svg" alt="Backline">
