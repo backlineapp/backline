@@ -171,7 +171,9 @@
     contenidoFicha: document.getElementById('ficha'),
     volver: document.querySelectorAll('.volver'),
     aviso: document.getElementById('aviso'),
-    arranque: document.getElementById('arranque')
+    arranque: document.getElementById('arranque'),
+    bienvenida: document.getElementById('bienvenida'),
+    bienvenidaEntrar: document.getElementById('bienvenida-entrar')
   };
 
   // ---------- Utilidades ----------
@@ -412,15 +414,45 @@
 
   // ---------- Pantalla de arranque ----------
 
-  // Al quitarla se ofrece instalar la app, si toca (ver instalar.js).
+  // ¿Es la primera vez? Si no ha visto la bienvenida y no sigue a nadie.
+  function esPrimeraVez() {
+    try { return !localStorage.getItem('backline.bienvenida'); } catch (e) { return false; }
+  }
+
+  function marcarBienvenidaVista() {
+    try { localStorage.setItem('backline.bienvenida', '1'); } catch (e) { /* sin permiso */ }
+  }
+
+  // Al quitar el arranque, si es la primera vez se muestra la bienvenida.
   function quitarArranque() {
     var a = el.arranque;
     if (!a || a.classList.contains('saliendo')) return;
     a.classList.add('saliendo');
     setTimeout(function () {
       a.hidden = true;
+      var sigoAlguno = grupos.some(function (g) { return Seguidos.sigo(g.id); });
+      if (esPrimeraVez() && !sigoAlguno && el.bienvenida) {
+        el.bienvenida.hidden = false;
+      } else {
+        Instalar.alEntrar();
+      }
+    }, 400);
+  }
+
+  // Cerrar la bienvenida y pasar a Explorar.
+  function cerrarBienvenida() {
+    marcarBienvenidaVista();
+    if (!el.bienvenida) return;
+    el.bienvenida.classList.add('saliendo');
+    setTimeout(function () {
+      el.bienvenida.hidden = true;
+      location.hash = '#/explorar';
       Instalar.alEntrar();
     }, 400);
+  }
+
+  if (el.bienvenidaEntrar) {
+    el.bienvenidaEntrar.addEventListener('click', cerrarBienvenida);
   }
 
   if (el.arranque) {
