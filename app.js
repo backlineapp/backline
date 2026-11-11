@@ -396,7 +396,7 @@
     b.addEventListener('click', function () {
       compartir(grupo.nombre + ' · Backline',
         grupo.nombre + (grupo.estilos ? ' (' + grupo.estilos + ')' : '') + ' en Backline, el backstage de tus grupos favoritos.',
-        '#/grupo/' + encodeURIComponent(grupo.id));
+        'grupo/' + encodeURIComponent(grupo.id));
     });
     return b;
   }
