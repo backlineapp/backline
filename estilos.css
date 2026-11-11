@@ -243,6 +243,7 @@ button { font-family: inherit; }
   scrollbar-width: none;
 }
 .filtros::-webkit-scrollbar { display: none; }
+.filtros-orden { margin-top: 6px; margin-bottom: -4px; }
 
 .filtro {
   flex: 0 0 auto;
