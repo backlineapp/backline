@@ -101,7 +101,11 @@
   // Filtros de Explorar. zona: '' (toda España), 'c:Andalucía' (una
   // comunidad) o 'p:Cádiz' (una provincia). La zona se recuerda en el móvil.
   var CLAVE_ZONA = 'backline-zona';
-  var estado = { texto: '', familia: null, zona: leerZona() };
+  var estado = { texto: '', familia: null, zona: leerZona(), orden: 'az' };
+
+  // Grupos con conciertos próximos (se llena cuando se piden).
+  var gruposConConcierto = {};
+  var conciertosListos = false;
   // Cuántos lanzamientos se ven ahora mismo en Inicio.
   var visiblesInicio = POR_TANDA;
   // Posición de la lista en cada pantalla, para volver al mismo sitio.
@@ -159,6 +163,7 @@
     zonaBoton: document.getElementById('zona-boton'),
     zonaTexto: document.getElementById('zona-texto'),
     lista: document.getElementById('lista'),
+    ordenExplorar: document.getElementById('orden-explorar'),
     contadorMios: document.getElementById('contador-mis-grupos'),
     buscadorMios: document.getElementById('buscador-mis-grupos'),
     cajaBuscadorMios: document.getElementById('caja-buscador-mis-grupos'),
@@ -732,6 +737,31 @@
     });
   }
 
+  // Opciones de orden en Explorar.
+  var ORDENES = [
+    { valor: 'az', nombre: 'A–Z' },
+    { valor: 'recientes', nombre: 'Recién llegados' },
+    { valor: 'conciertos', nombre: 'Con conciertos' }
+  ];
+
+  function pintarOrdenExplorar() {
+    el.ordenExplorar.textContent = '';
+    ORDENES.forEach(function (op) {
+      // "Con conciertos" se oculta si aún no hay datos.
+      if (op.valor === 'conciertos' && !conciertosListos) return;
+      var b = crear('button', 'filtro', op.nombre);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(estado.orden === op.valor));
+      b.addEventListener('click', function () {
+        if (estado.orden === op.valor) return;
+        estado.orden = op.valor;
+        pintarOrdenExplorar();
+        pintarLista();
+      });
+      el.ordenExplorar.appendChild(b);
+    });
+  }
+
   function pintarLista() {
     var busqueda = normalizar(estado.texto);
     var visibles = grupos.filter(function (g) {
@@ -740,6 +770,21 @@
       if (estado.zona && !enZona(g, estado.zona)) return false;
       return true;
     });
+
+    // Aplicar orden.
+    if (estado.orden === 'recientes') {
+      // Los últimos del JSON (los añadidos más recientemente) van primero.
+      visibles = visibles.slice().sort(function (a, b) { return b._ordenOriginal - a._ordenOriginal; });
+    } else if (estado.orden === 'conciertos') {
+      // Primero los que tienen conciertos próximos; el resto, detrás en A-Z.
+      var con = visibles.filter(function (g) { return gruposConConcierto[g.id]; });
+      var sin = visibles.filter(function (g) { return !gruposConConcierto[g.id]; });
+      // Los que tienen concierto, por fecha del concierto más próximo.
+      con.sort(function (a, b) {
+        return (gruposConConcierto[a.id] || '').localeCompare(gruposConConcierto[b.id] || '');
+      });
+      visibles = con.concat(sin);
+    }
 
     el.contador.textContent = visibles.length === 1 ? '1 grupo' : visibles.length + ' grupos';
     el.lista.textContent = '';
@@ -1332,10 +1377,11 @@
     })
     .then(function (datos) {
       grupos = (datos.grupos || [])
-        .map(function (g) {
+        .map(function (g, i) {
           g._nombre = normalizar(g.nombre);
           g._familias = familiasDe(g.estilos);
           g._zona = Zonas.zonaDe(g.ciudad);
+          g._ordenOriginal = i; // para saber cuáles son los más nuevos
           return g;
         })
         .sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); })
@@ -1345,9 +1391,24 @@
         });
       pintarFiltros();
       pintarZonas();
+      pintarOrdenExplorar();
       pintarLista();
       window.addEventListener('hashchange', alCambiarRuta);
       alCambiarRuta();
+
+      // Pedir conciertos próximos de todos los grupos para Explorar.
+      Nube.proximasFechas(null).then(function (fechas) {
+        fechas.forEach(function (f) {
+          var id = f.publicacion.grupo_id;
+          // Guardar la fecha más próxima de cada grupo.
+          if (!gruposConConcierto[id] || f.fecha < gruposConConcierto[id]) {
+            gruposConConcierto[id] = f.fecha;
+          }
+        });
+        conciertosListos = true;
+        pintarOrdenExplorar();
+        if (estado.orden === 'conciertos') pintarLista();
+      }, function () { /* sin conexión: no pasa nada, el orden "Con conciertos" no aparece */ });
     })
     .catch(function () {
       el.aviso.textContent = 'No se han podido cargar los grupos. Revisa la conexión y vuelve a intentarlo.';
