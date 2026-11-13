@@ -932,6 +932,32 @@
     actualizarAcceso();
     Avisos.pintar(el.avisosMios);
     pintarListaMios();
+    pintarGuardarLista();
+  }
+
+  // Aviso discreto: con una cuenta (opcional), la lista de grupos se recupera
+  // al cambiar de móvil. Solo se ve si hay grupos seguidos y no se ha entrado.
+  function pintarGuardarLista() {
+    var caja = document.getElementById('guardar-mis-grupos');
+    if (!caja) {
+      caja = crear('div', 'guardar-lista');
+      caja.id = 'guardar-mis-grupos';
+      el.avisosMios.parentNode.insertBefore(caja, el.avisosMios.nextSibling);
+    }
+    caja.hidden = true;
+    caja.textContent = '';
+    if (!Nube.disponible) return;
+    Nube.listo.then(function () {
+      var cuenta = Nube.cuenta();
+      var hay = grupos.some(function (g) { return Seguidos.sigo(g.id); });
+      if (cuenta || !hay) return;
+      caja.appendChild(crear('p', 'guardar-lista-titulo', 'Guarda tu lista'));
+      caja.appendChild(crear('p', 'guardar-lista-texto', 'Si cambias de móvil o reinstalas la app, recuperarás los grupos que sigues entrando con tu correo. Es opcional.'));
+      var a = crear('a', 'boton-texto', 'Entrar con mi correo');
+      a.href = '#/acceso';
+      caja.appendChild(a);
+      caja.hidden = false;
+    });
   }
 
   function pintarListaMios() {

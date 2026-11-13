@@ -499,6 +499,18 @@ button { font-family: inherit; }
   color: var(--tenue);
 }
 
+/* ---------- Mis grupos: guardar la lista con una cuenta ---------- */
+.guardar-lista {
+  margin: 12px 0;
+  padding: 14px 16px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+}
+.guardar-lista[hidden] { display: none; }
+.guardar-lista-titulo { margin: 0; font-family: var(--titulos); font-size: 15px; font-weight: 700; color: var(--texto); }
+.guardar-lista-texto { margin: 4px 0 8px; font-size: 13px; line-height: 1.5; color: var(--tenue); }
+
 /* ---------- Pantalla 2: Mis grupos (sin grupos todavía) ---------- */
 .sin-grupos {
   margin-top: 8px;
