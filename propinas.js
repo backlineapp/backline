@@ -63,6 +63,10 @@
       store.when()
         .approved(function (t) { t.finish(); })
         .finished(function () {
+          // El complemento también avisa de pagos antiguos ya terminados al
+          // arrancar la app. Solo se da las gracias si la persona acaba de
+          // pulsar un botón de aportación en esta sesión.
+          if (!estado.comprando) return;
           estado.gracias = true;
           estado.comprando = '';
           repintar();
