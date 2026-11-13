@@ -111,7 +111,11 @@
   // Filtros de Explorar. zona: '' (toda España), 'c:Andalucía' (una
   // comunidad) o 'p:Cádiz' (una provincia). La zona se recuerda en el móvil.
   var CLAVE_ZONA = 'backline-zona';
-  var estado = { texto: '', familia: null, zona: leerZona() };
+  var estado = { texto: '', familia: null, zona: leerZona(), orden: 'az' };
+
+  // Grupos con conciertos próximos (se llena cuando se piden).
+  var gruposConConcierto = {};
+  var conciertosListos = false;
   // Cuántos lanzamientos se ven ahora mismo en Inicio.
   var visiblesInicio = POR_TANDA;
   // Posición de la lista en cada pantalla, para volver al mismo sitio.
@@ -169,6 +173,7 @@
     zonaBoton: document.getElementById('zona-boton'),
     zonaTexto: document.getElementById('zona-texto'),
     lista: document.getElementById('lista'),
+    ordenExplorar: document.getElementById('orden-explorar'),
     contadorMios: document.getElementById('contador-mis-grupos'),
     buscadorMios: document.getElementById('buscador-mis-grupos'),
     cajaBuscadorMios: document.getElementById('caja-buscador-mis-grupos'),
@@ -181,7 +186,9 @@
     contenidoFicha: document.getElementById('ficha'),
     volver: document.querySelectorAll('.volver'),
     aviso: document.getElementById('aviso'),
-    arranque: document.getElementById('arranque')
+    arranque: document.getElementById('arranque'),
+    bienvenida: document.getElementById('bienvenida'),
+    bienvenidaEntrar: document.getElementById('bienvenida-entrar')
   };
 
   // ---------- Utilidades ----------
@@ -406,7 +413,7 @@
     b.addEventListener('click', function () {
       compartir(grupo.nombre + ' · Backline',
         grupo.nombre + (grupo.estilos ? ' (' + grupo.estilos + ')' : '') + ' en Backline, el backstage de tus grupos favoritos.',
-        '#/grupo/' + encodeURIComponent(grupo.id));
+        'grupo/' + encodeURIComponent(grupo.id));
     });
     return b;
   }
@@ -422,15 +429,45 @@
 
   // ---------- Pantalla de arranque ----------
 
-  // Al quitarla se ofrece instalar la app, si toca (ver instalar.js).
+  // ¿Es la primera vez? Si no ha visto la bienvenida y no sigue a nadie.
+  function esPrimeraVez() {
+    try { return !localStorage.getItem('backline.bienvenida'); } catch (e) { return false; }
+  }
+
+  function marcarBienvenidaVista() {
+    try { localStorage.setItem('backline.bienvenida', '1'); } catch (e) { /* sin permiso */ }
+  }
+
+  // Al quitar el arranque, si es la primera vez se muestra la bienvenida.
   function quitarArranque() {
     var a = el.arranque;
     if (!a || a.classList.contains('saliendo')) return;
     a.classList.add('saliendo');
     setTimeout(function () {
       a.hidden = true;
+      var sigoAlguno = grupos.some(function (g) { return Seguidos.sigo(g.id); });
+      if (esPrimeraVez() && !sigoAlguno && el.bienvenida) {
+        el.bienvenida.hidden = false;
+      } else {
+        Instalar.alEntrar();
+      }
+    }, 400);
+  }
+
+  // Cerrar la bienvenida y pasar a Explorar.
+  function cerrarBienvenida() {
+    marcarBienvenidaVista();
+    if (!el.bienvenida) return;
+    el.bienvenida.classList.add('saliendo');
+    setTimeout(function () {
+      el.bienvenida.hidden = true;
+      location.hash = '#/explorar';
       Instalar.alEntrar();
     }, 400);
+  }
+
+  if (el.bienvenidaEntrar) {
+    el.bienvenidaEntrar.addEventListener('click', cerrarBienvenida);
   }
 
   if (el.arranque) {
@@ -568,10 +605,48 @@
     }
 
     var trozo = document.createDocumentFragment();
-    todos.slice(0, visiblesInicio).forEach(function (item) {
-      var c = casilla(item, true);
-      if (c) trozo.appendChild(c);
-    });
+    var visibles = todos.slice(0, visiblesInicio);
+
+    // Agrupar items consecutivos del mismo grupo y mismo día.
+    // La clave de agrupación es grupo.id + los primeros 10 chars de la clave
+    // de orden (YYYY-MM-DD). Los discos de Bandcamp (clave "2024-00") no se
+    // agrupan porque no tienen día exacto.
+    var i = 0;
+    while (i < visibles.length) {
+      var item = visibles[i];
+      var dia = item.clave.slice(0, 10);
+      var agrupable = dia.length === 10 && dia.charAt(7) !== '0'; // tiene día real
+
+      // Contar cuántos items seguidos son del mismo grupo y mismo día.
+      var j = i + 1;
+      if (agrupable) {
+        while (j < visibles.length &&
+               visibles[j].grupo.id === item.grupo.id &&
+               visibles[j].clave.slice(0, 10) === dia) {
+          j++;
+        }
+      }
+
+      if (j - i >= 2 && agrupable) {
+        // Grupo de 2+: envolver en un contenedor con cabecera.
+        var li = crear('li', 'grupo-dia');
+        var cab = crear('a', 'grupo-dia-cabecera', item.grupo.nombre);
+        cab.href = '#/grupo/' + encodeURIComponent(item.grupo.id);
+        li.appendChild(cab);
+        var sub = crear('ul', 'rejilla grupo-dia-lista');
+        for (var k = i; k < j; k++) {
+          var c = casilla(visibles[k], false); // sin repetir el nombre del grupo
+          if (c) sub.appendChild(c);
+        }
+        li.appendChild(sub);
+        trozo.appendChild(li);
+      } else {
+        var c2 = casilla(item, true);
+        if (c2) trozo.appendChild(c2);
+      }
+      i = j;
+    }
+
     el.listaInicio.appendChild(trozo);
     el.verMas.hidden = todos.length <= visiblesInicio;
   }
@@ -672,6 +747,31 @@
     });
   }
 
+  // Opciones de orden en Explorar.
+  var ORDENES = [
+    { valor: 'az', nombre: 'A–Z' },
+    { valor: 'recientes', nombre: 'Recién llegados' },
+    { valor: 'conciertos', nombre: 'Con conciertos' }
+  ];
+
+  function pintarOrdenExplorar() {
+    el.ordenExplorar.textContent = '';
+    ORDENES.forEach(function (op) {
+      // "Con conciertos" se oculta si aún no hay datos.
+      if (op.valor === 'conciertos' && !conciertosListos) return;
+      var b = crear('button', 'filtro', op.nombre);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(estado.orden === op.valor));
+      b.addEventListener('click', function () {
+        if (estado.orden === op.valor) return;
+        estado.orden = op.valor;
+        pintarOrdenExplorar();
+        pintarLista();
+      });
+      el.ordenExplorar.appendChild(b);
+    });
+  }
+
   function pintarLista() {
     var busqueda = normalizar(estado.texto);
     var visibles = grupos.filter(function (g) {
@@ -681,6 +781,21 @@
       if (estado.zona && !enZona(g, estado.zona)) return false;
       return true;
     });
+
+    // Aplicar orden.
+    if (estado.orden === 'recientes') {
+      // Los últimos del JSON (los añadidos más recientemente) van primero.
+      visibles = visibles.slice().sort(function (a, b) { return b._ordenOriginal - a._ordenOriginal; });
+    } else if (estado.orden === 'conciertos') {
+      // Primero los que tienen conciertos próximos; el resto, detrás en A-Z.
+      var con = visibles.filter(function (g) { return gruposConConcierto[g.id]; });
+      var sin = visibles.filter(function (g) { return !gruposConConcierto[g.id]; });
+      // Los que tienen concierto, por fecha del concierto más próximo.
+      con.sort(function (a, b) {
+        return (gruposConConcierto[a.id] || '').localeCompare(gruposConConcierto[b.id] || '');
+      });
+      visibles = con.concat(sin);
+    }
 
     el.contador.textContent = visibles.length === 1 ? '1 grupo' : visibles.length + ' grupos';
     el.lista.textContent = '';
@@ -1361,10 +1476,12 @@
     })
     .then(function (datos) {
       grupos = (datos.grupos || []).concat([GRUPO_REVISION])
-        .map(function (g) {
+        .map(function (g, i) {
           g._nombre = normalizar(g.nombre);
           g._familias = familiasDe(g.estilos);
           g._zona = Zonas.zonaDe(g.ciudad);
+          // Para saber cuáles son los más nuevos (el grupo de revisión, el último).
+          g._ordenOriginal = g === GRUPO_REVISION ? -1 : i;
           return g;
         })
         .sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); })
@@ -1392,10 +1509,25 @@
       }).then(function () {
         pintarFiltros();
         pintarZonas();
+        pintarOrdenExplorar();
         pintarLista();
         window.addEventListener('hashchange', alCambiarRuta);
         alCambiarRuta();
       });
+
+      // Pedir conciertos próximos de todos los grupos para Explorar.
+      Nube.proximasFechas(null).then(function (fechas) {
+        fechas.forEach(function (f) {
+          var id = f.publicacion.grupo_id;
+          // Guardar la fecha más próxima de cada grupo.
+          if (!gruposConConcierto[id] || f.fecha < gruposConConcierto[id]) {
+            gruposConConcierto[id] = f.fecha;
+          }
+        });
+        conciertosListos = true;
+        pintarOrdenExplorar();
+        if (estado.orden === 'conciertos') pintarLista();
+      }, function () { /* sin conexión: no pasa nada, el orden "Con conciertos" no aparece */ });
     })
     .catch(function () {
       el.aviso.textContent = 'No se han podido cargar los grupos. Revisa la conexión y vuelve a intentarlo.';
