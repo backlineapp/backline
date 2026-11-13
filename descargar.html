@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Descargar Backline</title>
+  <meta name="description" content="Descarga Backline gratis para Android e iPhone. El backstage de tus grupos favoritos.">
+  <meta name="theme-color" content="#0B0E13">
+
+  <!-- Open Graph: para compartir el enlace con una vista previa bonita -->
+  <meta property="og:title" content="Descarga Backline">
+  <meta property="og:description" content="El backstage de tus grupos favoritos. Sigue a los grupos del underground español: discos, conciertos, vídeos. Sin algoritmos.">
+  <meta property="og:image" content="https://backlineapp.github.io/backline/icono-512.png">
+  <meta property="og:url" content="https://backlineapp.github.io/backline/descargar">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" href="icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Mismas tipografías que la app -->
+  <link rel="preload" href="fuentes/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+  <style>
+    /* Tipografías */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-display: swap;
+      font-weight: 100 900;
+      src: url(fuentes/inter-latin-wght-normal.woff2) format('woff2');
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-style: normal;
+      font-display: swap;
+      font-weight: 300 700;
+      src: url(fuentes/space-grotesk-latin-wght-normal.woff2) format('woff2');
+    }
+
+    :root {
+      --fondo: #0B0E13;
+      --superficie: #141922;
+      --linea: #252E3B;
+      --texto: #EAEEF4;
+      --tenue: #8592A6;
+      --ambar: #E8A13A;
+      --cian: #4FC4D6;
+      --titulos: 'Space Grotesk', 'Inter', -apple-system, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; }
+
+    html, body {
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .pagina {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+    }
+
+    .logo { width: 180px; height: auto; }
+
+    .lema {
+      font-family: var(--titulos);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--tenue);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-top: -16px;
+    }
+
+    h1 {
+      font-family: var(--titulos);
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--texto);
+    }
+
+    .bajada {
+      font-size: 15px;
+      color: var(--tenue);
+      max-width: 340px;
+    }
+
+    /* Botones de tienda */
+    .botones {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .boton-tienda {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-family: var(--titulos);
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .boton-tienda:active { opacity: 0.75; }
+    .boton-tienda svg { flex-shrink: 0; }
+
+    .boton-android {
+      background: var(--cian);
+      color: var(--fondo);
+    }
+    .boton-ios {
+      background: var(--texto);
+      color: var(--fondo);
+    }
+
+    /* Separador */
+    .separador {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 300px;
+      color: var(--tenue);
+      font-size: 13px;
+    }
+    .separador::before, .separador::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--linea);
+    }
+
+    /* Enlace a la web */
+    .enlace-web {
+      font-size: 14px;
+      color: var(--cian);
+      text-decoration: none;
+    }
+    .enlace-web:hover { text-decoration: underline; }
+
+    /* QR */
+    .bloque-qr {
+      background: var(--superficie);
+      border: 1px solid var(--linea);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 300px;
+    }
+    .bloque-qr img {
+      width: 180px;
+      height: 180px;
+      border-radius: 8px;
+    }
+    .qr-texto {
+      font-size: 13px;
+      color: var(--tenue);
+    }
+
+    /* Pie */
+    .pie {
+      font-size: 13px;
+      color: var(--tenue);
+      margin-top: 16px;
+    }
+    .pie a {
+      color: var(--ambar);
+      text-decoration: none;
+    }
+
+    /* Cuando un botón no corresponde al sistema, ocultarlo visualmente
+       (pero dejarlo accesible por si el detector falla). */
+    .secundario { opacity: 0.5; order: 1; }
+
+    /* Aviso temporal de "próximamente" */
+    .aviso-tienda {
+      font-size: 12px;
+      color: var(--ambar);
+      background: rgba(232, 161, 58, 0.1);
+      border: 1px solid rgba(232, 161, 58, 0.25);
+      border-radius: 8px;
+      padding: 10px 16px;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="pagina">
+    <img class="logo" src="logo.svg" alt="Backline">
+    <p class="lema">El backstage de tus grupos favoritos</p>
+
+    <h1>Descarga Backline</h1>
+    <p class="bajada">Sigue a los grupos del underground español: discos, conciertos, vídeos y noticias, directo y sin ruido.</p>
+
+    <!-- BOTONES DE TIENDA
+         Los enlaces se actualizarán cuando las apps estén publicadas.
+         Mientras, van a la web. El script de abajo reordena según el SO. -->
+    <div class="botones" id="botones">
+      <a id="boton-android" class="boton-tienda boton-android" href="https://play.google.com/store/apps/details?id=io.github.backlineapp" target="_blank" rel="noopener">
+        <svg width="20" height="22" viewBox="0 0 20 22" fill="none"><path d="M1.23 1.56a1 1 0 0 0-.23.64v17.6a1 1 0 0 0 .23.64l.08.07L11 11l-.05-.05L1.31 1.49l-.08.07z" fill="currentColor"/><path d="m14.24 14.27-3.24-3.27 3.24-3.27 3.65 2.08c1.04.59 1.04 1.56 0 2.15l-3.65 2.31z" fill="currentColor"/><path d="M14.24 14.27 11 11 1.23 20.44c.34.37.91.41 1.54.06l11.47-6.23z" fill="currentColor"/><path d="M14.24 7.73 2.77 1.5C2.14 1.15 1.57 1.19 1.23 1.56L11 11l3.24-3.27z" fill="currentColor"/></svg>
+        Google Play
+      </a>
+      <a id="boton-ios" class="boton-tienda boton-ios" href="https://apps.apple.com/app/backline/id6737601107" target="_blank" rel="noopener">
+        <svg width="18" height="22" viewBox="0 0 18 22" fill="none"><path d="M14.94 11.58c-.02-2.24 1.83-3.32 1.91-3.37-1.04-1.52-2.66-1.73-3.24-1.76-1.38-.14-2.69.81-3.39.81-.7 0-1.78-.79-2.93-.77-1.51.02-2.9.88-3.68 2.23-1.57 2.72-.4 6.75 1.13 8.96.75 1.08 1.64 2.3 2.81 2.26 1.13-.05 1.55-.73 2.92-.73 1.36 0 1.74.73 2.93.7 1.21-.01 1.98-1.1 2.72-2.19.86-1.25 1.21-2.47 1.23-2.53-.03-.01-2.36-.9-2.41-3.61zM12.68 4.58c.62-.76 1.04-1.81.93-2.86-.9.04-1.99.6-2.63 1.35-.58.67-1.08 1.74-.95 2.77 1 .08 2.03-.51 2.65-1.26z" fill="currentColor"/></svg>
+        App Store
+      </a>
+    </div>
+
+    <!-- Aviso temporal: se quitará cuando ambas tiendas estén listas -->
+    <p class="aviso-tienda" id="aviso-tienda">
+      La app está casi lista. Si tu tienda aún no la muestra, puedes usar la versión web.
+    </p>
+
+    <div class="separador">o usa la versión web</div>
+
+    <a class="enlace-web" href="https://backlineapp.github.io/backline/">
+      Abrir Backline en el navegador →
+    </a>
+
+    <!-- QR para imprimir en pegatinas, camisetas, púas, etc. -->
+    <div class="bloque-qr">
+      <img src="qr-descargar.svg" alt="QR para descargar Backline" width="180" height="180">
+      <p class="qr-texto">Escanea para descargar</p>
+    </div>
+
+    <p class="pie">Hecho por un fan · <a href="./">backlineapp.github.io/backline</a></p>
+  </div>
+
+  <script>
+    // Detectar SO y poner primero el botón que corresponde.
+    // Si no se detecta, se dejan ambos iguales.
+    (function () {
+      var ua = navigator.userAgent || '';
+      var esIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      var esAndroid = /Android/.test(ua);
+
+      var bAndroid = document.getElementById('boton-android');
+      var bIOS = document.getElementById('boton-ios');
+
+      if (esIOS && bIOS && bAndroid) {
+        // En iPhone: iOS primero, Android secundario
+        bAndroid.classList.add('secundario');
+        bIOS.parentNode.insertBefore(bIOS, bAndroid);
+      } else if (esAndroid && bAndroid && bIOS) {
+        // En Android: ya está bien (Android primero)
+        bIOS.classList.add('secundario');
+      }
+      // En escritorio: se ven los dos iguales
+
+      // Ocultar el aviso temporal si ambas tiendas están activas.
+      // Por ahora se muestra siempre. Cuando ambos enlaces sean reales,
+      // poner TIENDAS_ACTIVAS = true y el aviso desaparece.
+      var TIENDAS_ACTIVAS = false;
+      if (TIENDAS_ACTIVAS) {
+        var aviso = document.getElementById('aviso-tienda');
+        if (aviso) aviso.hidden = true;
+      }
+    })();
+  </script>
+</body>
+</html>

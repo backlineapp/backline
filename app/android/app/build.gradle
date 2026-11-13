@@ -10,7 +10,7 @@ android {
         // Número de versión para Google Play: cada compilación de GitHub sube uno
         // (VERSION_CODE lo pone el flujo app-android.yml). En local, 1.
         versionCode((System.getenv("VERSION_CODE") ?: "1").toInteger())
-        versionName "1.0"
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

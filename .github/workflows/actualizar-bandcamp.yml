@@ -1,0 +1,57 @@
+# Actualiza la discografía de los grupos desde Bandcamp cada semana.
+# Si hay cambios en algún disco, crea un commit y un PR automático.
+# También se puede lanzar a mano desde la pestaña Actions de GitHub.
+
+name: Actualizar discos desde Bandcamp
+
+on:
+  schedule:
+    # Cada lunes a las 6:00 UTC (8:00 en España)
+    - cron: '0 6 * * 1'
+  workflow_dispatch: # lanzar a mano
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Ejecutar script de Bandcamp
+        run: python3 actualizar-bandcamp.py
+
+      - name: Comprobar cambios
+        id: cambios
+        run: |
+          if git diff --quiet grupos.json; then
+            echo "hay=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "hay=si" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Crear PR con los cambios
+        if: steps.cambios.outputs.hay == 'si'
+        run: |
+          RAMA="auto/bandcamp-$(date +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$RAMA"
+          git add grupos.json
+          git commit -m "Actualizar discografías desde Bandcamp ($(date +%d/%m/%Y))"
+          git push origin "$RAMA"
+          gh pr create \
+            --title "Actualizar discografías desde Bandcamp ($(date +%d/%m/%Y))" \
+            --body "Actualización automática semanal de las discografías de los grupos desde Bandcamp.
+
+          Revisa los cambios en \`grupos.json\` antes de mergear." \
+            --base main \
+            --head "$RAMA"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
