@@ -36,13 +36,27 @@ create policy "Cada persona lee sus seguidos"
   using (usuario = (select auth.uid()));
 
 -- Tope de 1000 grupos por persona, para que nadie llene la tabla.
+-- Se cuenta con una función aparte: si la regla consultase la propia tabla
+-- directamente, Postgres daría error de "recursión infinita".
+create or replace function public.cuantos_seguidos_tengo()
+returns integer
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select count(*)::integer from public.seguidos_cuenta where usuario = (select auth.uid());
+$$;
+revoke all on function public.cuantos_seguidos_tengo() from public, anon;
+grant execute on function public.cuantos_seguidos_tengo() to authenticated;
+
 drop policy if exists "Cada persona apunta sus seguidos" on public.seguidos_cuenta;
 create policy "Cada persona apunta sus seguidos"
   on public.seguidos_cuenta for insert
   to authenticated
   with check (
     usuario = (select auth.uid())
-    and (select count(*) from public.seguidos_cuenta s where s.usuario = (select auth.uid())) < 1000
+    and public.cuantos_seguidos_tengo() < 1000
   );
 
 drop policy if exists "Cada persona cambia sus seguidos" on public.seguidos_cuenta;
