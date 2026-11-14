@@ -107,6 +107,11 @@
     sigo: function (id) {
       return posicion(id) !== -1;
     },
+    // Fecha (texto ISO) en que empezaste a seguir al grupo, o '' si no lo sigues.
+    desde: function (id) {
+      var i = posicion(id);
+      return i === -1 ? '' : (lista[i].desde || '');
+    },
     seguir: function (id) {
       if (!id || posicion(id) !== -1) return;
       // Seguir a un grupo oculto lo vuelve a mostrar.

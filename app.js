@@ -836,8 +836,17 @@
   // comunidad con grupos. Si tiene varias provincias, va como grupo de
   // opciones: «Toda Andalucía» y cada provincia. Cada opción lleva cuántos grupos tiene.
   function pintarZonas() {
+    rellenarZonas(el.zona, grupos, 'Toda España');
+    // Una zona guardada que ya no tiene grupos se olvida.
+    if (estado.zona && !el.zona.querySelector('option[value="' + estado.zona.replace(/"/g, '') + '"]')) estado.zona = '';
+    el.zona.value = estado.zona;
+    pintarBotonZona();
+  }
+
+  // Rellena un selector de zona con las comunidades y provincias de esa lista de grupos.
+  function rellenarZonas(selector, lista, textoTodos) {
     var comunidades = {};
-    grupos.forEach(function (g) {
+    lista.forEach(function (g) {
       if (!g._zona) return;
       var c = comunidades[g._zona.comunidad] = comunidades[g._zona.comunidad] || { total: 0, provincias: {} };
       c.total++;
@@ -849,8 +858,8 @@
       o.value = valor;
       return o;
     };
-    el.zona.textContent = '';
-    el.zona.appendChild(opcion('', 'Toda España', grupos.length));
+    selector.textContent = '';
+    selector.appendChild(opcion('', textoTodos, lista.length));
     Object.keys(comunidades).sort(orden).forEach(function (nombre) {
       var c = comunidades[nombre];
       var provincias = Object.keys(c.provincias);
@@ -858,7 +867,7 @@
       // Si no hay nada que elegir dentro (una sola provincia con grupos, o
       // solo grupos sin provincia), la comunidad va como una sola opción.
       if (Zonas.provinciasDe(nombre).length < 2 || provincias.length + (sinProvincia ? 1 : 0) < 2) {
-        el.zona.appendChild(opcion('c:' + nombre, nombre, c.total));
+        selector.appendChild(opcion('c:' + nombre, nombre, c.total));
         return;
       }
       var grupo = document.createElement('optgroup');
@@ -867,12 +876,8 @@
       Object.keys(c.provincias).sort(orden).forEach(function (p) {
         grupo.appendChild(opcion('p:' + p, p, c.provincias[p]));
       });
-      el.zona.appendChild(grupo);
+      selector.appendChild(grupo);
     });
-    // Una zona guardada que ya no tiene grupos se olvida.
-    if (estado.zona && !el.zona.querySelector('option[value="' + estado.zona.replace(/"/g, '') + '"]')) estado.zona = '';
-    el.zona.value = estado.zona;
-    pintarBotonZona();
   }
 
   function pintarBotonZona() {
@@ -927,6 +932,8 @@
   // grupos.json, no se muestra, pero sigue guardado.
   // Con muchos grupos seguidos aparece un buscador por nombre.
   var textoMios = '';
+  // Filtros y orden de Mis grupos (solo se ven si sigues a bastantes grupos).
+  var filtroMios = { familia: null, zona: '', orden: 'az' };
 
   function pintarMisGrupos() {
     actualizarAcceso();
@@ -965,21 +972,94 @@
     var conBuscador = mios.length >= BUSCADOR_MIOS_DESDE;
     if (!conBuscador && textoMios) { textoMios = ''; el.buscadorMios.value = ''; }
     el.cajaBuscadorMios.hidden = !conBuscador;
+    if (!conBuscador) filtroMios = { familia: null, zona: '', orden: 'az' };
+    pintarControlesMios(conBuscador ? mios : []);
     var busqueda = normalizar(textoMios);
-    var visibles = busqueda ? mios.filter(function (g) { return g._nombre.indexOf(busqueda) !== -1; }) : mios;
+    var filtrado = !!(busqueda || filtroMios.familia || filtroMios.zona);
+    var visibles = mios.filter(function (g) {
+      if (busqueda && g._nombre.indexOf(busqueda) === -1) return false;
+      if (filtroMios.familia && g._familias.indexOf(filtroMios.familia) === -1) return false;
+      if (filtroMios.zona && !enZona(g, filtroMios.zona)) return false;
+      return true;
+    });
+    if (filtroMios.orden === 'recientes') {
+      // Los últimos que has empezado a seguir, primero.
+      visibles = visibles.slice().sort(function (a, b) {
+        return Seguidos.desde(b.id).localeCompare(Seguidos.desde(a.id));
+      });
+    }
     el.listaMios.textContent = '';
     el.sinGrupos.hidden = mios.length > 0;
     el.contadorMios.hidden = !mios.length;
-    el.contadorMios.textContent = busqueda
+    el.contadorMios.textContent = filtrado
       ? visibles.length + ' de ' + mios.length + ' grupos'
       : mios.length === 1 ? 'Sigues 1 grupo' : 'Sigues ' + mios.length + ' grupos';
-    if (busqueda && !visibles.length) {
-      el.listaMios.appendChild(crear('li', 'vacio', 'Ninguno de tus grupos se llama así.'));
+    if (filtrado && !visibles.length) {
+      el.listaMios.appendChild(crear('li', 'vacio', 'Ninguno de tus grupos coincide con lo que buscas.'));
       pintarOcultos();
       return;
     }
     el.listaMios.appendChild(filas(visibles));
     pintarOcultos();
+  }
+
+  // Filtros por estilo y zona, y orden, de Mis grupos. Solo con los estilos y
+  // zonas que tienen tus grupos. Es lo mismo que Explorar, pero sobre tu lista.
+  function pintarControlesMios(mios) {
+    var caja = document.getElementById('controles-mis-grupos');
+    if (!caja) {
+      caja = crear('div', 'controles-mios');
+      caja.id = 'controles-mis-grupos';
+      el.cajaBuscadorMios.parentNode.insertBefore(caja, el.cajaBuscadorMios.nextSibling);
+    }
+    caja.textContent = '';
+    caja.hidden = !mios.length;
+    if (!mios.length) return;
+
+    // Un estilo o zona que ya no tiene ningún grupo tuyo se olvida.
+    var familias = FAMILIAS.map(function (f) { return f.nombre; }).filter(function (n) {
+      return mios.some(function (g) { return g._familias.indexOf(n) !== -1; });
+    });
+    if (filtroMios.familia && familias.indexOf(filtroMios.familia) === -1) filtroMios.familia = null;
+
+    var chips = crear('div', 'filtros');
+    chips.setAttribute('role', 'group');
+    chips.setAttribute('aria-label', 'Filtrar tus grupos por estilo');
+    [{ nombre: 'Todos', valor: null }].concat(familias.map(function (n) { return { nombre: n, valor: n }; })).forEach(function (op) {
+      var b = crear('button', 'filtro', op.nombre);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(filtroMios.familia === op.valor));
+      b.addEventListener('click', function () { filtroMios.familia = op.valor; pintarListaMios(); });
+      chips.appendChild(b);
+    });
+    caja.appendChild(chips);
+
+    var fila = crear('div', 'fila-contador fila-controles-mios');
+    var orden = crear('div', 'filtros filtros-orden');
+    orden.setAttribute('role', 'group');
+    orden.setAttribute('aria-label', 'Ordenar tus grupos');
+    [{ valor: 'az', nombre: 'A–Z' }, { valor: 'recientes', nombre: 'Últimos seguidos' }].forEach(function (op) {
+      var b = crear('button', 'filtro', op.nombre);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(filtroMios.orden === op.valor));
+      b.addEventListener('click', function () { filtroMios.orden = op.valor; pintarListaMios(); });
+      orden.appendChild(b);
+    });
+    fila.appendChild(orden);
+
+    var sel = document.createElement('select');
+    sel.setAttribute('aria-label', 'Filtrar tus grupos por zona');
+    rellenarZonas(sel, mios, 'Todas');
+    if (filtroMios.zona && !sel.querySelector('option[value="' + filtroMios.zona.replace(/"/g, '') + '"]')) filtroMios.zona = '';
+    sel.value = filtroMios.zona;
+    sel.addEventListener('change', function () { filtroMios.zona = sel.value; pintarListaMios(); });
+    var boton = crear('label', 'zona-boton' + (filtroMios.zona ? ' activa' : ''));
+    boton.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>';
+    boton.appendChild(crear('span', 'zona-texto', filtroMios.zona ? filtroMios.zona.slice(2) : 'Zona'));
+    boton.insertAdjacentHTML('beforeend', '<svg class="zona-flecha" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+    boton.appendChild(sel);
+    fila.appendChild(boton);
+    caja.appendChild(fila);
   }
 
   // Grupos ocultos, al final de Mis grupos, para poder volver a mostrarlos.

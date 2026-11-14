@@ -454,6 +454,12 @@ button { font-family: inherit; }
 
 /* Buscador de Mis grupos (con muchos grupos seguidos) */
 .buscador-mios { margin-bottom: 2px; }
+.controles-mios { margin-top: 10px; }
+.controles-mios[hidden] { display: none; }
+.fila-controles-mios { margin: 8px 0 0; }
+.fila-controles-mios { flex-wrap: wrap; justify-content: flex-start; }
+.fila-controles-mios .filtros-orden { margin: 0; padding: 0; }
+.fila-controles-mios .zona-boton { max-width: 100%; margin-left: auto; }
 .buscador-mios[hidden] { display: none; }
 .zona-boton svg { flex: none; }
 .zona-boton .zona-flecha { opacity: 0.8; }
