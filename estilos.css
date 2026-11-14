@@ -454,6 +454,12 @@ button { font-family: inherit; }
 
 /* Buscador de Mis grupos (con muchos grupos seguidos) */
 .buscador-mios { margin-bottom: 2px; }
+.controles-mios { margin-top: 10px; }
+.controles-mios[hidden] { display: none; }
+.fila-controles-mios { margin: 8px 0 0; }
+.fila-controles-mios { flex-wrap: wrap; justify-content: flex-start; }
+.fila-controles-mios .filtros-orden { margin: 0; padding: 0; }
+.fila-controles-mios .zona-boton { max-width: 100%; margin-left: auto; }
 .buscador-mios[hidden] { display: none; }
 .zona-boton svg { flex: none; }
 .zona-boton .zona-flecha { opacity: 0.8; }
@@ -498,6 +504,18 @@ button { font-family: inherit; }
   text-align: center;
   color: var(--tenue);
 }
+
+/* ---------- Mis grupos: guardar la lista con una cuenta ---------- */
+.guardar-lista {
+  margin: 12px 0;
+  padding: 14px 16px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+}
+.guardar-lista[hidden] { display: none; }
+.guardar-lista-titulo { margin: 0; font-family: var(--titulos); font-size: 15px; font-weight: 700; color: var(--texto); }
+.guardar-lista-texto { margin: 4px 0 8px; font-size: 13px; line-height: 1.5; color: var(--tenue); }
 
 /* ---------- Pantalla 2: Mis grupos (sin grupos todavía) ---------- */
 .sin-grupos {
@@ -886,6 +904,10 @@ a.lanzamiento-portada:active .portada { border-color: var(--acento); }
 }
 .concierto-gira { color: var(--apagado); font-style: italic; }
 .ficha-conciertos .lista { margin-bottom: 4px; }
+
+/* Bio del grupo en la ficha */
+.ficha-bio { padding: 0 16px; margin-bottom: 8px; }
+.bio-texto { color: var(--texto); font-size: 14px; line-height: 1.5; white-space: pre-line; margin: 0; }
 #lista-conciertos .conciertos-lista > .etiqueta-seccion:first-child { margin-top: 18px; }
 #lista-conciertos .conciertos-lista > .sin-grupos, #lista-conciertos .conciertos-lista > .vacio { margin-top: 16px; }
 
@@ -1794,3 +1816,17 @@ a.volver { display: inline-block; text-decoration: none; }
   .kit-bloque { padding: 20px; }
   .kit-boton { flex: 0 0 auto; min-width: 150px; }
 }
+
+/* Ocultar un grupo (bloquear su contenido) */
+.ocultar-pie { margin: 8px 0 0; }
+.enlace-ocultar { background: none; border: 0; padding: 4px 0; font: inherit; font-size: 13px; color: var(--tenue); text-decoration: underline; cursor: pointer; }
+.oculto-aviso { margin-top: 12px; padding: 10px 12px; border: 1px solid var(--linea); border-radius: 10px; color: var(--suave); font-size: 14px; }
+.oculto-aviso p { margin: 0 0 6px; }
+.ocultos { margin-top: 28px; }
+.ocultos-lista { list-style: none; margin: 0; padding: 0; }
+.ocultos-lista li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--linea); }
+.ocultos-lista a { color: var(--suave); }
+
+/* Propinas dentro de la app de las tiendas */
+.propinas-botones { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; }
+.propinas-botones .boton { flex: 1 1 30%; min-width: 96px; }

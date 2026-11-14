@@ -4,6 +4,7 @@
 // El resto de la app solo usa estas órdenes:
 //   Nube.enviarCodigo(correo)          -> manda un código de 6 cifras por email
 //   Nube.entrar(correo, codigo)        -> entra con ese código
+//   Nube.entrarConClave(correo, clave) -> solo la cuenta de revisión de las tiendas
 //   Nube.salir()
 //   Nube.cuenta()                      -> { correo, admin, grupos } o null
 //                                         (grupos = ids de los grupos que gestiona)
@@ -26,8 +27,12 @@
 //   Nube.miembros()                    -> quién gestiona cada grupo (administrador)
 //   Nube.quitarMiembro(grupoId, usuario)
 //   Nube.claveAvisos()                 -> clave pública de los avisos al móvil
-//   Nube.apuntarAvisos(sus, grupos)    -> apunta este móvil (o le cambia la lista)
+//   Nube.apuntarAvisos(sus, grupos)    -> apunta este móvil (o le cambia la lista),
+//                                         en el navegador o en la app de las tiendas
 //   Nube.borrarAvisos(sus)             -> borra este móvil de los avisos
+//   Nube.leerSeguidos()                -> los grupos seguidos (u ocultos) guardados en
+//                                         la cuenta de quien ha entrado (lo usa seguidos.js)
+//   Nube.subirSeguidos(filas, borrar)  -> guarda esos cambios en la cuenta (seguidos.js)
 //
 // La clave de abajo es la PÚBLICA (publishable): puede estar a la vista.
 // Lo que protege los datos son las reglas de la base de datos
@@ -63,6 +68,7 @@
         : 'Revisa los datos: falta algo obligatorio o algún texto es demasiado largo.';
     }
     if (error && error.code === '23505') return 'Ya tienes una solicitud pendiente como esta. Espera a que la revisemos.';
+    if (/invalid login credentials/.test(t)) return 'La contraseña no es correcta.';
     if (/expired|invalid|otp|token/.test(t)) return 'El código no es correcto o ha caducado. Pide uno nuevo.';
     if (/rate limit|too many|seconds/.test(t)) return 'Has pedido varios códigos seguidos. Espera unos minutos y vuelve a probar.';
     if (/email/.test(t) && /valid/.test(t)) return 'Revisa el correo: no parece válido.';
@@ -132,6 +138,15 @@
   function entrar(correo, codigo) {
     if (!cliente) return sinConexion();
     return cliente.auth.verifyOtp({ email: correo, token: codigo, type: 'email' })
+      .then(comprobar)
+      .then(function (datos) { return actualizarCuenta(datos.session); });
+  }
+
+  // Solo para la cuenta de revisión de Google Play y la App Store (panel.js):
+  // entra con contraseña en lugar de con un código por correo.
+  function entrarConClave(correo, clave) {
+    if (!cliente) return sinConexion();
+    return cliente.auth.signInWithPassword({ email: correo, password: clave })
       .then(comprobar)
       .then(function (datos) { return actualizarCuenta(datos.session); });
   }
@@ -512,8 +527,16 @@
   }
 
   // sus = suscripción del navegador en forma JSON: { endpoint, keys: { p256dh, auth } }
+  // En la app de las tiendas: { endpoint: 'fcm:…' o 'apns:…', keys: { auth } }.
   function apuntarAvisos(sus, grupos) {
     if (!cliente) return sinConexion();
+    if (!/^https:/.test(sus.endpoint)) {
+      return cliente.rpc('avisos_apuntar_nativo', {
+        p_endpoint: sus.endpoint,
+        p_auth: sus.keys.auth,
+        p_grupos: grupos
+      }).then(comprobar);
+    }
     return cliente.rpc('avisos_apuntar', {
       p_endpoint: sus.endpoint,
       p_p256dh: sus.keys.p256dh,
@@ -527,6 +550,127 @@
     return cliente.rpc('avisos_borrar', { p_endpoint: sus.endpoint, p_auth: sus.keys.auth }).then(comprobar);
   }
 
+  // ---------- Lista de grupos seguidos, guardada en la cuenta ----------
+  // (supabase/19-seguidos-cuenta.sql). Solo la usa seguidos.js. Si algo falla,
+  // devuelve el error: seguidos.js no debe dar por buena una lista vacía que
+  // en realidad no se ha podido leer.
+
+  function leerSeguidos() {
+    if (!cliente || !cuentaActual) return sinConexion();
+    return cliente.from('seguidos_cuenta')
+      .select('grupo_id, estado, silencio, desde')
+      .order('desde', { ascending: true })
+      .limit(1000)
+      .then(comprobar);
+  }
+
+  // filas = [{ id, estado: 'siguiendo' | 'oculto', silencio, desde }]; borrar = [ids].
+  function subirSeguidos(filas, borrar) {
+    if (!cliente || !cuentaActual) return sinConexion();
+    var usuario = cuentaActual.id;
+    var pasos = [];
+    if (filas.length) {
+      pasos.push(cliente.from('seguidos_cuenta').upsert(filas.map(function (f) {
+        return { usuario: usuario, grupo_id: f.id, estado: f.estado, silencio: !!f.silencio, desde: f.desde };
+      }), { onConflict: 'usuario,grupo_id' }).then(comprobar));
+    }
+    if (borrar.length) {
+      pasos.push(cliente.from('seguidos_cuenta').delete()
+        .eq('usuario', usuario).in('grupo_id', borrar).then(comprobar));
+    }
+    return Promise.all(pasos);
+  }
+
+  // ---------- Localización personalizada del grupo ----------
+
+  function leerCiudad(grupoId) {
+    if (!cliente) return Promise.resolve('');
+    return cliente.from('ciudades').select('ciudad').eq('grupo_id', grupoId).maybeSingle()
+      .then(function (r) { return (r.data && r.data.ciudad) || ''; });
+  }
+
+  function leerCiudades(gruposIds) {
+    if (!cliente || !gruposIds || !gruposIds.length) return Promise.resolve({});
+    return cliente.from('ciudades').select('grupo_id, ciudad').in('grupo_id', gruposIds)
+      .then(function (r) {
+        var mapa = {};
+        (r.data || []).forEach(function (c) { mapa[c.grupo_id] = c.ciudad; });
+        return mapa;
+      });
+  }
+
+  function guardarCiudad(grupoId, ciudad) {
+    if (!cliente) return sinConexion();
+    return cliente.from('ciudades').upsert({ grupo_id: grupoId, ciudad: ciudad, actualizado: new Date().toISOString() })
+      .then(comprobar);
+  }
+
+  // ---------- Foto de perfil del grupo ----------
+
+  function leerFotoPerfil(grupoId) {
+    if (!cliente) return Promise.resolve('');
+    return cliente.from('fotos_perfil').select('ruta').eq('grupo_id', grupoId).maybeSingle()
+      .then(function (r) { return (r.data && r.data.ruta) || ''; });
+  }
+
+  function leerFotosPerfil(gruposIds) {
+    if (!cliente || !gruposIds || !gruposIds.length) return Promise.resolve({});
+    return cliente.from('fotos_perfil').select('grupo_id, ruta').in('grupo_id', gruposIds)
+      .then(function (r) {
+        var mapa = {};
+        (r.data || []).forEach(function (f) { mapa[f.grupo_id] = urlCartel(f.ruta); });
+        return mapa;
+      });
+  }
+
+  function guardarFotoPerfil(grupoId, blob) {
+    if (!cliente) return sinConexion();
+    var ruta = grupoId + '/perfil-' + idAleatorio() + '.jpg';
+    var rutaAnterior = null;
+    // Primero leemos la foto anterior para borrarla después.
+    return leerFotoPerfil(grupoId)
+      .then(function (anterior) {
+        rutaAnterior = anterior;
+        return cliente.storage.from(CARPETA)
+          .upload(ruta, blob, { contentType: 'image/jpeg', cacheControl: '31536000', upsert: false })
+          .then(comprobar);
+      })
+      .then(function () {
+        return cliente.from('fotos_perfil')
+          .upsert({ grupo_id: grupoId, ruta: ruta, actualizado: new Date().toISOString() })
+          .then(comprobar);
+      })
+      .then(function () {
+        // Borrar la imagen anterior (si falla, no pasa nada).
+        if (rutaAnterior) borrarCartel(rutaAnterior).catch(function () {});
+        return urlCartel(ruta);
+      });
+  }
+
+  // ---------- Bio del grupo ----------
+
+  function leerBio(grupoId) {
+    if (!cliente) return Promise.resolve('');
+    return cliente.from('bios').select('texto').eq('grupo_id', grupoId).maybeSingle()
+      .then(function (r) { return (r.data && r.data.texto) || ''; });
+  }
+
+  function leerBios(gruposIds) {
+    if (!cliente || !gruposIds || !gruposIds.length) return Promise.resolve({});
+    return cliente.from('bios').select('grupo_id, texto').in('grupo_id', gruposIds)
+      .then(function (r) {
+        var mapa = {};
+        (r.data || []).forEach(function (b) { mapa[b.grupo_id] = b.texto; });
+        return mapa;
+      });
+  }
+
+  function guardarBio(grupoId, texto) {
+    if (!cliente) return sinConexion();
+    return cliente.from('bios').upsert({ grupo_id: grupoId, texto: texto, actualizado: new Date().toISOString() })
+      .then(comprobar);
+  }
+
   window.Nube = {
     listo: listo,
     disponible: !!cliente,
@@ -535,6 +679,7 @@
     refrescarCuenta: refrescarCuenta,
     enviarCodigo: enviarCodigo,
     entrar: entrar,
+    entrarConClave: entrarConClave,
     salir: salir,
     borrarCuenta: borrarCuenta,
     proximasFechas: proximasFechas,
@@ -562,6 +707,17 @@
     borrarComunicado: borrarComunicado,
     claveAvisos: claveAvisos,
     apuntarAvisos: apuntarAvisos,
-    borrarAvisos: borrarAvisos
+    borrarAvisos: borrarAvisos,
+    leerSeguidos: leerSeguidos,
+    subirSeguidos: subirSeguidos,
+    leerCiudad: leerCiudad,
+    leerCiudades: leerCiudades,
+    guardarCiudad: guardarCiudad,
+    leerFotoPerfil: leerFotoPerfil,
+    leerFotosPerfil: leerFotosPerfil,
+    guardarFotoPerfil: guardarFotoPerfil,
+    leerBio: leerBio,
+    leerBios: leerBios,
+    guardarBio: guardarBio
   };
 })();
