@@ -30,6 +30,9 @@
 //   Nube.apuntarAvisos(sus, grupos)    -> apunta este móvil (o le cambia la lista),
 //                                         en el navegador o en la app de las tiendas
 //   Nube.borrarAvisos(sus)             -> borra este móvil de los avisos
+//   Nube.leerSeguidos()                -> los grupos seguidos (u ocultos) guardados en
+//                                         la cuenta de quien ha entrado (lo usa seguidos.js)
+//   Nube.subirSeguidos(filas, borrar)  -> guarda esos cambios en la cuenta (seguidos.js)
 //
 // La clave de abajo es la PÚBLICA (publishable): puede estar a la vista.
 // Lo que protege los datos son las reglas de la base de datos
@@ -547,6 +550,37 @@
     return cliente.rpc('avisos_borrar', { p_endpoint: sus.endpoint, p_auth: sus.keys.auth }).then(comprobar);
   }
 
+  // ---------- Lista de grupos seguidos, guardada en la cuenta ----------
+  // (supabase/19-seguidos-cuenta.sql). Solo la usa seguidos.js. Si algo falla,
+  // devuelve el error: seguidos.js no debe dar por buena una lista vacía que
+  // en realidad no se ha podido leer.
+
+  function leerSeguidos() {
+    if (!cliente || !cuentaActual) return sinConexion();
+    return cliente.from('seguidos_cuenta')
+      .select('grupo_id, estado, silencio, desde')
+      .order('desde', { ascending: true })
+      .limit(1000)
+      .then(comprobar);
+  }
+
+  // filas = [{ id, estado: 'siguiendo' | 'oculto', silencio, desde }]; borrar = [ids].
+  function subirSeguidos(filas, borrar) {
+    if (!cliente || !cuentaActual) return sinConexion();
+    var usuario = cuentaActual.id;
+    var pasos = [];
+    if (filas.length) {
+      pasos.push(cliente.from('seguidos_cuenta').upsert(filas.map(function (f) {
+        return { usuario: usuario, grupo_id: f.id, estado: f.estado, silencio: !!f.silencio, desde: f.desde };
+      }), { onConflict: 'usuario,grupo_id' }).then(comprobar));
+    }
+    if (borrar.length) {
+      pasos.push(cliente.from('seguidos_cuenta').delete()
+        .eq('usuario', usuario).in('grupo_id', borrar).then(comprobar));
+    }
+    return Promise.all(pasos);
+  }
+
   // ---------- Localización personalizada del grupo ----------
 
   function leerCiudad(grupoId) {
@@ -674,6 +708,8 @@
     claveAvisos: claveAvisos,
     apuntarAvisos: apuntarAvisos,
     borrarAvisos: borrarAvisos,
+    leerSeguidos: leerSeguidos,
+    subirSeguidos: subirSeguidos,
     leerCiudad: leerCiudad,
     leerCiudades: leerCiudades,
     guardarCiudad: guardarCiudad,

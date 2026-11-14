@@ -171,6 +171,7 @@
       // Ya ha entrado
       if (cuenta) {
         caja.appendChild(crear('p', 'formulario-texto', 'Has entrado como ' + cuenta.correo + '.'));
+        caja.appendChild(crear('p', 'campo-nota', 'Los grupos que sigues se guardan también en tu cuenta: si cambias de móvil, entra con este correo y los recuperas.'));
         if (tienePanel(cuenta)) {
           var irPanel = crear('a', 'boton boton-ancho', 'Ir a mi panel');
           irPanel.href = '#/panel';
@@ -184,7 +185,7 @@
         // Borrar la cuenta (lo exigen las tiendas). El administrador no puede.
         if (!cuenta.admin) {
           var borrar = crear('div', 'borrar-cuenta');
-          borrar.appendChild(crear('p', 'campo-nota', 'Al borrar tu cuenta se eliminan tu correo, tus solicitudes y tu acceso a las fichas que gestionas. Lo que hayas publicado se queda en la ficha del grupo. Los grupos que sigues siguen guardados en este móvil.'));
+          borrar.appendChild(crear('p', 'campo-nota', 'Al borrar tu cuenta se eliminan tu correo, tus solicitudes y tu acceso a las fichas que gestionas. Lo que hayas publicado se queda en la ficha del grupo. También se borra la copia de tus grupos en la cuenta; en este móvil seguirán guardados.'));
           var avisoBorrar = crear('p', 'mensaje');
           avisoBorrar.hidden = true;
           var botonBorrar = boton('Borrar mi cuenta', 'boton-texto peligro', function () {
@@ -208,7 +209,7 @@
         return;
       }
 
-      caja.appendChild(crear('p', 'formulario-texto', 'Escribe tu correo y te enviaremos un código de 6 cifras para entrar. Sin contraseñas.'));
+      caja.appendChild(crear('p', 'formulario-texto', 'Escribe tu correo y te enviaremos un código de 6 cifras para entrar. Sin contraseñas. Con tu cuenta se guarda la lista de grupos que sigues, para que la recuperes si cambias de móvil.'));
       formularioAcceso(caja, function (c) {
         if (tienePanel(c)) location.hash = '#/panel';
         else pintarAcceso(contenedor);
