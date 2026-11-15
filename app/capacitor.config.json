@@ -9,7 +9,7 @@
   "ios": {
     "backgroundColor": "#0B0E13",
     "contentInset": "never",
-    "allowsBackForwardNavigationGestures": true
+    "allowsBackForwardNavigationGestures": false
   },
   "plugins": {
     "SystemBars": {
