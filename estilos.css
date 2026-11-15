@@ -772,20 +772,26 @@ button { font-family: inherit; }
   color: var(--apagado);
 }
 
-/* Enlace discreto al final de la ficha: "¿Es tu grupo?" */
-.reclamar-pie {
-  margin: 32px 0 8px;
-  text-align: center;
-}
+/* "¿Es tu grupo?": fila discreta justo debajo de la cabecera de la ficha */
+.ficha-reclamar:empty { display: none; }
+.ficha-reclamar { margin: 12px 0 4px; }
 .reclamar {
-  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 14px;
+  font-size: 13px;
   color: var(--apagado);
-  text-decoration: underline;
-  text-decoration-color: var(--linea);
-  text-underline-offset: 3px;
+  background: transparent;
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  text-decoration: none;
 }
+.reclamar-pregunta { font-weight: 600; color: var(--texto); }
+.reclamar-accion { text-align: right; }
 .reclamar:hover,
-.reclamar:active { color: var(--acento); }
+.reclamar:active { color: var(--acento); border-color: var(--acento); }
 
 /* ---------- Cuadrícula de discos (ficha e Inicio) ---------- */
 /* La imagen manda: portadas grandes con título y año debajo */

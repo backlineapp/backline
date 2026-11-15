@@ -1134,6 +1134,29 @@
     perfil.appendChild(datos);
     f.appendChild(perfil);
 
+    // ¿Es tu grupo? -> pedir gestionar la ficha o que se retire. Va justo debajo
+    // de la cabecera para que un grupo que ve su ficha sepa qué hacer. Si ya la
+    // gestiona quien ha entrado, lleva a su panel. Si otra persona ya la gestiona,
+    // no aparece. Si no se puede saber (sin conexión), se deja ver.
+    var cuenta = Nube.cuenta();
+    var gestiona = !!(cuenta && (cuenta.grupos || []).indexOf(grupo.id) !== -1);
+    var cajaReclamar = crear('div', 'ficha-reclamar');
+    f.appendChild(cajaReclamar);
+    function ponerReclamar() {
+      var reclamar = crear('a', 'reclamar');
+      reclamar.href = gestiona ? '#/panel' : '#/gestionar/' + encodeURIComponent(grupo.id);
+      reclamar.appendChild(crear('span', 'reclamar-pregunta', gestiona ? 'Gestionas esta ficha' : '¿Es tu grupo?'));
+      reclamar.appendChild(crear('span', 'reclamar-accion', gestiona ? 'Ir a mi panel \u2192' : 'Gestiona o retira tu ficha \u2192'));
+      cajaReclamar.appendChild(reclamar);
+    }
+    if (gestiona) {
+      ponerReclamar();
+    } else {
+      Nube.gruposConGestor().then(function (con) {
+        if (!con[grupo.id]) ponerReclamar();
+      }, ponerReclamar);
+    }
+
     // Bio del grupo (si la tiene en Supabase)
     var cajaBio = crear('div', 'ficha-bio');
     cajaBio.hidden = true;
@@ -1190,16 +1213,6 @@
       var discos = pubs.filter(function (p) { return p.tipo === 'disco'; });
       if (discos.length) pintarDiscografia(cajaDiscos, grupo, discos);
     }, function () { /* sin conexión: la ficha se ve igual, con lo de Bandcamp */ });
-
-    // ¿Es tu grupo? -> pedir gestionar la ficha o que se retire.
-    // Si ya la gestiona quien ha entrado, lleva directamente a su panel.
-    var cuenta = Nube.cuenta();
-    var gestiona = !!(cuenta && (cuenta.grupos || []).indexOf(grupo.id) !== -1);
-    var reclamar = crear('a', 'reclamar', gestiona ? 'Gestionas esta ficha · Ir a mi panel' : '¿Es tu grupo? Gestiona o retira tu ficha');
-    reclamar.href = gestiona ? '#/panel' : '#/gestionar/' + encodeURIComponent(grupo.id);
-    var pie = crear('p', 'reclamar-pie');
-    pie.appendChild(reclamar);
-    f.appendChild(pie);
 
     // Ocultar el grupo (bloquear su contenido). Discreto, al final.
     if (!Seguidos.oculto(grupo.id)) {
