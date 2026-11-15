@@ -1003,7 +1003,7 @@
   function pintarListaMios() {
     var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
     var conBuscador = mios.length >= BUSCADOR_MIOS_DESDE;
-    if (!conBuscador && textoMios) { textoMios = ''; el.buscadorMios.value = ''; }
+    if (!conBuscador && textoMios) { textoMios = ''; el.buscadorMios.value = ''; if (typeof actualizarBorrarMios === 'function') actualizarBorrarMios(); }
     el.cajaBuscadorMios.hidden = !conBuscador;
     if (!conBuscador) filtroMios = { familia: null, zona: '', orden: 'az' };
     pintarControlesMios(conBuscador ? mios : []);
@@ -1478,11 +1478,12 @@
 
   // Deslizar el dedo desde el borde izquierdo hacia la derecha es lo mismo que
   // pulsar «volver», en las pantallas que lo tienen (ficha de un grupo, concierto,
-  // novedad…). Solo en la app instalada o de las tiendas: en el navegador, el
-  // propio móvil ya tiene ese gesto y se haría doble.
+  // novedad…). Solo en la web instalada en la pantalla de inicio del iPhone, que
+  // no tiene gesto propio. En las apps de las tiendas el sistema ya lo trae
+  // (iPhone: allowsBackForwardNavigationGestures; Android: gesto atrás) y ponerlo
+  // otra vez lo hacía doble: se volvía dos veces y la pantalla parpadeaba.
   (function () {
-    var enApp = (window.Nativa && Nativa.es) || navigator.standalone ||
-      (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+    var enApp = !(window.Nativa && Nativa.es) && navigator.standalone === true;
     if (!enApp) return;
     var inicio = null;
     document.addEventListener('touchstart', function (e) {
@@ -1502,6 +1503,18 @@
     }, { passive: true });
     document.addEventListener('touchcancel', function () { inicio = null; }, { passive: true });
   })();
+
+  // Pulsar la pestaña de la pantalla en la que ya estás te lleva arriba del todo.
+  [['inicio', el.pestanaInicio], ['explorar', el.pestanaExplorar],
+   ['conciertos', el.pestanaConciertos], ['mis-grupos', el.pestanaMisGrupos]].forEach(function (par) {
+    par[1].addEventListener('click', function (e) {
+      if (pantallaActual !== par[0]) return; // desde otra pantalla (p. ej. una ficha): navega como siempre
+      e.preventDefault();
+      scrolls[par[0]] = 0;
+      var suave = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      window.scrollTo({ top: 0, behavior: suave ? 'smooth' : 'auto' });
+    });
+  });
 
   // Si la lista cambia en otra pestaña del navegador, Inicio y Mis grupos se actualizan.
   Seguidos.alCambiar(function () {
@@ -1562,6 +1575,25 @@
     visiblesInicio += POR_TANDA;
     pintarInicio(true);
   });
+
+  // Botón ✕ dentro de un buscador: borra lo escrito y deja el cursor listo para escribir otro nombre.
+  function botonBorrar(entrada) {
+    var b = crear('button', 'buscador-borrar', '\u2715');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Borrar la búsqueda');
+    function actualizar() { b.hidden = !entrada.value; }
+    b.addEventListener('click', function () {
+      entrada.value = '';
+      entrada.dispatchEvent(new Event('input', { bubbles: true }));
+      entrada.focus();
+    });
+    entrada.addEventListener('input', actualizar);
+    entrada.parentNode.appendChild(b);
+    actualizar();
+    return actualizar;
+  }
+  var actualizarBorrarMios = botonBorrar(el.buscadorMios);
+  botonBorrar(el.buscador);
 
   el.buscador.addEventListener('input', function () {
     estado.texto = el.buscador.value;
