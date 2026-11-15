@@ -167,13 +167,10 @@
     misGrupos: document.getElementById('pantalla-mis-grupos'),
     ficha: document.getElementById('pantalla-ficha'),
     buscador: document.getElementById('buscador'),
-    filtros: document.getElementById('filtros'),
     contador: document.getElementById('contador'),
-    zona: document.getElementById('zona'),
-    zonaBoton: document.getElementById('zona-boton'),
-    zonaTexto: document.getElementById('zona-texto'),
+    controlesExplorar: document.getElementById('controles-explorar'),
     lista: document.getElementById('lista'),
-    ordenExplorar: document.getElementById('orden-explorar'),
+    controlesMios: document.getElementById('controles-mis-grupos'),
     contadorMios: document.getElementById('contador-mis-grupos'),
     buscadorMios: document.getElementById('buscador-mis-grupos'),
     cajaBuscadorMios: document.getElementById('caja-buscador-mis-grupos'),
@@ -729,46 +726,97 @@
 
   // ---------- Pantalla 1: Explorar ----------
 
-  function pintarFiltros() {
-    el.filtros.textContent = '';
-    var opciones = [{ nombre: 'Todos', valor: null }].concat(
-      FAMILIAS.map(function (f) { return { nombre: f.nombre, valor: f.nombre }; })
-    );
-    opciones.forEach(function (op) {
-      var b = crear('button', 'filtro', op.nombre);
-      b.type = 'button';
-      b.setAttribute('aria-pressed', String(estado.familia === op.valor));
-      b.addEventListener('click', function () {
-        estado.familia = op.valor;
-        pintarFiltros();
-        pintarLista();
-      });
-      el.filtros.appendChild(b);
-    });
-  }
-
-  // Opciones de orden en Explorar.
+  // Opciones de orden. «corto» es lo que se ve en el botón; «nombre», en la lista.
   var ORDENES = [
-    { valor: 'az', nombre: 'A–Z' },
-    { valor: 'recientes', nombre: 'Recién llegados' },
-    { valor: 'conciertos', nombre: 'Con conciertos' }
+    { valor: 'az', nombre: 'A–Z', corto: 'A–Z' },
+    { valor: 'recientes', nombre: 'Recién llegados', corto: 'Recientes' },
+    { valor: 'conciertos', nombre: 'Con conciertos', corto: 'Conciertos' }
+  ];
+  var ORDENES_MIOS = [
+    { valor: 'az', nombre: 'A–Z', corto: 'A–Z' },
+    { valor: 'recientes', nombre: 'Últimos seguidos', corto: 'Recientes' }
   ];
 
-  function pintarOrdenExplorar() {
-    el.ordenExplorar.textContent = '';
-    ORDENES.forEach(function (op) {
-      // "Con conciertos" se oculta si aún no hay datos.
-      if (op.valor === 'conciertos' && !conciertosListos) return;
-      var b = crear('button', 'filtro', op.nombre);
-      b.type = 'button';
-      b.setAttribute('aria-pressed', String(estado.orden === op.valor));
-      b.addEventListener('click', function () {
-        if (estado.orden === op.valor) return;
-        estado.orden = op.valor;
-        pintarOrdenExplorar();
+  // Iconos de los desplegables.
+  var ICONOS_DESPLEGABLE = {
+    estilo: '<path d="M3 3h8l10 10-8 8L3 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"/>',
+    zona: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/>',
+    orden: '<path d="M8 5v14M8 19l-3-3M8 19l3-3M16 19V5M16 5l-3 3M16 5l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+  };
+
+  // Un desplegable: botón con icono, texto y flecha. Encima va el selector del
+  // móvil, invisible, para que se abra la lista nativa.
+  function crearDesplegable(icono, texto, activo, selector) {
+    var caja = crear('label', 'desplegable' + (activo ? ' activa' : ''));
+    caja.insertAdjacentHTML('beforeend', '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">' + ICONOS_DESPLEGABLE[icono] + '</svg>');
+    caja.appendChild(crear('span', 'desplegable-texto', texto));
+    caja.insertAdjacentHTML('beforeend', '<svg class="desplegable-flecha" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+    caja.appendChild(selector);
+    return caja;
+  }
+
+  function nuevoSelector(etiqueta) {
+    var sel = document.createElement('select');
+    sel.setAttribute('aria-label', etiqueta);
+    return sel;
+  }
+
+  // Los tres controles de Explorar y de Mis grupos: Estilo, Zona y Orden.
+  // cfg.grupos: la lista sobre la que se ofrecen estilos y zonas;
+  // cfg.estado: {familia, zona, orden}; cfg.ordenes: opciones de orden;
+  // cfg.alCambiar(campo): se llama al elegir algo (ya con el estado puesto).
+  function pintarControles(contenedor, cfg) {
+    var est = cfg.estado;
+    contenedor.textContent = '';
+
+    // Estilo (solo los que tienen algún grupo de esa lista)
+    var cuantos = {};
+    FAMILIAS.forEach(function (f) {
+      cuantos[f.nombre] = cfg.grupos.filter(function (g) { return g._familias.indexOf(f.nombre) !== -1; }).length;
+    });
+    var familias = FAMILIAS.map(function (f) { return f.nombre; }).filter(function (n) { return cuantos[n] > 0; });
+    if (est.familia && familias.indexOf(est.familia) === -1) est.familia = null;
+    var selE = nuevoSelector('Filtrar por estilo');
+    var o = crear('option', null, 'Todos los estilos (' + cfg.grupos.length + ')'); o.value = ''; selE.appendChild(o);
+    familias.forEach(function (n) {
+      var op = crear('option', null, n + ' (' + cuantos[n] + ')'); op.value = n; selE.appendChild(op);
+    });
+    selE.value = est.familia || '';
+    selE.addEventListener('change', function () { est.familia = selE.value || null; cfg.alCambiar('familia'); });
+    contenedor.appendChild(crearDesplegable('estilo', est.familia || 'Estilo', !!est.familia, selE));
+
+    // Zona
+    var selZ = nuevoSelector('Filtrar por zona');
+    rellenarZonas(selZ, cfg.grupos, 'Toda España');
+    // Una zona que ya no tiene grupos se olvida.
+    if (est.zona && !selZ.querySelector('option[value="' + est.zona.replace(/"/g, '') + '"]')) est.zona = '';
+    selZ.value = est.zona;
+    selZ.addEventListener('change', function () { est.zona = selZ.value; cfg.alCambiar('zona'); });
+    contenedor.appendChild(crearDesplegable('zona', est.zona ? est.zona.slice(2) : 'Zona', !!est.zona, selZ));
+
+    // Orden («Con conciertos» solo cuando ya hay datos)
+    var ordenes = cfg.ordenes.filter(function (op) { return op.valor !== 'conciertos' || conciertosListos; });
+    if (!ordenes.some(function (op) { return op.valor === est.orden; })) est.orden = 'az';
+    var selO = nuevoSelector('Ordenar la lista');
+    ordenes.forEach(function (op) {
+      var oo = crear('option', null, op.nombre); oo.value = op.valor; selO.appendChild(oo);
+    });
+    selO.value = est.orden;
+    selO.addEventListener('change', function () { est.orden = selO.value; cfg.alCambiar('orden'); });
+    var actual = ordenes.filter(function (op) { return op.valor === est.orden; })[0];
+    contenedor.appendChild(crearDesplegable('orden', actual.corto, est.orden !== 'az', selO));
+  }
+
+  function pintarControlesExplorar() {
+    pintarControles(el.controlesExplorar, {
+      grupos: grupos.filter(function (g) { return !g.oculto && !Seguidos.oculto(g.id); }),
+      estado: estado,
+      ordenes: ORDENES,
+      alCambiar: function (campo) {
+        if (campo === 'zona') guardarZona(estado.zona);
+        pintarControlesExplorar();
         pintarLista();
-      });
-      el.ordenExplorar.appendChild(b);
+      }
     });
   }
 
@@ -808,8 +856,9 @@
         quitar.type = 'button';
         quitar.addEventListener('click', function () {
           estado.familia = null;
-          cambiarZona('');
-          pintarFiltros();
+          estado.zona = '';
+          guardarZona('');
+          pintarControlesExplorar();
           pintarLista();
         });
         vacio.appendChild(quitar);
@@ -835,14 +884,6 @@
   // Opciones del selector: Toda España y, por orden alfabético, cada
   // comunidad con grupos. Si tiene varias provincias, va como grupo de
   // opciones: «Toda Andalucía» y cada provincia. Cada opción lleva cuántos grupos tiene.
-  function pintarZonas() {
-    rellenarZonas(el.zona, grupos, 'Toda España');
-    // Una zona guardada que ya no tiene grupos se olvida.
-    if (estado.zona && !el.zona.querySelector('option[value="' + estado.zona.replace(/"/g, '') + '"]')) estado.zona = '';
-    el.zona.value = estado.zona;
-    pintarBotonZona();
-  }
-
   // Rellena un selector de zona con las comunidades y provincias de esa lista de grupos.
   function rellenarZonas(selector, lista, textoTodos) {
     var comunidades = {};
@@ -880,15 +921,7 @@
     });
   }
 
-  function pintarBotonZona() {
-    el.zonaTexto.textContent = estado.zona ? estado.zona.slice(2) : 'Toda España';
-    el.zonaBoton.classList.toggle('activa', !!estado.zona);
-  }
-
-  function cambiarZona(valor) {
-    estado.zona = valor;
-    el.zona.value = valor;
-    pintarBotonZona();
+  function guardarZona(valor) {
     try { localStorage.setItem(CLAVE_ZONA, valor); } catch (e) { /* sin permiso para guardar: no pasa nada */ }
   }
 
@@ -990,9 +1023,8 @@
     }
     el.listaMios.textContent = '';
     el.sinGrupos.hidden = mios.length > 0;
-    el.contadorMios.hidden = !mios.length;
-    el.contadorMios.textContent = filtrado
-      ? visibles.length + ' de ' + mios.length + ' grupos'
+    el.contadorMios.textContent = !mios.length ? 'Los grupos que sigues.'
+      : filtrado ? visibles.length + ' de ' + mios.length + ' grupos'
       : mios.length === 1 ? 'Sigues 1 grupo' : 'Sigues ' + mios.length + ' grupos';
     if (filtrado && !visibles.length) {
       el.listaMios.appendChild(crear('li', 'vacio', 'Ninguno de tus grupos coincide con lo que buscas.'));
@@ -1003,63 +1035,18 @@
     pintarOcultos();
   }
 
-  // Filtros por estilo y zona, y orden, de Mis grupos. Solo con los estilos y
-  // zonas que tienen tus grupos. Es lo mismo que Explorar, pero sobre tu lista.
+  // Estilo, zona y orden de Mis grupos: los mismos tres desplegables que en
+  // Explorar, pero solo con los estilos y zonas que tienen tus grupos.
   function pintarControlesMios(mios) {
-    var caja = document.getElementById('controles-mis-grupos');
-    if (!caja) {
-      caja = crear('div', 'controles-mios');
-      caja.id = 'controles-mis-grupos';
-      el.cajaBuscadorMios.parentNode.insertBefore(caja, el.cajaBuscadorMios.nextSibling);
-    }
-    caja.textContent = '';
-    caja.hidden = !mios.length;
+    el.controlesMios.hidden = !mios.length;
+    el.controlesMios.textContent = '';
     if (!mios.length) return;
-
-    // Un estilo o zona que ya no tiene ningún grupo tuyo se olvida.
-    var familias = FAMILIAS.map(function (f) { return f.nombre; }).filter(function (n) {
-      return mios.some(function (g) { return g._familias.indexOf(n) !== -1; });
+    pintarControles(el.controlesMios, {
+      grupos: mios,
+      estado: filtroMios,
+      ordenes: ORDENES_MIOS,
+      alCambiar: pintarListaMios
     });
-    if (filtroMios.familia && familias.indexOf(filtroMios.familia) === -1) filtroMios.familia = null;
-
-    var chips = crear('div', 'filtros');
-    chips.setAttribute('role', 'group');
-    chips.setAttribute('aria-label', 'Filtrar tus grupos por estilo');
-    [{ nombre: 'Todos', valor: null }].concat(familias.map(function (n) { return { nombre: n, valor: n }; })).forEach(function (op) {
-      var b = crear('button', 'filtro', op.nombre);
-      b.type = 'button';
-      b.setAttribute('aria-pressed', String(filtroMios.familia === op.valor));
-      b.addEventListener('click', function () { filtroMios.familia = op.valor; pintarListaMios(); });
-      chips.appendChild(b);
-    });
-    caja.appendChild(chips);
-
-    var fila = crear('div', 'fila-contador fila-controles-mios');
-    var orden = crear('div', 'filtros filtros-orden');
-    orden.setAttribute('role', 'group');
-    orden.setAttribute('aria-label', 'Ordenar tus grupos');
-    [{ valor: 'az', nombre: 'A–Z' }, { valor: 'recientes', nombre: 'Últimos seguidos' }].forEach(function (op) {
-      var b = crear('button', 'filtro', op.nombre);
-      b.type = 'button';
-      b.setAttribute('aria-pressed', String(filtroMios.orden === op.valor));
-      b.addEventListener('click', function () { filtroMios.orden = op.valor; pintarListaMios(); });
-      orden.appendChild(b);
-    });
-    fila.appendChild(orden);
-
-    var sel = document.createElement('select');
-    sel.setAttribute('aria-label', 'Filtrar tus grupos por zona');
-    rellenarZonas(sel, mios, 'Todas');
-    if (filtroMios.zona && !sel.querySelector('option[value="' + filtroMios.zona.replace(/"/g, '') + '"]')) filtroMios.zona = '';
-    sel.value = filtroMios.zona;
-    sel.addEventListener('change', function () { filtroMios.zona = sel.value; pintarListaMios(); });
-    var boton = crear('label', 'zona-boton' + (filtroMios.zona ? ' activa' : ''));
-    boton.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>';
-    boton.appendChild(crear('span', 'zona-texto', filtroMios.zona ? filtroMios.zona.slice(2) : 'Zona'));
-    boton.insertAdjacentHTML('beforeend', '<svg class="zona-flecha" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-    boton.appendChild(sel);
-    fila.appendChild(boton);
-    caja.appendChild(fila);
   }
 
   // Grupos ocultos, al final de Mis grupos, para poder volver a mostrarlos.
@@ -1476,6 +1463,33 @@
     });
   });
 
+  // Deslizar el dedo desde el borde izquierdo hacia la derecha es lo mismo que
+  // pulsar «volver», en las pantallas que lo tienen (ficha de un grupo, concierto,
+  // novedad…). Solo en la app instalada o de las tiendas: en el navegador, el
+  // propio móvil ya tiene ese gesto y se haría doble.
+  (function () {
+    var enApp = (window.Nativa && Nativa.es) || navigator.standalone ||
+      (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+    if (!enApp) return;
+    var inicio = null;
+    document.addEventListener('touchstart', function (e) {
+      var t = e.touches[0];
+      inicio = e.touches.length === 1 && t.clientX <= 28 ? { x: t.clientX, y: t.clientY, t: Date.now() } : null;
+    }, { passive: true });
+    document.addEventListener('touchend', function (e) {
+      if (!inicio) return;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - inicio.x;
+      var dy = Math.abs(t.clientY - inicio.y);
+      var rapido = Date.now() - inicio.t <= 800;
+      inicio = null;
+      if (dx < 70 || dy > 60 || !rapido) return;
+      var boton = document.querySelector('.pantalla:not([hidden]) .volver');
+      if (boton) boton.click();
+    }, { passive: true });
+    document.addEventListener('touchcancel', function () { inicio = null; }, { passive: true });
+  })();
+
   // Si la lista cambia en otra pestaña del navegador, Inicio y Mis grupos se actualizan.
   Seguidos.alCambiar(function () {
     if (pantallaActual === 'mis-grupos') pintarMisGrupos();
@@ -1546,11 +1560,6 @@
     pintarListaMios();
   });
 
-  el.zona.addEventListener('change', function () {
-    cambiarZona(el.zona.value);
-    pintarLista();
-  });
-
   // ---------- Arranque ----------
 
   // Piezas comunes que usan conciertos.js, novedades.js, panel.js y kit.js.
@@ -1613,9 +1622,7 @@
           if (mapaFotos[g.id]) g.portada = mapaFotos[g.id];
         });
       }).then(function () {
-        pintarFiltros();
-        pintarZonas();
-        pintarOrdenExplorar();
+        pintarControlesExplorar();
         pintarLista();
         window.addEventListener('hashchange', alCambiarRuta);
         alCambiarRuta();
@@ -1631,7 +1638,7 @@
           }
         });
         conciertosListos = true;
-        pintarOrdenExplorar();
+        pintarControlesExplorar();
         if (estado.orden === 'conciertos') pintarLista();
       }, function () { /* sin conexión: no pasa nada, el orden "Con conciertos" no aparece */ });
     })
