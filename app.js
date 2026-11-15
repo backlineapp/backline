@@ -926,7 +926,7 @@
   function pintarListaMios() {
     var mios = grupos.filter(function (g) { return Seguidos.sigo(g.id); });
     var conBuscador = mios.length >= BUSCADOR_MIOS_DESDE;
-    if (!conBuscador && textoMios) { textoMios = ''; el.buscadorMios.value = ''; }
+    if (!conBuscador && textoMios) { textoMios = ''; el.buscadorMios.value = ''; if (typeof actualizarBorrarMios === 'function') actualizarBorrarMios(); }
     el.cajaBuscadorMios.hidden = !conBuscador;
     var busqueda = normalizar(textoMios);
     var visibles = busqueda ? mios.filter(function (g) { return g._nombre.indexOf(busqueda) !== -1; }) : mios;
@@ -1286,6 +1286,18 @@
     });
   });
 
+  // Pulsar la pestaña de la pantalla en la que ya estás te lleva arriba del todo.
+  [['inicio', el.pestanaInicio], ['explorar', el.pestanaExplorar],
+   ['conciertos', el.pestanaConciertos], ['mis-grupos', el.pestanaMisGrupos]].forEach(function (par) {
+    par[1].addEventListener('click', function (e) {
+      if (pantallaActual !== par[0]) return; // desde otra pantalla (p. ej. una ficha): navega como siempre
+      e.preventDefault();
+      scrolls[par[0]] = 0;
+      var suave = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      window.scrollTo({ top: 0, behavior: suave ? 'smooth' : 'auto' });
+    });
+  });
+
   // Si la lista cambia en otra pestaña del navegador, Inicio y Mis grupos se actualizan.
   Seguidos.alCambiar(function () {
     if (pantallaActual === 'mis-grupos') pintarMisGrupos();
@@ -1345,6 +1357,25 @@
     visiblesInicio += POR_TANDA;
     pintarInicio(true);
   });
+
+  // Botón ✕ dentro de un buscador: borra lo escrito y deja el cursor listo para escribir otro nombre.
+  function botonBorrar(entrada) {
+    var b = crear('button', 'buscador-borrar', '\u2715');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Borrar la búsqueda');
+    function actualizar() { b.hidden = !entrada.value; }
+    b.addEventListener('click', function () {
+      entrada.value = '';
+      entrada.dispatchEvent(new Event('input', { bubbles: true }));
+      entrada.focus();
+    });
+    entrada.addEventListener('input', actualizar);
+    entrada.parentNode.appendChild(b);
+    actualizar();
+    return actualizar;
+  }
+  var actualizarBorrarMios = botonBorrar(el.buscadorMios);
+  botonBorrar(el.buscador);
 
   el.buscador.addEventListener('input', function () {
     estado.texto = el.buscador.value;

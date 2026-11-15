@@ -331,6 +331,28 @@ button { font-family: inherit; }
 }
 .buscador input::placeholder { color: var(--apagado); }
 .buscador input:focus { border-color: var(--cian); }
+/* ✕ para borrar lo escrito (en lugar del que pone el navegador, que no siempre sale) */
+.buscador { position: relative; }
+.buscador input { padding-right: 46px; }
+.buscador input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
+.buscador-borrar {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--tenue);
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.buscador-borrar[hidden] { display: none; }
+.buscador-borrar:active { color: var(--acento); }
 
 /* Filtro por estilo: botones que se deslizan en horizontal */
 .filtros {
