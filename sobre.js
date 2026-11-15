@@ -48,8 +48,9 @@
     contenedor.appendChild(cabecera);
 
     var historia = seccion(contenedor, 'Por qué nace');
-    historia.appendChild(crear('p', null, 'Soy Ignacio Bernaola, crítico en DPRP.net y asiduo de esta escena, en sala y en disco. Seguir a los grupos que me interesan me obligaba a ir de web en web, y más de una vez supe de un concierto cuando ya había pasado.'));
-    historia.appendChild(crear('p', null, 'Backline nace de ahí: reunir la actividad de la escena independiente en un único lugar, directo y sin ruido. Lo que el grupo publica, tú lo ves. Nada más.'));
+    historia.appendChild(crear('p', null, 'Seguir a los grupos de la escena independiente obliga a ir de web en web, y más de una vez te enteras de un concierto cuando ya ha pasado.'));
+    historia.appendChild(crear('p', null, 'Backline nace de ahí: reunir la actividad de la escena en un único lugar, directo y sin ruido. Lo que el grupo publica, tú lo ves. Nada más.'));
+    historia.appendChild(crear('p', null, 'Es un proyecto hecho desde dentro de la escena, por alguien que la vive en sala y en disco y colabora con la revista de rock progresivo DPRP.net.'));
 
     var como = seccion(contenedor, 'Cómo funciona');
     var ul = crear('ul', 'sobre-lista');
