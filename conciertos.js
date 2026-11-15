@@ -554,7 +554,13 @@
     var mio = ++turno;
     contenedor.textContent = '';
     Nube.proximasFechas([grupo.id]).then(function (fechas) {
-      if (mio !== turno || !fechas.length) return;
+      if (mio !== turno) return;
+      if (!fechas.length) {
+        // Sin conciertos: se dice, para que la ficha no parezca incompleta.
+        contenedor.appendChild(ayuda.crear('h2', null, 'Próximos conciertos'));
+        contenedor.appendChild(ayuda.crear('p', 'ficha-sin-conciertos', 'Sin conciertos anunciados por ahora.'));
+        return;
+      }
       contenedor.appendChild(ayuda.crear('h2', null, 'Próximos conciertos · ' + fechas.length));
       var ul = ayuda.crear('ul', 'lista');
       fechas.forEach(function (f) {
