@@ -1921,3 +1921,8 @@ a.volver { display: inline-block; text-decoration: none; }
 @media (max-width: 359px) {
   .desplegable > svg:first-child { display: none; }
 }
+
+/* Deslizar para volver (iPhone): la pantalla sigue al dedo y la nueva aparece suave */
+html.deslizando, html.deslizando body { overflow-x: hidden; }
+.aparece-suave { animation: aparece-suave 0.18s ease-out both; }
+@keyframes aparece-suave { from { opacity: 0; } to { opacity: 1; } }

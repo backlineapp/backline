@@ -1476,32 +1476,105 @@
     });
   });
 
-  // Deslizar el dedo desde el borde izquierdo hacia la derecha es lo mismo que
-  // pulsar «volver», en las pantallas que lo tienen (ficha de un grupo, concierto,
-  // novedad…). Solo en la web instalada en la pantalla de inicio del iPhone, que
-  // no tiene gesto propio. En las apps de las tiendas el sistema ya lo trae
-  // (iPhone: allowsBackForwardNavigationGestures; Android: gesto atrás) y ponerlo
-  // otra vez lo hacía doble: se volvía dos veces y la pantalla parpadeaba.
+  // Deslizar el dedo desde el borde izquierdo hacia la derecha vuelve atrás en
+  // las pantallas que tienen «volver» (ficha de un grupo, concierto, novedad…).
+  // La pantalla sigue al dedo y, si se suelta lo bastante lejos (o rápido), se
+  // va hacia la derecha; si no, vuelve a su sitio. Solo en iPhone (app de la
+  // tienda o web instalada): el gesto del sistema no llega a la app, y en
+  // Android ya está el gesto «atrás» (nativa.js).
   (function () {
-    var enApp = !(window.Nativa && Nativa.es) && navigator.standalone === true;
-    if (!enApp) return;
-    var inicio = null;
+    var enIphone = (window.Nativa && Nativa.es && Nativa.plataforma === 'ios') || navigator.standalone === true;
+    if (!enIphone) return;
+    var BORDE = 28;          // px desde el borde izquierdo donde puede empezar
+    var FRACCION = 0.33;     // ha de recorrer un tercio del ancho...
+    var VELOCIDAD = 0.5;     // ...o ir más rápido que esto (px/ms)
+    var sinMovimiento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var gesto = null;
+
+    function limpiar(pantalla) {
+      pantalla.style.transition = '';
+      pantalla.style.transform = '';
+      pantalla.style.willChange = '';
+      document.documentElement.classList.remove('deslizando');
+    }
+
+    function salir(g) {
+      var pantalla = g.pantalla;
+      pantalla.style.transition = sinMovimiento ? 'none' : 'transform 0.2s cubic-bezier(.2, .8, .2, 1)';
+      pantalla.style.transform = 'translate3d(100%, 0, 0)';
+      var hecho = false;
+      function seguir() {
+        if (hecho) return;
+        hecho = true;
+        // La pantalla se queda fuera hasta que la app la oculta, para que no vuelva a verse un instante.
+        var obs = new MutationObserver(function () {
+          if (!pantalla.hidden) return;
+          obs.disconnect();
+          limpiar(pantalla);
+          var nueva = document.querySelector('.pantalla:not([hidden])');
+          if (nueva && !sinMovimiento) {
+            nueva.classList.add('aparece-suave');
+            setTimeout(function () { nueva.classList.remove('aparece-suave'); }, 260);
+          }
+        });
+        obs.observe(pantalla, { attributes: true, attributeFilter: ['hidden'] });
+        setTimeout(function () { obs.disconnect(); if (pantalla.style.transform) limpiar(pantalla); }, 800);
+        g.boton.click();
+      }
+      pantalla.addEventListener('transitionend', seguir, { once: true });
+      setTimeout(seguir, sinMovimiento ? 0 : 260);
+    }
+
+    function quedarse(g) {
+      var pantalla = g.pantalla;
+      pantalla.style.transition = sinMovimiento ? 'none' : 'transform 0.2s cubic-bezier(.2, .8, .2, 1)';
+      pantalla.style.transform = 'translate3d(0, 0, 0)';
+      setTimeout(function () { limpiar(pantalla); }, sinMovimiento ? 0 : 230);
+    }
+
     document.addEventListener('touchstart', function (e) {
+      gesto = null;
+      if (e.touches.length !== 1) return;
       var t = e.touches[0];
-      inicio = e.touches.length === 1 && t.clientX <= 28 ? { x: t.clientX, y: t.clientY, t: Date.now() } : null;
+      if (t.clientX > BORDE) return;
+      var pantalla = document.querySelector('.pantalla:not([hidden])');
+      var boton = pantalla && pantalla.querySelector('.volver');
+      if (!boton) return;
+      gesto = { x: t.clientX, y: t.clientY, activo: false, dx: 0, v: 0, ultimoX: t.clientX, ultimoT: Date.now(), pantalla: pantalla, boton: boton };
     }, { passive: true });
-    document.addEventListener('touchend', function (e) {
-      if (!inicio) return;
-      var t = e.changedTouches[0];
-      var dx = t.clientX - inicio.x;
-      var dy = Math.abs(t.clientY - inicio.y);
-      var rapido = Date.now() - inicio.t <= 800;
-      inicio = null;
-      if (dx < 70 || dy > 60 || !rapido) return;
-      var boton = document.querySelector('.pantalla:not([hidden]) .volver');
-      if (boton) boton.click();
-    }, { passive: true });
-    document.addEventListener('touchcancel', function () { inicio = null; }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+      if (!gesto) return;
+      var t = e.touches[0];
+      var dx = t.clientX - gesto.x;
+      var dy = t.clientY - gesto.y;
+      if (!gesto.activo) {
+        if (Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) { gesto = null; return; } // es desplazarse hacia abajo o arriba
+        if (dx < 10) return;
+        gesto.activo = true;
+        gesto.pantalla.style.transition = 'none';
+        gesto.pantalla.style.willChange = 'transform';
+        document.documentElement.classList.add('deslizando');
+      }
+      e.preventDefault(); // mientras se desliza, la pantalla no se desplaza
+      var ahora = Date.now();
+      if (ahora > gesto.ultimoT) gesto.v = (t.clientX - gesto.ultimoX) / (ahora - gesto.ultimoT);
+      gesto.ultimoX = t.clientX;
+      gesto.ultimoT = ahora;
+      gesto.dx = Math.max(0, dx);
+      gesto.pantalla.style.transform = 'translate3d(' + gesto.dx + 'px, 0, 0)';
+    }, { passive: false });
+
+    function soltar(cancelado) {
+      var g = gesto;
+      gesto = null;
+      if (!g || !g.activo) return;
+      var ancho = window.innerWidth || 390;
+      if (!cancelado && (g.dx > ancho * FRACCION || g.v > VELOCIDAD)) salir(g);
+      else quedarse(g);
+    }
+    document.addEventListener('touchend', function () { soltar(false); }, { passive: true });
+    document.addEventListener('touchcancel', function () { soltar(true); }, { passive: true });
   })();
 
   // Pulsar la pestaña de la pantalla en la que ya estás te lleva arriba del todo.
