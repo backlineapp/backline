@@ -434,7 +434,26 @@
 
   function resolverSolicitud(id, aprobar) {
     if (!cliente) return sinConexion();
+    conGestor = null; // la lista de grupos con gestor puede haber cambiado
     return cliente.rpc('resolver_solicitud', { p_id: id, p_aprobar: !!aprobar }).then(comprobar);
+  }
+
+  // Grupos que ya tienen a alguien autorizado para gestionarlos. Solo los
+  // identificadores: los nombres y correos de los miembros siguen siendo
+  // privados. Si falla, quien llama decide qué hacer (la ficha lo trata como
+  // «sin gestor» y deja ver «¿Es tu grupo?»).
+  var conGestor = null;
+  function gruposConGestor() {
+    if (!cliente) return sinConexion();
+    if (!conGestor) {
+      conGestor = cliente.rpc('grupos_con_gestor').then(comprobar).then(function (filas) {
+        var mapa = {};
+        (filas || []).forEach(function (id) { mapa[id] = true; });
+        return mapa;
+      });
+      conGestor.catch(function () { conGestor = null; });
+    }
+    return conGestor;
   }
 
   function miembros() {
@@ -698,6 +717,7 @@
     resolverSolicitud: resolverSolicitud,
     miembros: miembros,
     quitarMiembro: quitarMiembro,
+    gruposConGestor: gruposConGestor,
     avisosPorGrupo: avisosPorGrupo,
     comunicados: comunicados,
     denunciar: denunciar,
