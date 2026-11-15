@@ -699,10 +699,15 @@ button { font-family: inherit; }
   border-radius: 8px;
   cursor: pointer;
 }
+/* "Siguiendo" se ve activo (acento y ✓), no apagado como si estuviera desactivado */
 .seguir[aria-pressed="true"] {
-  color: var(--tenue);
+  color: var(--acento);
   background: transparent;
-  border-color: var(--linea);
+  border-color: var(--acento);
+}
+.seguir[aria-pressed="true"]::before {
+  content: "✓";
+  margin-right: 6px;
 }
 
 /* Enlaces "Escúchalos" en dos columnas */
@@ -956,6 +961,7 @@ a.lanzamiento-portada:active .portada { border-color: var(--acento); }
 }
 .concierto-gira { color: var(--apagado); font-style: italic; }
 .ficha-conciertos .lista { margin-bottom: 4px; }
+.ficha-sin-conciertos { margin: 0; color: var(--apagado); font-size: 14px; }
 
 /* Bio del grupo en la ficha */
 .ficha-bio { padding: 0 16px; margin-bottom: 8px; }
