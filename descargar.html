@@ -1,6 +1,31 @@
 <!doctype html>
 <html lang="es">
 <head>
+  <script>
+    // Redirección inmediata a la tienda, antes de pintar la página.
+    // IOS_LISTO: la app ya está publicada en la App Store -> redirige directo.
+    // ANDROID_LISTO: cambiar a true en cuanto la app pase a producción en Google Play.
+    (function () {
+      var IOS_LISTO = true;
+      var ANDROID_LISTO = false;
+
+      var ua = navigator.userAgent || '';
+      var esIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      var esAndroid = /Android/.test(ua);
+
+      // Se expone para que el script de más abajo use el mismo valor
+      // (así solo hay que cambiar ANDROID_LISTO en un sitio).
+      window.ANDROID_LISTO = ANDROID_LISTO;
+
+      if (esIOS && IOS_LISTO) {
+        location.replace('https://apps.apple.com/app/backline/id6737601107');
+      } else if (esAndroid && ANDROID_LISTO) {
+        location.replace('https://play.google.com/store/apps/details?id=io.github.backlineapp');
+      }
+      // Si no coincide ninguna condición (Android aún no listo, u ordenador),
+      // no se redirige y se ve la página normal de más abajo, con los botones.
+    })();
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Descargar Backline</title>
@@ -215,9 +240,9 @@
     <h1>Descarga Backline</h1>
     <p class="bajada">Sigue a los grupos del underground español: discos, conciertos, vídeos y noticias, directo y sin ruido.</p>
 
-    <!-- BOTONES DE TIENDA
-         Los enlaces se actualizarán cuando las apps estén publicadas.
-         Mientras, van a la web. El script de abajo reordena según el SO. -->
+    <!-- BOTONES DE TIENDA (se ven solo si el script de arriba no redirige:
+         Android mientras no esté en producción, u ordenador).
+         El script de abajo reordena según el SO. -->
     <div class="botones" id="botones">
       <a id="boton-android" class="boton-tienda boton-android" href="https://play.google.com/store/apps/details?id=io.github.backlineapp" target="_blank" rel="noopener">
         <svg width="20" height="22" viewBox="0 0 20 22" fill="none"><path d="M1.23 1.56a1 1 0 0 0-.23.64v17.6a1 1 0 0 0 .23.64l.08.07L11 11l-.05-.05L1.31 1.49l-.08.07z" fill="currentColor"/><path d="m14.24 14.27-3.24-3.27 3.24-3.27 3.65 2.08c1.04.59 1.04 1.56 0 2.15l-3.65 2.31z" fill="currentColor"/><path d="M14.24 14.27 11 11 1.23 20.44c.34.37.91.41 1.54.06l11.47-6.23z" fill="currentColor"/><path d="M14.24 7.73 2.77 1.5C2.14 1.15 1.57 1.19 1.23 1.56L11 11l3.24-3.27z" fill="currentColor"/></svg>
@@ -270,11 +295,9 @@
       }
       // En escritorio: se ven los dos iguales
 
-      // Ocultar el aviso temporal si ambas tiendas están activas.
-      // Por ahora se muestra siempre. Cuando ambos enlaces sean reales,
-      // poner TIENDAS_ACTIVAS = true y el aviso desaparece.
-      var TIENDAS_ACTIVAS = false;
-      if (TIENDAS_ACTIVAS) {
+      // Ocultar el aviso temporal cuando Android ya esté listo (iOS ya lo está).
+      // Usa el mismo ANDROID_LISTO del script de arriba.
+      if (window.ANDROID_LISTO) {
         var aviso = document.getElementById('aviso-tienda');
         if (aviso) aviso.hidden = true;
       }
@@ -282,3 +305,4 @@
   </script>
 </body>
 </html>
+
