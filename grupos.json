@@ -1,6 +1,6 @@
 {
- "total": 311,
- "actualizado": "2026-11-15",
+ "total": 313,
+ "actualizado": "2026-11-16",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -17172,6 +17172,75 @@
      "tipo": "disco",
      "enlace": "https://eretia.bandcamp.com/album/quietud",
      "portada": "https://f4.bcbits.com/img/a2223548032_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "albatros",
+   "nombre": "Albatros",
+   "estilos": "Rock progresivo / Psicodélico / Hard rock",
+   "ciudad": "Igualada (Barcelona)",
+   "estado": "Inactivo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://psicoalbatros.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/5Bc5xz1pHw9QY8d5HcjCcx",
+   "apple_music": "https://music.apple.com/es/artist/albatros/1599169838",
+   "youtube": "https://www.youtube.com/channel/UCTavBGgxmX3wE5oK5hdHuiw",
+   "web": "",
+   "discografia": "Mundo Bosque (2014), Ursus (2011), Pentadelia (2008), ¿Quién colgó a los lobos? (demo) (2002)",
+   "portada": "https://f4.bcbits.com/img/a0343122925_16.jpg",
+   "discos": [
+    {
+     "titulo": "Mundo Bosque",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://psicoalbatros.bandcamp.com/album/mundo-bosque",
+     "portada": "https://f4.bcbits.com/img/a0343122925_16.jpg"
+    },
+    {
+     "titulo": "Ursus",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://psicoalbatros.bandcamp.com/album/ursus",
+     "portada": "https://f4.bcbits.com/img/a2762979777_16.jpg"
+    },
+    {
+     "titulo": "Pentadelia",
+     "anio": "2008",
+     "tipo": "disco",
+     "enlace": "https://psicoalbatros.bandcamp.com/album/pentadelia",
+     "portada": "https://f4.bcbits.com/img/a3805618366_16.jpg"
+    },
+    {
+     "titulo": "¿Quién colgó a los lobos? (demo)",
+     "anio": "2002",
+     "tipo": "disco",
+     "enlace": "https://psicoalbatros.bandcamp.com/album/qui-n-colg-a-los-lobos-demo",
+     "portada": "https://f4.bcbits.com/img/a1285034453_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "estirpe",
+   "nombre": "Estirpe",
+   "estilos": "Rock / Rock alternativo",
+   "ciudad": "Córdoba",
+   "estado": "Inactivo",
+   "enlace_principal": "Web",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/0cozyKPk02s5ijRSqhXi4R",
+   "apple_music": "https://music.apple.com/es/artist/estirpe/80208866",
+   "youtube": "https://www.youtube.com/@estirpeband",
+   "web": "https://www.estirpeweb.com",
+   "discografia": "Jam Fuzzion Klan (2016)",
+   "portada": "https://image-cdn-ak.spotifycdn.com/image/ab676161000051743fe08b22a65490746c4c04bb",
+   "discos": [
+    {
+     "titulo": "Jam Fuzzion Klan",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://open.spotify.com/artist/0cozyKPk02s5ijRSqhXi4R",
+     "portada": "https://image-cdn-ak.spotifycdn.com/image/ab676161000051743fe08b22a65490746c4c04bb"
     }
    ]
   }
