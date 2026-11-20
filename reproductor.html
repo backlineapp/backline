@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Reproductor · Backline</title>
+<!--
+  Reproductor de vídeo de YouTube para las apps de App Store y Google Play.
+
+  Dentro de la app, Backline no tiene una dirección web «normal» y YouTube,
+  al no saber desde dónde se ve el vídeo, no lo reproduce (error 153) y
+  ofrece verlo en YouTube. Esta página sí tiene dirección web normal: la app
+  la muestra en el recuadro del vídeo y es ella la que carga YouTube.
+
+  Solo acepta el código de un vídeo de YouTube (11 letras, números, _ o -):
+  nada más. Sin cookies (youtube-nocookie.com) y sin vídeos relacionados de
+  otros canales (rel=0).
+-->
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+</style>
+</head>
+<body>
+<script>
+(function () {
+  'use strict';
+  var id = new URLSearchParams(location.search).get('v') || '';
+  if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return;
+  var f = document.createElement('iframe');
+  f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&playsinline=1';
+  f.title = 'Vídeo';
+  f.referrerPolicy = 'strict-origin-when-cross-origin';
+  f.setAttribute('allow', 'autoplay; encrypted-media; fullscreen; picture-in-picture');
+  f.setAttribute('allowfullscreen', '');
+  document.body.appendChild(f);
+})();
+</script>
+</body>
+</html>

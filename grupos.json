@@ -1,6 +1,6 @@
 {
- "total": 308,
- "actualizado": "2026-11-10",
+ "total": 313,
+ "actualizado": "2026-11-16",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -17065,6 +17065,182 @@
      "tipo": "disco",
      "enlace": "https://dotpolar.bandcamp.com/album/remembering-a-dreamless-night",
      "portada": "https://f4.bcbits.com/img/a0159968568_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "kirson",
+   "nombre": "Kirson",
+   "estilos": "Stoner / Grunge / Rock alternativo",
+   "ciudad": "Zamora",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://kirson.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/6tMrpXjs67Q2Bq926l70eN",
+   "apple_music": "https://music.apple.com/es/artist/kirson/1555692007",
+   "youtube": "https://www.youtube.com/channel/UCGrxU8lzsrtYfOaKejZvgXw",
+   "web": "",
+   "discografia": "KATABASIS (2026), Kirson Demo 19 (2019), Kirson (2013)",
+   "portada": "https://f4.bcbits.com/img/a2224247269_16.jpg",
+   "discos": [
+    {
+     "titulo": "KATABASIS",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://kirson.bandcamp.com/album/katabasis",
+     "portada": "https://f4.bcbits.com/img/a2224247269_16.jpg"
+    },
+    {
+     "titulo": "Kirson Demo 19",
+     "anio": "2019",
+     "tipo": "disco",
+     "enlace": "https://kirson.bandcamp.com/album/kirson-demo-19",
+     "portada": "https://f4.bcbits.com/img/a1947403993_16.jpg"
+    },
+    {
+     "titulo": "Kirson",
+     "anio": "2013",
+     "tipo": "disco",
+     "enlace": "https://kirson.bandcamp.com/album/kirson",
+     "portada": "https://f4.bcbits.com/img/a4012864758_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "lumpem",
+   "nombre": "Lumpem",
+   "estilos": "Heavy rock / Stoner / Hard rock",
+   "ciudad": "Ávila",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://lumpem.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/3lc1HyU4VDBvJCYOeoWB7X",
+   "apple_music": "https://music.apple.com/es/artist/lumpem/1606154156",
+   "youtube": "https://www.youtube.com/@lumpem",
+   "web": "",
+   "discografia": "Satura (2026), A Deshoras (2026), Sub (2021)",
+   "portada": "https://f4.bcbits.com/img/a1946605302_16.jpg",
+   "discos": [
+    {
+     "titulo": "Satura",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://lumpem.bandcamp.com/album/satura",
+     "portada": "https://f4.bcbits.com/img/a1946605302_16.jpg"
+    },
+    {
+     "titulo": "A Deshoras",
+     "anio": "2026",
+     "tipo": "single",
+     "enlace": "https://lumpem.bandcamp.com/track/a-deshoras",
+     "portada": "https://f4.bcbits.com/img/a4008096040_16.jpg"
+    },
+    {
+     "titulo": "Sub",
+     "anio": "2021",
+     "tipo": "disco",
+     "enlace": "https://lumpem.bandcamp.com/album/sub",
+     "portada": "https://f4.bcbits.com/img/a2350904505_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "eretia",
+   "nombre": "Eretia",
+   "estilos": "Post-metal / Post-hardcore / Sludge",
+   "ciudad": "Torrelavega",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://eretia.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/62p8DefEtbHugGDGD4DkVb",
+   "apple_music": "",
+   "youtube": "",
+   "web": "",
+   "discografia": "El otoño de la civilización (2026), Quietud (2022)",
+   "portada": "https://f4.bcbits.com/img/a2294722259_16.jpg",
+   "discos": [
+    {
+     "titulo": "El otoño de la civilización",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://eretia.bandcamp.com/album/el-oto-o-de-la-civilizaci-n",
+     "portada": "https://f4.bcbits.com/img/a2294722259_16.jpg"
+    },
+    {
+     "titulo": "Quietud",
+     "anio": "2022",
+     "tipo": "disco",
+     "enlace": "https://eretia.bandcamp.com/album/quietud",
+     "portada": "https://f4.bcbits.com/img/a2223548032_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "albatros",
+   "nombre": "Albatros",
+   "estilos": "Rock progresivo / Psicodélico / Hard rock",
+   "ciudad": "Igualada (Barcelona)",
+   "estado": "Inactivo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://psicoalbatros.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/5Bc5xz1pHw9QY8d5HcjCcx",
+   "apple_music": "https://music.apple.com/es/artist/albatros/1599169838",
+   "youtube": "https://www.youtube.com/channel/UCTavBGgxmX3wE5oK5hdHuiw",
+   "web": "",
+   "discografia": "Mundo Bosque (2014), Ursus (2011), Pentadelia (2008), ¿Quién colgó a los lobos? (demo) (2002)",
+   "portada": "https://f4.bcbits.com/img/a0343122925_16.jpg",
+   "discos": [
+    {
+     "titulo": "Mundo Bosque",
+     "anio": "2014",
+     "tipo": "disco",
+     "enlace": "https://psicoalbatros.bandcamp.com/album/mundo-bosque",
+     "portada": "https://f4.bcbits.com/img/a0343122925_16.jpg"
+    },
+    {
+     "titulo": "Ursus",
+     "anio": "2011",
+     "tipo": "disco",
+     "enlace": "https://psicoalbatros.bandcamp.com/album/ursus",
+     "portada": "https://f4.bcbits.com/img/a2762979777_16.jpg"
+    },
+    {
+     "titulo": "Pentadelia",
+     "anio": "2008",
+     "tipo": "disco",
+     "enlace": "https://psicoalbatros.bandcamp.com/album/pentadelia",
+     "portada": "https://f4.bcbits.com/img/a3805618366_16.jpg"
+    },
+    {
+     "titulo": "¿Quién colgó a los lobos? (demo)",
+     "anio": "2002",
+     "tipo": "disco",
+     "enlace": "https://psicoalbatros.bandcamp.com/album/qui-n-colg-a-los-lobos-demo",
+     "portada": "https://f4.bcbits.com/img/a1285034453_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "estirpe",
+   "nombre": "Estirpe",
+   "estilos": "Heavy rock / Rock alternativo",
+   "ciudad": "Córdoba",
+   "estado": "Inactivo",
+   "enlace_principal": "Web",
+   "bandcamp": "",
+   "spotify": "https://open.spotify.com/artist/0cozyKPk02s5ijRSqhXi4R",
+   "apple_music": "https://music.apple.com/es/artist/estirpe/80208866",
+   "youtube": "https://www.youtube.com/@estirpeband",
+   "web": "https://www.estirpeweb.com",
+   "discografia": "Jam Fuzzion Klan (2016)",
+   "portada": "https://image-cdn-ak.spotifycdn.com/image/ab676161000051743fe08b22a65490746c4c04bb",
+   "discos": [
+    {
+     "titulo": "Jam Fuzzion Klan",
+     "anio": "2016",
+     "tipo": "disco",
+     "enlace": "https://open.spotify.com/artist/0cozyKPk02s5ijRSqhXi4R",
+     "portada": "https://image-cdn-ak.spotifycdn.com/image/ab676161000051743fe08b22a65490746c4c04bb"
     }
    ]
   }

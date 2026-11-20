@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- La app se usa en vertical, pero eso no obliga a que el dispositivo tenga
+         pantalla vertical: así Google Play también la ofrece en ordenadores con
+         Android y otros dispositivos sin ese modo. -->
+    <uses-feature android:name="android.hardware.screen.portrait" android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
