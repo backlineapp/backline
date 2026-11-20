@@ -263,7 +263,14 @@
   function reproductor(v, titulo) {
     var marco = crear('div', 'video-marco');
     var iframe = document.createElement('iframe');
-    iframe.src = v.reproductor;
+    // En las apps de las tiendas, YouTube no reproduce el vídeo si se carga
+    // directamente (la app no tiene una dirección web «normal»): se pasa por
+    // reproductor.html, una página de la web publicada que carga YouTube.
+    var url = v.reproductor;
+    if (v.servicio === 'YouTube' && window.Nativa && Nativa.es) {
+      url = 'https://backlineapp.github.io/backline/reproductor.html?v=' + encodeURIComponent(v.id);
+    }
+    iframe.src = url;
     iframe.title = titulo;
     iframe.loading = 'lazy';
     // YouTube necesita saber desde qué web se ve (si no, da el "error 153").
