@@ -23,9 +23,15 @@
 //      "Backline · Denuncia en Dry River" (avisos_preparar_denuncias).
 //   9. Borra los móviles que ya no aceptan avisos.
 //
+// Los móviles con la app de Android (Google Play) tienen una dirección que
+// empieza por "fcm:": a esos se les envía a través de Google Firebase, sin
+// cifrar nosotros (ya lo protege Android).
+//
 // Se pega entero en el editor de funciones de Supabase. No necesita nada más.
 // Secretos que usa (Edge Functions > Secrets), NUNCA en el repositorio:
 //   VAPID_PUBLICA, VAPID_PRIVADA, CLAVE_TAREAS
+//   FCM_CUENTA: el archivo de la "cuenta de servicio" de Firebase, entero.
+//     Si falta, los avisos de la web salen igual y los de Android esperan.
 // y los que Supabase pone solo: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY.
 
 const APP = "https://backlineapp.github.io/backline/";
@@ -47,7 +53,7 @@ type Publicacion = {
   texto?: string | null;
   fechas: Fecha[] | null;
 };
-type Suscripcion = { endpoint: string; p256dh: string; auth: string };
+type Suscripcion = { endpoint: string; p256dh: string | null; auth: string };
 type Lote = { grupo_id: string; publicaciones: Publicacion[]; suscripciones: Suscripcion[] };
 type Solicitud = { id: string; grupo_id: string; tipo: string };
 type LoteAdmin = { solicitudes: Solicitud[]; suscripciones: Suscripcion[] };
@@ -138,6 +144,7 @@ async function hkdf(sal: BufferSource, material: BufferSource, info: BufferSourc
 }
 
 export async function cifrar(texto: string, sus: Suscripcion) {
+  if (!sus.p256dh) throw new Error("claves del móvil no válidas");
   const movilPublica = deBase64url(sus.p256dh);
   const secretoAuth = deBase64url(sus.auth);
   if (movilPublica.length !== 65 || secretoAuth.length < 16) throw new Error("claves del móvil no válidas");
@@ -178,6 +185,98 @@ export async function enviarUno(sus: Suscripcion, aviso: Aviso, publica: string,
     body: cuerpo,
   });
   await r.body?.cancel();
+  return r.status;
+}
+
+// ---------- App de Android: envío por Google Firebase (FCM) ----------
+
+type CuentaFcm = { project_id: string; client_email: string; private_key: string };
+let cuentaFcm: CuentaFcm | null | undefined;
+let claveFcm: CryptoKey | null = null;
+let accesoGuardado: { valor: string; caduca: number } | null = null;
+
+function leerCuentaFcm(): CuentaFcm | null {
+  if (cuentaFcm === undefined) {
+    try {
+      const c = JSON.parse(Deno.env.get("FCM_CUENTA") || "");
+      cuentaFcm = c && c.project_id && c.client_email && c.private_key ? c : null;
+    } catch (_) {
+      cuentaFcm = null;
+    }
+  }
+  return cuentaFcm ?? null;
+}
+
+// Permiso de una hora para enviar avisos con Firebase (lo da Google a cambio
+// de una petición firmada con la clave de la cuenta de servicio).
+export async function accesoFcm(c: CuentaFcm): Promise<string> {
+  if (accesoGuardado && accesoGuardado.caduca > Date.now() + 60_000) return accesoGuardado.valor;
+  if (!claveFcm) {
+    const base64 = c.private_key.replace(/-----[^-]+-----/g, "").replace(/\s+/g, "");
+    claveFcm = await crypto.subtle.importKey(
+      "pkcs8",
+      deBase64url(base64),
+      { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+      false,
+      ["sign"],
+    );
+  }
+  const ahora = Math.floor(Date.now() / 1000);
+  const cabecera = aBase64url(codificador.encode(JSON.stringify({ alg: "RS256", typ: "JWT" })));
+  const datos = aBase64url(codificador.encode(JSON.stringify({
+    iss: c.client_email,
+    scope: "https://www.googleapis.com/auth/firebase.messaging",
+    aud: "https://oauth2.googleapis.com/token",
+    iat: ahora,
+    exp: ahora + 3600,
+  })));
+  const firma = new Uint8Array(await crypto.subtle.sign("RSASSA-PKCS1-v1_5", claveFcm, codificador.encode(cabecera + "." + datos)));
+  const r = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+      assertion: `${cabecera}.${datos}.${aBase64url(firma)}`,
+    }),
+  });
+  if (!r.ok) throw new Error(`permiso de Firebase: ${r.status} ${await r.text()}`);
+  const j = await r.json();
+  accesoGuardado = { valor: j.access_token, caduca: Date.now() + (Number(j.expires_in) || 3600) * 1000 };
+  return accesoGuardado.valor;
+}
+
+// Envía un aviso a un móvil con la app de Android. Devuelve el código de
+// respuesta (404 si ese móvil ya no existe para Firebase).
+export async function enviarFcm(sus: Suscripcion, aviso: Aviso, acceso: string, proyecto: string): Promise<number> {
+  const r = await fetch(`https://fcm.googleapis.com/v1/projects/${proyecto}/messages:send`, {
+    method: "POST",
+    headers: { "Authorization": "Bearer " + acceso, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message: {
+        token: sus.endpoint.slice(4),
+        notification: { title: aviso.titulo, body: aviso.texto },
+        data: { ruta: aviso.ruta, etiqueta: aviso.etiqueta },
+        android: {
+          ttl: `${CADUCIDAD_SEGUNDOS}s`,
+          priority: "HIGH",
+          notification: {
+            tag: aviso.etiqueta,
+            channel_id: "avisos",
+            icon: "ic_stat_backline",
+            color: "#E8A13A",
+          },
+        },
+      },
+    }),
+  });
+  if (r.ok) {
+    await r.body?.cancel();
+    return r.status;
+  }
+  const texto = await r.text();
+  // Dirección que Firebase ya no reconoce (app desinstalada, por ejemplo).
+  if (r.status === 404 || /UNREGISTERED|registration token is not a valid/i.test(texto)) return 404;
+  console.warn(`aviso no aceptado por Firebase (${r.status}): ${texto.slice(0, 300)}`);
   return r.status;
 }
 
@@ -482,17 +581,46 @@ export async function atender(peticion: Request): Promise<Response> {
     encargos.push({ aviso: componerDenuncia(nombre(d.grupo_id), d), suscripciones: denuncias.suscripciones });
   }
 
+  // Móviles con la app de Android: hace falta el permiso de Firebase.
+  const cuenta = leerCuentaFcm();
+  let acceso = "";
+  const hayAndroid = encargos.some((e) => e.suscripciones.some((s) => s.endpoint.startsWith("fcm:")));
+  if (hayAndroid) {
+    if (!cuenta) console.warn("falta el secreto FCM_CUENTA: los avisos de Android esperan");
+    else {
+      try {
+        acceso = await accesoFcm(cuenta);
+      } catch (e) {
+        console.warn(e instanceof Error ? e.message : e);
+      }
+    }
+  }
+
   for (const { aviso, suscripciones } of encargos) {
     for (const sus of suscripciones) {
       tareas.push(async () => {
         try {
-          const estado = await enviarUno(sus, aviso, publica, privada);
+          let estado: number;
+          if (sus.endpoint.startsWith("fcm:")) {
+            // Sin permiso de Firebase no se envía, pero el móvil no se borra.
+            if (!acceso || !cuenta) {
+              resumen.fallidos++;
+              return;
+            }
+            estado = await enviarFcm(sus, aviso, acceso, cuenta.project_id);
+          } else if (sus.endpoint.startsWith("https://")) {
+            estado = await enviarUno(sus, aviso, publica, privada);
+          } else {
+            // iPhone con la app de la App Store: llegará en otro paso.
+            resumen.fallidos++;
+            return;
+          }
           if (estado >= 200 && estado < 300) resumen.enviados++;
           else {
             resumen.fallidos++;
             // 404 / 410: el móvil canceló la suscripción. Se borra.
             if (estado === 404 || estado === 410) caducados.push(sus.endpoint);
-            else console.warn(`aviso no aceptado (${estado}) en ${new URL(sus.endpoint).host}`);
+            else if (sus.endpoint.startsWith("https://")) console.warn(`aviso no aceptado (${estado}) en ${new URL(sus.endpoint).host}`);
           }
         } catch (e) {
           resumen.fallidos++;

@@ -239,6 +239,41 @@
     return lineas.join('\r\n') + '\r\n';
   }
 
+  // Dentro de la app de las tiendas no se pueden descargar archivos: se abre
+  // la pantalla «Nuevo evento» del calendario del móvil, ya rellena.
+  function calendarioNativo() {
+    var cap = window.Capacitor;
+    return window.Nativa && Nativa.es && cap && cap.Plugins && cap.Plugins.CapacitorCalendar;
+  }
+
+  function anadirAlCalendario(f, grupo) {
+    var cal = calendarioNativo();
+    if (!cal) { descargarIcs(f, grupo); return; }
+    var pub = f.publicacion;
+    var opciones = {
+      title: grupo.nombre + ' en ' + f.sala,
+      location: lugar(f),
+      description: [
+        pub.tipo === 'gira' && pub.titulo ? pub.titulo : '',
+        f.precio ? 'Precio: ' + f.precio : '',
+        f.entradas ? 'Entradas: ' + f.entradas : ''
+      ].filter(Boolean).join('\n')
+    };
+    if (f.hora) {
+      var inicio = instante(f.fecha, f.hora, f.zona);
+      opciones.startDate = inicio;
+      opciones.endDate = inicio + HORAS_EN_CALENDARIO * 3600000;
+    } else {
+      var d = f.fecha.split('-');
+      var medianoche = new Date(+d[0], +d[1] - 1, +d[2]).getTime();
+      opciones.isAllDay = true;
+      opciones.startDate = medianoche;
+      opciones.endDate = medianoche + 86400000;
+    }
+    if (f.entradas) opciones.url = f.entradas;
+    cal.createEventWithPrompt(opciones).catch(function () { descargarIcs(f, grupo); });
+  }
+
   function descargarIcs(f, grupo) {
     var archivo = new Blob([crearIcs(f, grupo)], { type: 'text/calendar;charset=utf-8' });
     var url = URL.createObjectURL(archivo);
@@ -519,7 +554,13 @@
     var mio = ++turno;
     contenedor.textContent = '';
     Nube.proximasFechas([grupo.id]).then(function (fechas) {
-      if (mio !== turno || !fechas.length) return;
+      if (mio !== turno) return;
+      if (!fechas.length) {
+        // Sin conciertos: se dice, para que la ficha no parezca incompleta.
+        contenedor.appendChild(ayuda.crear('h2', null, 'Próximos conciertos'));
+        contenedor.appendChild(ayuda.crear('p', 'ficha-sin-conciertos', 'Sin conciertos anunciados por ahora.'));
+        return;
+      }
       contenedor.appendChild(ayuda.crear('h2', null, 'Próximos conciertos · ' + fechas.length));
       var ul = ayuda.crear('ul', 'lista');
       fechas.forEach(function (f) {
@@ -600,7 +641,7 @@
       acciones.appendChild(mapa);
       var calendario = ayuda.crear('button', 'boton-secundario', 'Añadir al calendario');
       calendario.type = 'button';
-      calendario.addEventListener('click', function () { descargarIcs(f, grupo); });
+      calendario.addEventListener('click', function () { anadirAlCalendario(f, grupo); });
       acciones.appendChild(calendario);
       var compartir = ayuda.crear('button', 'boton-secundario', 'Compartir');
       compartir.type = 'button';
@@ -612,6 +653,11 @@
       acciones.appendChild(compartir);
       contenedor.appendChild(acciones);
       if (window.Denuncias) contenedor.appendChild(Denuncias.enlace(f.publicacion.id));
+      if (grupo) {
+        var pieOcultar = ayuda.crear('p', 'ocultar-pie');
+        pieOcultar.appendChild(ayuda.botonOcultar(grupo, function () { location.hash = '#/inicio'; }));
+        contenedor.appendChild(pieOcultar);
+      }
     }, function () {
       if (mio !== turno) return;
       contenedor.textContent = '';

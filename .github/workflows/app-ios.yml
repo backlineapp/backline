@@ -1,0 +1,99 @@
+# Compila la app de iPhone de Backline en los ordenadores de GitHub y la sube
+# a TestFlight para que los probadores la instalen desde ahí.
+# Se lanza a mano desde la pestaña «Actions» o al fusionar cambios en main.
+name: App iOS (TestFlight)
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'app/**'
+      - '.github/workflows/app-ios.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - '*.js'
+      - '*.html'
+      - 'estilos.css'
+      - '.github/workflows/app-ios.yml'
+
+jobs:
+  ios:
+    runs-on: macos-26
+    env:
+      TEAM_ID: C447M2DJ2U
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Preparar la app
+        working-directory: app
+        run: |
+          npm ci
+          npm run copiar
+          npx cap sync ios
+
+      - name: Escribir la llave de subida
+        env:
+          API_KEY_P8: ${{ secrets.APPLE_API_KEY_P8 }}
+        run: |
+          mkdir -p ~/private_keys
+          echo "$API_KEY_P8" > ~/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8
+
+      - name: Compilar y firmar
+        working-directory: app/ios/App
+        env:
+          VERSION_CODE: ${{ github.run_number }}
+        run: |
+          # Poner el número de versión
+          agvtool new-version -all $VERSION_CODE
+
+          xcodebuild archive \
+            -project App.xcodeproj \
+            -scheme App \
+            -destination 'generic/platform=iOS' \
+            -archivePath $RUNNER_TEMP/Backline.xcarchive \
+            CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM=$TEAM_ID \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8 \
+            -authenticationKeyID ${{ secrets.APPLE_API_KEY_ID }} \
+            -authenticationKeyIssuerID ${{ secrets.APPLE_API_KEY_ISSUER_ID }}
+
+      - name: Exportar IPA
+        run: |
+          cat > $RUNNER_TEMP/ExportOptions.plist << 'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store-connect</string>
+            <key>teamID</key>
+            <string>C447M2DJ2U</string>
+            <key>destination</key>
+            <string>upload</string>
+            <key>signingStyle</key>
+            <string>automatic</string>
+          </dict>
+          </plist>
+          PLIST
+
+          xcodebuild -exportArchive \
+            -archivePath $RUNNER_TEMP/Backline.xcarchive \
+            -exportOptionsPlist $RUNNER_TEMP/ExportOptions.plist \
+            -exportPath $RUNNER_TEMP/export \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8 \
+            -authenticationKeyID ${{ secrets.APPLE_API_KEY_ID }} \
+            -authenticationKeyIssuerID ${{ secrets.APPLE_API_KEY_ISSUER_ID }}
+
+      - name: Limpiar la llave
+        if: always()
+        run: rm -rf ~/private_keys

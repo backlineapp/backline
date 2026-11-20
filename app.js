@@ -98,6 +98,16 @@
   var DE_LA_FICHA = { gestionar: true };
 
   var grupos = [];
+
+  // Grupo de prueba para los revisores de Google Play y la App Store: lo
+  // gestiona la cuenta de revisión y nadie más lo ve (no sale en Explorar ni
+  // en el kit). Sus publicaciones solo aparecen a quien lo siga, y no se
+  // puede seguir sin conocer su enlace.
+  var GRUPO_REVISION = {
+    id: 'grupo-de-prueba', nombre: 'Grupo de prueba', estilos: 'Prueba', ciudad: 'España',
+    estado: 'Activo', enlace_principal: '', bandcamp: '', spotify: '', apple_music: '',
+    youtube: '', web: '', discografia: '', portada: '', discos: [], oculto: true
+  };
   // Filtros de Explorar. zona: '' (toda España), 'c:Andalucía' (una
   // comunidad) o 'p:Cádiz' (una provincia). La zona se recuerda en el móvil.
   var CLAVE_ZONA = 'backline-zona';
@@ -157,13 +167,10 @@
     misGrupos: document.getElementById('pantalla-mis-grupos'),
     ficha: document.getElementById('pantalla-ficha'),
     buscador: document.getElementById('buscador'),
-    filtros: document.getElementById('filtros'),
     contador: document.getElementById('contador'),
-    zona: document.getElementById('zona'),
-    zonaBoton: document.getElementById('zona-boton'),
-    zonaTexto: document.getElementById('zona-texto'),
+    controlesExplorar: document.getElementById('controles-explorar'),
     lista: document.getElementById('lista'),
-    ordenExplorar: document.getElementById('orden-explorar'),
+    controlesMios: document.getElementById('controles-mis-grupos'),
     contadorMios: document.getElementById('contador-mis-grupos'),
     buscadorMios: document.getElementById('buscador-mis-grupos'),
     cajaBuscadorMios: document.getElementById('caja-buscador-mis-grupos'),
@@ -719,52 +726,104 @@
 
   // ---------- Pantalla 1: Explorar ----------
 
-  function pintarFiltros() {
-    el.filtros.textContent = '';
-    var opciones = [{ nombre: 'Todos', valor: null }].concat(
-      FAMILIAS.map(function (f) { return { nombre: f.nombre, valor: f.nombre }; })
-    );
-    opciones.forEach(function (op) {
-      var b = crear('button', 'filtro', op.nombre);
-      b.type = 'button';
-      b.setAttribute('aria-pressed', String(estado.familia === op.valor));
-      b.addEventListener('click', function () {
-        estado.familia = op.valor;
-        pintarFiltros();
-        pintarLista();
-      });
-      el.filtros.appendChild(b);
-    });
-  }
-
-  // Opciones de orden en Explorar.
+  // Opciones de orden. «corto» es lo que se ve en el botón; «nombre», en la lista.
   var ORDENES = [
-    { valor: 'az', nombre: 'A–Z' },
-    { valor: 'recientes', nombre: 'Recién llegados' },
-    { valor: 'conciertos', nombre: 'Con conciertos' }
+    { valor: 'az', nombre: 'A–Z', corto: 'A–Z' },
+    { valor: 'recientes', nombre: 'Recién llegados', corto: 'Recientes' },
+    { valor: 'conciertos', nombre: 'Con conciertos', corto: 'Conciertos' }
+  ];
+  var ORDENES_MIOS = [
+    { valor: 'az', nombre: 'A–Z', corto: 'A–Z' },
+    { valor: 'recientes', nombre: 'Últimos seguidos', corto: 'Recientes' }
   ];
 
-  function pintarOrdenExplorar() {
-    el.ordenExplorar.textContent = '';
-    ORDENES.forEach(function (op) {
-      // "Con conciertos" se oculta si aún no hay datos.
-      if (op.valor === 'conciertos' && !conciertosListos) return;
-      var b = crear('button', 'filtro', op.nombre);
-      b.type = 'button';
-      b.setAttribute('aria-pressed', String(estado.orden === op.valor));
-      b.addEventListener('click', function () {
-        if (estado.orden === op.valor) return;
-        estado.orden = op.valor;
-        pintarOrdenExplorar();
+  // Iconos de los desplegables.
+  var ICONOS_DESPLEGABLE = {
+    estilo: '<path d="M3 3h8l10 10-8 8L3 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"/>',
+    zona: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/>',
+    orden: '<path d="M8 5v14M8 19l-3-3M8 19l3-3M16 19V5M16 5l-3 3M16 5l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+  };
+
+  // Un desplegable: botón con icono, texto y flecha. Encima va el selector del
+  // móvil, invisible, para que se abra la lista nativa.
+  function crearDesplegable(icono, texto, activo, selector) {
+    var caja = crear('label', 'desplegable' + (activo ? ' activa' : ''));
+    caja.insertAdjacentHTML('beforeend', '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">' + ICONOS_DESPLEGABLE[icono] + '</svg>');
+    caja.appendChild(crear('span', 'desplegable-texto', texto));
+    caja.insertAdjacentHTML('beforeend', '<svg class="desplegable-flecha" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+    caja.appendChild(selector);
+    return caja;
+  }
+
+  function nuevoSelector(etiqueta) {
+    var sel = document.createElement('select');
+    sel.setAttribute('aria-label', etiqueta);
+    return sel;
+  }
+
+  // Los tres controles de Explorar y de Mis grupos: Estilo, Zona y Orden.
+  // cfg.grupos: la lista sobre la que se ofrecen estilos y zonas;
+  // cfg.estado: {familia, zona, orden}; cfg.ordenes: opciones de orden;
+  // cfg.alCambiar(campo): se llama al elegir algo (ya con el estado puesto).
+  function pintarControles(contenedor, cfg) {
+    var est = cfg.estado;
+    contenedor.textContent = '';
+
+    // Estilo (solo los que tienen algún grupo de esa lista)
+    var cuantos = {};
+    FAMILIAS.forEach(function (f) {
+      cuantos[f.nombre] = cfg.grupos.filter(function (g) { return g._familias.indexOf(f.nombre) !== -1; }).length;
+    });
+    var familias = FAMILIAS.map(function (f) { return f.nombre; }).filter(function (n) { return cuantos[n] > 0; });
+    if (est.familia && familias.indexOf(est.familia) === -1) est.familia = null;
+    var selE = nuevoSelector('Filtrar por estilo');
+    var o = crear('option', null, 'Todos los estilos (' + cfg.grupos.length + ')'); o.value = ''; selE.appendChild(o);
+    familias.forEach(function (n) {
+      var op = crear('option', null, n + ' (' + cuantos[n] + ')'); op.value = n; selE.appendChild(op);
+    });
+    selE.value = est.familia || '';
+    selE.addEventListener('change', function () { est.familia = selE.value || null; cfg.alCambiar('familia'); });
+    contenedor.appendChild(crearDesplegable('estilo', est.familia || 'Estilo', !!est.familia, selE));
+
+    // Zona
+    var selZ = nuevoSelector('Filtrar por zona');
+    rellenarZonas(selZ, cfg.grupos, 'Toda España');
+    // Una zona que ya no tiene grupos se olvida.
+    if (est.zona && !selZ.querySelector('option[value="' + est.zona.replace(/"/g, '') + '"]')) est.zona = '';
+    selZ.value = est.zona;
+    selZ.addEventListener('change', function () { est.zona = selZ.value; cfg.alCambiar('zona'); });
+    contenedor.appendChild(crearDesplegable('zona', est.zona ? est.zona.slice(2) : 'Zona', !!est.zona, selZ));
+
+    // Orden («Con conciertos» solo cuando ya hay datos)
+    var ordenes = cfg.ordenes.filter(function (op) { return op.valor !== 'conciertos' || conciertosListos; });
+    if (!ordenes.some(function (op) { return op.valor === est.orden; })) est.orden = 'az';
+    var selO = nuevoSelector('Ordenar la lista');
+    ordenes.forEach(function (op) {
+      var oo = crear('option', null, op.nombre); oo.value = op.valor; selO.appendChild(oo);
+    });
+    selO.value = est.orden;
+    selO.addEventListener('change', function () { est.orden = selO.value; cfg.alCambiar('orden'); });
+    var actual = ordenes.filter(function (op) { return op.valor === est.orden; })[0];
+    contenedor.appendChild(crearDesplegable('orden', actual.corto, est.orden !== 'az', selO));
+  }
+
+  function pintarControlesExplorar() {
+    pintarControles(el.controlesExplorar, {
+      grupos: grupos.filter(function (g) { return !g.oculto && !Seguidos.oculto(g.id); }),
+      estado: estado,
+      ordenes: ORDENES,
+      alCambiar: function (campo) {
+        if (campo === 'zona') guardarZona(estado.zona);
+        pintarControlesExplorar();
         pintarLista();
-      });
-      el.ordenExplorar.appendChild(b);
+      }
     });
   }
 
   function pintarLista() {
     var busqueda = normalizar(estado.texto);
     var visibles = grupos.filter(function (g) {
+      if (g.oculto || Seguidos.oculto(g.id)) return false;
       if (busqueda && g._nombre.indexOf(busqueda) === -1) return false;
       if (estado.familia && g._familias.indexOf(estado.familia) === -1) return false;
       if (estado.zona && !enZona(g, estado.zona)) return false;
@@ -797,8 +856,9 @@
         quitar.type = 'button';
         quitar.addEventListener('click', function () {
           estado.familia = null;
-          cambiarZona('');
-          pintarFiltros();
+          estado.zona = '';
+          guardarZona('');
+          pintarControlesExplorar();
           pintarLista();
         });
         vacio.appendChild(quitar);
@@ -824,9 +884,10 @@
   // Opciones del selector: Toda España y, por orden alfabético, cada
   // comunidad con grupos. Si tiene varias provincias, va como grupo de
   // opciones: «Toda Andalucía» y cada provincia. Cada opción lleva cuántos grupos tiene.
-  function pintarZonas() {
+  // Rellena un selector de zona con las comunidades y provincias de esa lista de grupos.
+  function rellenarZonas(selector, lista, textoTodos) {
     var comunidades = {};
-    grupos.forEach(function (g) {
+    lista.forEach(function (g) {
       if (!g._zona) return;
       var c = comunidades[g._zona.comunidad] = comunidades[g._zona.comunidad] || { total: 0, provincias: {} };
       c.total++;
@@ -838,8 +899,8 @@
       o.value = valor;
       return o;
     };
-    el.zona.textContent = '';
-    el.zona.appendChild(opcion('', 'Toda España', grupos.length));
+    selector.textContent = '';
+    selector.appendChild(opcion('', textoTodos, lista.length));
     Object.keys(comunidades).sort(orden).forEach(function (nombre) {
       var c = comunidades[nombre];
       var provincias = Object.keys(c.provincias);
@@ -847,7 +908,7 @@
       // Si no hay nada que elegir dentro (una sola provincia con grupos, o
       // solo grupos sin provincia), la comunidad va como una sola opción.
       if (Zonas.provinciasDe(nombre).length < 2 || provincias.length + (sinProvincia ? 1 : 0) < 2) {
-        el.zona.appendChild(opcion('c:' + nombre, nombre, c.total));
+        selector.appendChild(opcion('c:' + nombre, nombre, c.total));
         return;
       }
       var grupo = document.createElement('optgroup');
@@ -856,23 +917,11 @@
       Object.keys(c.provincias).sort(orden).forEach(function (p) {
         grupo.appendChild(opcion('p:' + p, p, c.provincias[p]));
       });
-      el.zona.appendChild(grupo);
+      selector.appendChild(grupo);
     });
-    // Una zona guardada que ya no tiene grupos se olvida.
-    if (estado.zona && !el.zona.querySelector('option[value="' + estado.zona.replace(/"/g, '') + '"]')) estado.zona = '';
-    el.zona.value = estado.zona;
-    pintarBotonZona();
   }
 
-  function pintarBotonZona() {
-    el.zonaTexto.textContent = estado.zona ? estado.zona.slice(2) : 'Toda España';
-    el.zonaBoton.classList.toggle('activa', !!estado.zona);
-  }
-
-  function cambiarZona(valor) {
-    estado.zona = valor;
-    el.zona.value = valor;
-    pintarBotonZona();
+  function guardarZona(valor) {
     try { localStorage.setItem(CLAVE_ZONA, valor); } catch (e) { /* sin permiso para guardar: no pasa nada */ }
   }
 
@@ -916,11 +965,39 @@
   // grupos.json, no se muestra, pero sigue guardado.
   // Con muchos grupos seguidos aparece un buscador por nombre.
   var textoMios = '';
+  // Filtros y orden de Mis grupos (solo se ven si sigues a bastantes grupos).
+  var filtroMios = { familia: null, zona: '', orden: 'az' };
 
   function pintarMisGrupos() {
     actualizarAcceso();
     Avisos.pintar(el.avisosMios);
     pintarListaMios();
+    pintarGuardarLista();
+  }
+
+  // Aviso discreto: con una cuenta (opcional), la lista de grupos se recupera
+  // al cambiar de móvil. Solo se ve si hay grupos seguidos y no se ha entrado.
+  function pintarGuardarLista() {
+    var caja = document.getElementById('guardar-mis-grupos');
+    if (!caja) {
+      caja = crear('div', 'guardar-lista');
+      caja.id = 'guardar-mis-grupos';
+      el.avisosMios.parentNode.insertBefore(caja, el.avisosMios.nextSibling);
+    }
+    caja.hidden = true;
+    caja.textContent = '';
+    if (!Nube.disponible) return;
+    Nube.listo.then(function () {
+      var cuenta = Nube.cuenta();
+      var hay = grupos.some(function (g) { return Seguidos.sigo(g.id); });
+      if (cuenta || !hay) return;
+      caja.appendChild(crear('p', 'guardar-lista-titulo', 'Guarda tu lista'));
+      caja.appendChild(crear('p', 'guardar-lista-texto', 'Si cambias de móvil o reinstalas la app, recuperarás los grupos que sigues entrando con tu correo. Es opcional.'));
+      var a = crear('a', 'boton-texto', 'Entrar con mi correo');
+      a.href = '#/acceso';
+      caja.appendChild(a);
+      caja.hidden = false;
+    });
   }
 
   function pintarListaMios() {
@@ -928,19 +1005,78 @@
     var conBuscador = mios.length >= BUSCADOR_MIOS_DESDE;
     if (!conBuscador && textoMios) { textoMios = ''; el.buscadorMios.value = ''; if (typeof actualizarBorrarMios === 'function') actualizarBorrarMios(); }
     el.cajaBuscadorMios.hidden = !conBuscador;
+    if (!conBuscador) filtroMios = { familia: null, zona: '', orden: 'az' };
+    pintarControlesMios(conBuscador ? mios : []);
     var busqueda = normalizar(textoMios);
-    var visibles = busqueda ? mios.filter(function (g) { return g._nombre.indexOf(busqueda) !== -1; }) : mios;
+    var filtrado = !!(busqueda || filtroMios.familia || filtroMios.zona);
+    var visibles = mios.filter(function (g) {
+      if (busqueda && g._nombre.indexOf(busqueda) === -1) return false;
+      if (filtroMios.familia && g._familias.indexOf(filtroMios.familia) === -1) return false;
+      if (filtroMios.zona && !enZona(g, filtroMios.zona)) return false;
+      return true;
+    });
+    if (filtroMios.orden === 'recientes') {
+      // Los últimos que has empezado a seguir, primero.
+      visibles = visibles.slice().sort(function (a, b) {
+        return Seguidos.desde(b.id).localeCompare(Seguidos.desde(a.id));
+      });
+    }
     el.listaMios.textContent = '';
     el.sinGrupos.hidden = mios.length > 0;
-    el.contadorMios.hidden = !mios.length;
-    el.contadorMios.textContent = busqueda
-      ? visibles.length + ' de ' + mios.length + ' grupos'
+    el.contadorMios.textContent = !mios.length ? 'Los grupos que sigues.'
+      : filtrado ? visibles.length + ' de ' + mios.length + ' grupos'
       : mios.length === 1 ? 'Sigues 1 grupo' : 'Sigues ' + mios.length + ' grupos';
-    if (busqueda && !visibles.length) {
-      el.listaMios.appendChild(crear('li', 'vacio', 'Ninguno de tus grupos se llama así.'));
+    if (filtrado && !visibles.length) {
+      el.listaMios.appendChild(crear('li', 'vacio', 'Ninguno de tus grupos coincide con lo que buscas.'));
+      pintarOcultos();
       return;
     }
     el.listaMios.appendChild(filas(visibles));
+    pintarOcultos();
+  }
+
+  // Estilo, zona y orden de Mis grupos: los mismos tres desplegables que en
+  // Explorar, pero solo con los estilos y zonas que tienen tus grupos.
+  function pintarControlesMios(mios) {
+    el.controlesMios.hidden = !mios.length;
+    el.controlesMios.textContent = '';
+    if (!mios.length) return;
+    pintarControles(el.controlesMios, {
+      grupos: mios,
+      estado: filtroMios,
+      ordenes: ORDENES_MIOS,
+      alCambiar: pintarListaMios
+    });
+  }
+
+  // Grupos ocultos, al final de Mis grupos, para poder volver a mostrarlos.
+  function pintarOcultos() {
+    var caja = document.getElementById('ocultos-mis-grupos');
+    if (!caja) {
+      caja = crear('div', 'ocultos');
+      caja.id = 'ocultos-mis-grupos';
+      el.sinGrupos.parentNode.insertBefore(caja, el.sinGrupos.nextSibling);
+    }
+    caja.textContent = '';
+    var ocultos = Seguidos.idsOcultos().map(function (id) {
+      return grupos.filter(function (g) { return g.id === id; })[0];
+    }).filter(Boolean);
+    caja.hidden = !ocultos.length;
+    if (!ocultos.length) return;
+    caja.appendChild(crear('p', 'etiqueta-seccion', 'Grupos ocultos · ' + ocultos.length));
+    var ul = crear('ul', 'ocultos-lista');
+    ocultos.forEach(function (g) {
+      var li = crear('li');
+      var a = crear('a', null, g.nombre);
+      a.href = '#/grupo/' + encodeURIComponent(g.id);
+      li.appendChild(a);
+      var b = crear('button', 'boton-texto', 'Mostrar');
+      b.type = 'button';
+      b.addEventListener('click', function () { Seguidos.mostrar(g.id); pintarMisGrupos(); });
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    caja.appendChild(ul);
   }
 
   // ---------- Pantalla 3: Ficha de grupo ----------
@@ -975,12 +1111,26 @@
     datos.appendChild(crear('h1', 'perfil-nombre', grupo.nombre));
     datos.appendChild(crear('p', 'perfil-estilos', grupo.estilos));
     if (grupo.ciudad) datos.appendChild(crear('p', 'perfil-ciudad', grupo.ciudad));
-    // Seguir y, si lo sigo, la campanita para silenciar sus avisos.
-    var botones = crear('div', 'perfil-botones');
-    botones.appendChild(botonSeguir(grupo));
-    botones.appendChild(Avisos.campanita(grupo));
-    botones.appendChild(botonCompartir(grupo));
-    datos.appendChild(botones);
+    // Seguir y, si lo sigo, la campanita para silenciar sus avisos. Si lo he
+    // ocultado, en su lugar se explica y se puede volver a mostrar.
+    if (Seguidos.oculto(grupo.id)) {
+      var aviso = crear('div', 'oculto-aviso');
+      aviso.appendChild(crear('p', null, 'Has ocultado este grupo: no aparece en Explorar ni te llegan sus novedades.'));
+      var mostrarDeNuevo = crear('button', 'boton-texto', 'Mostrar de nuevo');
+      mostrarDeNuevo.type = 'button';
+      mostrarDeNuevo.addEventListener('click', function () {
+        Seguidos.mostrar(grupo.id);
+        pintarFicha(grupo);
+      });
+      aviso.appendChild(mostrarDeNuevo);
+      datos.appendChild(aviso);
+    } else {
+      var botones = crear('div', 'perfil-botones');
+      botones.appendChild(botonSeguir(grupo));
+      botones.appendChild(Avisos.campanita(grupo));
+      botones.appendChild(botonCompartir(grupo));
+      datos.appendChild(botones);
+    }
     perfil.appendChild(datos);
     f.appendChild(perfil);
 
@@ -1006,6 +1156,17 @@
         if (!con[grupo.id]) ponerReclamar();
       }, ponerReclamar);
     }
+
+    // Bio del grupo (si la tiene en Supabase)
+    var cajaBio = crear('div', 'ficha-bio');
+    cajaBio.hidden = true;
+    f.appendChild(cajaBio);
+    Nube.leerBio(grupo.id).then(function (texto) {
+      if (texto) {
+        cajaBio.appendChild(crear('p', 'bio-texto', texto));
+        cajaBio.hidden = false;
+      }
+    }, function () { /* sin conexión: se ve la ficha sin bio */ });
 
     // Escúchalos
     var enlaces = ENLACES.filter(function (e) {
@@ -1052,6 +1213,35 @@
       var discos = pubs.filter(function (p) { return p.tipo === 'disco'; });
       if (discos.length) pintarDiscografia(cajaDiscos, grupo, discos);
     }, function () { /* sin conexión: la ficha se ve igual, con lo de Bandcamp */ });
+
+    // Ocultar el grupo (bloquear su contenido). Discreto, al final.
+    if (!Seguidos.oculto(grupo.id)) {
+      var ocultar = botonOcultar(grupo, function () {
+        pintarFicha(grupo);
+        window.scrollTo(0, 0);
+      });
+      var pieOcultar = crear('p', 'ocultar-pie');
+      pieOcultar.appendChild(ocultar);
+      f.appendChild(pieOcultar);
+    }
+  }
+
+  // «Ocultar este grupo»: pide confirmación con un segundo toque.
+  function botonOcultar(grupo, despues) {
+    var b = crear('button', 'enlace-ocultar', 'Ocultar este grupo');
+    b.type = 'button';
+    var listo = false;
+    b.addEventListener('click', function () {
+      if (!listo) {
+        listo = true;
+        b.textContent = 'Toca otra vez para ocultar a ' + grupo.nombre;
+        setTimeout(function () { listo = false; b.textContent = 'Ocultar este grupo'; }, 5000);
+        return;
+      }
+      Seguidos.ocultar(grupo.id);
+      if (despues) despues();
+    });
+    return b;
   }
 
   // Discografía de la ficha, separando discos y singles. publicados: los
@@ -1286,6 +1476,107 @@
     });
   });
 
+  // Deslizar el dedo desde el borde izquierdo hacia la derecha vuelve atrás en
+  // las pantallas que tienen «volver» (ficha de un grupo, concierto, novedad…).
+  // La pantalla sigue al dedo y, si se suelta lo bastante lejos (o rápido), se
+  // va hacia la derecha; si no, vuelve a su sitio. Solo en iPhone (app de la
+  // tienda o web instalada): el gesto del sistema no llega a la app, y en
+  // Android ya está el gesto «atrás» (nativa.js).
+  (function () {
+    var enIphone = (window.Nativa && Nativa.es && Nativa.plataforma === 'ios') || navigator.standalone === true;
+    if (!enIphone) return;
+    var BORDE = 28;          // px desde el borde izquierdo donde puede empezar
+    var FRACCION = 0.33;     // ha de recorrer un tercio del ancho...
+    var VELOCIDAD = 0.5;     // ...o ir más rápido que esto (px/ms)
+    var sinMovimiento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var gesto = null;
+
+    function limpiar(pantalla) {
+      pantalla.style.transition = '';
+      pantalla.style.transform = '';
+      pantalla.style.willChange = '';
+      document.documentElement.classList.remove('deslizando');
+    }
+
+    function salir(g) {
+      var pantalla = g.pantalla;
+      pantalla.style.transition = sinMovimiento ? 'none' : 'transform 0.2s cubic-bezier(.2, .8, .2, 1)';
+      pantalla.style.transform = 'translate3d(100%, 0, 0)';
+      var hecho = false;
+      function seguir() {
+        if (hecho) return;
+        hecho = true;
+        // La pantalla se queda fuera hasta que la app la oculta, para que no vuelva a verse un instante.
+        var obs = new MutationObserver(function () {
+          if (!pantalla.hidden) return;
+          obs.disconnect();
+          limpiar(pantalla);
+          var nueva = document.querySelector('.pantalla:not([hidden])');
+          if (nueva && !sinMovimiento) {
+            nueva.classList.add('aparece-suave');
+            setTimeout(function () { nueva.classList.remove('aparece-suave'); }, 260);
+          }
+        });
+        obs.observe(pantalla, { attributes: true, attributeFilter: ['hidden'] });
+        setTimeout(function () { obs.disconnect(); if (pantalla.style.transform) limpiar(pantalla); }, 800);
+        g.boton.click();
+      }
+      pantalla.addEventListener('transitionend', seguir, { once: true });
+      setTimeout(seguir, sinMovimiento ? 0 : 260);
+    }
+
+    function quedarse(g) {
+      var pantalla = g.pantalla;
+      pantalla.style.transition = sinMovimiento ? 'none' : 'transform 0.2s cubic-bezier(.2, .8, .2, 1)';
+      pantalla.style.transform = 'translate3d(0, 0, 0)';
+      setTimeout(function () { limpiar(pantalla); }, sinMovimiento ? 0 : 230);
+    }
+
+    document.addEventListener('touchstart', function (e) {
+      gesto = null;
+      if (e.touches.length !== 1) return;
+      var t = e.touches[0];
+      if (t.clientX > BORDE) return;
+      var pantalla = document.querySelector('.pantalla:not([hidden])');
+      var boton = pantalla && pantalla.querySelector('.volver');
+      if (!boton) return;
+      gesto = { x: t.clientX, y: t.clientY, activo: false, dx: 0, v: 0, ultimoX: t.clientX, ultimoT: Date.now(), pantalla: pantalla, boton: boton };
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+      if (!gesto) return;
+      var t = e.touches[0];
+      var dx = t.clientX - gesto.x;
+      var dy = t.clientY - gesto.y;
+      if (!gesto.activo) {
+        if (Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) { gesto = null; return; } // es desplazarse hacia abajo o arriba
+        if (dx < 10) return;
+        gesto.activo = true;
+        gesto.pantalla.style.transition = 'none';
+        gesto.pantalla.style.willChange = 'transform';
+        document.documentElement.classList.add('deslizando');
+      }
+      e.preventDefault(); // mientras se desliza, la pantalla no se desplaza
+      var ahora = Date.now();
+      if (ahora > gesto.ultimoT) gesto.v = (t.clientX - gesto.ultimoX) / (ahora - gesto.ultimoT);
+      gesto.ultimoX = t.clientX;
+      gesto.ultimoT = ahora;
+      gesto.dx = Math.max(0, dx);
+      gesto.pantalla.style.transform = 'translate3d(' + gesto.dx + 'px, 0, 0)';
+    }, { passive: false });
+
+    function soltar(cancelado) {
+      var g = gesto;
+      gesto = null;
+      if (!g || !g.activo) return;
+      var ancho = window.innerWidth || 390;
+      if (!cancelado && (g.dx > ancho * FRACCION || g.v > VELOCIDAD)) salir(g);
+      else quedarse(g);
+    }
+    document.addEventListener('touchend', function () { soltar(false); }, { passive: true });
+    document.addEventListener('touchcancel', function () { soltar(true); }, { passive: true });
+  })();
+
   // Pulsar la pestaña de la pantalla en la que ya estás te lleva arriba del todo.
   [['inicio', el.pestanaInicio], ['explorar', el.pestanaExplorar],
    ['conciertos', el.pestanaConciertos], ['mis-grupos', el.pestanaMisGrupos]].forEach(function (par) {
@@ -1387,11 +1678,6 @@
     pintarListaMios();
   });
 
-  el.zona.addEventListener('change', function () {
-    cambiarZona(el.zona.value);
-    pintarLista();
-  });
-
   // ---------- Arranque ----------
 
   // Piezas comunes que usan conciertos.js, novedades.js, panel.js y kit.js.
@@ -1405,7 +1691,8 @@
     todosLosGrupos: function () { return grupos; },
     gruposSeguidos: function () { return grupos.filter(function (g) { return Seguidos.sigo(g.id); }); },
     compartir: compartir,
-    actualizarAcceso: function () { actualizarAcceso(); }
+    actualizarAcceso: function () { actualizarAcceso(); },
+    botonOcultar: botonOcultar
   };
   Conciertos.iniciar(piezas);
   Novedades.iniciar(piezas);
@@ -1414,18 +1701,20 @@
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-  fetch('grupos.json')
+  // Dentro de la app de las tiendas se piden a la web publicada (nativa.js).
+  (window.Nativa ? Nativa.datos('grupos.json') : fetch('grupos.json'))
     .then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     })
     .then(function (datos) {
-      grupos = (datos.grupos || [])
+      grupos = (datos.grupos || []).concat([GRUPO_REVISION])
         .map(function (g, i) {
           g._nombre = normalizar(g.nombre);
           g._familias = familiasDe(g.estilos);
           g._zona = Zonas.zonaDe(g.ciudad);
-          g._ordenOriginal = i; // para saber cuáles son los más nuevos
+          // Para saber cuáles son los más nuevos (el grupo de revisión, el último).
+          g._ordenOriginal = g === GRUPO_REVISION ? -1 : i;
           return g;
         })
         .sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); })
@@ -1433,12 +1722,29 @@
           g._acento = i % 2 ? 'acento-ambar' : 'acento-cian';
           return g;
         });
-      pintarFiltros();
-      pintarZonas();
-      pintarOrdenExplorar();
-      pintarLista();
-      window.addEventListener('hashchange', alCambiarRuta);
-      alCambiarRuta();
+      // Ciudades personalizadas: si un grupo ha cambiado su localización desde
+      // el panel, se aplica sobre el objeto del grupo para que todas las
+      // pantallas (listas, fichas, filtro por zona) la vean.
+      var ids = grupos.map(function (g) { return g.id; });
+      Promise.all([
+        Nube.leerCiudades(ids).catch(function () { return {}; }),
+        Nube.leerFotosPerfil(ids).catch(function () { return {}; })
+      ]).then(function (r) {
+        var mapaCiudades = r[0];
+        var mapaFotos = r[1];
+        grupos.forEach(function (g) {
+          if (mapaCiudades[g.id]) {
+            g.ciudad = mapaCiudades[g.id];
+            g._zona = Zonas.zonaDe(g.ciudad);
+          }
+          if (mapaFotos[g.id]) g.portada = mapaFotos[g.id];
+        });
+      }).then(function () {
+        pintarControlesExplorar();
+        pintarLista();
+        window.addEventListener('hashchange', alCambiarRuta);
+        alCambiarRuta();
+      });
 
       // Pedir conciertos próximos de todos los grupos para Explorar.
       Nube.proximasFechas(null).then(function (fechas) {
@@ -1450,7 +1756,7 @@
           }
         });
         conciertosListos = true;
-        pintarOrdenExplorar();
+        pintarControlesExplorar();
         if (estado.orden === 'conciertos') pintarLista();
       }, function () { /* sin conexión: no pasa nada, el orden "Con conciertos" no aparece */ });
     })
@@ -1462,7 +1768,8 @@
   // Guarda la app en el móvil para que cargue rápido y se pueda instalar.
   // sw.js guarda cada versión entera; cuando hay una nueva completa, la
   // activa de golpe y aquí se recarga la pantalla una sola vez.
-  if ('serviceWorker' in navigator) {
+  // (Dentro de la app de las tiendas no hace falta: ya va todo dentro.)
+  if ('serviceWorker' in navigator && !(window.Nativa && Nativa.es)) {
     var habiaVersion = !!navigator.serviceWorker.controller;
     var recargando = false;
     navigator.serviceWorker.addEventListener('controllerchange', function () {

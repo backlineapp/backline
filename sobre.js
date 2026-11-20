@@ -3,8 +3,8 @@
 // Quién está detrás, cómo funciona, contacto (lo piden las tiendas), enlaces a
 // la privacidad y las condiciones, y un apartado discreto para apoyar el
 // proyecto. Ese apartado solo se ve cuando APOYO.activo es true: hasta que
-// estén listos los pagos (en la web, un enlace a una página de aportaciones;
-// en las apps de las tiendas, la compra integrada de Apple o Google).
+// estén listos los pagos (en la web, un enlace a Ko-fi; en las apps de las
+// tiendas, propinas con la compra integrada de Apple o Google: propinas.js).
 //
 // Orden que usa el resto de la app:
 //   Sobre.pintar(contenedor, irAlApoyo)
@@ -14,7 +14,7 @@
 
   var CONTACTO = 'hibackline@gmail.com';
   var APOYO = {
-    activo: false,
+    activo: true,
     // Página de aportaciones para la web. En Ko-fi cada uno elige el importe
     // y paga con tarjeta, PayPal, Apple Pay o Google Pay. (En las apps de las
     // tiendas no se usará: Apple y Google obligan a usar su propio pago.)
@@ -48,8 +48,9 @@
     contenedor.appendChild(cabecera);
 
     var historia = seccion(contenedor, 'Por qué nace');
-    historia.appendChild(crear('p', null, 'Soy Ignacio Bernaola, crítico en DPRP.net y asiduo de esta escena, en sala y en disco. Seguir a los grupos que me interesan me obligaba a ir de web en web, y más de una vez supe de un concierto cuando ya había pasado.'));
-    historia.appendChild(crear('p', null, 'Backline nace de ahí: reunir la actividad de la escena independiente en un único lugar, directo y sin ruido. Lo que el grupo publica, tú lo ves. Nada más.'));
+    historia.appendChild(crear('p', null, 'Seguir a los grupos de la escena independiente obliga a ir de web en web, y más de una vez te enteras de un concierto cuando ya ha pasado.'));
+    historia.appendChild(crear('p', null, 'Backline nace de ahí: reunir la actividad de la escena en un único lugar, directo y sin ruido. Lo que el grupo publica, tú lo ves. Nada más.'));
+    historia.appendChild(crear('p', null, 'Es un proyecto hecho desde dentro de la escena, por alguien que la vive en sala y en disco y colabora con la revista de rock progresivo DPRP.net.'));
 
     var como = seccion(contenedor, 'Cómo funciona');
     var ul = crear('ul', 'sobre-lista');
@@ -65,6 +66,12 @@
       var apoyo = seccion(contenedor, 'Apoya el proyecto');
       apoyo.classList.add('sobre-apoyo');
       apoyo.appendChild(crear('p', null, 'Backline es gratis y lo seguirá siendo, para fans y para grupos. Si te resulta útil y quieres ayudar a mantenerla, puedes hacer una aportación de una sola vez.'));
+    }
+    // En las apps de las tiendas, propina con su sistema de pago (propinas.js):
+    // Apple y Google no permiten enlazar a pagos externos como Ko-fi.
+    if (APOYO.activo && window.Propinas && Propinas.disponible()) {
+      Propinas.pintar(apoyo);
+    } else if (APOYO.activo) {
       var b = crear('a', 'boton boton-ancho', 'Apoyar en Ko-fi ↗');
       b.href = APOYO.enlace;
       b.target = '_blank';

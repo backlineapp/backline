@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319379237414",
+    "project_id": "backline-d196d",
+    "storage_bucket": "backline-d196d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319379237414:android:bd03ee82837a5cefa954e7",
+        "android_client_info": {
+          "package_name": "io.github.backlineapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDphHal6ZuEmySY-HPyhB_hvUwK8dnmvoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
