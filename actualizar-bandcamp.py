@@ -3,8 +3,12 @@
 
 Para cada grupo que tenga enlace de Bandcamp en grupos.json, visita su página
 de música (/music) y extrae los discos, singles y EPs con su título, año,
-enlace y portada. Si hay cambios respecto a lo que ya tiene, actualiza
-grupos.json.
+enlace y portada. Si hay discos nuevos, los AÑADE a grupos.json.
+
+Nunca borra ni modifica lo que ya hay: la página /music de Bandcamp solo
+enseña los primeros 16 lanzamientos, así que sustituir la lista entera haría
+perder los discos más antiguos. Tampoco toca el texto «discografia» (que está
+revisado a mano) ni cambia el formato del archivo.
 
 Uso:
   python3 actualizar-bandcamp.py           # actualiza todos
@@ -138,6 +142,26 @@ def discos_iguales(a, b):
     return [clave(d) for d in a] == [clave(d) for d in b]
 
 
+def normaliza(t):
+    """Título en minúsculas y sin signos, para comparar."""
+    return re.sub(r'[^a-z0-9]', '', (t or '').lower())
+
+
+def discos_nuevos(viejos, encontrados):
+    """Devuelve los discos de Bandcamp que todavía no están en la lista.
+
+    Un disco ya está si coincide su enlace o su título (sin mayúsculas ni signos).
+    """
+    enlaces = {d.get('enlace', '').rstrip('/') for d in viejos}
+    titulos = {normaliza(d.get('titulo')) for d in viejos}
+    nuevos = []
+    for d in encontrados:
+        if d['enlace'].rstrip('/') in enlaces or normaliza(d['titulo']) in titulos:
+            continue
+        nuevos.append(d)
+    return nuevos
+
+
 def texto_discografia(discos):
     """Genera el texto de discografía: 'Título (Año), Título (Año), ...'"""
     partes = []
@@ -201,33 +225,34 @@ def main():
             print(f'  → No se encontraron discos (puede que la página no tenga lista).')
             continue
 
-        # ¿Hay cambios?
+        # Solo se añaden los discos que faltan; lo que ya hay no se toca.
         discos_viejos = g.get('discos', [])
-        if discos_iguales(discos_viejos, discos):
-            print(f'  → Sin cambios ({len(discos)} discos).')
+        nuevos = discos_nuevos(discos_viejos, discos)
+        if not nuevos:
+            print(f'  → Sin discos nuevos ({len(discos)} leídos, {len(discos_viejos)} guardados).')
             continue
 
-        # Actualizar
-        print(f'  → Actualizado: {len(discos_viejos)} → {len(discos)} discos.')
-        nuevos = set(d['titulo'] for d in discos) - set(d['titulo'] for d in discos_viejos)
-        if nuevos:
-            print(f'    Nuevos: {", ".join(nuevos)}')
+        # Seguridad: si no había nada guardado y solo salen 16, puede estar cortado.
+        if len(discos) >= 16:
+            print('  ℹ Bandcamp enseña como máximo 16: la lista guardada puede ser más larga.')
 
-        g['discos'] = discos
-        g['discografia'] = texto_discografia(discos)
-        nueva_portada = portada_principal(discos)
+        print(f'  → {len(nuevos)} nuevo(s): {", ".join(d["titulo"] for d in nuevos)}')
+        # Los nuevos van delante (lo más reciente primero), como en Bandcamp.
+        g['discos'] = nuevos + discos_viejos
+        # La portada solo cambia si el disco más nuevo trae una.
+        nueva_portada = portada_principal(nuevos)
         if nueva_portada:
             g['portada'] = nueva_portada
 
         actualizados += 1
         time.sleep(ESPERA)
 
-    print(f'\nResumen: {procesados} consultados, {actualizados} actualizados, '
+    print(f'\nResumen: {procesados} consultados, {actualizados} con discos nuevos, '
           f'{errores} errores, {saltados} sin Bandcamp.')
 
     if actualizados and not seco:
         with open(ARCHIVO, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+            json.dump(data, f, ensure_ascii=False, indent=1)
             f.write('\n')
         print(f'grupos.json actualizado.')
     elif seco and actualizados:
