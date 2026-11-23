@@ -2550,8 +2550,15 @@
    "youtube": "https://www.youtube.com/@troubledmind181",
    "web": "",
    "discografia": "Flow",
-   "portada": "https://f4.bcbits.com/img/a3170631874_16.jpg",
+   "portada": "https://f4.bcbits.com/img/a3297047469_16.jpg",
    "discos": [
+    {
+     "titulo": "Ashes",
+     "anio": "",
+     "tipo": "single",
+     "enlace": "https://troubledmind.bandcamp.com/track/ashes",
+     "portada": "https://f4.bcbits.com/img/a3297047469_16.jpg"
+    },
     {
      "titulo": "Flow",
      "anio": "2023",
@@ -2657,8 +2664,15 @@
    "youtube": "https://www.youtube.com/@amoebasplit",
    "web": "https://www.amoebasplit.com/",
    "discografia": "Dance of the Goodbyes, Second Split, Quiet Euphoria",
-   "portada": "https://f4.bcbits.com/img/a3346515733_16.jpg",
+   "portada": "https://f4.bcbits.com/img/a0870226892_16.jpg",
    "discos": [
+    {
+     "titulo": "Bright as silence",
+     "anio": "",
+     "tipo": "disco",
+     "enlace": "https://amoebasplit.bandcamp.com/album/bright-as-silence",
+     "portada": "https://f4.bcbits.com/img/a0870226892_16.jpg"
+    },
     {
      "titulo": "Quiet Euphoria/Live Euphoria",
      "anio": "2026",
@@ -3465,8 +3479,15 @@
    "youtube": "https://www.youtube.com/@Axiom9_Band",
    "web": "",
    "discografia": "Mission Unknown, The Harmonic Continuum, Neural Singularity, The Riff From Outer Space",
-   "portada": "https://f4.bcbits.com/img/a2005819345_16.jpg",
+   "portada": "https://f4.bcbits.com/img/a1545686218_16.jpg",
    "discos": [
+    {
+     "titulo": "Scape From Andromeda",
+     "anio": "",
+     "tipo": "disco",
+     "enlace": "https://axiom9.bandcamp.com/album/scape-from-andromeda",
+     "portada": "https://f4.bcbits.com/img/a1545686218_16.jpg"
+    },
     {
      "titulo": "Dark Matter Ritual",
      "anio": "2026",
@@ -4831,8 +4852,15 @@
    "youtube": "https://www.youtube.com/channel/UCyGT6U_FzYar_7jMYu-Kafg",
    "web": "",
    "discografia": "Blusa",
-   "portada": "https://f4.bcbits.com/img/a0922249233_16.jpg",
+   "portada": "https://f4.bcbits.com/img/a1484310522_16.jpg",
    "discos": [
+    {
+     "titulo": "Nassau",
+     "anio": "",
+     "tipo": "single",
+     "enlace": "https://blusa.bandcamp.com/track/nassau-2",
+     "portada": "https://f4.bcbits.com/img/a1484310522_16.jpg"
+    },
     {
      "titulo": "Blusa",
      "anio": "2022",
@@ -5940,8 +5968,15 @@
    "youtube": "",
    "web": "",
    "discografia": "SIEMPRE, PÉTALOS, RITMOS DEL AIRE, EL OLVIDO",
-   "portada": "https://f4.bcbits.com/img/a3396544703_16.jpg",
+   "portada": "https://f4.bcbits.com/img/a2406533371_16.jpg",
    "discos": [
+    {
+     "titulo": "UN PRINCIPIO",
+     "anio": "",
+     "tipo": "disco",
+     "enlace": "https://manoelmacia.bandcamp.com/album/un-principio",
+     "portada": "https://f4.bcbits.com/img/a2406533371_16.jpg"
+    },
     {
      "titulo": "SIEMPRE",
      "anio": "2024",
