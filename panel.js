@@ -171,6 +171,7 @@
       // Ya ha entrado
       if (cuenta) {
         caja.appendChild(crear('p', 'formulario-texto', 'Has entrado como ' + cuenta.correo + '.'));
+        caja.appendChild(crear('p', 'campo-nota', 'Los grupos que sigues se guardan también en tu cuenta: si cambias de móvil, entra con este correo y los recuperas.'));
         if (tienePanel(cuenta)) {
           var irPanel = crear('a', 'boton boton-ancho', 'Ir a mi panel');
           irPanel.href = '#/panel';
@@ -184,7 +185,7 @@
         // Borrar la cuenta (lo exigen las tiendas). El administrador no puede.
         if (!cuenta.admin) {
           var borrar = crear('div', 'borrar-cuenta');
-          borrar.appendChild(crear('p', 'campo-nota', 'Al borrar tu cuenta se eliminan tu correo, tus solicitudes y tu acceso a las fichas que gestionas. Lo que hayas publicado se queda en la ficha del grupo. Los grupos que sigues siguen guardados en este móvil.'));
+          borrar.appendChild(crear('p', 'campo-nota', 'Al borrar tu cuenta se eliminan tu correo, tus solicitudes y tu acceso a las fichas que gestionas. Lo que hayas publicado se queda en la ficha del grupo. También se borra la copia de tus grupos en la cuenta; en este móvil seguirán guardados.'));
           var avisoBorrar = crear('p', 'mensaje');
           avisoBorrar.hidden = true;
           var botonBorrar = boton('Borrar mi cuenta', 'boton-texto peligro', function () {
@@ -208,7 +209,7 @@
         return;
       }
 
-      caja.appendChild(crear('p', 'formulario-texto', 'Escribe tu correo y te enviaremos un código de 6 cifras para entrar. Sin contraseñas.'));
+      caja.appendChild(crear('p', 'formulario-texto', 'Escribe tu correo y te enviaremos un código de 6 cifras para entrar. Sin contraseñas. Con tu cuenta se guarda la lista de grupos que sigues, para que la recuperes si cambias de móvil.'));
       formularioAcceso(caja, function (c) {
         if (tienePanel(c)) location.hash = '#/panel';
         else pintarAcceso(contenedor);
@@ -224,6 +225,12 @@
     p.appendChild(a);
     return p;
   }
+
+  // Cuenta para los revisores de Google Play y la App Store: entra con
+  // contraseña (no pueden recibir el código por correo) y gestiona un grupo
+  // de prueba que nadie más ve. La contraseña está solo en Supabase y en las
+  // tiendas, nunca aquí.
+  var CUENTA_REVISION = 'hibackline+revision@gmail.com';
 
   // Los dos pasos del acceso (correo y código) dentro de "caja". Al entrar,
   // llama a alEntrar(cuenta). Lo usan Acceso y "¿Es tu grupo?".
@@ -258,9 +265,10 @@
     otras.appendChild(boton('Cambiar de correo', 'boton-texto', function () {
       mostrarPaso(1);
     }));
-    otras.appendChild(boton('Enviar otro código', 'boton-texto', function () {
+    var otroCodigo = boton('Enviar otro código', 'boton-texto', function () {
       pedirCodigo();
-    }));
+    });
+    otras.appendChild(otroCodigo);
     formCodigo.appendChild(otras);
 
     caja.appendChild(formCorreo);
@@ -273,16 +281,46 @@
       mensaje(aviso, '');
       if (n === 1) correo.focus();
       else {
-        explicacion.textContent = 'Te hemos enviado un código a ' + correoPendiente + '. Escríbelo aquí (mira también en correo no deseado).';
+        var revision = correoPendiente === CUENTA_REVISION;
+        explicacion.textContent = revision
+          ? 'Cuenta de revisión: escribe la contraseña.'
+          : 'Te hemos enviado un código a ' + correoPendiente + '. Escríbelo aquí (mira también en correo no deseado).';
+        modoClave(revision);
         codigo.value = '';
         codigo.focus();
       }
+    }
+
+    // El mismo campo sirve para el código (6 cifras) o, solo en la cuenta de
+    // revisión, para la contraseña.
+    function modoClave(si) {
+      codigo.type = si ? 'password' : 'text';
+      codigo.autocomplete = si ? 'current-password' : 'one-time-code';
+      codigo.placeholder = si ? 'Contraseña' : '······';
+      codigo.setAttribute('aria-label', si ? 'Contraseña' : 'Código de 6 cifras');
+      if (si) {
+        codigo.removeAttribute('inputmode');
+        codigo.removeAttribute('pattern');
+        codigo.removeAttribute('maxlength');
+        codigo.classList.remove('codigo');
+      } else {
+        codigo.setAttribute('inputmode', 'numeric');
+        codigo.setAttribute('pattern', '[0-9]*');
+        codigo.setAttribute('maxlength', '6');
+        codigo.classList.add('codigo');
+      }
+      otroCodigo.hidden = si;
     }
 
     function pedirCodigo() {
       var valor = correo.value.trim().toLowerCase();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) {
         mensaje(aviso, 'Revisa el correo: no parece válido.', 'error');
+        return;
+      }
+      if (valor === CUENTA_REVISION) {
+        correoPendiente = valor;
+        mostrarPaso(2);
         return;
       }
       enviar.disabled = true;
@@ -302,14 +340,15 @@
 
     formCodigo.addEventListener('submit', function (e) {
       e.preventDefault();
-      var valor = codigo.value.replace(/\D/g, '');
-      if (valor.length !== 6) {
-        mensaje(aviso, 'El código tiene 6 cifras.', 'error');
+      var revision = correoPendiente === CUENTA_REVISION;
+      var valor = revision ? codigo.value : codigo.value.replace(/\D/g, '');
+      if (revision ? !valor : valor.length !== 6) {
+        mensaje(aviso, revision ? 'Escribe la contraseña.' : 'El código tiene 6 cifras.', 'error');
         return;
       }
       entrar.disabled = true;
       mensaje(aviso, 'Comprobando…');
-      Nube.entrar(correoPendiente, valor).then(function (cuenta) {
+      (revision ? Nube.entrarConClave(correoPendiente, valor) : Nube.entrar(correoPendiente, valor)).then(function (cuenta) {
         correoPendiente = '';
         alEntrar(cuenta);
       }, function (err) {
@@ -487,6 +526,187 @@
         numero.hidden = !n;
         detalleSol.textContent = !n ? 'Ninguna pendiente' : n === 1 ? '1 pendiente' : n + ' pendientes';
       }, function () { detalleSol.textContent = 'Gestionar y retirar fichas'; });
+    }
+
+    // Foto de perfil del grupo (solo para miembros, no para el administrador global).
+    if (!cuenta.admin) {
+      mios.forEach(function (g) {
+        var avisoFoto = crear('p', 'mensaje'); avisoFoto.hidden = true;
+        var vistaFoto = crear('div', 'cartel-vista foto-perfil-vista');
+        var archivoFoto = entrada('file', null, { accept: 'image/*' });
+        var elegirFoto = crear('label', 'boton-secundario elegir-cartel');
+        elegirFoto.appendChild(document.createTextNode('Elegir foto'));
+        elegirFoto.appendChild(archivoFoto);
+        var btnFoto = boton('Guardar foto de perfil', 'boton-secundario boton-ancho');
+        btnFoto.disabled = true;
+        btnFoto.hidden = true;
+
+        var etiquetaFoto = mios.length === 1 ? 'Foto de perfil' : 'Foto de perfil de ' + g.nombre;
+        var cajaFoto = crear('div', 'campo');
+        cajaFoto.appendChild(crear('span', 'campo-etiqueta', etiquetaFoto));
+        cajaFoto.appendChild(vistaFoto);
+        cajaFoto.appendChild(elegirFoto);
+        cajaFoto.appendChild(crear('span', 'campo-nota', 'Se reducirá a 1200 px y se usará como imagen del grupo en toda la app.'));
+        cajaFoto.appendChild(avisoFoto);
+        cajaFoto.appendChild(btnFoto);
+        contenedor.appendChild(cajaFoto);
+
+        // Mostrar foto actual
+        function verFoto(src) {
+          vistaFoto.textContent = '';
+          if (!src) {
+            vistaFoto.appendChild(crear('span', 'cartel-vacio', 'Sin foto de perfil'));
+            elegirFoto.firstChild.textContent = 'Elegir foto';
+            return;
+          }
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = 'Foto de perfil';
+          vistaFoto.appendChild(img);
+          elegirFoto.firstChild.textContent = 'Cambiar foto';
+        }
+
+        // Cargar foto actual desde Supabase (si la tiene)
+        Nube.leerFotoPerfil(g.id).then(function (ruta) {
+          verFoto(ruta ? Nube.urlCartel(ruta) : (g.portada || ''));
+        }, function () {
+          verFoto(g.portada || '');
+        });
+
+        var fotoNueva = null;
+        archivoFoto.addEventListener('change', function () {
+          var f = archivoFoto.files && archivoFoto.files[0];
+          if (!f) return;
+          mensaje(avisoFoto, 'Preparando imagen…');
+          reducirImagen(f).then(function (r) {
+            fotoNueva = r.blob;
+            verFoto(URL.createObjectURL(r.blob));
+            mensaje(avisoFoto, 'Lista: ' + r.ancho + ' × ' + r.alto + ' px, ' + Math.round(r.blob.size / 1024) + ' KB.', 'ok');
+            btnFoto.disabled = false;
+            btnFoto.hidden = false;
+          }, function (e) {
+            fotoNueva = null;
+            archivoFoto.value = '';
+            mensaje(avisoFoto, e.message, 'error');
+          });
+        });
+
+        btnFoto.addEventListener('click', function () {
+          if (!fotoNueva) return;
+          btnFoto.disabled = true;
+          mensaje(avisoFoto, 'Subiendo foto…');
+          Nube.guardarFotoPerfil(g.id, fotoNueva).then(function (url) {
+            fotoNueva = null;
+            archivoFoto.value = '';
+            btnFoto.hidden = true;
+            verFoto(url);
+            mensaje(avisoFoto, 'Foto de perfil guardada.', 'ok');
+          }, function (err) {
+            btnFoto.disabled = false;
+            mensaje(avisoFoto, err.message, 'error');
+          });
+        });
+      });
+    }
+
+    // Localización del grupo (solo para miembros, no para el administrador global).
+    if (!cuenta.admin) {
+      mios.forEach(function (g) {
+        var MAX_CIUDAD = 120;
+        var inputCiudad = entrada('text', '', { maxlength: String(MAX_CIUDAD), autocomplete: 'off', placeholder: g.ciudad || 'Ej.: Bilbao, Madrid, Euskadi…' });
+        var avisoCiudad = crear('p', 'mensaje'); avisoCiudad.hidden = true;
+        var btnCiudad = boton('Guardar localización', 'boton-secundario boton-ancho');
+        btnCiudad.disabled = true;
+
+        var etiquetaCiudad = mios.length === 1 ? 'Localización' : 'Localización de ' + g.nombre;
+        var campoCiudad = campo(etiquetaCiudad, inputCiudad, 'Si habéis cambiado de ciudad o queréis poner otra cosa (comarca, comunidad…), cambiadlo aquí.');
+        campoCiudad.appendChild(avisoCiudad);
+        campoCiudad.appendChild(btnCiudad);
+        contenedor.appendChild(campoCiudad);
+
+        var ciudadOriginal = '';
+        inputCiudad.addEventListener('input', function () {
+          btnCiudad.disabled = inputCiudad.value === ciudadOriginal;
+        });
+
+        Nube.leerCiudad(g.id).then(function (texto) {
+          ciudadOriginal = texto || '';
+          inputCiudad.value = ciudadOriginal;
+          inputCiudad.placeholder = ciudadOriginal || g.ciudad || 'Ej.: Bilbao, Madrid, Euskadi…';
+          btnCiudad.disabled = true;
+        }, function () { /* sin conexión */ });
+
+        btnCiudad.addEventListener('click', function () {
+          var valor = inputCiudad.value.trim();
+          if (valor.length > MAX_CIUDAD) {
+            mensaje(avisoCiudad, 'Demasiado largo: máximo ' + MAX_CIUDAD + ' caracteres.', 'error');
+            return;
+          }
+          btnCiudad.disabled = true;
+          mensaje(avisoCiudad, 'Guardando…');
+          Nube.guardarCiudad(g.id, valor).then(function () {
+            ciudadOriginal = valor;
+            inputCiudad.value = valor;
+            btnCiudad.disabled = true;
+            mensaje(avisoCiudad, 'Localización guardada.', 'ok');
+          }, function (err) {
+            btnCiudad.disabled = false;
+            mensaje(avisoCiudad, err.message, 'error');
+          });
+        });
+      });
+    }
+
+    // Bio del grupo (solo para miembros, no para el administrador global).
+    if (!cuenta.admin) {
+      mios.forEach(function (g) {
+        var MAX_BIO = 500;
+        var areaBio = areaTexto('', { maxlength: String(MAX_BIO), rows: '4', placeholder: 'Contad algo sobre el grupo: quiénes sois, de dónde venís, qué hacéis…' });
+        var contBio = contador(areaBio, MAX_BIO);
+        var avisoBio = crear('p', 'mensaje'); avisoBio.hidden = true;
+        var btnBio = boton('Guardar bio', 'boton-secundario boton-ancho');
+        btnBio.disabled = true;
+
+        var etiquetaBio = mios.length === 1 ? 'Sobre vuestro grupo' : 'Sobre ' + g.nombre;
+        var campoBio = campo(etiquetaBio, areaBio);
+        campoBio.appendChild(contBio);
+        campoBio.appendChild(avisoBio);
+        campoBio.appendChild(btnBio);
+        contenedor.appendChild(campoBio);
+
+        var bioOriginal = '';
+        areaBio.addEventListener('input', function () {
+          btnBio.disabled = areaBio.value === bioOriginal;
+        });
+
+        Nube.leerBio(g.id).then(function (texto) {
+          bioOriginal = texto || '';
+          areaBio.value = bioOriginal;
+          contBio.dispatchEvent || (function () {})();
+          // Forzar reconteo
+          areaBio.dispatchEvent(new Event('input'));
+          btnBio.disabled = true;
+        }, function () { /* sin conexión */ });
+
+        btnBio.addEventListener('click', function () {
+          var valor = areaBio.value.trim();
+          if (valor.length > MAX_BIO) {
+            mensaje(avisoBio, 'Demasiado largo: máximo ' + MAX_BIO + ' caracteres.', 'error');
+            return;
+          }
+          btnBio.disabled = true;
+          mensaje(avisoBio, 'Guardando…');
+          Nube.guardarBio(g.id, valor).then(function () {
+            bioOriginal = valor;
+            areaBio.value = valor;
+            btnBio.disabled = true;
+            mensaje(avisoBio, 'Bio guardada.', 'ok');
+          }, function (err) {
+            btnBio.disabled = false;
+            mensaje(avisoBio, err.message, 'error');
+          });
+        });
+      });
     }
 
     // Botón "Publicar" con sus opciones
