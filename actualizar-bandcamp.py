@@ -15,7 +15,9 @@ Uso:
   python3 actualizar-bandcamp.py --solo 5  # solo los 5 primeros (para probar)
   python3 actualizar-bandcamp.py --seco    # muestra cambios sin escribir
 
-Pensado para ejecutarse como GitHub Action semanal o a mano cuando se quiera.
+Pensado para ejecutarse como GitHub Action diaria o a mano cuando se quiera.
+Si existe la variable DISCOS_NUEVOS, escribe ahí (en JSON) la lista de discos
+nuevos encontrados, para que discos-nuevos.py los publique y avisen al móvil.
 """
 
 import json
@@ -25,6 +27,7 @@ import time
 import urllib.request
 import urllib.error
 import html as h
+import os
 from pathlib import Path
 
 ARCHIVO = Path(__file__).parent / 'grupos.json'
@@ -197,6 +200,7 @@ def main():
     saltados = 0
 
     procesados = 0
+    encontrados_nuevos = []
     for g in grupos:
         url_base = bandcamp_url(g)
         if not url_base:
@@ -212,6 +216,8 @@ def main():
         print(f'[{procesados}] {nombre} — {url_music}')
 
         html_texto = obtener_pagina(url_music)
+        # Pausa en cada grupo para no saturar Bandcamp (se consulta a diario).
+        time.sleep(ESPERA)
         if not html_texto:
             # Intentar la página principal (algunos no tienen /music)
             html_texto = obtener_pagina(url_base)
@@ -239,13 +245,16 @@ def main():
         print(f'  → {len(nuevos)} nuevo(s): {", ".join(d["titulo"] for d in nuevos)}')
         # Los nuevos van delante (lo más reciente primero), como en Bandcamp.
         g['discos'] = nuevos + discos_viejos
+        for d in nuevos:
+            encontrados_nuevos.append({'grupo_id': g['id'], 'grupo': nombre,
+                                       'titulo': d['titulo'], 'enlace': d['enlace'],
+                                       'tipo': d['tipo']})
         # La portada solo cambia si el disco más nuevo trae una.
         nueva_portada = portada_principal(nuevos)
         if nueva_portada:
             g['portada'] = nueva_portada
 
         actualizados += 1
-        time.sleep(ESPERA)
 
     print(f'\nResumen: {procesados} consultados, {actualizados} con discos nuevos, '
           f'{errores} errores, {saltados} sin Bandcamp.')
@@ -255,6 +264,9 @@ def main():
             json.dump(data, f, ensure_ascii=False, indent=1)
             f.write('\n')
         print(f'grupos.json actualizado.')
+        if os.environ.get('DISCOS_NUEVOS'):
+            with open(os.environ['DISCOS_NUEVOS'], 'w', encoding='utf-8') as f:
+                json.dump(encontrados_nuevos, f, ensure_ascii=False, indent=1)
     elif seco and actualizados:
         print('(modo seco: no se ha escrito nada)')
 
