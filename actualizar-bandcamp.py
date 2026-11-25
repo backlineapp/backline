@@ -86,6 +86,9 @@ def sacar_discos(html_texto, url_base):
         titulo = re.sub(r'\s+', ' ', titulo)
         if not titulo:
             continue
+        # Anuncios que algunos grupos cuelgan en Bandcamp: no son discos.
+        if re.search(r'coming\s+soon|pr[oó]ximamente', titulo, re.I):
+            continue
 
         # Portada
         mi = patron_img.search(bloque)
