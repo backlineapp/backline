@@ -1,18 +1,27 @@
-# Actualiza la discografía de los grupos desde Bandcamp cada semana.
-# Si hay cambios en algún disco, crea un commit y un PR automático.
+# Revisa cada día el Bandcamp de todos los grupos.
+# Si hay discos nuevos, los guarda directamente (sin petición que aceptar),
+# después de comprobar que solo se han AÑADIDO discos. Si algo no cuadra, no
+# guarda nada y la ejecución sale en rojo (GitHub manda un correo).
+# Los discos salidos en los últimos 14 días se publican también en Supabase,
+# para que llegue el aviso al móvil a quien sigue al grupo.
 # También se puede lanzar a mano desde la pestaña Actions de GitHub.
 
 name: Actualizar discos desde Bandcamp
 
 on:
   schedule:
-    # Cada lunes a las 6:00 UTC (8:00 en España)
-    - cron: '0 6 * * 1'
+    # Cada día a las 6:30 UTC (7:30 en invierno, 8:30 en verano en España).
+    # Los avisos nunca salen antes de las 9:00.
+    - cron: '30 6 * * *'
   workflow_dispatch: # lanzar a mano
 
 permissions:
   contents: write
-  pull-requests: write
+  pages: write
+
+concurrency:
+  group: actualizar-bandcamp
+  cancel-in-progress: false
 
 jobs:
   actualizar:
@@ -24,34 +33,44 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Ejecutar script de Bandcamp
-        run: python3 actualizar-bandcamp.py
+      - name: Leer Bandcamp
+        env:
+          DISCOS_NUEVOS: ${{ runner.temp }}/discos-nuevos.json
+        run: |
+          cp grupos.json "$RUNNER_TEMP/grupos-antes.json"
+          python3 actualizar-bandcamp.py
 
       - name: Comprobar cambios
         id: cambios
         run: |
           if git diff --quiet grupos.json; then
             echo "hay=no" >> "$GITHUB_OUTPUT"
+            echo "Sin discos nuevos hoy."
           else
             echo "hay=si" >> "$GITHUB_OUTPUT"
+            python3 discos-nuevos.py comprobar "$RUNNER_TEMP/grupos-antes.json" grupos.json
           fi
 
-      - name: Crear PR con los cambios
+      - name: Guardar en la web
         if: steps.cambios.outputs.hay == 'si'
-        run: |
-          RAMA="auto/bandcamp-$(date +%Y%m%d)"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$RAMA"
-          git add grupos.json
-          git commit -m "Actualizar discografías desde Bandcamp ($(date +%d/%m/%Y))"
-          git push origin "$RAMA"
-          gh pr create \
-            --title "Actualizar discografías desde Bandcamp ($(date +%d/%m/%Y))" \
-            --body "Actualización automática semanal de las discografías de los grupos desde Bandcamp.
-
-          Revisa los cambios en \`grupos.json\` antes de mergear." \
-            --base main \
-            --head "$RAMA"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add grupos.json
+          git commit -m "Discos nuevos desde Bandcamp ($(date +%d/%m/%Y))"
+          # Si mientras tanto se ha aceptado otro cambio, se pone encima.
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && break
+            sleep 10
+          done
+          # Pedir que la web se publique de nuevo (por si no lo hace sola).
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" >/dev/null \
+            || echo "No se pudo pedir la publicación; se hará con el siguiente cambio."
+
+      - name: Publicar discos recientes (avisos al móvil)
+        if: steps.cambios.outputs.hay == 'si'
+        env:
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: python3 discos-nuevos.py publicar "$RUNNER_TEMP/discos-nuevos.json"
