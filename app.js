@@ -458,7 +458,9 @@
     el.bienvenida.classList.add('saliendo');
     setTimeout(function () {
       el.bienvenida.hidden = true;
-      location.hash = '#/explorar';
+      // Si llegó con el enlace de una ficha (o del kit de un grupo), se queda
+      // en esa pantalla. Solo se va a Explorar si no traía ninguna.
+      if (!location.hash || location.hash === '#/') location.hash = '#/explorar';
       Instalar.alEntrar();
     }, 400);
   }
