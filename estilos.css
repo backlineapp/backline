@@ -1816,6 +1816,9 @@ a.volver { display: inline-block; text-decoration: none; }
 .kit-insignia-oscura .kit-insignia-marco { background: var(--fondo-hondo); }
 .kit-insignia-clara .kit-insignia-marco { background: #F2F4F7; }
 .kit-insignia-marco img { display: block; max-width: 100%; height: auto; }
+.kit-nota { margin-top: 12px; font-size: 0.9em; }
+.kit-imagen-marco { border-radius: 12px; overflow: hidden; background: var(--fondo-hondo); max-width: 320px; margin: 0 auto; }
+.kit-imagen-marco img { display: block; width: 100%; height: auto; min-height: 120px; }
 .kit-ver-ficha { display: block; margin: 20px auto 0; text-align: center; }
 .kit-lista { margin-top: 14px; }
 @media (min-width: 560px) {
