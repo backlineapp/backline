@@ -1,6 +1,6 @@
 {
- "total": 313,
- "actualizado": "2026-11-16",
+ "total": 314,
+ "actualizado": "2026-11-25",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -17276,6 +17276,30 @@
      "tipo": "disco",
      "enlace": "https://open.spotify.com/artist/0cozyKPk02s5ijRSqhXi4R",
      "portada": "https://image-cdn-ak.spotifycdn.com/image/ab676161000051743fe08b22a65490746c4c04bb"
+    }
+   ]
+  },
+  {
+   "id": "piso-franco",
+   "nombre": "Piso Franco",
+   "estilos": "Post-punk / Post-rock / Experimental (en valenciano)",
+   "ciudad": "Valencia",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://pisofranco.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/1UUT3glbXfQbMlkStQwHcP",
+   "apple_music": "https://music.apple.com/es/artist/piso-franco/1841744728",
+   "youtube": "https://www.youtube.com/playlist?list=OLAK5uy_ky-PwdgcOUgLV6KhaiLvwSB_ghVWl-3N0",
+   "web": "https://pisofranco.es",
+   "discografia": "Piso Franco (2025)",
+   "portada": "https://f4.bcbits.com/img/0040894714_16.jpg",
+   "discos": [
+    {
+     "titulo": "Piso Franco",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://pisofranco.bandcamp.com/album/piso-franco",
+     "portada": "https://f4.bcbits.com/img/a2119250388_16.jpg"
     }
    ]
   }
