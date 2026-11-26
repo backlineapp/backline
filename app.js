@@ -436,7 +436,10 @@
     setTimeout(function () {
       a.hidden = true;
       var sigoAlguno = grupos.some(function (g) { return Seguidos.sigo(g.id); });
-      if (esPrimeraVez() && !sigoAlguno && el.bienvenida) {
+      // Quien llega con el enlace de una ficha o del kit va directo a esa
+      // pantalla, sin bienvenida: viene a ver ese grupo.
+      var llegaConEnlace = /^#\/(grupo|kit)\//.test(location.hash);
+      if (esPrimeraVez() && !sigoAlguno && !llegaConEnlace && el.bienvenida) {
         el.bienvenida.hidden = false;
       } else {
         Instalar.alEntrar();
