@@ -4852,8 +4852,15 @@
    "youtube": "https://www.youtube.com/channel/UCyGT6U_FzYar_7jMYu-Kafg",
    "web": "",
    "discografia": "Blusa",
-   "portada": "https://f4.bcbits.com/img/a1484310522_16.jpg",
+   "portada": "https://f4.bcbits.com/img/a1245419746_16.jpg",
    "discos": [
+    {
+     "titulo": "Solaris",
+     "anio": "",
+     "tipo": "single",
+     "enlace": "https://blusa.bandcamp.com/track/solaris",
+     "portada": "https://f4.bcbits.com/img/a1245419746_16.jpg"
+    },
     {
      "titulo": "Nassau",
      "anio": "",
