@@ -1,6 +1,6 @@
 {
- "total": 314,
- "actualizado": "2026-11-25",
+ "total": 315,
+ "actualizado": "2026-11-27",
  "grupos": [
   {
    "id": "el-altar-del-holocausto",
@@ -17391,6 +17391,37 @@
      "tipo": "disco",
      "enlace": "https://pisofranco.bandcamp.com/album/piso-franco",
      "portada": "https://f4.bcbits.com/img/a2119250388_16.jpg"
+    }
+   ]
+  },
+  {
+   "id": "un-lugar-tranquilo",
+   "nombre": "Un Lugar Tranquilo",
+   "estilos": "Post-hardcore / Emo / Indie rock",
+   "ciudad": "Madrid",
+   "estado": "Activo",
+   "enlace_principal": "Bandcamp",
+   "bandcamp": "https://unlugartranquilo.bandcamp.com",
+   "spotify": "https://open.spotify.com/artist/0dVtj9oDwoBdeI7B8cfkg8",
+   "apple_music": "",
+   "youtube": "https://www.youtube.com/playlist?list=OLAK5uy_mBFIBCPpvZ-jRAhfa0a4iy456y7IE-olA",
+   "web": "",
+   "discografia": "Eterno Retorno (2026), Somosfuego (2025)",
+   "portada": "https://f4.bcbits.com/img/a2932978360_16.jpg",
+   "discos": [
+    {
+     "titulo": "Eterno Retorno",
+     "anio": "2026",
+     "tipo": "disco",
+     "enlace": "https://unlugartranquilo.bandcamp.com/album/eterno-retorno",
+     "portada": "https://f4.bcbits.com/img/a2932978360_16.jpg"
+    },
+    {
+     "titulo": "Somosfuego",
+     "anio": "2025",
+     "tipo": "disco",
+     "enlace": "https://unlugartranquilo.bandcamp.com/album/somosfuego",
+     "portada": "https://f4.bcbits.com/img/a2748861312_16.jpg"
     }
    ]
   }
